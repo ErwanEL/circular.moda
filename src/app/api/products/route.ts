@@ -1,0 +1,20 @@
+// Route Handlers use the Web Fetch API
+import { NextResponse } from 'next/server';
+import { getAllProducts } from '../../lib/airtable';
+
+export const revalidate = 60; // same caching window
+
+export async function GET() {
+  try {
+    const data = await getAllProducts();
+    return NextResponse.json(data, {
+      headers: { 'Cache-Control': 's-maxage=60, stale-while-revalidate' },
+    });
+  } catch (err: any) {
+    console.error('API /products error:', err);
+    return NextResponse.json(
+      { error: true, message: err?.message || String(err) },
+      { status: 500 }
+    );
+  }
+}
