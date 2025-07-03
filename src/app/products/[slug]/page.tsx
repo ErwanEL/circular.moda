@@ -1,79 +1,70 @@
+// src/app/products/[slug]/page.tsx
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 import { getAllProducts, getProductBySlug } from '../../lib/airtable';
 
-// Same ISR interval for the product pages
-export const revalidate = 60;
+export const revalidate = 60; // ISR – rebuild every 60 s
 
-/**
- * Pre-build all slugs at build time.
- * Next.js will still handle new ones on-demand if you later add products.
- */
+/** Pre-generate the static paths at build time */
 export async function generateStaticParams() {
   const products = await getAllProducts();
   return products.map((p) => ({ slug: p.slug }));
 }
 
-export default async function ProductPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  try {
-    const product = await getProductBySlug(params.slug);
+export default async function ProductPage(
+  { params }: { params: Promise<{ slug: string }> } // ⬅ params is a Promise
+) {
+  /* ------------------------------------------------------------
+     MUST await params before using it (Next 14 “sync-dynamic-apis” rule)
+  ------------------------------------------------------------- */
+  const { slug } = await params;
 
-    if (!product) {
-      // Optionally: throw new Error('Not found') to show the 404 page
-      return <h1 className="p-6 text-xl">Product not found</h1>;
-    }
+  const product = await getProductBySlug(slug);
 
-    return (
-      <article className="max-w-3xl mx-auto p-6">
-        {product.Images?.[0]?.url && (
-          <Image
-            src={product.Images[0].url}
-            alt={product.SKU}
-            width={800}
-            height={600}
-            className="rounded mb-6"
-          />
-        )}
-
-        <h1 className="text-3xl font-bold mb-2">{product.SKU}</h1>
-
-        {product.Price !== undefined && (
-          <p className="text-xl mb-4">${product.Price}</p>
-        )}
-
-        <ul className="text-sm space-y-1">
-          {product.Category && (
-            <li>
-              <strong>Category:</strong> {product.Category}
-            </li>
-          )}
-          {product.Color && (
-            <li>
-              <strong>Color:</strong> {product.Color}
-            </li>
-          )}
-          {product.Size && (
-            <li>
-              <strong>Size:</strong> {product.Size}
-            </li>
-          )}
-          {product.StockLevels !== undefined && (
-            <li>
-              <strong>Stock:</strong> {product.StockLevels}
-            </li>
-          )}
-        </ul>
-      </article>
-    );
-  } catch (err: any) {
-    return (
-      <div className="p-6 text-red-600">
-        <h1>Error loading product</h1>
-        <pre>{err?.message || String(err)}</pre>
-      </div>
-    );
+  if (!product) {
+    notFound(); // built-in 404 page
   }
+
+  return (
+    <article className="max-w-3xl mx-auto p-6">
+      {product.Images?.[0]?.url && (
+        <Image
+          src={product.Images[0].url}
+          alt={product.SKU}
+          width={800}
+          height={600}
+          className="rounded mb-6"
+        />
+      )}
+
+      <h1 className="text-3xl font-bold mb-2">{product.SKU}</h1>
+
+      {product.Price !== undefined && (
+        <p className="text-xl mb-4">${product.Price}</p>
+      )}
+
+      <ul className="text-sm space-y-1">
+        {product.Category && (
+          <li>
+            <strong>Category:</strong> {product.Category}
+          </li>
+        )}
+        {product.Color && (
+          <li>
+            <strong>Color:</strong> {product.Color}
+          </li>
+        )}
+        {product.Size && (
+          <li>
+            <strong>Size:</strong> {product.Size}
+          </li>
+        )}
+        {product.StockLevels !== undefined && (
+          <li>
+            <strong>Stock:</strong> {product.StockLevels}
+          </li>
+        )}
+      </ul>
+    </article>
+  );
 }
