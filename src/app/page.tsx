@@ -2,7 +2,6 @@ import Hero from './ui/hero';
 import Cta from './ui/cta';
 import Features from './ui/features';
 import Cards from './ui/cards';
-import Footer from './ui/footer';
 
 export default function Home() {
   return (
@@ -24,7 +23,6 @@ export default function Home() {
           },
         }}
       />
-      <Footer />
     </main>
   );
 }
