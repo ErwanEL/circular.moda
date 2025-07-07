@@ -42,11 +42,12 @@ export default async function ProductsPage() {
         ))}
       </main>
     );
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
     return (
       <div className="p-6 text-red-600">
         <h1>Error loading products</h1>
-        <pre>{err?.message || String(err)}</pre>
+        <pre>{errorMessage}</pre>
       </div>
     );
   }

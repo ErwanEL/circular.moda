@@ -1,11 +1,14 @@
-/** @type {import('next').NextConfig} */import withFlowbiteReact from "flowbite-react/plugin/nextjs";
+import type { NextConfig } from 'next';
+import withFlowbiteReact from 'flowbite-react/plugin/nextjs';
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'v5.airtableusercontent.com',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
