@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllProducts } from '../lib/airtable';
+import type { Product } from '../lib/types';
 
 // Incremental Static Regeneration, rebuild every 60 s
 export const revalidate = 60;
 
 export default async function ProductsPage() {
   try {
-    const products = await getAllProducts(); // runs at build time, then every 60 s
+    const products: Product[] = await getAllProducts(); // runs at build time, then every 60 s
 
     return (
       <main className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 p-6">
