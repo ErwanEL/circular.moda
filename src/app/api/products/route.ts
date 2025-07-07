@@ -10,10 +10,11 @@ export async function GET() {
     return NextResponse.json(data, {
       headers: { 'Cache-Control': 's-maxage=60, stale-while-revalidate' },
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('API /products error:', err);
+    const errorMessage = err instanceof Error ? err.message : String(err);
     return NextResponse.json(
-      { error: true, message: err?.message || String(err) },
+      { error: true, message: errorMessage },
       { status: 500 }
     );
   }
