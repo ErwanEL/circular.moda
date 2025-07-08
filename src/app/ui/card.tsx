@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 type CardProps = {
   image: {
     light: string;
@@ -11,6 +13,7 @@ type CardProps = {
     count: number;
   };
   price: string;
+  href?: string;
 };
 
 export default function Card({
@@ -19,11 +22,12 @@ export default function Card({
   title,
   rating,
   price,
+  href,
 }: CardProps) {
-  return (
+  const CardContent = () => (
     <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="h-56 w-full">
-        <a href="#">
+        <div className="h-full">
           <img
             className="mx-auto h-full dark:hidden"
             src={image.light}
@@ -34,7 +38,7 @@ export default function Card({
             src={image.dark}
             alt={image.alt}
           />
-        </a>
+        </div>
       </div>
       <div className="pt-6">
         <div className="mb-4 flex items-center justify-between gap-4">
@@ -42,12 +46,9 @@ export default function Card({
             {badge}
           </span>
         </div>
-        <a
-          href="#"
-          className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
-        >
+        <div className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">
           {title}
-        </a>
+        </div>
         <div className="mt-2 flex items-center gap-2">
           <div className="flex items-center">
             {Array.from({ length: Math.round(rating.value) }).map((_, i) => (
@@ -84,4 +85,17 @@ export default function Card({
       </div>
     </div>
   );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className="block hover:scale-105 transition-transform duration-200"
+      >
+        <CardContent />
+      </Link>
+    );
+  }
+
+  return <CardContent />;
 }
