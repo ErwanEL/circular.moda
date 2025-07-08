@@ -1,5 +1,5 @@
 import { getAllProducts } from '../lib/airtable';
-import type { Product } from '../lib/types';
+import { transformProductsToCards } from '../lib/helpers';
 import Card from '../ui/card';
 import Cta from '../ui/cta';
 
@@ -8,29 +8,10 @@ export const revalidate = 60;
 
 export default async function ProductsPage() {
   try {
-    const products: Product[] = await getAllProducts(); // runs at build time, then every 60 s
+    const products = await getAllProducts(); // runs at build time, then every 60 s
 
-    // Transform products to match Card component interface
-    const productCards = products.map((product) => ({
-      image: {
-        light:
-          product.Images?.[0]?.url ||
-          'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg',
-        dark:
-          product.Images?.[0]?.url ||
-          'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg',
-        alt: product.SKU,
-      },
-      badge: product.Category || 'Available',
-      title: product.SKU,
-      rating: {
-        value: 5.0,
-        count: Math.floor(Math.random() * 500) + 50, // Random rating count for demo
-      },
-      price:
-        product.Price !== undefined ? `$${product.Price}` : 'Price on request',
-      href: `/products/${product.slug}`,
-    }));
+    // Transform products to match Card component interface using helper function
+    const productCards = transformProductsToCards(products);
 
     return (
       <>

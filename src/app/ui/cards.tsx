@@ -1,6 +1,7 @@
 import Card from './card';
+import type { ProductCard } from '../lib/helpers';
 
-const content = {
+const staticContent = {
   heading: 'Productos destacados',
   cards: [
     {
@@ -39,7 +40,16 @@ const content = {
   },
 };
 
-export default function Cards() {
+interface CardsProps {
+  products?: ProductCard[];
+}
+
+export default function Cards({ products }: CardsProps) {
+  const content =
+    products && products.length > 0
+      ? { heading: 'Productos destacados', cards: products }
+      : staticContent;
+
   return (
     <section className="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
