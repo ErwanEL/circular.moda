@@ -24,6 +24,8 @@
 
   --color-primary: var(--color-circular-primary);
   --color-secondary: var(--color-circular-secondary);
+  --color-lighter: var(--color-circular-lighter);
+  --color-light: var(--color-circular-light);
 
   /* Circular primary shades */
   --color-primary-900: #264835; /* Darker shade */

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Button } from 'flowbite-react';
 
 type CardProps = {
   image: {
@@ -75,12 +76,15 @@ export default function Card({
           <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
             {price}
           </p>
-          <button
-            type="button"
-            className="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+          <Button
+            color="alternative"
+            pill
+            className="bg-gradient-to-r from-primary to-secondary text-white hover:bg-gradient-to-bl focus:ring-primary-300 dark:focus:ring-primary-800 hover:text-white"
+            // as={Link}
+            // href="#"
           >
-            Add to cart
-          </button>
+            Ver más
+          </Button>
         </div>
       </div>
     </div>
