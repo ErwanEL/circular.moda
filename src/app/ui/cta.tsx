@@ -14,7 +14,7 @@ export default function Cta({ variant = 'default', content }: CtaProps) {
   const isCentered = variant === 'centered';
 
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section>
       <div
         className={`gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl ${
           isCentered

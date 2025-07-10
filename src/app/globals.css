@@ -22,6 +22,9 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
+  --color-primary: var(--color-circular-primary);
+  --color-secondary: var(--color-circular-secondary);
+
   /* Circular primary shades */
   --color-primary-900: #264835; /* Darker shade */
   --color-primary-800: #6e9a4f; /* Darker shade */
