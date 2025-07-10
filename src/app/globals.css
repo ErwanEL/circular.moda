@@ -6,8 +6,14 @@
 @source "../node_modules/flowbite";
 
 :root {
-  --background: #ffffff;
+  --background: var(--color-circular-lighter);
   --foreground: #171717;
+
+  /* Circular theme variables */
+  --color-circular-lighter: #fffdf6;
+  --color-circular-light: #faf6e9;
+  --color-circular-secondary: #ddeb9d;
+  --color-circular-primary: #a0c878;
 }
 
 @theme inline {
@@ -15,6 +21,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Circular primary shades */
+  --color-primary-900: #264835; /* Darker shade */
+  --color-primary-800: #6e9a4f; /* Darker shade */
+  --color-primary-700: var(--color-circular-primary); /* Used by Flowbite*/
+  --color-primary-600: var(--color-circular-secondary); /* Slightly lighter */
+  --color-primary-500: #c8e2a3; /* Lighter */
+  --color-primary-400: #d8eeb8; /* Even lighter */
+  --color-primary-300: #e8f5cc; /* Very light */
+  --color-primary-100: #f9fde8; /* Almost white */
 }
 
 @media (prefers-color-scheme: dark) {
