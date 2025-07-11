@@ -91,7 +91,7 @@ export default function Card({
     return (
       <Link
         href={href}
-        className="block transition-transform duration-200 hover:scale-105"
+        className="block transition-transform duration-200 hover:scale-102"
       >
         <CardContent />
       </Link>
