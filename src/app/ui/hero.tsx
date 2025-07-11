@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import PhoneMockup from '../../../public/phone-mockup.png';
-import { Button } from 'flowbite-react';
+import Button from './button'; // Import your custom Button component
 import Link from 'next/link';
 
 const content = {
@@ -32,13 +32,8 @@ export default function Hero() {
           <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
             {content.description}
           </p>
-          <div className="flex">
-            <Button
-              as={Link}
-              href={content.primaryButton.href}
-              pill
-              className="bg-gradient-to-r px-7 py-7  text-xl font-medium text-center from-primary to-secondary text-white hover:bg-gradient-to-bl focus:ring-primary-300 dark:focus:ring-primary-800 hover:text-white"
-            >
+          <div className="flex gap-4 flex-col md:flex-row">
+            <Button as={Link} size="lg" href="/products" variant="primary">
               {content.primaryButton.text}
               <svg
                 className="w-5 h-5 ml-2 -mr-1"
@@ -53,12 +48,7 @@ export default function Hero() {
                 ></path>
               </svg>
             </Button>
-            <Button
-              as={Link}
-              pill
-              href={content.secondaryButton.href}
-              className="bg-light px-7 py-7 text-xl font-medium text-center hover:bg-gradient-to-bl text-foreground focus:ring-primary-300 dark:focus:ring-primary-800"
-            >
+            <Button as={Link} size="lg" href="/products" variant="secondary">
               {content.secondaryButton.text}
             </Button>
           </div>

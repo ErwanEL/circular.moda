@@ -6,7 +6,7 @@ const content = {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+          className="w-5 h-5 text-primary lg:w-6 lg:h-6 dark:text-primary-300"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ const content = {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+          className="w-5 h-5 text-primary lg:w-6 lg:h-6 dark:text-primary-300"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ const content = {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+          className="w-5 h-5 text-primary lg:w-6 lg:h-6 dark:text-primary-300"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ const content = {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+          className="w-5 h-5 text-primary lg:w-6 lg:h-6 dark:text-primary-300"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@ export default function Features() {
         <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
           {content.features.map((feature, index) => (
             <div key={index}>
-              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-light lg:h-12 lg:w-12 dark:bg-primary-900">
                 {feature.icon}
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-white">

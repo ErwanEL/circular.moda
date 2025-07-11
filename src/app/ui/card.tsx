@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button } from 'flowbite-react';
+import Button from './button'; // Import your custom Button component
 
 type CardProps = {
   image: {
@@ -76,15 +76,13 @@ export default function Card({
           <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
             {price}
           </p>
-          <Button
-            color="alternative"
-            pill
-            className="bg-gradient-to-r from-primary to-secondary text-white hover:bg-gradient-to-bl focus:ring-primary-300 dark:focus:ring-primary-800 hover:text-white"
-            // as={Link}
-            // href="#"
+          {/* <Button
+            variant="primary"
+            as={Link}
+            href={href || '#'}
           >
             Ver más
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

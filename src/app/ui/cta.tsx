@@ -1,3 +1,5 @@
+import Button from './button'; // Import your custom Button component
+
 type CtaProps = {
   variant?: 'default' | 'centered';
   content?: {
@@ -34,10 +36,7 @@ export default function Cta({ variant = 'default', content }: CtaProps) {
             </p>
           )}
           {content?.button && (
-            <a
-              href={content.button.href}
-              className="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900"
-            >
+            <Button variant="primary" href={content.button.href}>
               {content.button.text}
               <svg
                 className="ml-2 -mr-1 w-5 h-5"
@@ -51,7 +50,7 @@ export default function Cta({ variant = 'default', content }: CtaProps) {
                   clipRule="evenodd"
                 ></path>
               </svg>
-            </a>
+            </Button>
           )}
         </div>
       </div>
