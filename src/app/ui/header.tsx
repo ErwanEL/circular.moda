@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import {
-  Button,
   Navbar,
   NavbarBrand,
   NavbarCollapse,
   NavbarLink,
   NavbarToggle,
 } from 'flowbite-react';
+import Button from './button'; // Import your custom Button component
 
 export default function Header() {
   return (
@@ -17,7 +17,7 @@ export default function Header() {
         </span>
       </NavbarBrand>
       <div className="flex md:order-2">
-        <Button as={Link} pill href="#">
+        <Button size="sm" as={Link} href="#">
           Vender
         </Button>
         <NavbarToggle />
