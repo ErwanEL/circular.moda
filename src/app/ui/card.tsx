@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Button from './button'; // Import your custom Button component
 
 type CardProps = {
   image: {
@@ -43,11 +42,11 @@ export default function Card({
       </div>
       <div className="pt-6">
         <div className="mb-4 flex items-center justify-between gap-4">
-          <span className="me-2 rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
+          <span className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300 me-2 rounded px-2.5 py-0.5 text-xs font-medium">
             {badge}
           </span>
         </div>
-        <div className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">
+        <div className="text-lg leading-tight font-semibold text-gray-900 hover:underline dark:text-white">
           {title}
         </div>
         <div className="mt-2 flex items-center gap-2">
@@ -73,7 +72,7 @@ export default function Card({
           </p>
         </div>
         <div className="mt-4 flex items-center justify-between gap-4">
-          <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
+          <p className="text-2xl leading-tight font-extrabold text-gray-900 dark:text-white">
             {price}
           </p>
           {/* <Button
@@ -92,7 +91,7 @@ export default function Card({
     return (
       <Link
         href={href}
-        className="block hover:scale-105 transition-transform duration-200"
+        className="block transition-transform duration-200 hover:scale-105"
       >
         <CardContent />
       </Link>
