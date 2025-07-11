@@ -22,7 +22,7 @@ export default function Button({
     'inline-flex items-center font-medium focus:outline-none focus:ring-4';
   const variantClasses =
     variant === 'primary'
-      ? 'bg-gradient-to-r from-primary via-primary to-secondary text-white hover:bg-gradient-to-bl focus:ring-primary-300 dark:focus:ring-primary-800'
+      ? 'bg-gradient-to-r from-primary via-primary to-secondary text-white hover:via-secondary  transition duration-300 ease-in-out focus:ring-primary-300 dark:focus:ring-primary-800'
       : 'bg-light border border-gray-100 text-gray-600 hover:bg-gradient-to-bl focus:ring-primary-300 dark:focus:ring-primary-800';
 
   return (

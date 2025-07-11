@@ -24,19 +24,19 @@ const content = {
 export default function Hero() {
   return (
     <section>
-      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+      <div className="mx-auto grid max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
         <div className="mr-auto place-self-center lg:col-span-7">
-          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+          <h1 className="mb-4 max-w-2xl text-4xl leading-none font-extrabold tracking-tight md:text-5xl xl:text-6xl dark:text-white">
             {content.heading}
           </h1>
-          <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+          <p className="mb-6 max-w-2xl font-light text-gray-500 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400">
             {content.description}
           </p>
-          <div className="flex gap-4 flex-col md:flex-row">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <Button as={Link} size="lg" href="/products" variant="primary">
               {content.primaryButton.text}
               <svg
-                className="w-5 h-5 ml-2 -mr-1"
+                className="-mr-1 ml-2 h-5 w-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ export default function Hero() {
             </Button>
           </div>
         </div>
-        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+        <div className="hidden lg:col-span-5 lg:mt-0 lg:flex">
           <Image src={content.image.src} alt={content.image.alt} />
         </div>
       </div>
