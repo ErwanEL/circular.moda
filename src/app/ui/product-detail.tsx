@@ -48,7 +48,7 @@ export default function ProductDetail({
     return Array.from({ length: Math.round(value) }).map((_, i) => (
       <svg
         key={i}
-        className="w-4 h-4 text-yellow-300"
+        className="h-4 w-4 text-yellow-300"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -62,10 +62,10 @@ export default function ProductDetail({
   };
 
   return (
-    <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
-      <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+    <section className="py-8 antialiased md:py-16">
+      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-          <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
+          <div className="mx-auto max-w-md shrink-0 lg:max-w-lg">
             {product.Images?.[0]?.url ? (
               <Image
                 src={product.Images[0].url}
@@ -75,7 +75,7 @@ export default function ProductDetail({
                 className="w-full rounded"
               />
             ) : (
-              <div className="w-full h-96 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
+              <div className="flex h-96 w-full items-center justify-center rounded bg-gray-200 dark:bg-gray-700">
                 <span className="text-gray-500 dark:text-gray-400">
                   No image available
                 </span>
@@ -88,36 +88,36 @@ export default function ProductDetail({
               {product.SKU}
             </h1>
 
-            <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
+            <div className="mt-4 sm:flex sm:items-center sm:gap-4">
               {product.Price !== undefined && (
                 <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
                   ${product.Price}
                 </p>
               )}
 
-              <div className="flex items-center gap-2 mt-2 sm:mt-0">
+              <div className="mt-2 flex items-center gap-2 sm:mt-0">
                 <div className="flex items-center gap-1">
                   {renderStars(rating.value)}
                 </div>
-                <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
+                <p className="text-sm leading-none font-medium text-gray-500 dark:text-gray-400">
                   ({rating.value})
                 </p>
                 <a
                   href="#"
-                  className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white"
+                  className="text-sm leading-none font-medium text-gray-900 underline hover:no-underline dark:text-white"
                 >
                   {rating.count} Reviews
                 </a>
               </div>
             </div>
 
-            <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
+            <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
               <button
                 onClick={handleAddToFavorites}
-                className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                className="hover:text-primary-700 flex items-center justify-center rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
               >
                 <svg
-                  className="w-5 h-5 -ms-2 me-2"
+                  className="-ms-2 me-2 h-5 w-5"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -138,10 +138,10 @@ export default function ProductDetail({
 
               <button
                 onClick={handleAddToCart}
-                className="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
+                className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-4 flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white focus:ring-4 focus:outline-none sm:mt-0"
               >
                 <svg
-                  className="w-5 h-5 -ms-2 me-2"
+                  className="-ms-2 me-2 h-5 w-5"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -161,7 +161,7 @@ export default function ProductDetail({
               </button>
             </div>
 
-            <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
+            <hr className="my-6 border-gray-200 md:my-8 dark:border-gray-800" />
 
             <div className="mb-6 text-gray-500 dark:text-gray-400">
               <ul className="space-y-2">

@@ -16,12 +16,12 @@ export default async function ProductsPage() {
     return (
       <>
         {/* Hero Section */}
-        <section className="bg-white dark:bg-gray-900">
-          <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
-            <h1 className="mb-4 text-4xl tracking-tight font-extrabold leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <section>
+          <div className="mx-auto max-w-screen-xl px-4 py-8 text-center lg:py-16">
+            <h1 className="mb-4 text-4xl leading-none font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
               Our Product Collection
             </h1>
-            <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+            <p className="mb-8 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48 dark:text-gray-400">
               Discover our carefully curated selection of quality products. Each
               item is handpicked to ensure the best value and experience.
             </p>
@@ -29,11 +29,11 @@ export default async function ProductsPage() {
         </section>
 
         {/* Products Grid */}
-        <section className="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
+        <section className="py-8 antialiased md:py-12">
           <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <div className="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
               <div>
-                <h2 className="mt-3 text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+                <h2 className="mt-3 text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
                   Featured Products
                 </h2>
                 <p className="text-gray-500 dark:text-gray-400">
@@ -47,7 +47,7 @@ export default async function ProductsPage() {
               ))}
             </div>
             {productCards.length === 0 && (
-              <div className="text-center py-12">
+              <div className="py-12 text-center">
                 <p className="text-gray-500 dark:text-gray-400">
                   No products available at the moment.
                 </p>
@@ -74,10 +74,10 @@ export default async function ProductsPage() {
   } catch (err: unknown) {
     const errorMessage = err instanceof Error ? err.message : String(err);
     return (
-      <section className="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
+      <section className="bg-gray-50 py-8 antialiased md:py-12 dark:bg-gray-900">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-          <div className="text-center py-12">
-            <h2 className="text-xl font-semibold text-red-600 dark:text-red-400 mb-4">
+          <div className="py-12 text-center">
+            <h2 className="mb-4 text-xl font-semibold text-red-600 dark:text-red-400">
               Error loading products
             </h2>
             <p className="text-gray-500 dark:text-gray-400">{errorMessage}</p>

@@ -42,11 +42,11 @@ export default function Card({
       </div>
       <div className="pt-6">
         <div className="mb-4 flex items-center justify-between gap-4">
-          <span className="me-2 rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
+          <span className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300 me-2 rounded px-2.5 py-0.5 text-xs font-medium">
             {badge}
           </span>
         </div>
-        <div className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">
+        <div className="text-lg leading-tight font-semibold text-gray-900 hover:underline dark:text-white">
           {title}
         </div>
         <div className="mt-2 flex items-center gap-2">
@@ -72,15 +72,16 @@ export default function Card({
           </p>
         </div>
         <div className="mt-4 flex items-center justify-between gap-4">
-          <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
+          <p className="text-2xl leading-tight font-extrabold text-gray-900 dark:text-white">
             {price}
           </p>
-          <button
-            type="button"
-            className="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+          {/* <Button
+            variant="primary"
+            as={Link}
+            href={href || '#'}
           >
-            Add to cart
-          </button>
+            Ver más
+          </Button> */}
         </div>
       </div>
     </div>
@@ -90,7 +91,7 @@ export default function Card({
     return (
       <Link
         href={href}
-        className="block hover:scale-105 transition-transform duration-200"
+        className="block transition-transform duration-200 hover:scale-102"
       >
         <CardContent />
       </Link>
