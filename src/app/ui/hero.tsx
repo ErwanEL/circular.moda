@@ -3,11 +3,20 @@ import Button from './button'; // Import your custom Button component
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Hero() {
+interface HeroProps {
+  heading?: string;
+  description?: string;
+  showSecondaryButton?: boolean;
+}
+
+export default function Hero({
+  heading = 'Convierte tu placard en efectivo hoy mismo',
+  description = 'Ese jean que no usás es un billete de $10.000 ARS durmiendo en tu placard.',
+  showSecondaryButton = true,
+}: HeroProps) {
   const content = {
-    heading: 'Convierte tu placard en efectivo hoy mismo',
-    description:
-      'Ese jean que no usás es un billete de $10.000 ARS durmiendo en tu placard.',
+    heading,
+    description,
     primaryButton: {
       text: 'Quiero vender ya',
       href: '#',
@@ -48,9 +57,11 @@ export default function Hero() {
                 ></path>
               </svg>
             </Button>
-            <Button as={Link} size="lg" href="/products" variant="secondary">
-              {content.secondaryButton.text}
-            </Button>
+            {showSecondaryButton && (
+              <Button as={Link} size="lg" href="/products" variant="secondary">
+                {content.secondaryButton.text}
+              </Button>
+            )}
           </div>
         </div>
         <div className="hidden lg:col-span-5 lg:mt-0 lg:flex">
