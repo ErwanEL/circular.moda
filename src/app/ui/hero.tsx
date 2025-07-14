@@ -33,7 +33,7 @@ export default function Hero() {
             {content.description}
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Button as={Link} size="lg" href="/products" variant="primary">
+            <Button as={Link} size="xl" href="/products" variant="primary">
               {content.primaryButton.text}
               <svg
                 className="-mr-1 ml-2 h-5 w-5"
@@ -48,7 +48,7 @@ export default function Hero() {
                 ></path>
               </svg>
             </Button>
-            <Button as={Link} size="lg" href="/products" variant="secondary">
+            <Button as={Link} size="xl" href="/products" variant="secondary">
               {content.secondaryButton.text}
             </Button>
           </div>
