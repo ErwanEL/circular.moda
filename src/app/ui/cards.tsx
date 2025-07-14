@@ -55,7 +55,7 @@ export default function Cards({ products }: CardsProps) {
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
           <div>
-            <h2 className="mt-3 text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
               {content.heading}
             </h2>
           </div>
