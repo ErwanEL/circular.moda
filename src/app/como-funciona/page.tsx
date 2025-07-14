@@ -31,7 +31,6 @@ export default function ComoFuncionaPage() {
         showSecondaryButton={false}
       />
       <VenderFacil
-        steps={venderFacilSteps}
         cta={{ text: 'Empieza a vender', href: '#' }}
       />
       <Cta
