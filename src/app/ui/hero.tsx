@@ -1,27 +1,36 @@
-import Image from 'next/image';
 import PhoneMockup from '../../../public/phone-mockup.png';
 import Button from './button'; // Import your custom Button component
 import Link from 'next/link';
+import Image from 'next/image';
 
-const content = {
-  heading: 'Convierte tu placard en efectivo hoy mismo',
-  description:
-    'Ese jean que no usás es un billete de $10.000 ARS durmiendo en tu placard.',
-  primaryButton: {
-    text: 'Quiero vender ya',
-    href: '#',
-  },
-  secondaryButton: {
-    text: 'Cómo funciona',
-    href: '#',
-  },
-  image: {
-    src: PhoneMockup,
-    alt: 'Phone Mockup',
-  },
-};
+interface HeroProps {
+  heading?: string;
+  description?: string;
+  showSecondaryButton?: boolean;
+}
 
-export default function Hero() {
+export default function Hero({
+  heading = 'Convierte tu placard en efectivo hoy mismo',
+  description = 'Ese jean que no usás es un billete de $10.000 ARS durmiendo en tu placard.',
+  showSecondaryButton = true,
+}: HeroProps) {
+  const content = {
+    heading,
+    description,
+    primaryButton: {
+      text: 'Quiero vender ya',
+      href: '#',
+    },
+    secondaryButton: {
+      text: 'Cómo funciona',
+      href: '#',
+    },
+    image: {
+      src: PhoneMockup,
+      alt: 'Phone Mockup',
+    },
+  };
+
   return (
     <section>
       <div className="mx-auto grid max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
@@ -48,9 +57,11 @@ export default function Hero() {
                 ></path>
               </svg>
             </Button>
-            <Button as={Link} size="lg" href="/products" variant="secondary">
-              {content.secondaryButton.text}
-            </Button>
+            {showSecondaryButton && (
+              <Button as={Link} size="lg" href="/products" variant="secondary">
+                {content.secondaryButton.text}
+              </Button>
+            )}
           </div>
         </div>
         <div className="hidden lg:col-span-5 lg:mt-0 lg:flex">
