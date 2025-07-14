@@ -1,12 +1,11 @@
 const content = {
   heading: '¿Por qué usar nuestra plataforma hoy?',
-  description:
-    'Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.',
+  description: '',
   features: [
     {
       icon: (
         <svg
-          className="w-5 h-5 text-primary lg:w-6 lg:h-6 dark:text-primary-300"
+          className="text-primary dark:text-primary-300 h-5 w-5 lg:h-6 lg:w-6"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +24,7 @@ const content = {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-primary lg:w-6 lg:h-6 dark:text-primary-300"
+          className="text-primary dark:text-primary-300 h-5 w-5 lg:h-6 lg:w-6"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +39,7 @@ const content = {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-primary lg:w-6 lg:h-6 dark:text-primary-300"
+          className="text-primary dark:text-primary-300 h-5 w-5 lg:h-6 lg:w-6"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +54,7 @@ const content = {
     {
       icon: (
         <svg
-          className="w-5 h-5 text-primary lg:w-6 lg:h-6 dark:text-primary-300"
+          className="text-primary dark:text-primary-300 h-5 w-5 lg:h-6 lg:w-6"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -73,19 +72,19 @@ const content = {
 export default function Features() {
   return (
     <section>
-      <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-        <div className="max-w-screen-md mb-8 lg:mb-16">
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:py-16 lg:px-6">
+        <div className="mb-8 max-w-screen-md lg:mb-16">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
             {content.heading}
           </h2>
           <p className="text-gray-500 sm:text-xl dark:text-gray-400">
             {content.description}
           </p>
         </div>
-        <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+        <div className="space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 lg:grid-cols-3">
           {content.features.map((feature, index) => (
             <div key={index}>
-              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-light lg:h-12 lg:w-12 dark:bg-primary-900">
+              <div className="bg-light dark:bg-primary-900 mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
                 {feature.icon}
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-white">

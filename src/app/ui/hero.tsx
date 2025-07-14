@@ -1,4 +1,4 @@
-import PhoneMockup from '../../../public/phone-mockup.png';
+import HeroImage from '../../../public/roommates-fashion-fun_simple_compose.png';
 import Button from './button'; // Import your custom Button component
 import Link from 'next/link';
 import Image from 'next/image';
@@ -10,8 +10,8 @@ interface HeroProps {
 }
 
 export default function Hero({
-  heading = 'Convierte tu placard en efectivo hoy mismo',
-  description = 'Ese jean que no usás es un billete de $10.000 ARS durmiendo en tu placard.',
+  heading = 'Transformá tu ropa en dinero. Fácil, rápido y circular.',
+  description = 'Esa prenda que ya no usás puede tener una segunda vida… y darte ingresos extra hoy mismo. Enviás tus fotos, nosotros hacemos el resto.',
   showSecondaryButton = true,
 }: HeroProps) {
   const content = {
@@ -19,15 +19,15 @@ export default function Hero({
     description,
     primaryButton: {
       text: 'Quiero vender ya',
-      href: '#',
+      href: `https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda`,
     },
     secondaryButton: {
       text: 'Cómo funciona',
-      href: '#',
+      href: '/como-funciona',
     },
     image: {
-      src: PhoneMockup,
-      alt: 'Phone Mockup',
+      src: HeroImage,
+      alt: 'Dos mujeres sonrientes probándose ropa de moda circular en una habitación luminosa.',
     },
   };
 
@@ -42,7 +42,12 @@ export default function Hero({
             {content.description}
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Button as={Link} size="xl" href="/products" variant="primary">
+            <Button
+              as={Link}
+              size="xl"
+              href={content.primaryButton.href}
+              variant="primary"
+            >
               {content.primaryButton.text}
               <svg
                 className="-mr-1 ml-2 h-5 w-5"
@@ -57,13 +62,29 @@ export default function Hero({
                 ></path>
               </svg>
             </Button>
-            <Button as={Link} size="xl" href="/products" variant="secondary">
-              {content.secondaryButton.text}
-            </Button>
+            {showSecondaryButton && (
+              <Button
+                as={Link}
+                size="xl"
+                href={content.secondaryButton.href}
+                variant="secondary"
+              >
+                {content.secondaryButton.text}
+              </Button>
+            )}
           </div>
         </div>
         <div className="hidden lg:col-span-5 lg:mt-0 lg:flex">
-          <Image src={content.image.src} alt={content.image.alt} />
+          <div className="h-xl relative w-xl">
+            <Image
+              fill={true}
+              objectFit={'cover'}
+              src={content.image.src}
+              // sizes="300px"
+              alt={content.image.alt}
+              className="rounded-3xl"
+            />
+          </div>
         </div>
       </div>
     </section>
