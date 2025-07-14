@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import {
   Navbar,
@@ -7,8 +9,10 @@ import {
   NavbarToggle,
 } from 'flowbite-react';
 import Button from './button'; // Import your custom Button component
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
+  const pathname = usePathname();
   return (
     <Navbar fluid rounded>
       <NavbarBrand href="/">
@@ -23,11 +27,14 @@ export default function Header() {
         <NavbarToggle />
       </div>
       <NavbarCollapse>
-        <NavbarLink href="#" active>
+        <NavbarLink href="/" active={pathname === "/"}>
           Home
         </NavbarLink>
-        <NavbarLink href="products">Catalogo de articulos</NavbarLink>
-        <NavbarLink href="#">Contact</NavbarLink>
+        <NavbarLink href="/como-funciona" active={pathname === "/como-funciona"}>
+          Cómo funciona
+        </NavbarLink>
+        <NavbarLink href="/products" active={pathname.startsWith("/products")}>Catalogo de articulos</NavbarLink>
+        <NavbarLink href="#" active={pathname === "#"}>Contact</NavbarLink>
       </NavbarCollapse>
     </Navbar>
   );
