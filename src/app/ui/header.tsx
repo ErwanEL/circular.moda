@@ -26,6 +26,7 @@ export default function Header() {
         <NavbarLink href="#" active>
           Home
         </NavbarLink>
+        <NavbarLink href="/como-funciona">Cómo funciona</NavbarLink>
         <NavbarLink href="products">Catalogo de articulos</NavbarLink>
         <NavbarLink href="#">Contact</NavbarLink>
       </NavbarCollapse>

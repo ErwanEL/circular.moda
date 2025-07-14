@@ -1,24 +1,26 @@
 import PhoneMockup from '../../../public/phone-mockup.png';
 import Button from './button'; // Import your custom Button component
 import Link from 'next/link';
+import Image from 'next/image';
 
-const content = {
-  heading: 'Convierte tu placard en efectivo hoy mismo',
-  description:
-    'Ese jean que no usás es un billete de $10.000 ARS durmiendo en tu placard.',
-  primaryButton: {
-    text: 'Quiero vender ya',
-    href: '#',
-  },
-  secondaryButton: {
-    text: 'Cómo funciona',
-    href: '#',
-  },
-  image: {
-    src: PhoneMockup,
-    alt: 'Phone Mockup',
-  },
-};
+export default function Hero() {
+  const content = {
+    heading: 'Convierte tu placard en efectivo hoy mismo',
+    description:
+      'Ese jean que no usás es un billete de $10.000 ARS durmiendo en tu placard.',
+    primaryButton: {
+      text: 'Quiero vender ya',
+      href: '#',
+    },
+    secondaryButton: {
+      text: 'Cómo funciona',
+      href: '#',
+    },
+    image: {
+      src: PhoneMockup,
+      alt: 'Phone Mockup',
+    },
+  };
 
   return (
     <section>
