@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import PhoneMockup from '../../../public/phone-mockup.png';
 import Button from './button'; // Import your custom Button component
 import Link from 'next/link';
@@ -21,7 +20,6 @@ const content = {
   },
 };
 
-export default function Hero() {
   return (
     <section>
       <div className="mx-auto grid max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
