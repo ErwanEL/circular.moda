@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram } from 'react-icons/fa';
+import { FaXTwitter, FaWhatsapp } from 'react-icons/fa6';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -10,8 +11,9 @@ const navLinks = [
 
 const socialLinks = [
   { href: 'https://facebook.com', icon: <FaFacebookF />, label: 'Facebook' },
-  { href: 'https://twitter.com', icon: <FaTwitter />, label: 'Twitter' },
+  { href: 'https://x.com', icon: <FaXTwitter />, label: 'X (Twitter)' },
   { href: 'https://instagram.com', icon: <FaInstagram />, label: 'Instagram' },
+  { href: 'https://wa.me/?text=¡Mirá%20esto%20en%20circular.moda!', icon: <FaWhatsapp />, label: 'WhatsApp' },
 ];
 
 export default function Footer() {
