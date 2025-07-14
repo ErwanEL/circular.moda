@@ -38,7 +38,7 @@ export default function VenderFacil({ cta, className = '' }: VenderFacilProps) {
   return (
     <section className={`w-full py-16 ${className}`}>
       <div className="max-w-screen-xl mx-auto px-4">
-        <h2 className="text-gray-900 text-2xl md:text-3xl font-bold mb-12">
+        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
           Vender es fácil
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
