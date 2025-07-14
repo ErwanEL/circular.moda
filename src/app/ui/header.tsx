@@ -12,12 +12,12 @@ export default function Header() {
   return (
     <Navbar fluid rounded>
       <NavbarBrand href="/">
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
           circular.moda
         </span>
       </NavbarBrand>
       <div className="flex md:order-2">
-        <Button size="sm" as={Link} href="#">
+        <Button size="md" as={Link} href="#">
           Vender
         </Button>
         <NavbarToggle />
