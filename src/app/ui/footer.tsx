@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { FaFacebookF, FaInstagram } from 'react-icons/fa';
-import { FaXTwitter, FaWhatsapp } from 'react-icons/fa6';
+// import { FaFacebookF, FaInstagram } from 'react-icons/fa';
+// import { FaXTwitter, FaWhatsapp } from 'react-icons/fa6';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -9,12 +9,16 @@ const navLinks = [
   { href: '#', label: 'Contact' },
 ];
 
-const socialLinks = [
-  { href: 'https://facebook.com', icon: <FaFacebookF />, label: 'Facebook' },
-  { href: 'https://x.com', icon: <FaXTwitter />, label: 'X (Twitter)' },
-  { href: 'https://instagram.com', icon: <FaInstagram />, label: 'Instagram' },
-  { href: 'https://wa.me/?text=¡Mirá%20esto%20en%20circular.moda!', icon: <FaWhatsapp />, label: 'WhatsApp' },
-];
+// const socialLinks = [
+//   { href: 'https://facebook.com', icon: <FaFacebookF />, label: 'Facebook' },
+//   { href: 'https://x.com', icon: <FaXTwitter />, label: 'X (Twitter)' },
+//   { href: 'https://instagram.com', icon: <FaInstagram />, label: 'Instagram' },
+//   {
+//     href: 'https://wa.me/?text=¡Mirá%20esto%20en%20circular.moda!',
+//     icon: <FaWhatsapp />,
+//     label: 'WhatsApp',
+//   },
+// ];
 
 export default function Footer() {
   return (
@@ -28,7 +32,7 @@ export default function Footer() {
               </span>
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 sm:gap-6">
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Navegación
@@ -43,7 +47,7 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
-            <div>
+            {/* <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Social
               </h2>
@@ -55,20 +59,20 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={social.label}
-                      className="text-gray-500 hover:text-primary-700 dark:hover:text-white text-xl"
+                      className="hover:text-primary-700 text-xl text-gray-500 dark:hover:text-white"
                     >
                       {social.icon}
                     </a>
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8 dark:border-gray-700" />
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-            © {new Date().getFullYear()} circular.moda. All Rights Reserved.
+            © {new Date().getFullYear()} circular.moda
           </span>
         </div>
       </div>
