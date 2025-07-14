@@ -44,7 +44,7 @@ export default function Hero({
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button
               as={Link}
-              size="lg"
+              size="xl"
               href={content.primaryButton.href}
               variant="primary"
             >
@@ -65,7 +65,7 @@ export default function Hero({
             {showSecondaryButton && (
               <Button
                 as={Link}
-                size="lg"
+                size="xl"
                 href={content.secondaryButton.href}
                 variant="secondary"
               >
