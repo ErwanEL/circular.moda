@@ -18,17 +18,17 @@ export type VenderFacilProps = {
 
 const venderFacilSteps = [
   {
-    img: '/step1.png',
+    img: '/step1.webp',
     title: 'Mandá tus fotos por WhatsApp',
     desc: 'Sacales unas buenas fotos a tus prendas, indicá el precio que querés cobrar y mandalas por WhatsApp. Nosotros nos encargamos de todo lo demás.',
   },
   {
-    img: '/step2.png',
+    img: '/step2.webp',
     title: 'Publicamos tu artículo en el catálogo',
     desc: 'Subimos tu prenda a circular.moda con precio y descripción clara para que la vea toda nuestra comunidad.',
   },
   {
-    img: '/step3.png',
+    img: '/step3.webp',
     title: 'Te contactan directo por WhatsApp',
     desc: 'Cuando alguien se cope con tu artículo, te escribe al toque por WhatsApp para cerrar la venta. Sin comisiones: lo que ganás es tuyo.',
   },
