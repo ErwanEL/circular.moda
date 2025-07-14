@@ -10,6 +10,7 @@
     "postinstall": "flowbite-react patch"
   },
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
     "airtable": "^0.12.2",
     "clsx": "^2.1.1",
     "flowbite": "^3.1.2",
@@ -29,7 +30,7 @@
     "eslint-config-next": "15.3.4",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1.11",
     "typescript": "^5"
   }
 }
