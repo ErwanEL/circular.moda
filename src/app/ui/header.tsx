@@ -26,8 +26,8 @@ export default function Header() {
             </span>
           </NavbarBrand>
           <div className="flex md:order-2">
-            <Button size="md" as={Link} href="#">
-              Vender
+            <Button solid bold variant="primary" size="md" as={Link} href="#">
+              Vender ahora
             </Button>
             <NavbarToggle />
           </div>
