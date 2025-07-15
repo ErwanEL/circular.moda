@@ -2,12 +2,11 @@ import Hero from './ui/hero';
 import Cta from './ui/cta';
 import Features from './ui/features';
 import Cards from './ui/cards';
-import { getAllProducts } from './lib/airtable';
+import { getAllProducts } from './lib/products';
 import { getFeaturedProducts } from './lib/helpers';
 import VenderFacil from './ui/vender-facil';
 
-// Incremental Static Regeneration, rebuild every 60 s
-export const revalidate = 60;
+// Fully static, no revalidate
 
 export default async function Home() {
   try {
@@ -20,9 +19,7 @@ export default async function Home() {
       <main className="">
         <Hero />
         <Features />
-        <VenderFacil
-          cta={{ text: 'Empieza a vender', href: '#' }}
-        />
+        <VenderFacil cta={{ text: 'Empieza a vender', href: '#' }} />
         <Cards products={productCards} />
         <Cta
           variant="centered"
@@ -48,7 +45,7 @@ export default async function Home() {
       <main className="">
         <Hero />
         <Features />
-        <Cta  />
+        <Cta />
         <Cards />
         <Cta
           variant="centered"
