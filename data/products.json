@@ -1,0 +1,24 @@
+[
+  {
+    "id": "rec123",
+    "slug": "product-1",
+    "SKU": "Product 1",
+    "Price": 29.99,
+    "Category": "Shirts",
+    "StockLevels": 10,
+    "Color": "Blue",
+    "Size": "M",
+    "Images": [{ "url": "/step1.webp" }]
+  },
+  {
+    "id": "rec456",
+    "slug": "product-2",
+    "SKU": "Product 2",
+    "Price": 49.99,
+    "Category": "Pants",
+    "StockLevels": 5,
+    "Color": "Black",
+    "Size": "L",
+    "Images": [{ "url": "/step2.webp" }]
+  }
+]

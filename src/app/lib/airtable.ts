@@ -1,3 +1,4 @@
+// DEPRECATED: Use src/app/lib/products.ts instead for static product data.
 import Airtable from 'airtable';
 
 const base = new Airtable({

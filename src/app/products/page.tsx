@@ -1,10 +1,9 @@
-import { getAllProducts } from '../lib/airtable';
+import { getAllProducts } from '../lib/products';
 import { transformProductsToCards } from '../lib/helpers';
 import Card from '../ui/card';
 import Cta from '../ui/cta';
 
-// Incremental Static Regeneration, rebuild every 60 s
-export const revalidate = 60;
+// Fully static, no revalidate
 
 export default async function ProductsPage() {
   try {

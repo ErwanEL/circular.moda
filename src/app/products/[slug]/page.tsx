@@ -1,9 +1,9 @@
 // src/app/products/[slug]/page.tsx
 import { notFound } from 'next/navigation';
-import { getAllProducts, getProductBySlug } from '../../lib/airtable';
+import { getAllProducts, getProductBySlug } from '../../lib/products';
 import ProductDetail from '../../ui/product-detail';
 
-export const revalidate = 60; // ISR – rebuild every 60 s
+// Fully static, no revalidate
 
 /** Pre-generate the static paths at build time */
 export async function generateStaticParams() {
