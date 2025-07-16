@@ -45,7 +45,7 @@ export default function RootLayout({
           property="og:description"
           content="Vendé tu ropa usada fácil y rápido con circular.moda.. Enviás fotos por WhatsApp y ganás dinero sin comisiones."
         />
-        <meta property="og:image" content="./../../og-image.png" />
+        <meta property="og:image" content="/og-image.png" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="es_AR" />
         {/* Twitter */}
@@ -58,7 +58,7 @@ export default function RootLayout({
           name="twitter:description"
           content="Vendé tu ropa usada fácil y rápido con circular.moda.. Enviás fotos por WhatsApp y ganás dinero sin comisiones."
         />
-        <meta name="twitter:image" content="./../../og-image.png" />
+        <meta name="twitter:image" content="/og-image.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
