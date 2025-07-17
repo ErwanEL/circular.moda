@@ -5,11 +5,16 @@ interface CardsProps {
   products?: ProductCard[];
 }
 
+const fallbackContent = {
+  heading: 'Productos destacados',
+  cards: [],
+};
+
 export default function Cards({ products }: CardsProps) {
   const content =
     products && products.length > 0
       ? { heading: 'Productos destacados', cards: products }
-      : staticContent;
+      : fallbackContent;
 
   return (
     <section>

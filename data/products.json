@@ -1,8 +1,8 @@
 [
   {
-    "id": "rec123",
+    "id": "rec001",
     "slug": "product-1",
-    "SKU": "Product 1",
+    "SKU": "SKU-001",
     "Price": 29.99,
     "Category": "Shirts",
     "StockLevels": 10,
@@ -11,14 +11,80 @@
     "Images": [{ "url": "/step1.webp" }]
   },
   {
-    "id": "rec456",
+    "id": "rec002",
     "slug": "product-2",
-    "SKU": "Product 2",
+    "SKU": "SKU-002",
     "Price": 49.99,
     "Category": "Pants",
     "StockLevels": 5,
     "Color": "Black",
     "Size": "L",
     "Images": [{ "url": "/step2.webp" }]
+  },
+  {
+    "id": "rec003",
+    "slug": "product-3",
+    "SKU": "SKU-003",
+    "Price": 39.99,
+    "Category": "Jackets",
+    "StockLevels": 7,
+    "Color": "Red",
+    "Size": "S",
+    "Images": [{ "url": "/step3.webp" }]
+  },
+  {
+    "id": "rec004",
+    "slug": "product-4",
+    "SKU": "SKU-004",
+    "Price": 19.99,
+    "Category": "T-Shirts",
+    "StockLevels": 12,
+    "Color": "White",
+    "Size": "M",
+    "Images": [{ "url": "/roommates-fashion-fun_simple_compose.png" }]
+  },
+  {
+    "id": "rec005",
+    "slug": "product-5",
+    "SKU": "SKU-005",
+    "Price": 59.99,
+    "Category": "Dresses",
+    "StockLevels": 3,
+    "Color": "Green",
+    "Size": "L",
+    "Images": [{ "url": "/file.svg" }]
+  },
+  {
+    "id": "rec006",
+    "slug": "product-6",
+    "SKU": "SKU-006",
+    "Price": 24.99,
+    "Category": "Shorts",
+    "StockLevels": 8,
+    "Color": "Yellow",
+    "Size": "S",
+    "Images": [{ "url": "/globe.svg" }]
+  },
+  {
+    "id": "rec007",
+    "slug": "product-7",
+    "SKU": "SKU-007",
+    "Price": 34.99,
+    "Category": "Skirts",
+    "StockLevels": 6,
+    "Color": "Pink",
+    "Size": "M",
+    "Images": [{ "url": "/next.svg" }]
+  },
+  {
+    "id": "rec008",
+    "slug": "product-8",
+    "SKU": "SKU-008",
+    "Price": 44.99,
+    "Category": "Sweaters",
+    "StockLevels": 4,
+    "Color": "Gray",
+    "Size": "L",
+    "Images": [{ "url": "/vercel.svg" }]
   }
 ]
