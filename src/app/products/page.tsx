@@ -18,11 +18,12 @@ export default async function ProductsPage() {
         <section>
           <div className="mx-auto max-w-screen-xl px-4 py-8 text-center lg:py-16">
             <h1 className="mb-4 text-4xl leading-none font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-              Our Product Collection
+              Nuestra Colección de Productos
             </h1>
             <p className="mb-8 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48 dark:text-gray-400">
-              Discover our carefully curated selection of quality products. Each
-              item is handpicked to ensure the best value and experience.
+              Descubrí nuestra cuidada selección de productos de calidad. Cada
+              artículo está elegido a mano para garantizarte la mejor
+              experiencia y valor.
             </p>
           </div>
         </section>
@@ -33,10 +34,10 @@ export default async function ProductsPage() {
             <div className="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
               <div>
                 <h2 className="mt-3 text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                  Featured Products
+                  Productos Destacados
                 </h2>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Browse through our collection of {products.length} products
+                  Mirá nuestra colección de {products.length} productos
                 </p>
               </div>
             </div>
@@ -48,7 +49,7 @@ export default async function ProductsPage() {
             {productCards.length === 0 && (
               <div className="py-12 text-center">
                 <p className="text-gray-500 dark:text-gray-400">
-                  No products available at the moment.
+                  No hay productos disponibles en este momento.
                 </p>
               </div>
             )}
@@ -59,11 +60,11 @@ export default async function ProductsPage() {
         <Cta
           variant="centered"
           content={{
-            heading: "Can't find what you're looking for?",
+            heading: '¿No encontrás lo que buscás?',
             description:
-              "Contact us and we'll help you find the perfect product for your needs.",
+              'Contactanos y te ayudamos a encontrar el producto ideal para vos.',
             button: {
-              text: 'Contact Us',
+              text: 'Contactanos',
               href: '#',
             },
           }}
@@ -77,7 +78,7 @@ export default async function ProductsPage() {
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <div className="py-12 text-center">
             <h2 className="mb-4 text-xl font-semibold text-red-600 dark:text-red-400">
-              Error loading products
+              Error al cargar los productos
             </h2>
             <p className="text-gray-500 dark:text-gray-400">{errorMessage}</p>
           </div>
