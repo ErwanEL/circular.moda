@@ -12,22 +12,19 @@ export default function ComoFuncionaPage() {
         }
         showSecondaryButton={false}
       />
-      <VenderFacil
-        cta={{ text: 'Empieza a vender', href: '#' }}
-      />
+      <VenderFacil cta={{ text: 'Empieza a vender', href: '#' }} />
       <Cta
-          variant="centered"
-          content={{
-            heading:
-              '¿Te animás?',
-            description:
-              'Mandanos tus fotos y nuestro equipo se encarga del resto. Sin comisiones, sin complicaciones.',
-            button: {
-              text: 'Empieza a vender',
-              href: '#',
-            },
-          }}
-        />
+        variant="centered"
+        content={{
+          heading: '¿Te animás?',
+          description:
+            'Mandanos tus fotos y nuestro equipo se encarga del resto. Sin comisiones, sin complicaciones.',
+          button: {
+            text: 'Empieza a vender',
+            href: '#',
+          },
+        }}
+      />
     </>
   );
 }
