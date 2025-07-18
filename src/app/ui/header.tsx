@@ -21,7 +21,7 @@ export default function Header() {
       <div className="mx-auto max-w-screen-xl">
         <Navbar fluid rounded className="!bg-[var(--background)]">
           <NavbarBrand href="/">
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="lg:text-1xl self-center text-xl font-semibold whitespace-nowrap sm:text-2xl dark:text-white">
               circul<span className="text-primary-800">ar</span>.moda
             </span>
           </NavbarBrand>
