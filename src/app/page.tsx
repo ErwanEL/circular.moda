@@ -6,8 +6,6 @@ import { getAllProducts } from './lib/products';
 import { getFeaturedProducts } from './lib/helpers';
 import VenderFacil from './ui/vender-facil';
 
-// Fully static, no revalidate
-
 export default async function Home() {
   try {
     const products = await getAllProducts(); // runs at build time, then every 60 s
@@ -16,10 +14,15 @@ export default async function Home() {
     const productCards = getFeaturedProducts(products, 8);
 
     return (
-      <main className="">
+      <main>
         <Hero />
         <Features />
-        <VenderFacil cta={{ text: 'Empieza a vender', href: '#' }} />
+        <VenderFacil
+          cta={{
+            text: 'Empieza a vender',
+            href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
+          }}
+        />
         <Cards products={productCards} />
         <Cta
           variant="centered"
@@ -30,7 +33,7 @@ export default async function Home() {
               'Mandanos tus fotos y nuestro equipo se encarga del resto. Sin comisiones, sin complicaciones.',
             button: {
               text: 'Vender ahora',
-              href: '#',
+              href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
             },
           }}
         />
@@ -42,7 +45,7 @@ export default async function Home() {
 
     // Fallback to static content if products fail to load
     return (
-      <main className="">
+      <main>
         <Hero />
         <Features />
         <Cta />
@@ -56,7 +59,7 @@ export default async function Home() {
               'Mandanos tus fotos y nuestro equipo se encarga del resto. Sin comisiones, sin complicaciones.',
             button: {
               text: 'Vender ahora',
-              href: '#',
+              href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
             },
           }}
         />
