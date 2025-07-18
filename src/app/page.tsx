@@ -5,6 +5,7 @@ import VenderFacil from './ui/vender-facil';
 import { getAllProducts } from './lib/products';
 import ResponsiveCards from './ui/ResponsiveCards';
 import SocialShare from './ui/social-share';
+import LeadMagnet from './ui/lead-magnet';
 
 export default async function Home() {
   try {
@@ -14,13 +15,14 @@ export default async function Home() {
       <main>
         <Hero />
         <Features />
+        <ResponsiveCards products={products} />
+        <LeadMagnet />
         <VenderFacil
           cta={{
             text: 'Empieza a vender',
             href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
           }}
         />
-        <ResponsiveCards products={products} />
         <SocialShare />
         <Cta
           variant="centered"
@@ -45,8 +47,9 @@ export default async function Home() {
       <main>
         <Hero />
         <Features />
-        <Cta />
         <ResponsiveCards products={[]} />
+        <LeadMagnet />
+        <Cta />
         <SocialShare />
         <Cta
           variant="centered"
