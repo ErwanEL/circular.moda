@@ -21,7 +21,7 @@ const records = await base(process.env.AIRTABLE_TABLE_NAME)
 
 const products = records.map((r) => ({
   id: r.id,
-  slug: slugify(r.get('SKU')),
+  slug: slugify(String(r.get('SKU') ?? '')),
   ...r.fields,
 }));
 
