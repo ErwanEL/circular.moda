@@ -54,10 +54,12 @@ export default function VenderFacil({ cta }: VenderFacilProps) {
                   className="h-full w-full object-cover object-center"
                 />
               </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-700">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 {step.title}
               </h3>
-              <p className="mb-3 text-gray-700">{step.desc}</p>
+              <p className="mb-3 text-gray-500 dark:text-gray-400">
+                {step.desc}
+              </p>
             </div>
           ))}
         </div>
