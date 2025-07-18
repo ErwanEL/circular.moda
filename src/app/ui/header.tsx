@@ -22,11 +22,18 @@ export default function Header() {
         <Navbar fluid rounded className="!bg-[var(--background)]">
           <NavbarBrand href="/">
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-              circular.moda
+              circul<span className="text-primary-800">ar</span>.moda
             </span>
           </NavbarBrand>
           <div className="flex md:order-2">
-            <Button solid bold variant="primary" size="md" as={Link} href="#">
+            <Button
+              solid
+              bold
+              variant="primary"
+              size="md"
+              as={Link}
+              href="https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda"
+            >
               Vender ahora
             </Button>
             <NavbarToggle />
