@@ -54,7 +54,13 @@ export default function Header() {
             >
               Catalogo de articulos
             </NavbarLink>
-            <NavbarLink href="#" active={pathname === '#'}>
+            <NavbarLink
+              href="https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda"
+              active={
+                pathname ===
+                'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda'
+              }
+            >
               Contact
             </NavbarLink>
           </NavbarCollapse>
