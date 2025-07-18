@@ -4,6 +4,7 @@ import Features from './ui/features';
 import VenderFacil from './ui/vender-facil';
 import { getAllProducts } from './lib/products';
 import ResponsiveCards from './ui/ResponsiveCards';
+import SocialShare from './ui/social-share';
 
 export default async function Home() {
   try {
@@ -20,6 +21,7 @@ export default async function Home() {
           }}
         />
         <ResponsiveCards products={products} />
+        <SocialShare />
         <Cta
           variant="centered"
           content={{
@@ -45,6 +47,7 @@ export default async function Home() {
         <Features />
         <Cta />
         <ResponsiveCards products={[]} />
+        <SocialShare />
         <Cta
           variant="centered"
           content={{
