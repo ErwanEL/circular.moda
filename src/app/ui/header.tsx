@@ -21,7 +21,7 @@ export default function Header() {
       <div className="mx-auto max-w-screen-xl">
         <Navbar fluid rounded className="!bg-[var(--background)]">
           <NavbarBrand href="/">
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="lg:text-1xl self-center text-xl font-semibold whitespace-nowrap sm:text-2xl dark:text-white">
               circul<span className="text-primary-800">ar</span>.moda
             </span>
           </NavbarBrand>
@@ -54,7 +54,13 @@ export default function Header() {
             >
               Catalogo de articulos
             </NavbarLink>
-            <NavbarLink href="#" active={pathname === '#'}>
+            <NavbarLink
+              href="https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda"
+              active={
+                pathname ===
+                'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda'
+              }
+            >
               Contact
             </NavbarLink>
           </NavbarCollapse>

@@ -1,64 +1,28 @@
 import Card from './card';
 import type { ProductCard } from '../lib/helpers';
 
-const staticContent = {
-  heading: 'Productos destacados',
-  cards: [
-    {
-      image: {
-        light:
-          'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg',
-        dark: 'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg',
-        alt: 'Apple iMac',
-      },
-      badge: 'Up to 35% off',
-      title: 'yé, yé',
-      rating: {
-        value: 5.0,
-        count: 455,
-      },
-      price: '$1,699',
-    },
-    {
-      image: {
-        light:
-          'https://flowbite.s3.amazonaws.com/blocks/e-commerce/iphone-light.svg',
-        dark: 'https://flowbite.s3.amazonaws.com/blocks/e-commerce/iphone-dark.svg',
-        alt: 'Apple iPhone',
-      },
-      badge: 'Up to 15% off',
-      title: 'Thats my bus',
-      rating: {
-        value: 4.9,
-        count: 1233,
-      },
-      price: '$1,199',
-    },
-  ],
-  button: {
-    text: 'Show more',
-  },
-};
-
 interface CardsProps {
   products?: ProductCard[];
 }
+
+const fallbackContent = {
+  heading: 'Productos destacados',
+  cards: [],
+};
 
 export default function Cards({ products }: CardsProps) {
   const content =
     products && products.length > 0
       ? { heading: 'Productos destacados', cards: products }
-      : staticContent;
+      : fallbackContent;
 
   return (
-    <section className="py-8 antialiased md:py-12">
-      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-        <div className="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
-          <div>
-            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-              {content.heading}
-            </h2>
-          </div>
+    <section>
+      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:py-16 lg:px-6">
+        <div className="mb-8 max-w-screen-md lg:mb-16">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+            {content.heading}
+          </h2>
         </div>
         <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
           {content.cards.map((cardData, index) => (
