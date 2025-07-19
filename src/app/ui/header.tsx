@@ -33,6 +33,8 @@ export default function Header() {
               size="md"
               as={Link}
               href="https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Vender ahora
             </Button>
@@ -55,11 +57,14 @@ export default function Header() {
               Catalogo de articulos
             </NavbarLink>
             <NavbarLink
-              href="https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda"
+              href="https://wa.me/5491125115030?text=Hola%20Circular.moda%20tengo%20una%20pregunta:"
               active={
                 pathname ===
-                'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda'
+                'https://wa.me/5491125115030?text=Hola%20Circular.moda%20tengo%20una%20pregunta:'
               }
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
             >
               Contact
             </NavbarLink>

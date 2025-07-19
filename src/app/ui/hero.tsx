@@ -59,6 +59,8 @@ export default function Hero({
               size="xl"
               href={content.primaryButton.href}
               variant="primary"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {content.primaryButton.text}
               <svg
