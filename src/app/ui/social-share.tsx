@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card } from 'flowbite-react';
 import { Button } from 'flowbite-react';
 
 const LOGO_SRC = {
@@ -47,9 +46,9 @@ export default function SocialShare({
             placard.
           </p>
         </div>
-        <div className="mt-6 flex flex-row justify-center gap-1 sm:gap-8">
+        <div className="mt-6 flex flex-row justify-center gap-10 sm:gap-7">
           {/* WhatsApp */}
-          <Card className="flex flex-col items-center border-0 bg-transparent shadow-none">
+          <div className="flex flex-col items-center border-0 bg-transparent shadow-none">
             <a
               href={links.whatsapp}
               target="_blank"
@@ -70,9 +69,9 @@ export default function SocialShare({
                 />
               </Button>
             </a>
-          </Card>
+          </div>
           {/* X */}
-          <Card className="flex flex-col items-center border-0 bg-transparent shadow-none">
+          <div className="flex flex-col items-center border-0 bg-transparent shadow-none">
             <a
               href={links.x}
               target="_blank"
@@ -93,9 +92,9 @@ export default function SocialShare({
                 />
               </Button>
             </a>
-          </Card>
+          </div>
           {/* Facebook */}
-          <Card className="flex flex-col items-center border-0 bg-transparent shadow-none">
+          <div className="flex flex-col items-center border-0 bg-transparent shadow-none">
             <a
               href={links.facebook}
               target="_blank"
@@ -116,7 +115,7 @@ export default function SocialShare({
                 />
               </Button>
             </a>
-          </Card>
+          </div>
         </div>
       </div>
     </section>
