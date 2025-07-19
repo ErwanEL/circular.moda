@@ -8,6 +8,7 @@ type ButtonProps = {
   className?: string;
   as?: React.ElementType;
   href?: string;
+  target?: string;
   bold?: boolean;
   solid?: boolean;
 } & React.ComponentPropsWithoutRef<'button'>;

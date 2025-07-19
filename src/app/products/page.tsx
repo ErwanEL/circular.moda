@@ -54,7 +54,7 @@ export default async function ProductsPage() {
               'Contactanos y te ayudamos a encontrar el producto ideal para vos.',
             button: {
               text: 'Contactanos',
-              href: '#',
+              href: 'https://wa.me/5491125115030?text=Hola%20Circular.moda',
             },
           }}
         />
