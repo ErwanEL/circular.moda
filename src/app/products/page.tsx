@@ -18,12 +18,11 @@ export default async function ProductsPage() {
         <section>
           <div className="mx-auto max-w-screen-xl px-4 py-8 text-center lg:py-16">
             <h1 className="mb-4 text-4xl leading-none font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-              Nuestra Colección de Productos
+              Catalogo de articulos
             </h1>
             <p className="mb-8 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48 dark:text-gray-400">
-              Descubrí nuestra cuidada selección de productos de calidad. Cada
-              artículo está elegido a mano para garantizarte la mejor
-              experiencia y valor.
+              Descubrí nuestra selección de productos enviados por miembros de
+              la comunidad Circular.moda
             </p>
           </div>
         </section>
@@ -31,16 +30,6 @@ export default async function ProductsPage() {
         {/* Products Grid */}
         <section className="py-8 antialiased md:py-12">
           <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-            <div className="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
-              <div>
-                <h2 className="mt-3 text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                  Productos Destacados
-                </h2>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Mirá nuestra colección de {products.length} productos
-                </p>
-              </div>
-            </div>
             <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
               {productCards.map((cardData, index) => (
                 <Card key={index} {...cardData} />

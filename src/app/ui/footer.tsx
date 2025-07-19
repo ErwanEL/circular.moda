@@ -31,7 +31,7 @@ export default function Footer() {
           <div className="mb-6 md:mb-0">
             <Link href="/" className="flex items-center">
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                circular.moda
+                circul<span className="text-primary-800">ar</span>.moda
               </span>
             </Link>
           </div>
