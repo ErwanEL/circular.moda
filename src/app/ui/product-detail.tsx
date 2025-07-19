@@ -77,7 +77,7 @@ export default function ProductDetail({
             ) : (
               <div className="flex h-96 w-full items-center justify-center rounded bg-gray-200 dark:bg-gray-700">
                 <span className="text-gray-500 dark:text-gray-400">
-                  No image available
+                  Imagen no disponible
                 </span>
               </div>
             )}
@@ -106,7 +106,7 @@ export default function ProductDetail({
                   href="#"
                   className="text-sm leading-none font-medium text-gray-900 underline hover:no-underline dark:text-white"
                 >
-                  {rating.count} Reviews
+                  {rating.count} Opiniones
                 </a>
               </div>
             </div>
@@ -133,7 +133,7 @@ export default function ProductDetail({
                     d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
                   />
                 </svg>
-                Add to favorites
+                Agregar a favoritos
               </button>
 
               <button
@@ -157,7 +157,7 @@ export default function ProductDetail({
                     d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
                   />
                 </svg>
-                Add to cart
+                Agregar al carrito
               </button>
             </div>
 
@@ -167,7 +167,7 @@ export default function ProductDetail({
               <ul className="space-y-2">
                 {product.Category && (
                   <li>
-                    <strong>Category:</strong> {product.Category}
+                    <strong>Categoría:</strong> {product.Category}
                   </li>
                 )}
                 {product.Color && (
@@ -177,7 +177,7 @@ export default function ProductDetail({
                 )}
                 {product.Size && (
                   <li>
-                    <strong>Size:</strong> {product.Size}
+                    <strong>Talle:</strong> {product.Size}
                   </li>
                 )}
                 {product.StockLevels !== undefined && (
@@ -189,8 +189,9 @@ export default function ProductDetail({
             </div>
 
             <p className="text-gray-500 dark:text-gray-400">
-              Product details and specifications will be displayed here. This is
-              a placeholder for additional product information.
+              Los detalles y especificaciones del producto se mostrarán acá.
+              Este es un espacio reservado para información adicional del
+              producto.
             </p>
           </div>
         </div>

@@ -1,29 +1,29 @@
 import Hero from './ui/hero';
 import Cta from './ui/cta';
 import Features from './ui/features';
-import Cards from './ui/cards';
-import { getAllProducts } from './lib/products';
-import { getFeaturedProducts } from './lib/helpers';
 import VenderFacil from './ui/vender-facil';
+import { getAllProducts } from './lib/products';
+import ResponsiveCards from './ui/ResponsiveCards';
+import SocialShare from './ui/social-share';
+import LeadMagnet from './ui/lead-magnet';
 
 export default async function Home() {
   try {
-    const products = await getAllProducts(); // runs at build time, then every 60 s
-
-    // Get featured products using helper function
-    const productCards = getFeaturedProducts(products, 8);
+    const products = await getAllProducts();
 
     return (
       <main>
         <Hero />
         <Features />
+        <ResponsiveCards products={products} />
+        <LeadMagnet />
         <VenderFacil
           cta={{
             text: 'Empieza a vender',
             href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
           }}
         />
-        <Cards products={productCards} />
+        <SocialShare />
         <Cta
           variant="centered"
           content={{
@@ -43,13 +43,14 @@ export default async function Home() {
     const errorMessage = err instanceof Error ? err.message : String(err);
     console.error('Error loading products:', errorMessage);
 
-    // Fallback to static content if products fail to load
     return (
       <main>
         <Hero />
         <Features />
+        <ResponsiveCards products={[]} />
+        <LeadMagnet />
         <Cta />
-        <Cards />
+        <SocialShare />
         <Cta
           variant="centered"
           content={{

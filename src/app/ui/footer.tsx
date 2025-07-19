@@ -6,7 +6,10 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/como-funciona', label: 'Cómo funciona' },
   { href: '/products', label: 'Catalogo de articulos' },
-  { href: '#', label: 'Contact' },
+  {
+    href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
+    label: 'Contact',
+  },
 ];
 
 // const socialLinks = [

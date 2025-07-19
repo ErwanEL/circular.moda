@@ -13,7 +13,6 @@ export type VenderFacilProps = {
     text: string;
     href: string;
   };
-  className?: string;
 };
 
 const venderFacilSteps = [
@@ -34,13 +33,15 @@ const venderFacilSteps = [
   },
 ];
 
-export default function VenderFacil({ cta, className = '' }: VenderFacilProps) {
+export default function VenderFacil({ cta }: VenderFacilProps) {
   return (
-    <section className={`w-full py-16 ${className}`}>
-      <div className="mx-auto max-w-screen-xl px-4">
-        <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          Vender es fácil
-        </h2>
+    <section>
+      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:py-16 lg:px-6">
+        <div className="mb-8 max-w-screen-md lg:mb-16">
+          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+            Vender es fácil
+          </h2>
+        </div>
         <div className="mb-10 grid grid-cols-1 gap-10 md:grid-cols-3">
           {venderFacilSteps.map((step, i) => (
             <div key={i} className="flex flex-col items-center text-center">
@@ -53,10 +54,12 @@ export default function VenderFacil({ cta, className = '' }: VenderFacilProps) {
                   className="h-full w-full object-cover object-center"
                 />
               </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-700">
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
                 {step.title}
               </h3>
-              <p className="mb-3 text-gray-700">{step.desc}</p>
+              <p className="mb-3 text-gray-500 dark:text-gray-400">
+                {step.desc}
+              </p>
             </div>
           ))}
         </div>

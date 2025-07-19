@@ -33,7 +33,19 @@ export default function Hero({
 
   return (
     <section>
-      <div className="mx-auto grid max-w-screen-xl px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
+      <div className="mx-auto grid h-auto max-w-screen-xl px-4 py-8 lg:h-[500px] lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
+        {/* Mobile Image */}
+        <div className="mb-8 flex justify-center lg:hidden">
+          <div className="relative h-56 w-full max-w-xs">
+            <Image
+              fill={true}
+              objectFit={'cover'}
+              src={content.image.src}
+              alt={content.image.alt}
+              className="rounded-3xl"
+            />
+          </div>
+        </div>
         <div className="mr-auto place-self-center lg:col-span-7">
           <h1 className="mb-4 max-w-2xl text-4xl leading-none font-extrabold tracking-tight md:text-5xl xl:text-6xl dark:text-white">
             {content.heading}
@@ -74,6 +86,7 @@ export default function Hero({
             )}
           </div>
         </div>
+        {/* Desktop Image */}
         <div className="hidden lg:col-span-5 lg:mt-0 lg:flex">
           <div className="h-xl relative w-xl">
             <Image
