@@ -3,7 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa6';
 export default function WhatsappFloat() {
   return (
     <a
-      href="https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda"
+      href="https://wa.me/5491125115030?text=Hola%20Circular.moda%20tengo%20una%20pregunta:"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp"

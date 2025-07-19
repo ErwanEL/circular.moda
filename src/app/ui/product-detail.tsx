@@ -98,6 +98,8 @@ export default function ProductDetail({
                 href={`https://wa.me/5491125115030?text=Hola%20me%20interesa%20esa%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
                 variant="primary"
                 className=""
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Comprar
                 <FaShoppingCart className="ml-2" />
@@ -108,6 +110,8 @@ export default function ProductDetail({
                 href={`https://wa.me/5491125115030?text=Hola%20queria%20mas%20info%20sobre%20esta%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
                 variant="secondary"
                 className="ml-2"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Más info
                 <FaInfoCircle className="ml-2" />
