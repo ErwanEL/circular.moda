@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "flowbite-react patch"
+    "postinstall": "flowbite-react patch",
+    "update-products": "node scripts/update-products.mjs"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
