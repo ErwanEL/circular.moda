@@ -29,7 +29,7 @@ export default function Button({
       pill
       size={size}
       className={clsx(
-        'inline-flex items-center font-medium',
+        'inline-flex items-center font-medium dark:text-gray-900',
         {
           'px-2 py-1 text-xs': size === 'xs',
           'px-3 py-2 text-sm': size === 'sm',

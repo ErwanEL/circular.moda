@@ -88,7 +88,7 @@ export default function ProductDetail({
                 {renderStars(rating.value)}
               </div>
               <p className="text-sm leading-none font-medium text-gray-500 dark:text-gray-400">
-                Calificación del vendedor ({rating.value})
+                Calificación del vendedor
               </p>
             </div>
 
@@ -98,7 +98,7 @@ export default function ProductDetail({
                 size="xl"
                 href={`https://wa.me/5491125115030?text=Hola%20me%20interesa%20esa%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
                 variant="primary"
-                className="text-white dark:text-gray-900"
+                className="dark:text-gray-900"
                 target="_blank"
                 rel="noopener noreferrer"
               >
