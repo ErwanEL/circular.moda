@@ -1,25 +1,11 @@
+#!/usr/bin/env node
+
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import Airtable from 'airtable';
 
-// Strict environment check - only run when explicitly enabled
-if (process.env.FETCH_AIRTABLE_AT_BUILD !== 'true') {
-  console.log(
-    '▶︎ Skip Airtable pull – FETCH_AIRTABLE_AT_BUILD is not set to "true"'
-  );
-  process.exit(0);
-}
-
-// Additional safety check for development environment
-if (
-  process.env.NODE_ENV === 'development' &&
-  process.env.FETCH_AIRTABLE_AT_BUILD !== 'true'
-) {
-  console.log(
-    '🛡️  Development mode detected - skipping Airtable pull for safety'
-  );
-  process.exit(0);
-}
+// This script is for manual product updates - not tied to build process
+console.log('🔄 Manual product update script');
 
 // Validate required environment variables
 const requiredEnvVars = [
@@ -29,7 +15,7 @@ const requiredEnvVars = [
 ];
 for (const envVar of requiredEnvVars) {
   if (!process.env[envVar]) {
-    console.error(`❌ ${envVar} missing – aborting.`);
+    console.error(`❌ ${envVar} missing – please set in .env.local`);
     process.exit(1);
   }
 }
@@ -53,7 +39,6 @@ async function saveCacheInfo(records) {
     lastFetch: new Date().toISOString(),
     recordCount: records.length,
     recordIds: records.map((r) => r.id).sort(),
-    // Store a hash of the data to detect changes
     dataHash: JSON.stringify(records.map((r) => ({ id: r.id, ...r.fields })))
       .length,
   };
@@ -64,9 +49,8 @@ async function saveCacheInfo(records) {
 
 async function hasDataChanged(newRecords) {
   const cacheInfo = await getCacheInfo();
-  if (!cacheInfo) return true; // No cache exists, consider it changed
+  if (!cacheInfo) return true;
 
-  // Quick checks to avoid unnecessary API calls
   if (cacheInfo.recordCount !== newRecords.length) return true;
 
   const newRecordIds = newRecords.map((r) => r.id).sort();
@@ -81,9 +65,9 @@ async function hasDataChanged(newRecords) {
   return false;
 }
 
-// Optimized Airtable fetch with field selection
+// Optimized Airtable fetch
 async function fetchProducts() {
-  console.log('🔄 Fetching products from Airtable...');
+  console.log('📡 Connecting to Airtable...');
 
   const base = new Airtable({ apiKey: process.env.AIRTABLE_TOKEN }).base(
     process.env.AIRTABLE_BASE_ID
@@ -103,53 +87,21 @@ async function fetchProducts() {
     return records;
   } catch (error) {
     console.error('❌ Airtable API error:', error.message);
-
-    // If API fails, try to use existing data if available
-    try {
-      const existingData = await fs.readFile(productsFile, 'utf8');
-      console.log('⚠️  Using existing data due to API error');
-      const products = JSON.parse(existingData);
-      // Convert back to Airtable record format for consistency
-      return products.map((p) => ({
-        id: p.id,
-        fields: {
-          SKU: p.SKU,
-          Price: p.Price,
-          Category: p.Category,
-          Color: p.Color,
-          Size: p.Size,
-          Images: p.Images,
-        },
-      }));
-    } catch {
-      console.error('❌ No existing data available, exiting');
-      process.exit(1);
-    }
+    throw error;
   }
 }
 
 // Main execution
 async function main() {
   try {
-    // Check if we should skip based on cache
-    const cacheInfo = await getCacheInfo();
-    if (cacheInfo) {
-      const lastFetch = new Date(cacheInfo.lastFetch);
-      const hoursSinceLastFetch =
-        (Date.now() - lastFetch.getTime()) / (1000 * 60 * 60);
-
-      // Skip if data was fetched less than 1 hour ago (configurable)
-      const minHoursBetweenFetches = process.env.MIN_HOURS_BETWEEN_FETCHES || 1;
-      if (hoursSinceLastFetch < minHoursBetweenFetches) {
-        console.log(
-          `⏭️  Skipping fetch - data was updated ${hoursSinceLastFetch.toFixed(1)} hours ago (min: ${minHoursBetweenFetches}h)`
-        );
-        process.exit(0);
-      }
-    }
-
-    // Fetch new data
+    // Check if data has changed
     const records = await fetchProducts();
+    const changed = await hasDataChanged(records);
+
+    if (!changed) {
+      console.log('✅ No changes detected - products are up to date');
+      return;
+    }
 
     // Transform records
     const products = records.map((r) => ({
@@ -158,21 +110,15 @@ async function main() {
       ...r.fields,
     }));
 
-    // Check if data actually changed
-    const changed = await hasDataChanged(records);
-    if (!changed) {
-      console.log('✅ No changes detected - skipping file write');
-      process.exit(0);
-    }
-
     // Write data and cache info
     await fs.mkdir(dataDir, { recursive: true });
     await fs.writeFile(productsFile, JSON.stringify(products, null, 2));
     await saveCacheInfo(records);
 
-    console.log(`✅ Updated ${products.length} products (1 API call consumed)`);
+    console.log(`✅ Successfully updated ${products.length} products`);
+    console.log(`📁 Data saved to: ${productsFile}`);
   } catch (error) {
-    console.error('❌ Script error:', error.message);
+    console.error('❌ Update failed:', error.message);
     process.exit(1);
   }
 }

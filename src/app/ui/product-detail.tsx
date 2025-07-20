@@ -9,6 +9,7 @@ import { translateColorToSpanish } from '../lib/helpers';
 type ProductDetailProps = {
   product: {
     SKU: string;
+    'Product Name'?: string;
     Price?: number;
     Category?: string;
     Color?: string;
@@ -71,24 +72,24 @@ export default function ProductDetail({
 
           <div className="mt-6 sm:mt-8 lg:mt-0">
             <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-              {product.SKU}
+              {product['Product Name'] || product.SKU}
             </h1>
 
-            <div className="mt-4 sm:flex sm:items-center sm:gap-4">
+            <div className="mt-4">
               {product.Price !== undefined && (
                 <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
                   ${product.Price}
                 </p>
               )}
+            </div>
 
-              <div className="mt-2 flex items-center gap-2 sm:mt-0">
-                <div className="flex items-center gap-1">
-                  {renderStars(rating.value)}
-                </div>
-                <p className="text-sm leading-none font-medium text-gray-500 dark:text-gray-400">
-                  ({rating.value})
-                </p>
+            <div className="mt-2 flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                {renderStars(rating.value)}
               </div>
+              <p className="text-sm leading-none font-medium text-gray-500 dark:text-gray-400">
+                Calificación del vendedor
+              </p>
             </div>
 
             <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
@@ -97,7 +98,7 @@ export default function ProductDetail({
                 size="xl"
                 href={`https://wa.me/5491125115030?text=Hola%20me%20interesa%20esa%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
                 variant="primary"
-                className=""
+                className="dark:text-gray-900"
                 target="_blank"
                 rel="noopener noreferrer"
               >

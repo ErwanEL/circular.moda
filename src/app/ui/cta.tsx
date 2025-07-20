@@ -36,7 +36,12 @@ export default function Cta({ variant = 'default', content }: CtaProps) {
             </p>
           )}
           {content?.button && (
-            <Button variant="primary" href={content.button.href} size="xl">
+            <Button
+              variant="primary"
+              href={content.button.href}
+              size="xl"
+              className="dark:text-gray-900"
+            >
               {content.button.text}
               <svg
                 className="-mr-1 ml-2 h-5 w-5"
