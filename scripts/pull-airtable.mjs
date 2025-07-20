@@ -10,6 +10,17 @@ if (process.env.FETCH_AIRTABLE_AT_BUILD !== 'true') {
   process.exit(0);
 }
 
+// Additional safety check for development environment
+if (
+  process.env.NODE_ENV === 'development' &&
+  process.env.FETCH_AIRTABLE_AT_BUILD !== 'true'
+) {
+  console.log(
+    '🛡️  Development mode detected - skipping Airtable pull for safety'
+  );
+  process.exit(0);
+}
+
 // Validate required environment variables
 const requiredEnvVars = [
   'AIRTABLE_TOKEN',
@@ -78,14 +89,13 @@ async function fetchProducts() {
     process.env.AIRTABLE_BASE_ID
   );
 
-  // Only fetch fields we actually use to minimize data transfer
-  const fields = ['SKU', 'Price', 'Category', 'Color', 'Size', 'Images'];
-
+  // Fetch all fields to ensure we get the primary field
+  // Note: Airtable automatically includes the primary field when no fields are specified
   try {
     const records = await base(process.env.AIRTABLE_TABLE_NAME)
       .select({
         view: 'Grid view',
-        fields: fields, // Only fetch needed fields
+        // Don't specify fields to get all fields including primary field
       })
       .all();
 

@@ -30,10 +30,10 @@ export function transformProductsToCards(products: Product[]): ProductCard[] {
       dark:
         product.Images?.[0]?.url ||
         'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg',
-      alt: product.SKU,
+      alt: product['Product Name'] || `Product ${product.SKU}`,
     },
     badge: product.Category || 'Available',
-    title: product.SKU,
+    title: product['Product Name'] || `Product ${product.SKU}`,
     rating: {
       value: 5.0,
       count: Math.floor(Math.random() * 500) + 50, // Random rating count for demo
