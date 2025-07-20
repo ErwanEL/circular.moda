@@ -73,14 +73,13 @@ async function fetchProducts() {
     process.env.AIRTABLE_BASE_ID
   );
 
-  // Only fetch fields we actually use
-  const fields = ['SKU', 'Price', 'Category', 'Color', 'Size', 'Images'];
-
+  // Fetch all fields to ensure we get the primary field
+  // Note: Airtable automatically includes the primary field when no fields are specified
   try {
     const records = await base(process.env.AIRTABLE_TABLE_NAME)
       .select({
         view: 'Grid view',
-        fields: fields,
+        // Don't specify fields to get all fields including primary field
       })
       .all();
 

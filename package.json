@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "flowbite-react patch",
-    "update-products": "node scripts/update-products.mjs"
+    "update-products": "node scripts/update-products.mjs",
+    "build:safe": "FETCH_AIRTABLE_AT_BUILD=false next build",
+    "check-api": "node scripts/check-api-usage.mjs"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",

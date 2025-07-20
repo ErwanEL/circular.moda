@@ -2,9 +2,11 @@
   {
     "id": "recHIuZvDaDkffM9H",
     "slug": "1",
+    "Product Name": "Wireless Mouse",
     "SKU": 1,
     "Price": 25.99,
     "Category": "Clothing",
+    "Stock Levels": 150,
     "Color": "Gray",
     "Images": [
       {
@@ -38,9 +40,11 @@
   {
     "id": "recHuxepmegXzat3F",
     "slug": "2",
+    "Product Name": "Organic Green Tea",
     "SKU": 2,
     "Price": 12.5,
     "Category": "Clothing",
+    "Stock Levels": 200,
     "Color": "Green",
     "Images": [
       {
@@ -74,9 +78,11 @@
   {
     "id": "rec6HyDTWMVE1NBOp",
     "slug": "3",
+    "Product Name": "Bluetooth Headphones",
     "SKU": 3,
     "Price": 85.75,
     "Category": "Clothing",
+    "Stock Levels": 75,
     "Color": "Black",
     "Images": [
       {
@@ -110,9 +116,11 @@
   {
     "id": "rec6QnJu2HsH1Fk8F",
     "slug": "4",
+    "Product Name": "LED Desk Lamp",
     "SKU": 4,
     "Price": 45,
     "Category": "Clothing",
+    "Stock Levels": 40,
     "Color": "White",
     "Images": [
       {
@@ -146,9 +154,11 @@
   {
     "id": "recsHk0qj230gDwhS",
     "slug": "5",
+    "Product Name": "Men's T-Shirt",
     "SKU": 5,
     "Price": 19.99,
     "Category": "Clothing",
+    "Stock Levels": 120,
     "Color": "Blue",
     "Size": "M",
     "Images": [
@@ -183,9 +193,11 @@
   {
     "id": "reckkleDsjmyb5vl5",
     "slug": "6",
+    "Product Name": "Women's Jeans",
     "SKU": 6,
     "Price": 49.99,
     "Category": "Clothing",
+    "Stock Levels": 80,
     "Color": "Black",
     "Size": "L",
     "Images": [
@@ -220,9 +232,11 @@
   {
     "id": "recIi8fSUaIRDMgVC",
     "slug": "7",
+    "Product Name": "Unisex Hoodie",
     "SKU": 7,
     "Price": 39.99,
     "Category": "Clothing",
+    "Stock Levels": 60,
     "Color": "Gray",
     "Size": "XL",
     "Images": [
@@ -257,9 +271,11 @@
   {
     "id": "recGXAzxCFvT3oZWe",
     "slug": "8",
+    "Product Name": "Children's Jacket",
     "SKU": 8,
     "Price": 29.99,
     "Category": "Clothing",
+    "Stock Levels": 45,
     "Color": "Red",
     "Size": "S",
     "Images": [
@@ -294,18 +310,25 @@
   {
     "id": "recVxY5ZWoj1bXYP5",
     "slug": "9",
+    "Product Name": "Summer Dress",
     "SKU": 9,
     "Price": 34.99,
     "Category": "Clothing",
+    "Stock Levels": 70,
     "Color": "Pink",
-    "Size": "M"
+    "Size": "M",
+    "User ID": [
+      "rec0gy6Co0nFRihUa"
+    ]
   },
   {
     "id": "recC0xzulwLsbOFcs",
     "slug": "10",
+    "Product Name": "Top primavera",
     "SKU": 10,
     "Price": 20000,
     "Category": "Clothing",
+    "Stock Levels": 1,
     "Color": "Green",
     "Size": "M",
     "Images": [
@@ -340,9 +363,11 @@
   {
     "id": "recYEq8hvP4o0dqJO",
     "slug": "11",
+    "Product Name": "Camisa con bordados",
     "SKU": 11,
     "Price": 18000,
     "Category": "Clothing",
+    "Stock Levels": 1,
     "Color": "White",
     "Size": "L",
     "Images": [
@@ -377,6 +402,7 @@
   {
     "id": "rec93sCWfagzVmbzl",
     "slug": "12",
+    "Product Name": "Crop top verde de Zara",
     "SKU": 12,
     "Price": 17000,
     "Category": "Clothing",
@@ -414,6 +440,7 @@
   {
     "id": "recsUOChxdVIVEf1x",
     "slug": "13",
+    "Product Name": "Short lila mujer",
     "SKU": 13,
     "Price": 33000,
     "Color": "Purple",
@@ -450,6 +477,7 @@
   {
     "id": "recYQ6t0yFUlTDZvF",
     "slug": "14",
+    "Product Name": "Body con cuello alto",
     "SKU": 14,
     "Price": 22000,
     "Color": "Black",
@@ -486,6 +514,7 @@
   {
     "id": "recRZIrM1P3lmHTRB",
     "slug": "15",
+    "Product Name": "Blusa blanco/azul",
     "SKU": 15,
     "Price": 29000,
     "Color": "Blue",
@@ -522,6 +551,7 @@
   {
     "id": "recHDL8cMBGNuiuda",
     "slug": "16",
+    "Product Name": "Shortcito de jean Bershka",
     "SKU": 16,
     "Price": 34000,
     "Color": "Blue",
@@ -558,6 +588,7 @@
   {
     "id": "rec5z7dzIa4cuyGyA",
     "slug": "17",
+    "Product Name": "Vestido marrón",
     "SKU": 17,
     "Price": 39000,
     "Color": "Brown",
@@ -594,6 +625,7 @@
   {
     "id": "recRKYemAR8zXQSkB",
     "slug": "18",
+    "Product Name": "Top ",
     "SKU": 18,
     "Price": 20000,
     "Color": "Yellow",
