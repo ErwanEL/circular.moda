@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
+import { GoogleAnalytics } from '@next/third-parties/google';
+
 import './globals.css';
 
 import Header from './ui/header';
@@ -37,6 +39,7 @@ export default function RootLayout({
         <WhatsappFloat />
         <Footer />
         <Script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></Script>
+        <GoogleAnalytics gaId="G-WB8MV5JN0Q" />
       </body>
     </html>
   );
