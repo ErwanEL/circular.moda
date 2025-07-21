@@ -1,3 +1,5 @@
+import Button from './button'; // Import your custom Button component
+
 type CtaProps = {
   variant?: 'default' | 'centered';
   content?: {
@@ -14,17 +16,17 @@ export default function Cta({ variant = 'default', content }: CtaProps) {
   const isCentered = variant === 'centered';
 
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section>
       <div
-        className={`gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl ${
+        className={`mx-auto grid max-w-screen-xl items-center justify-center gap-8 px-4 py-8 lg:py-16 ${
           isCentered
-            ? 'text-center flex flex-col items-center'
-            : 'xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6'
+            ? 'text-center'
+            : 'sm:py-16 md:grid md:grid-cols-2 lg:px-6 xl:gap-16'
         }`}
       >
         <div className={`${isCentered ? 'max-w-2xl' : 'mt-4 md:mt-0'}`}>
           {content?.heading && (
-            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+            <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
               {content.heading}
             </h2>
           )}
@@ -34,13 +36,15 @@ export default function Cta({ variant = 'default', content }: CtaProps) {
             </p>
           )}
           {content?.button && (
-            <a
+            <Button
+              variant="primary"
               href={content.button.href}
-              className="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900"
+              size="xl"
+              className="dark:text-gray-900"
             >
               {content.button.text}
               <svg
-                className="ml-2 -mr-1 w-5 h-5"
+                className="-mr-1 ml-2 h-5 w-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +55,7 @@ export default function Cta({ variant = 'default', content }: CtaProps) {
                   clipRule="evenodd"
                 ></path>
               </svg>
-            </a>
+            </Button>
           )}
         </div>
       </div>

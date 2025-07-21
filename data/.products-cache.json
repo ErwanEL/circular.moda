@@ -1,0 +1,665 @@
+{
+  "data": [
+    {
+      "id": "recHIuZvDaDkffM9H",
+      "slug": "1",
+      "Product Name": "Wireless Mouse",
+      "SKU": 1,
+      "Price": 25.99,
+      "Category": "Clothing",
+      "Stock Levels": 150,
+      "Color": "Gray",
+      "Images": [
+        {
+          "id": "att2JD2BM14ZMJDXL",
+          "width": 1024,
+          "height": 1024,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/r3uUrODhZrKiVgweBEMdBg/fKgQS0M_gzclVJgrfFVZmEnT7aS5CaNJHdZHSMDHAytcLydPkAFMPJ3ZrwZZnjskDGuslPR3jYnjYT4rLvWKPwCuHwaeFLi_BrEpCx0oocVcJT5LFfeOeZApOZziECZOhmy98AEtsXiEHGyWI1fJCab2EXZKR6Wcy8Wm-BtNQ9t-HSKCnBEqKPAXixTw7kb4pmp2uSWeo4dvZKhxervwbW7Y5OFeKBfTJDETpx6pv8EjvBHvnjE3X1qZhLi9y6B0/8TB-Ir-Xc76flhkjbRvPPcdgoGlSt1OG6AEQJwSqL-c",
+          "filename": "20250714_1530_Vintage Tee Flatlay_simple_compose_01k040xa4mecv8z5pdzvsbp885.png",
+          "size": 1803677,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/DFbVZCCttcPK2_kbKwICYw/u8_NOXczZZlLLzg1Q5h27ppmWPqjS7Eiob2wySl3U895VJCemk2pX7T8R9hOj6qrWBOUn1jT9hl_CJMrAVW6KnHQYO7OCuk7YleMoAMBLIKecZ8l9DrB9dJEAwBWC14y0Hk-YDvil2Fv8vY4lSmaTQ/5AH2DltiI74OMd5JRLkjA4zJil2ogEJ_w99GLdRkF6c",
+              "width": 36,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/S2ajuqB-BF1vUtFBKHusYg/ijlk_AUOmCiwhpcIzLwlbFByfhaif4lEAbbu-PgbLuexI70Rbg1aKaYz7dPAd_-bCQVvTbX5l4PZJNPSNBvrAMgRN4v_hifhUUaN9xDtPh69_Y0i_uJagrflAWPru__nJmjrty2hZ9OteKnOF8jajA/Dz-4QkJPNI-zCQeBuSDO28l3qnYrat9A-llzfSsycYE",
+              "width": 512,
+              "height": 512
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/VE5AFz36yTOma0sa7jVApg/uColosciR1WA_fx168pTXj7dsHcFgjH0zJLaXWk7lKKHQVR0wCDWHQyBjLyLEt9GY0_vezHAgf88N-hNvcCsqqJ1xQuImZUF0rBa-E_VVXZRga0OmcPwSABtgSTWy8FAayCblkGDND1jXnyoFMz2UQ/7kg0Xu4MXnCQqJxGhsYp2idC-MvO5JeBIJkFKVjUNBw",
+              "width": 1024,
+              "height": 1024
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recHuxepmegXzat3F",
+      "slug": "2",
+      "Product Name": "Organic Green Tea",
+      "SKU": 2,
+      "Price": 12.5,
+      "Category": "Clothing",
+      "Stock Levels": 200,
+      "Color": "Green",
+      "Images": [
+        {
+          "id": "attOlh8rj9FGV7rGz",
+          "width": 1024,
+          "height": 1024,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/AYoZIKAb3Z6ITwkA0wN4IA/I7cW-iMSd0o4ljJ8sWLgEj8rssG4UVq7y9r0E2RBxqykt_i3BeksHl8l3BBheg_BjGL3wRLYpVryi5iS4M7nBG3dI5zWxfgKFfZaTwu-FP3Rc1JADbhgoXOACVBmYPAKC2gGO_5juSIMnPlv7MG-0xSJGbTB1SDL4XpDUTjFZbLBE1FRSSuCMgb8rjPXPbNU64w9_1V_McAXj1e--HgLSdxn7S9YNYMTRuxfUKvUsev0T8XhnzuaRjj7oehhDNvc/crezU3nEK3jiVRtnXrrJiaOApHq_0hEnEvKsOhtLKKc",
+          "filename": "20250714_1531_Casual Bedroom Vibe_simple_compose_01k040yt1eedjb3gcata001bwr.png",
+          "size": 1621849,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/hynZI8AsH9uWVN38eSBlOg/5RSxulECJN7ZqlLOEEQ1OYuwKlSipPuny3U8MnimeH1lyBffSJDKkX3LBcy7A2F7gfvMUazu9bXDC6wBir2xVQK8ctL12h3Qz6fdcKF7bDhUeKOKFBsndRSkmMp1jwt--jUms4O1hQWrLxp1ZmJqkw/A1wVUsZRlM_UP4IL8VzH7gRD0JoE97KeZfO4chUgtr8",
+              "width": 36,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/Y4BbS8FDK0qA0orvlY4urA/c1mGRCw4J3JuOECw1qq2Uk-pZibD2tQmuMK17HtO8dFfBLcteaKScO5A4XCj5BtE3n1qlzHctMKUt-owgr2S6_baLvzdMXVwCQiczGeqQPz-t_x4RIy1hgQusOzmrtAOIGSjVjigWJdUErIEXO1MZg/uLf4jmn6Id768QB-087PKegOiW70fnDvfa_r_NIfYi0",
+              "width": 512,
+              "height": 512
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/EyoqyzRf5Y6AbDikJqPAPw/E-ChpmN2mscgSY-g9kKBSbTSJh4Dp6QvpmKW1ieTKwZS_OQY2ljAd8yruPtVlcS5ClMR29bzp4LFAQQBZu2nWRruhxLqE-Dr8-MKC4HqdH2N85CgrFrt55wsmbCoer9vRnSIj9Q9Am0pnZJ-HxoF_Q/CmwNuqv3_FzKqvtg_pmLStE1GPHQvyq10juSxv20ThE",
+              "width": 1024,
+              "height": 1024
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rec6HyDTWMVE1NBOp",
+      "slug": "3",
+      "Product Name": "Bluetooth Headphones",
+      "SKU": 3,
+      "Price": 85.75,
+      "Category": "Clothing",
+      "Stock Levels": 75,
+      "Color": "Black",
+      "Images": [
+        {
+          "id": "attKLI6MJCqqDUkSS",
+          "width": 1024,
+          "height": 1024,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/xaNe9po76hsYMrDGWADTMQ/ZkZwzZBMK7Qvec4qswVSVQBIrug9CxQHyGjQqTzs243_qp15riZJmuaXFswi1TDyBYZAjQYUsx-tmQhS8b87kcNTWAxK1L29UnFrAd7KiNW40sZzYjSxNpKcSwEHZFzDsWt1xRNlO1CIDzqSsDyphEMuXqSS5oI_9d1J2bffG1zwTgN1FBCN6GdqlyxEyLoUhwOKZ50qw4Eh58aP0cqh5hZxRpCADiQescTdvRyxBBQgMbB_eBPGRArnbItI1AR0/d2qKqDN-Kn2Wm-bv9BU4v4YPvGP11bsE3imNyWT3jt4",
+          "filename": "20250714_1533_Vintage Leather Bag Display_simple_compose_01k0411j5ff0ht9j5c6pyyzhqw.png",
+          "size": 1950398,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/Kb6wdpno9pl-3Dtq1sLSUQ/ecFCiQYkbjGNsMmFJVcE_H2sozkj_VW_W-qXFLV7psmIAiZ4j25xTKfXYayfpDn4qFBHKjtRt1xqPHk5sCxxWKCstvxm4zdeEzT1RCnzzHV0beOtxu5aRZBItc4FX4uXP7IVzW8TOvwG6sr7FqzKsQ/BTUK_qNqk_f-yH2PxyLDby5tKcGd50ix2WoygErKMcg",
+              "width": 36,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/Uf_4Fq8-dF8H9ihJDNlgew/04iaZWzzv5rQPK3rsHXmlAAedFEy7AQgKGtqYRt8Ikn-XUENkoVuOTHDm2hPY9uRUrNnyUTAjc2pCDT8l3sFdOzp4fALxHwKuajx2sW-fuwQwN2-k-x4MfFW_scHEwfGaFUQDUMMNSlH0d3ZZ7joeg/c_izpdK3-SegZYvtpC4ctlIGyOuYKa0Cgt4quIX4Iig",
+              "width": 512,
+              "height": 512
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/eMZxLrIlvCtyGW8zvwYAQQ/prvVQbjd9pUX2Qyy_dz3LT81oHeCVR6-XgqwIei5zJbIdVs41IXNFAn1QX8hc6wp4pbwFxLGeRojjO8s67GSFZ0yS4eEKwEQDlmupBVh1kNshdR3BzovY1DS5suVRmFKpdtqRSzV_u0aS-iCVMMZVQ/zII2s7TR1lZWOOEtLS2ygwol1JPbXz532YSFOIAi3GE",
+              "width": 1024,
+              "height": 1024
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rec6QnJu2HsH1Fk8F",
+      "slug": "4",
+      "Product Name": "LED Desk Lamp",
+      "SKU": 4,
+      "Price": 45,
+      "Category": "Clothing",
+      "Stock Levels": 40,
+      "Color": "White",
+      "Images": [
+        {
+          "id": "attB49J5qH4ALr6qr",
+          "width": 1024,
+          "height": 1024,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/Pec6BKyr4ALZ_gvGYLIbFw/GQBtYdy4ym2JusoJqtmCgCWPMEBgGer4FnfuvPfolkp-YSyCmHy_nBZsMpBLurYNc32W0GvhrsjSW_DhMnEocBRAlkQ64Jt4hwLMYD84oqdw5-iPEQFJNCtKxFHxlQKwf2jNpTdL5HI1ICbZ7j_GR0N7EJaJg2FQlVN5ClBIUCKbhU1HGpxjFV9qHn45SQSol0PHhAY0PdJtO2p1lniSm3buXTsU_9hryIoR8LNC16mqtnvEl8vg838hBYX_XvGE/1Wd-kQ5UWPtPnsFPDNmV0UCkKq1HsCh3E-f1_kuPRyY",
+          "filename": "20250714_1533_Retro Scarf Sunlit_simple_compose_01k0411db9eb3s7fpv3mr7sdxb.png",
+          "size": 2050055,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/pcRP4wn7TdvdgnnzHMlT3A/29XtLop20wAEZcLDgjBaZ8MzeYVY8y9wrwWUvGN42UA-s2oWUd-eIO6yMjJF9mASTgm-iDxLEcWoq87NDZgQQ29g8ScdYt_EuYVtYW7zfHfw52OdEVRpDUpgjYHDEtlWZumdgUkR0c7ruU0wG1iMNQ/tUgaHMTT6M4XnMnemavHCRDEOmcwQRidqNIHUNgmAl0",
+              "width": 36,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/-XuVxyB8UNqIfTJ2dWA2LA/62F_0zMHJLtCKWb-t8T6HTPxapFmsz2mCAu6tuGGYTBOmDzcmfXvCoanKR1QnFCfd4mfZbB4jssHVw_EtCyxGY3NjNF9PAApj1l4RIqzoROVouChZfyRfm0ea7z-2grrV2MdkMxuvb4I_sRYO8nQSQ/zolPmiw0rf8SYEwIxwN6_LB26ap_o823Akr51czVcBI",
+              "width": 512,
+              "height": 512
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/pYJ5rkAkpfnaakKYruLsAg/wL-qE-fwoukLPyCO9-e3PhpxjtnSGCh2B37cU_iAVXrdcqKVOX0fg8pkKcAXCW9UBuUWm3CVJd72nj4Dqf3qG4Au97scGYWY2wF6KeundjBS5Ezg-hj1Au95Lc4_cNQ8g2JV4q4lQsR0tORYhrfnsg/1kbMPncqCZsMsMNWgeuavkZlalZDmI2pkHgyLPrEkDA",
+              "width": 1024,
+              "height": 1024
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recsHk0qj230gDwhS",
+      "slug": "5",
+      "Product Name": "Men's T-Shirt",
+      "SKU": 5,
+      "Price": 19.99,
+      "Category": "Clothing",
+      "Stock Levels": 120,
+      "Color": "Blue",
+      "Size": "M",
+      "Images": [
+        {
+          "id": "att6sFL46sg4PT0fK",
+          "width": 1024,
+          "height": 1024,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/gWwL4SHmxBcsqhQAhMMNYQ/BECE1wozA4hZ50FyA0_nXYCK5b28XFUBVfnf4Sh8sM6evE4BTbB-rC3aECwSgTxiXiEPujnNJp8-5tdSQdpjcpfZ2NxilKQUDQ1jhMa8EwcXZegOg9cfxje487L-S58glfSdd9Nx0yFlTX5DhoP5OhDKha3nVA6DP6eO2LHazetXuzT4n34R70NDymsAWrHPv0MKmC8c0R2zM_u0_DA5xtby3SUelxslk4sgNHBudgFv6g3VChZfPV92Wti9cAmM/A-PLNhUIk0is2pfzgi9RjO6hjaA8b_vx-6C6sRbF49M",
+          "filename": "20250714_1523_90s Graphic T-Shirts_simple_compose_01k040dgp1e3brr7zst4pf6c30.png",
+          "size": 2242840,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/W9qnJBhgvhWG7FSY_V4zqg/7dWM9AfEyR2cFV2x-NuoeKJefPuWl-zm-RF8OP0bPNhfPj3RYV__onJ5LCHk-RtDj5XDG9dHZLqZIsSfGM8DIAvr9okNS7JbqQuDN4AROqILQ-YgMy6m5O9HDzp0OlGGfP3eIoNQtgk2X_7HArHHhQ/ykt02eYz9gEAA9N7eZz8_2w3v7dv4YNlukKvCiQeiEc",
+              "width": 36,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/emTni8krva_avDElG99EnQ/6KWxLVQJPvVQgSb5bw_e-wSdT9VRJC__8GWDDwXcFhuw035QYT3WW5d2Tn0yqJyjbziMU0eKO8rhP09XVe8SZT0AeYSNpd0hJJlC9nx7m9a3NR02uKD5Nv2X1qkxSwdvzjye7VeFH3iMo9JD9LdtbA/pMldxibwZ6xrAQM5J7Tu2Ftur8TZyBwGE2nRlW8M8nk",
+              "width": 512,
+              "height": 512
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/O_I8sBZ1Vkbg2hP8IxvN6w/8O5D4TXXxByX-jMbeCktpneZ1KQu9tvW8VkVdjT40GQijRRjKJPH3b4iIxRvCf6OR2Y72SCjyNs4MnEZeXWAG_px4WGG-G00y1R1MysvDtPaDxTFm9QQNn5pj5DdQlFlQSd0OoFSslUvfy9kZMQgDA/29h44qwsbuRxZMDRJPr7kLSlkpR7P3vcgwjJ4BDN814",
+              "width": 1024,
+              "height": 1024
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "reckkleDsjmyb5vl5",
+      "slug": "6",
+      "Product Name": "Women's Jeans",
+      "SKU": 6,
+      "Price": 49.99,
+      "Category": "Clothing",
+      "Stock Levels": 80,
+      "Color": "Black",
+      "Size": "L",
+      "Images": [
+        {
+          "id": "attwEk10AApMvpeCW",
+          "width": 1536,
+          "height": 1024,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/dvYJSdl0CvjPCKiLz7fsiQ/bijAHVi69jewkGgUNsDkI16Pad3CpnaBJ0itc6Uf5Gpby-LcCIMY08ewH4K29-LJI00l3qjjSZu7Gh9if924vcAUOFQMpIsRw0bkMC0U6XMp9Xkn5xbfaEp9FhdT61gmFetRVTbvQt_k_bFku-YUBg/_3JUbo1ek9bZXIGdnuBhEbYNmivIvbl7P5_ADg2RyTU",
+          "filename": "jean.png",
+          "size": 2642667,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/K4VXC2FFu_qrbbPfBjiIfw/-KHn20Bf2_foSLT5_Fyaj2zzaQci9zNSJwZsD5q0KGVtBs2RJLyJbG9o01NrALBfG9yVfrfjlh1E4ZrPzFcJNv_vl9shI2-ZBdXdcPcSGSDPRVdzFTx77yEvj6CZrZvjfJVzVS9mIhiDTHtbp7EHaA/Fn-4pAOx8HcdLKGxCTtshHcxVXCbGzJKws0TqJrSSEI",
+              "width": 54,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/-CMr7bLtJUSDNdzoxM9PDg/L5vzTJMRFxiUgoX-S-JJNpOvY3QRZ_WVbiWIACP8NcY2RJFhBjjqSdnPED_6ezV3LD9k4a3xI1C1ppc3l8uyz1jm5anlcbWLgF1ywf3j6TbK6MrJ1d6XJdkEA-w-zWWKpox2-Pjm2OuPgkiCMBfSOQ/D8wKxlTAUqWETSULYFiVZYUNSG5VHy-632B685VIPus",
+              "width": 768,
+              "height": 512
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/jej3gnKIMm4yvky_aowkXw/RZ2YNGEvD0VR-5uBhwpglG21NKdVGDKa9sOQRC0K5R6OoWl_KEKBGGhh_tJETYENVrBm88zmwu89XBqCuesO1hUbAHU4bh1kvdcJDLGARsYTOCxWYaKrGWQA-P1PJziKK3EAjhgaZMcmgiazQps8aA/pS0AyOsVOIwcX1KcFvJBVayuxpBzNe8hoJI9KgSkEBU",
+              "width": 1536,
+              "height": 1024
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recIi8fSUaIRDMgVC",
+      "slug": "7",
+      "Product Name": "Unisex Hoodie",
+      "SKU": 7,
+      "Price": 39.99,
+      "Category": "Clothing",
+      "Stock Levels": 60,
+      "Color": "Gray",
+      "Size": "XL",
+      "Images": [
+        {
+          "id": "att7YUsqGtObCdfOU",
+          "width": 1024,
+          "height": 1024,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/y5SCAdn_dgP-O09G3wIYhg/_uv0RmE_uE-kkTfMnZJV3Jcwp5S6jmJVeWf9oZkg1dLmD2-lwnsXtx9S_E_ENDLO7pTq32Oql-aJ1Y8OPCRFO1qKDBbZbiCekO0nrPp0n_SS2IU1JcOswJ5W3p7wR2EkGUxeQC6g8XvPfcMxnbwEzonSeRS-_IeZwjIlEpcuUEQJHSkr9s0VscFLGSW1s1IfgGz2p_dtBqLt9Di2gOerEZoBkxIyjkigVtrcE1xRjuqupOIK7NSpQ6wTRPW5HxMU/nCKFWKi_FU2reKTsIxNd0Q70fggoK1k2IDfROYVRXDM",
+          "filename": "20250714_1525_Vintage Sweater Textures_simple_compose_01k040kdjje6s8wbt29zrpk523.png",
+          "size": 2182141,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/fkt8bRs-AsvM6Z5mLNyekA/-hVBhuCGG_e-oRk5RHUeDStSRzwwtOHckLiJGjS0RQ3iCdDV0fgRHDgxHnDYwEE8egEiVjQIerEr0hMb7LOf2VgvywzzZ48mP9jhON4lIul9MsBRBtFmryd6whc-9x8iplSsBB4s4lE33LVhyU28IQ/1OBH5A-PTnftfUPn8Z8mLwjbsxnn3hEB6oiNhm23WvU",
+              "width": 36,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/HL8adwb3J8bTKz1OFPdw7w/c-B0BLdxxOj3MojPwL05xPuHOToDhUHCrOJzncqTOUOXZ8W9llrcuCWMz3rHIXxsuqZ22Op0w-qtlPH5cv7bSynKyLSqbKSQxlcYVHMTt5cPM--IcxFaVIfuzUayLpz6o14ySTKiA0FtU-Bfm-zqSg/von8ZTZgeaACT46yhCdZLOI5LYfi1ars1rXrKiMlvVk",
+              "width": 512,
+              "height": 512
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/3VmNZVGE-XCOdMCM-icshQ/v0m_78OTBtNC8c6C9Zk3aQsqD9IKMcDrFkQba8MewuV52dZmHZneb7M7b6PReeuF5aO83TZc3UrnE0w6EjwLLZtjV6TIlmPvL_-xK7KZuSM_kil5WoMgzdC8-0et9zLOTt25ybw2f21G9dykCLdPrQ/O_GN3J_ib7_gDDZlN7-QhgDJNXdGJheJeUMQ9RNKJsI",
+              "width": 1024,
+              "height": 1024
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recGXAzxCFvT3oZWe",
+      "slug": "8",
+      "Product Name": "Children's Jacket",
+      "SKU": 8,
+      "Price": 29.99,
+      "Category": "Clothing",
+      "Stock Levels": 45,
+      "Color": "Red",
+      "Size": "S",
+      "Images": [
+        {
+          "id": "attczp7wYmpOk1kgx",
+          "width": 1024,
+          "height": 1024,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/5q1Lt2z_J7UzqIBwLdl53Q/_BDc-ompBir6chWd6KFbrwAuVd_CDyn9HxFs5pPVuFReJ6r4avDVSieIosKPbNol2ymJYsFbAV7jf4pWWckFWALdRtkBeUKnFwAGnmfck_cmhQWJdp1y_5q4BEMuUUZ2rMtpYZsiSF7kkSDNRRjuuI3ETgYor2OxQqqh0p2A8Pubb0pA0qbICeuGbvgHvBNdhoi5ad5DYRHFky3aKKTaTELlVUCi-GzHaqSB_pmY0TYxfTFiZ8LomYncKD-VFGXJ/wPKto2p_rgf3LMbG2j9lLUorXbEylEAez3bAtN7LauQ",
+          "filename": "20250714_1522_Vintage Jacket Display_simple_compose_01k040d7nmf1a9x3rt1dscqazm.png",
+          "size": 2082424,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/mKgSuTI758i52Cjp7FutFA/QG398mCEC4vNO5lklkMcNM21XYNlV7RbNs9MUjojSKG_s4dgsttNNS4t021zHaBrfcEl-qwIUreX9t6pFxNYrJ98KjmNMJOaQTU4HhVmha3V9w2NsZDh5cHZN_Cbi91FdXC-C_9jeYXPyS6wZUGPOw/9vXyLq6OmVWxPNj8Nn68MnoYRIXavHRsVyH4YS-VK7I",
+              "width": 36,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/gDq1ir3RuAiBe9kcvXlDbw/ixqlzAWgRDfaQwn8XxXMPD-5r5RY5HjXHv6pjFtl-jeum758jsQ3v2fP5q6SVt-us2IikmY8mBrriWl0vCZhtN230tBJTygl4bFGjDYG80pyp9lRv9A4tht9JoNPjSwelVJGwgW8EzHleUB5jOsvvA/KfaheNc1G3lYJg70S5tUpWGq7jIWg1jj_EalZ9ck_pk",
+              "width": 512,
+              "height": 512
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/MI5iC7GAtgs7G6dHWLEteg/XiLoM9oCqNPLJ31I1yFEeq0sVSCrCBBogo6RWN5wWgSnAm2tnp5LetBXP9iBt2gamqY1FNbRIaCYdxQap3ydPl22azf3--faj360GSMDiIZhMtsOw04ookl2t6uVVF2v9naihsKScfYVDtbSAdknFA/kWWNfsBPV9bQ-qhq9CAGK8EoVuYRbmnjdiM0xFIk0j8",
+              "width": 1024,
+              "height": 1024
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recVxY5ZWoj1bXYP5",
+      "slug": "9",
+      "Product Name": "Summer Dress",
+      "SKU": 9,
+      "Price": 34.99,
+      "Category": "Clothing",
+      "Stock Levels": 70,
+      "Color": "Pink",
+      "Size": "M",
+      "User ID": [
+        "rec0gy6Co0nFRihUa"
+      ]
+    },
+    {
+      "id": "recC0xzulwLsbOFcs",
+      "slug": "10",
+      "Product Name": "Top primavera",
+      "SKU": 10,
+      "Price": 20000,
+      "Category": "Clothing",
+      "Stock Levels": 1,
+      "Color": "Green",
+      "Size": "M",
+      "Images": [
+        {
+          "id": "att6ElzjekGIm6x1C",
+          "width": 600,
+          "height": 800,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/Fl6xVRcwhAeLafdvS0xHtg/VCmnQvF2h5JySFAjoh02yUgNcf4p_57341XIi74O_eOKzWTuPySet9xQgFa0KujJBkZUKoNTMJZYMSDtMyMSqmK8PYm7va2wbbRh43a6b0GGVOaBJC0ybYLwEn1-PCqCpG-9159uXOZTAbjk-ybO8w/vpSiOgfQjanw_RnPze2E3B1TWvrR3UfrztgzvgMc7Z4",
+          "filename": "image.png",
+          "size": 785745,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/7qKMBjCXyjSDzmSiIMqHwA/paFG775lZ06uN0ZTdsQ4wqH6LyvNbMXgo7D7eYmVm5StKvADhVve5wqIySPxJhRywV4ZFyUOt0xCZ56s7AkBOCgEHoJj7sJVABEaureMAKUZOy-87vt_DqJd5a-qRIpYjK6R-5lEXCiLepB61xOUuw/7F9BgU_1Zlwp63pCG8Ssdv6FKWN11cWuCjRp8cbiu6o",
+              "width": 27,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/Yc18J55YuoaKaUTej3V8Yw/6xC0TSAhExVBzIUM3xOIpzoX1EwW_1R8e7ODapOooMp6U5qfbG6ncILDyYIGulNahWqiBCZdo0eXFAFyyXN5929MmHAyYDPJJ5N78jv-w8fAVuZY_q8r3O7DEZvR1RDjFl5vaSIgz5NjO5s1lXUbLw/z_PZUniBqQck6ChvXWWeIjyaDqb5aSvUKzcl9gv5XB0",
+              "width": 512,
+              "height": 683
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/vg7ACVPjPHzoBQoDbNSHHA/7YCmLQ-1DIhPN_s8hXj5yNNW1C6N0-x5Aqzd9fps5rbFZPkTlTMfryH6Uylxa-IwOHP6lO6BjrESSCzma8gbTawxl5Hn1SUngkztoZUZwD6FBx5CB6Pjo3_FyNNa3Iw6BDwDITzn2T5vZWx2i0jBWA/_TNS6BYI-289Me9aXWh8JeYR1WHyOyCZSa3eEa9AMXQ",
+              "width": 600,
+              "height": 800
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recYEq8hvP4o0dqJO",
+      "slug": "11",
+      "Product Name": "Camisa con bordados",
+      "SKU": 11,
+      "Price": 18000,
+      "Category": "Clothing",
+      "Stock Levels": 1,
+      "Color": "White",
+      "Size": "L",
+      "Images": [
+        {
+          "id": "atthAtuf2uBDJkdpj",
+          "width": 600,
+          "height": 800,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/76jYC1C8fQdMs4VkilOcmA/09Uj3AKbRNFMuZNknzg-bPyRk2w5Q73uksdMbzwMWx3D5WXXvnTO-p3QMPuOGobFU2r3bHdtuSvn9ASFHvVoRul_RURo5KPfTDPnrpqAwA67tilXN5xe8vf--_jc6n19AckfQT2NjEbkMOLO8zE5xw/4BYY_Vq1jMQhRqUrSG49WZBIo1zlFXCucgDCuUhlw28",
+          "filename": "image.png",
+          "size": 640936,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/8widUYyFUw1uYhWSuuJJPQ/WdTej64A1Y5GpABtqRNoIANdBh5Gy2qtSX9XgmqbBvbNzldOofKzFuImd01dKcDDvqDHq6CXHXuJCOGWYQGqaLhSyNDQjPNrm6tSpdNfnguKuJtp1v7-6T5vAJ0HwPdGmA1bmy6tjxCQ73G-z3wk2w/04u0L3yl6OikQBd7rvw14H_eKR3luwkcWqO8crPC8Cw",
+              "width": 27,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/czE2OtlkKQjuKjBVSGKQdw/MMD2550s79h7hZej_JZYce6p3VAjWDTArEI9VrFpNNmbcf_AHNebtXo1l-kccmrBR0ZKws4xi4nkCyeAGF7UXYBl-maot_8STF9T3NfEOsEXaKr2f5tDnYTor0HSyhRe9Bga0fgJ-028b5h0oFfjfw/E3k7lZZpXofH-ZtMWRCqro8Gq_fOwtOc8rTmqjokCkI",
+              "width": 512,
+              "height": 683
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/baETiydUKNvtQuhip-qYSw/qRp2mdl4YdgiiLJPUbugij1j_J4nSH6fhB-dD0giA-5vsSw2UEKJyYFT0MyYliGVyHIJmgGLxYGyD46_Br_GU4O8z4WGrxSksW9FDthKVXpr1Vxd1Kv6R3yviWROtbuKLHl2oNdpcnCccyj4xDyT2w/0vCTxVvysF3VzlTJ1GIB-ZT8z0Cgj1yxaohDkIRaI-E",
+              "width": 600,
+              "height": 800
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rec93sCWfagzVmbzl",
+      "slug": "12",
+      "Product Name": "Crop top verde de Zara",
+      "SKU": 12,
+      "Price": 17000,
+      "Category": "Clothing",
+      "Color": "Green",
+      "Size": "S",
+      "Images": [
+        {
+          "id": "attHXXkoZ5i0lCcbS",
+          "width": 667,
+          "height": 800,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/zJ6vn-iWDwAV_rX7Erf5_g/tzvKQulENvqWdPH_vAtQygqjv_edalXsibhNTjzfwjQeORBbT16NKxgFEJ7U3nr8V38H294X00SpolSy8LqAEfswhZRQNB2wpp_eQlMlQmsdYAUkq2WVtBv7nYRdmi4gL5cGl172-7DrEx1NviXezQ/Sv2ZIQlN-OQEHWvYVSkYCoq-uCIx7q750qEO-g0DPck",
+          "filename": "image.png",
+          "size": 555223,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/EhjF_378S_6DmWzfoM6zbA/VQ9Aa2k8-rgZozOjc7M8gni5v_G9DupSw7ZJhgniSaAXjaoxOdxGq0mz5EovgNCA9K6akURAzN4wy5DxXiRGWeRa5WrVBUC6dK7Rfv8SstQlraJemulBBHWdkzNeC7oQX2SRJqmf56Rah3-UOsEVWA/Cd6rHihjrApuhqibQRYVRfEHzF1e2TTZeSH4XD5Sxy4",
+              "width": 30,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/SEOXmT3TZyn6ZD5iKHxt6g/BExPrV_dHxeBVHZtILsaxzgIVTVjnboDCjYsYDV8ML4jiEHJ2qGaJQ6YO5Tyz-4I-W5cZ0F59gAP3ANfZmMXJuEe5U36JUGAIH7bCqPwY_FoI86hO11Sth8JMrPWvle-w6_iwPZq9GzEEj0upsaqSg/k-mil7Qk_vtI_dwhV__bSlKlwGNkCeRBMSt8Irw9CAM",
+              "width": 512,
+              "height": 614
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/b21MNOFk-DIGawKDN0tq3w/MylE8WkCIWWKd8bRcwlbUHGUrLfgGWA6G5oJ4KfmOtR9Ptvby4vzkDqAJO71KzyN48lAc52T_LNBFIrZCl4AWYDUWoRq6noxhobC3j7uqQWnIfFme3MvgcitmfgqkbftWCY0Ig8nBie6L-DBNy4skw/44F1xyL5T23zmQPXLR7WFoUi_-59mTqBXbRVTeaPDXU",
+              "width": 667,
+              "height": 800
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recsUOChxdVIVEf1x",
+      "slug": "13",
+      "Product Name": "Short lila mujer",
+      "SKU": 13,
+      "Price": 33000,
+      "Color": "Purple",
+      "Size": "M",
+      "Images": [
+        {
+          "id": "attSvN7808LqSk8e7",
+          "width": 600,
+          "height": 800,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/kSw0ObZD8N2dUV7qL66giw/byxr5OwTyWUqP5v2Oe7-CgKFRNwmJCWyO752gBmYVR85fYe-r4sTS6W6g2U4RHk6nZKW0DWsjk8ZocFTg26NmSVa8brhrz20w316MXsm4ngbdKxURFl70S58UMZQ1t2D-r-3lHONc4fkTglR7P-wzw/V-Ty0UGMPbtlS7qEoYrIZW4mduTCioAjNJR6CsjShg8",
+          "filename": "image.png",
+          "size": 954216,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/bywkaO6Y794OXENEhcf7ow/NgmLU-z-1UZAW3tCvqBl2Vql8yq5GLPucktDXHotGXYetRYUuQskZr1L3NtYZoIZX0N8W53YxgpREoi6jQhW5X7WcXUkd6VblbmmtnA_GydmBRlNRFvKYvM_eElDkx6PipJuG57BJjh1kXW1X7aHOg/WCHpZMG_40SOLQQ_xrrmgJ55a4BBOCbRaMk5d3gcDtQ",
+              "width": 27,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/W7cuX37yS_5xxhNanruRaA/w_js0ECw5anmkDCrHogYxIzF9kepumbHrfXKLxpVwoTJhXr53o-3vk6AhVenNOw03WhEtesAp2opc1ga9gicILpDA4G_rGT8GVMZ-4I19vnSOXT-6cMmlUWfEem9nyg_EFjGLDuhCu2hiZJqojKGbw/D6YaDQN43LnZM3vHoHZyYgkYolpAndQ5fmDPmtZFAyk",
+              "width": 512,
+              "height": 683
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/25Zu7n_Iww3aJgUHjYmHUw/oFiGeoJZK09zSiuUpZ4EbFywkTxlVmNyue-OuGzN3ZPahFBsooK9OKa-tyqPMtF8xAp3_IIqi_xeD__7ig8kJ7QLTy9VM59WoXO_CkOgJGtv5cCmWq--tozkkAvGs2l3ApSerB64-cZFj1RL-LsSUg/-OOeAC_lfccVo-GkWGHFdVkmRaOwRyCrp3mp9LDQdPk",
+              "width": 600,
+              "height": 800
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recYQ6t0yFUlTDZvF",
+      "slug": "14",
+      "Product Name": "Body con cuello alto",
+      "SKU": 14,
+      "Price": 22000,
+      "Color": "Black",
+      "Size": "L",
+      "Images": [
+        {
+          "id": "attT8cPUj5CNtXotG",
+          "width": 600,
+          "height": 800,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/bfOzF2ESNtVZzI0e1RFf8A/PWRQL32mhD9-xACBzY3iV-Bla12vFrigAZf3Jf3SzNJ9BPou695yCitMIYCZ9j2LMqX_QB3piMUpkP6VUK7VdVsjRBHSmHQKP_9GdCkrrtWDNENvAISaAaGXrJiYtrbQkhrO5J6zeeQrmfOMP5E6Aw/Lh2NUidN_Rinr2rW9O7zHgKhBziAcimROot8MdsrxJU",
+          "filename": "image.png",
+          "size": 564270,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/mGCibnBDIgGYm53Hn4Ld3g/RWFrtx_8_ugO5OoDPOgMGS4SAuWquQoW1G4UiyRYMGmtNx_XhYw1W-E2dO1ePHpwEuEebCenOJAXoRx-NamZ4lOY1nofZWMP2cabJJZ4d3laYV98GhGZDpGwd0pcLhIHhD6JG4ECeQWlk0rU1wgiKw/izyFZLOY3J8rRBr5skqDPxdJFyjdIRE_NBSgRRKudP8",
+              "width": 27,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/6hDi2sf4ZuJM4J5fMCXkEg/I1RKtUwU2W9xoGwQKnld9_uA55k0wik-YDrfEqOhE_QyThhgJkd7ZeojxEqVbx50GKMjTHvOGGO4TjBodJUuVu9RdVzKt6RBhQtnGecw_tbafZNEx3UHmvyVEwha_tvkAi3AxvKLm-UXx5bEIJO26A/0VnjCTd_veQyi9TCQSaEMhVtCEIcbDuWUr-u4fyuhsk",
+              "width": 512,
+              "height": 683
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/uH2vrlNFTf-WrS5t0PZOBw/GBDUB0cxBVXvEc5Arw4WE4ueaMA7scszeRkcaF8aY008ANrXD01fV8socLcLH3g_GLOYSPWvq-yA1bBMV85kfJ60fkEUFOrHvHSzvvt3R6pjM-9W_a8vnl2iJI-obb30nOKnA2q-5nUxeaxwvgUWBQ/T2MpCIy9XqPAyryX6dCNoiD_j16nP_tWST3ajFs0LoE",
+              "width": 600,
+              "height": 800
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recRZIrM1P3lmHTRB",
+      "slug": "15",
+      "Product Name": "Blusa blanco/azul",
+      "SKU": 15,
+      "Price": 29000,
+      "Color": "Blue",
+      "Size": "M",
+      "Images": [
+        {
+          "id": "attVbKpSrS5TaGbVJ",
+          "width": 600,
+          "height": 800,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/3uwhMvszthXqESDQel8s7g/9eoyuyjT_V-pQQKWUsK2V3OgU3ubfUIgsUb8v8bW4qAAWQWY6gSHsEa2PMwnjp8RD_RF6W-pLsOVbCTDiTPg5eCd-hjt-lRVXMXX-mZT_ek3w_CBLGKWiQ26yD7fOBb73KFvmd6taRxuFvbcAwYH9A/Mak8agLPUa5qzAWkozrAibnm0TSiEdTLgRd8KfesQvk",
+          "filename": "image.png",
+          "size": 794346,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/_XTljGI8oE_SJRdBs7T5HA/ke3xzw6NSssw8qJ9eAsY6Vy4ubugph7PzgGnmvSyUxkfAJuXeUjCJaJE72opSUXs7_21hXHpH7LKPtNXZpaN5EXHVl5e2FdT-psrvIqloOahHMKt8_XP0i9az1g7cZAG2atgBXoKnFgkZkvY5mvRRQ/5T66lVL-Vb6z59rZgSjAWiU0YSGqwg1XxlYgyLqE9XI",
+              "width": 27,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/qPetaDrk1wup53be7o_zNg/mnzcVutydrhlA2YNrDceHHmAq5GfWnkVN9tjLOhHevLXoLDGsYA0bB9aHxfRV1gd7t00ZEN1nRO3LaigoiUmMXPvtJEEkZiJm3le8TIbnr52E7dlRE8SQMNkC7rkGZEcyN5xnnqiyGJhZIDbYLKTZA/4SOeUpYLAoMUk-oT48CTCzPR2FhZb_L3wcbj93Dmg5Q",
+              "width": 512,
+              "height": 683
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/93GX3Nb6sKDy7kuK9_3ArA/q8rDwwaiHJu_C894to0YfpxpJd8u3VeCNvpe1VLs8EYAqAGf5ePhFkHzx7B7Upo4AWGs7iHXC0QD_zzRUzur-B-n_6WCTbAqMrGnGkgZAQojLexuxZEIKsxxyHCGWW57F85Bat8tQFSEvrDcik3fJA/76ldj5PihCDcul2K4dP8zrCQ1DN_etVPiNh7kJuBjxs",
+              "width": 600,
+              "height": 800
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recHDL8cMBGNuiuda",
+      "slug": "16",
+      "Product Name": "Shortcito de jean Bershka",
+      "SKU": 16,
+      "Price": 34000,
+      "Color": "Blue",
+      "Size": "S",
+      "Images": [
+        {
+          "id": "attQbTaOEoDKvWXqq",
+          "width": 600,
+          "height": 800,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/bVJG47O4I4Tx2c_hc0nGUw/04gNVklnLNY1PNc5UzzC5Lcdzlb2Rken3nm8JLh73u8HmWi_rv2wV_d31wDQoQV657LFu1Pjl7ekLXtXApGao8JzSmgdDM4xpXH6S45xJQ_BmHZS8GUJltXxOpUc8hOmVoY4jeymkqeMAQ8L232Tzw/a2ofSR--fkfpc-wwn30FMy0VAj3WchPUBlc9fMJVneg",
+          "filename": "image.png",
+          "size": 541263,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/PnqLBdYg_8mOOcbwMWz4Tg/R1_OMI3Qb649_aZHLBgJcqagnRnIHMRTQdiFV1q0PnjOiu0AYktSskyccfNkMbsfdHdHKha6cH8FeR0SfE4C0u7LM_eL99x4gOgd8txw2duyG2aRkmuhQV3Kg79m9dPCcqhbL0ZUrHHE0IG1Mf6mzA/DncA95jGEnYG3j3jiVU6IvTsqlfmWHaaCoW_YUR8to8",
+              "width": 27,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/v1ChYcyEt0gGciF_xNAdaQ/1X06_7cgCbbz9H9H1ZXHqdns3fzyU1mp7GspRAyBKFdUfKqy7x6xAFtV1KvIAEQ7lw8B9D7qp_WuoGy09fHLW55v8pN9p6zploa9uSjqVMVaqOgLvH1Rb_tO0tdyuxmiIMNZRHx1UR7ffkTIZTBrHg/rC8eJfR50bZjWcKxcWNFNgCOfBdHwN9yQ8NgE7in1hQ",
+              "width": 512,
+              "height": 683
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/caFvqIIN8-irwdMf61j17g/rbp_gWBDJesdJ1oKPC9WA_roC1GolgsIH9nw3kNstfFrYCFA6DPsSlX_r1y5XKb-7BBUiVtjltyvvb2Cc2FLiaHmqeA1XXa8YmgrPsSq476Nqp_FC-PzE5if4NDvS3tGHEu8LdPmt5wbcQnN2uD-Kg/ynaEXZryNJjIa5cot8xR33tkjUe0eSEYHrian0KQgh4",
+              "width": 600,
+              "height": 800
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rec5z7dzIa4cuyGyA",
+      "slug": "17",
+      "Product Name": "Vestido marrón",
+      "SKU": 17,
+      "Price": 39000,
+      "Color": "Brown",
+      "Size": "M",
+      "Images": [
+        {
+          "id": "attPK1yoIZpATleeT",
+          "width": 600,
+          "height": 800,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/l0LgNBRSWsu8FSKLYHDJRw/bJLZkDLdB3qRdSuc55Y-OyjyopgsanID0f1AeQQaLMtUjREMlnFFGt3_u8fVrx4FbUJIoHGUk0QCNTawKsLhhTQcoUKshTf4432bR1PLnwtrfjNEPI7v-J2Ba5KSDXZTAGn8AP_UaJ7hqY-QbY9UXA/M4rg634eln0R-hvdCexZoi8b_O9818uLOxLE_VI5zQQ",
+          "filename": "image.png",
+          "size": 657742,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/7aMi7-jdmCk2E-p9Ud8zug/uxLy141OZlxMSm1Uju0sdn8Fsjf7yhD5cqLqLvdDVVxCbNyzKTBxxj_nKMHI_wp9CAUu5S8rCcfMqdo-SxotYdlQB5PzPwAbJF3PKR8wOhy0W3osBHTNDbjzpvTyYoxfojtpTl8evTjk1I1ZZbJ8fQ/yL0g1SjoM3dAalrkG8OPXCM-4JaxXGW0aAogOds-qSs",
+              "width": 27,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/tIUJNwAwOBvF2mKOKfteYg/6JHBuDRN_c-ZaPOfn4Bn3Z26H4eMAvvjgkxob7AdmLfeHjapf0ytT9uRjSqSFll1Q6wFSevgGBQ-dtg9y-_3NOddO5J1fjQibT-3lRdIuPCw8I61eh1BmxOgK7m-SWHZYsC7KazqjqqnE7LfoDmJqg/50byiLLYDN5T2oLl7d23WeaaNp5SQo02g0qht1wDPJU",
+              "width": 512,
+              "height": 683
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/9wVE5jc4YMkGYrvwxIJszw/k1GO6UBjsNi-BwOihs0awOWZcIc8w0Zm4VJWFRLfxEQn7iOdx1duQch8rd084EzXEG42bJpLDn-mxFCFeUFCUS0_ViLM0d2JcNRYvTcnQQU3GcJrQKEe0SOKFzDGZEYcCCSHX5EWX1BJyB8ewbrknQ/oeNr1s_7OWs3-K-3WHk7QB1yW-HrzdpQYX9OmRjPVNM",
+              "width": 600,
+              "height": 800
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "recRKYemAR8zXQSkB",
+      "slug": "18",
+      "Product Name": "Top ",
+      "SKU": 18,
+      "Price": 20000,
+      "Color": "Yellow",
+      "Size": "M",
+      "Images": [
+        {
+          "id": "att7BzLKoyh8g9Wlz",
+          "width": 600,
+          "height": 800,
+          "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/bTOV1Abz6yrNoaMtb_J5Ig/CIUX3vDRiZN893acYOAFTJhaknu1QCol1OhLvQl1Nv587ZPfslyrLHeXhsUuLur9lSQQPXKD3ulvUVniJ6wtwgLbpdG3MS4zFyS17rEs5WAvKVMCNkKV7yok9h7aIdydUifqLlh-DMwuq2QuTJf_yQ/_1j4Q0zatBNWLg0h_OWo5HQZVb9mgtFt9UCMDHgvvnM",
+          "filename": "image.png",
+          "size": 978908,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/OLms-BeThLKVtwYBHSXyAQ/tyNCMLN78R-i15TxzfmxeVB0dPRmnQlsrpYUkKIQamjlWiAKZE2gHlp-HRyfknYoxrCQcg8EnLxHCW3K7C6LnMKG3IPvhYo3JrVYmmsK5VEEix8jzm9vngLsLJp3Z1L6zF4561Fymeg0asFda0F1Pg/H4XIQm52fsYuWLQOMOzPMZNPfIJFQbrA3wgjpBkevuY",
+              "width": 27,
+              "height": 36
+            },
+            "large": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/8qRXbSaZmTkf4qGV-PY7sA/gmTBsWdnmQ5Htb-oSfmISKY1UAOCk5uzIo3HukJKX4fcDtlsuIQz5J4oqHJjdd5lUFbZ7EgLvRSWAvoMGVLlSgBr_EmpUwMa-aUSZsGOhbASo65Me-xSK5fy0DN7PztOdQcigOpFcdZno9v3qJ6K3g/m1QLNsECwfsHOR-gvVI3kEmW9ILnrqJyPtHgLrFMAZo",
+              "width": 512,
+              "height": 683
+            },
+            "full": {
+              "url": "https://v5.airtableusercontent.com/v3/u/43/43/1753027200000/5BW6E-mArSnIEPhnXp5wig/iik9xA5tOsRBk1T3xznkpr1zV3QnsaIOPYfWDRii3i9fAw1__c0LCxbGWR9jo12ppQJ02baesccYubaSzUXTuSGKEl2OiJtzkJzYdsqLa0OPQv38wyNWFujRUxoN6eMpbw9iqCXy0crCONOHkZUgSA/n6hv7PO-xyMCwKoyD3tPh8MykWUzKAXbA0qWkdUYJSE",
+              "width": 600,
+              "height": 800
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "timestamp": 1753107145747
+}

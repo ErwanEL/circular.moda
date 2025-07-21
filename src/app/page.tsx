@@ -1,15 +1,28 @@
 import Hero from './ui/hero';
 import Cta from './ui/cta';
 import Features from './ui/features';
-import Cards from './ui/cards';
+import VenderFacil from './ui/vender-facil';
+import { getAllProducts } from './lib/products';
+import ResponsiveCards from './ui/ResponsiveCards';
+import SocialShare from './ui/social-share';
+import LeadMagnet from './ui/lead-magnet';
 
-export default function Home() {
+export default async function Home() {
+  const products = await getAllProducts();
+
   return (
-    <main className="">
+    <main>
       <Hero />
       <Features />
-      <Cta />
-      <Cards />
+      <ResponsiveCards products={products} />
+      <LeadMagnet />
+      <VenderFacil
+        cta={{
+          text: 'Empieza a vender',
+          href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
+        }}
+      />
+      <SocialShare />
       <Cta
         variant="centered"
         content={{
@@ -19,7 +32,7 @@ export default function Home() {
             'Mandanos tus fotos y nuestro equipo se encarga del resto. Sin comisiones, sin complicaciones.',
           button: {
             text: 'Vender ahora',
-            href: '#',
+            href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
           },
         }}
       />

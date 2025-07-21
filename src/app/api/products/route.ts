@@ -1,9 +1,9 @@
 // Route Handlers use the Web Fetch API
 import { NextResponse } from 'next/server';
-import { getAllProducts } from '../../lib/airtable';
+import { getAllProducts } from '../../lib/products';
 import type { Product } from '../../lib/types';
 
-export const revalidate = 60; // same caching window
+// Fully static, no revalidate
 
 export async function GET() {
   try {
