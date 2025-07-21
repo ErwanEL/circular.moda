@@ -54,12 +54,14 @@ async function loadProductsFromFile(): Promise<Product[]> {
 export async function getAllProducts(): Promise<Product[]> {
   // Check in-memory cache first
   if (cache.length > 0 && Date.now() - cacheTimestamp < CACHE_TTL) {
-    return cache;
+    // Return reversed cache for newest first
+    return [...cache].reverse();
   }
 
   // Try to load from disk cache
   if (await loadCacheFromDisk()) {
-    return cache;
+    // Return reversed cache for newest first
+    return [...cache].reverse();
   }
 
   // Load from products.json file
@@ -73,7 +75,8 @@ export async function getAllProducts(): Promise<Product[]> {
     // Save to disk cache for next time
     await saveCacheToDisk(products);
 
-    return products;
+    // Return reversed products for newest first
+    return [...products].reverse();
   } catch (error) {
     // If all else fails, return empty array to prevent crashes
     console.error('Failed to load products:', error);
