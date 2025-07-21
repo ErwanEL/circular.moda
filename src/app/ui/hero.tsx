@@ -1,62 +1,105 @@
+import HeroImage from '../../../public/roommates-fashion-fun_simple_compose.png';
+import Button from './button'; // Import your custom Button component
+import Link from 'next/link';
 import Image from 'next/image';
-import PhoneMockup from '../../../public/phone-mockup.png';
 
-const content = {
-  heading: 'Convierte tu placard en efectivo hoy mismo',
-  description:
-    'Ese jean que no usás es un billete de $10.000 ARS durmiendo en tu placard.',
-  primaryButton: {
-    text: 'Quiero vender ya',
-    href: '#',
-  },
-  secondaryButton: {
-    text: 'Cómo funciona',
-    href: '#',
-  },
-  image: {
-    src: PhoneMockup,
-    alt: 'Phone Mockup',
-  },
-};
+interface HeroProps {
+  heading?: string;
+  description?: string;
+  showSecondaryButton?: boolean;
+}
 
-export default function Hero() {
+export default function Hero({
+  heading = 'Transformá tu ropa en dinero. Fácil, rápido y circular.',
+  description = 'Esa prenda que ya no usás puede tener una segunda vida… y darte ingresos extra hoy mismo. Enviás tus fotos, nosotros hacemos el resto.',
+  showSecondaryButton = true,
+}: HeroProps) {
+  const content = {
+    heading,
+    description,
+    primaryButton: {
+      text: 'Quiero vender ya',
+      href: `https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda`,
+    },
+    secondaryButton: {
+      text: 'Cómo funciona',
+      href: '/como-funciona',
+    },
+    image: {
+      src: HeroImage,
+      alt: 'Dos mujeres sonrientes probándose ropa de moda circular en una habitación luminosa.',
+    },
+  };
+
   return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+    <section>
+      <div className="mx-auto grid h-auto max-w-screen-xl px-4 py-8 lg:h-[500px] lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
+        {/* Mobile Image */}
+        <div className="mb-8 flex justify-center lg:hidden">
+          <div className="relative h-56 w-full max-w-xs">
+            <Image
+              fill={true}
+              objectFit={'cover'}
+              src={content.image.src}
+              alt={content.image.alt}
+              className="rounded-3xl"
+            />
+          </div>
+        </div>
         <div className="mr-auto place-self-center lg:col-span-7">
-          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+          <h1 className="mb-4 max-w-2xl text-4xl leading-none font-extrabold tracking-tight md:text-5xl xl:text-6xl dark:text-white">
             {content.heading}
           </h1>
-          <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+          <p className="mb-6 max-w-2xl font-light text-gray-500 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400">
             {content.description}
           </p>
-          <a
-            href={content.primaryButton.href}
-            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
-          >
-            {content.primaryButton.text}
-            <svg
-              className="w-5 h-5 ml-2 -mr-1"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <Button
+              as={Link}
+              size="xl"
+              href={content.primaryButton.href}
+              variant="primary"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <path
-                fillRule="evenodd"
-                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-          </a>
-          <a
-            href={content.secondaryButton.href}
-            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-          >
-            {content.secondaryButton.text}
-          </a>
+              {content.primaryButton.text}
+              <svg
+                className="-mr-1 ml-2 h-5 w-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </Button>
+            {showSecondaryButton && (
+              <Button
+                as={Link}
+                size="xl"
+                href={content.secondaryButton.href}
+                variant="secondary"
+              >
+                {content.secondaryButton.text}
+              </Button>
+            )}
+          </div>
         </div>
-        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-          <Image src={content.image.src} alt={content.image.alt} />
+        {/* Desktop Image */}
+        <div className="hidden lg:col-span-5 lg:mt-0 lg:flex">
+          <div className="h-xl relative w-xl">
+            <Image
+              fill={true}
+              objectFit={'cover'}
+              src={content.image.src}
+              // sizes="300px"
+              alt={content.image.alt}
+              className="rounded-3xl"
+            />
+          </div>
         </div>
       </div>
     </section>

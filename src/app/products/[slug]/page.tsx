@@ -1,29 +1,30 @@
 // src/app/products/[slug]/page.tsx
 import { notFound } from 'next/navigation';
-import { getAllProducts, getProductBySlug } from '../../lib/airtable';
+import { getAllProducts, getProductBySlug } from '../../lib/products';
 import ProductDetail from '../../ui/product-detail';
 
-export const revalidate = 60; // ISR – rebuild every 60 s
+/** Fully static – no ISR */
+export const revalidate = false;
 
-/** Pre-generate the static paths at build time */
+/** Build-time generation of every slug */
 export async function generateStaticParams() {
   const products = await getAllProducts();
-  return products.map((p) => ({ slug: p.slug }));
+  return products.map((p: { slug: string }) => ({ slug: p.slug }));
 }
 
-export default async function ProductPage(
-  { params }: { params: Promise<{ slug: string }> } // ⬅ params is a Promise
-) {
-  /* ------------------------------------------------------------
-     MUST await params before using it (Next 14 "sync-dynamic-apis" rule)
-  ------------------------------------------------------------- */
-  const { slug } = await params;
+/**
+ * In Next 15, `params` is delivered **as a Promise**.
+ * Await it before accessing any field to avoid the “sync-dynamic-apis” error.
+ */
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params; // ✅ await first
 
   const product = await getProductBySlug(slug);
-
-  if (!product) {
-    notFound(); // built-in 404 page
-  }
+  if (!product) notFound(); // built-in 404
 
   return <ProductDetail product={product} />;
 }

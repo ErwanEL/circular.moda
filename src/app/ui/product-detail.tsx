@@ -1,10 +1,15 @@
 'use client';
 
 import Image from 'next/image';
+import Button from './button';
+import Link from 'next/link';
+import { FaShoppingCart, FaInfoCircle } from 'react-icons/fa';
+import { translateColorToSpanish } from '../lib/helpers';
 
 type ProductDetailProps = {
   product: {
     SKU: string;
+    'Product Name'?: string;
     Price?: number;
     Category?: string;
     Color?: string;
@@ -16,39 +21,21 @@ type ProductDetailProps = {
     value: number;
     count: number;
   };
-  onAddToFavorites?: () => void;
-  onAddToCart?: () => void;
 };
 
 export default function ProductDetail({
   product,
   rating = { value: 5.0, count: 345 },
-  onAddToFavorites,
-  onAddToCart,
 }: ProductDetailProps) {
-  const handleAddToFavorites = () => {
-    if (onAddToFavorites) {
-      onAddToFavorites();
-    } else {
-      // Default behavior if no callback provided
-      console.log('Add to favorites:', product.SKU);
-    }
-  };
-
-  const handleAddToCart = () => {
-    if (onAddToCart) {
-      onAddToCart();
-    } else {
-      // Default behavior if no callback provided
-      console.log('Add to cart:', product.SKU);
-    }
-  };
+  const productColor = product.Color
+    ? translateColorToSpanish(product.Color.toLowerCase())
+    : 'Desconocido';
 
   const renderStars = (value: number) => {
     return Array.from({ length: Math.round(value) }).map((_, i) => (
       <svg
         key={i}
-        className="w-4 h-4 text-yellow-300"
+        className="h-4 w-4 text-yellow-300"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -62,10 +49,10 @@ export default function ProductDetail({
   };
 
   return (
-    <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
-      <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+    <section className="py-8 antialiased md:py-16">
+      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-          <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
+          <div className="mx-auto max-w-md shrink-0 lg:max-w-lg">
             {product.Images?.[0]?.url ? (
               <Image
                 src={product.Images[0].url}
@@ -75,9 +62,9 @@ export default function ProductDetail({
                 className="w-full rounded"
               />
             ) : (
-              <div className="w-full h-96 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
+              <div className="flex h-96 w-full items-center justify-center rounded bg-gray-200 dark:bg-gray-700">
                 <span className="text-gray-500 dark:text-gray-400">
-                  No image available
+                  Imagen no disponible
                 </span>
               </div>
             )}
@@ -85,113 +72,80 @@ export default function ProductDetail({
 
           <div className="mt-6 sm:mt-8 lg:mt-0">
             <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-              {product.SKU}
+              {product['Product Name'] || product.SKU}
             </h1>
 
-            <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
+            <div className="mt-4">
               {product.Price !== undefined && (
                 <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
                   ${product.Price}
                 </p>
               )}
+            </div>
 
-              <div className="flex items-center gap-2 mt-2 sm:mt-0">
-                <div className="flex items-center gap-1">
-                  {renderStars(rating.value)}
-                </div>
-                <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
-                  ({rating.value})
-                </p>
-                <a
-                  href="#"
-                  className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white"
-                >
-                  {rating.count} Reviews
-                </a>
+            <div className="mt-2 flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                {renderStars(rating.value)}
               </div>
+              <p className="text-sm leading-none font-medium text-gray-500 dark:text-gray-400">
+                Calificación del vendedor
+              </p>
             </div>
 
-            <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
-              <button
-                onClick={handleAddToFavorites}
-                className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
+              <Button
+                as={Link}
+                size="xl"
+                href={`https://wa.me/5491125115030?text=Hola%20me%20interesa%20esa%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
+                variant="primary"
+                className="dark:text-gray-900"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <svg
-                  className="w-5 h-5 -ms-2 me-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                  />
-                </svg>
-                Add to favorites
-              </button>
-
-              <button
-                onClick={handleAddToCart}
-                className="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
+                Comprar
+                <FaShoppingCart className="ml-2" />
+              </Button>
+              <Button
+                as={Link}
+                size="xl"
+                href={`https://wa.me/5491125115030?text=Hola%20queria%20mas%20info%20sobre%20esta%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
+                variant="secondary"
+                className="ml-2"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <svg
-                  className="w-5 h-5 -ms-2 me-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
-                  />
-                </svg>
-                Add to cart
-              </button>
+                Más info
+                <FaInfoCircle className="ml-2" />
+              </Button>
             </div>
 
-            <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
+            <hr className="my-6 border-gray-200 md:my-8 dark:border-gray-800" />
 
             <div className="mb-6 text-gray-500 dark:text-gray-400">
               <ul className="space-y-2">
                 {product.Category && (
                   <li>
-                    <strong>Category:</strong> {product.Category}
+                    <strong>Categoría:</strong> {product.Category}
                   </li>
                 )}
                 {product.Color && (
                   <li>
-                    <strong>Color:</strong> {product.Color}
+                    <strong>Color:</strong> {productColor}
                   </li>
                 )}
                 {product.Size && (
                   <li>
-                    <strong>Size:</strong> {product.Size}
-                  </li>
-                )}
-                {product.StockLevels !== undefined && (
-                  <li>
-                    <strong>Stock:</strong> {product.StockLevels}
+                    <strong>Talle:</strong> {product.Size}
                   </li>
                 )}
               </ul>
             </div>
 
-            <p className="text-gray-500 dark:text-gray-400">
-              Product details and specifications will be displayed here. This is
-              a placeholder for additional product information.
-            </p>
+            {/* <p className="text-gray-500 dark:text-gray-400">
+              Los detalles y especificaciones del producto se mostrarán acá.
+              Este es un espacio reservado para información adicional del
+              producto.
+            </p> */}
           </div>
         </div>
       </div>
