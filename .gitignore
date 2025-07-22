@@ -5,6 +5,7 @@ node_modules/
 .next/
 out/
 data/
+public/airtable/
 
 # misc
 .DS_Store

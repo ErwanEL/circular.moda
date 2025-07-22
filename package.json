@@ -18,6 +18,7 @@
     "@tailwindcss/cli": "^4.1.11",
     "airtable": "^0.12.2",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.0",
     "flowbite": "^3.1.2",
     "flowbite-react": "^0.11.8",
     "next": "^15.4.2",
