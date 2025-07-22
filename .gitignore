@@ -4,6 +4,7 @@ node_modules/
 # production
 .next/
 out/
+data/
 
 # misc
 .DS_Store
