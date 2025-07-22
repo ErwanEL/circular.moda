@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "node scripts/pull-airtable.mjs",
+    "prebuild": "node scripts/download-airtable-attachments.js && node scripts/pull-airtable.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -21,9 +21,11 @@
     "flowbite": "^3.1.2",
     "flowbite-react": "^0.11.8",
     "next": "^15.4.2",
+    "node-fetch": "^3.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
