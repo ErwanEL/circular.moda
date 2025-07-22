@@ -1,8 +1,17 @@
-import Airtable from 'airtable';
 import fs from 'fs/promises';
-import path from 'path';
+import path from 'node:path';
 import slugify from 'slugify';
 import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+import fsSync from 'node:fs';
+dotenv.config({ path: '.env.local' });
+console.log('CWD:', process.cwd());
+console.log(
+  'ENV FILES:',
+  fsSync.readdirSync(process.cwd()).filter((f) => f.startsWith('.env'))
+);
+console.log('AIRTABLE_TOKEN in script:', process.env.AIRTABLE_TOKEN);
+import Airtable from 'airtable';
 
 // ① configure
 const base = new Airtable({ apiKey: process.env.AIRTABLE_TOKEN }).base(
@@ -32,8 +41,9 @@ async function download(url, dest) {
     if (!attachments) continue;
 
     for (const file of attachments) {
-      const ext = path.extname(file.filename); // keep .jpg / .png / …
-      const fileKey = `${r.id}-${slugify(file.filename, { lower: true })}`;
+      const ext = path.extname(file.filename); // .png, .jpg, etc.
+      const baseName = file.filename.replace(ext, '');
+      const fileKey = `${r.id}-${slugify(baseName, { lower: true })}`;
       const local = path.join(outputDir, fileKey + ext);
       await download(file.url, local);
     }

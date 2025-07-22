@@ -29,10 +29,11 @@ export function transformProductsToCards(products: Product[]): ProductCard[] {
       const ext = product.Images[0].filename.substring(
         product.Images[0].filename.lastIndexOf('.')
       );
+      const baseName = product.Images[0].filename.replace(ext, '');
       const slugified =
         product.id +
         '-' +
-        product.Images[0].filename
+        baseName
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/(^-|-$)/g, '');
