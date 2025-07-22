@@ -15,7 +15,8 @@ type ProductDetailProps = {
     Color?: string;
     Size?: string;
     StockLevels?: number;
-    Images?: Array<{ url: string }>;
+    id?: string;
+    Images?: Array<{ url: string; filename: string }>;
   };
   rating?: {
     value: number;
@@ -30,6 +31,22 @@ export default function ProductDetail({
   const productColor = product.Color
     ? translateColorToSpanish(product.Color.toLowerCase())
     : 'Desconocido';
+
+  // Compose local image path if possible
+  let localImage = undefined;
+  if (product.Images?.[0]?.filename && product.id) {
+    const ext = product.Images[0].filename.substring(
+      product.Images[0].filename.lastIndexOf('.')
+    );
+    const slugified =
+      product.id +
+      '-' +
+      product.Images[0].filename
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+    localImage = `/airtable/${slugified}${ext}`;
+  }
 
   const renderStars = (value: number) => {
     return Array.from({ length: Math.round(value) }).map((_, i) => (
@@ -53,9 +70,15 @@ export default function ProductDetail({
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div className="mx-auto max-w-md shrink-0 lg:max-w-lg">
-            {product.Images?.[0]?.url ? (
+            {localImage || (product.Images && product.Images[0]?.url) ? (
               <Image
-                src={product.Images[0].url}
+                src={
+                  localImage
+                    ? localImage
+                    : product.Images && product.Images[0]?.url
+                      ? product.Images[0].url
+                      : ''
+                }
                 alt={product.SKU}
                 width={800}
                 height={600}
