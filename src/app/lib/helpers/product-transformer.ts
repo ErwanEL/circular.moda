@@ -22,26 +22,39 @@ export interface ProductCard {
  * @returns Array of transformed product cards
  */
 export function transformProductsToCards(products: Product[]): ProductCard[] {
-  return products.map((product) => ({
-    image: {
-      light:
-        product.Images?.[0]?.url ||
-        'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg',
-      dark:
-        product.Images?.[0]?.url ||
-        'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg',
-      alt: product['Product Name'] || `Product ${product.SKU}`,
-    },
-    badge: product.Category || 'Available',
-    title: product['Product Name'] || `Product ${product.SKU}`,
-    rating: {
-      value: 5.0,
-      count: Math.floor(Math.random() * 500) + 50, // Random rating count for demo
-    },
-    price:
-      product.Price !== undefined ? `$${product.Price}` : 'Price on request',
-    href: `/products/${product.slug}`,
-  }));
+  return products.map((product) => {
+    // Compose local image path if possible
+    let localImage = undefined;
+    if (product.Images?.[0]?.filename && product.id) {
+      // Lowercase and replace spaces with underscores to match the file naming
+      const normalizedFilename = product.Images[0].filename
+        .toLowerCase()
+        .replace(/ /g, '_');
+      localImage = `/airtable/${product.id}-${normalizedFilename}`;
+    }
+    return {
+      image: {
+        light:
+          localImage ||
+          product.Images?.[0]?.url ||
+          'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg',
+        dark:
+          localImage ||
+          product.Images?.[0]?.url ||
+          'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg',
+        alt: product['Product Name'] || `Product ${product.SKU}`,
+      },
+      badge: product.Category || 'Available',
+      title: product['Product Name'] || `Product ${product.SKU}`,
+      rating: {
+        value: 5.0,
+        count: Math.floor(Math.random() * 500) + 50, // Random rating count for demo
+      },
+      price:
+        product.Price !== undefined ? `$${product.Price}` : 'Price on request',
+      href: `/products/${product.slug}`,
+    };
+  });
 }
 
 /**

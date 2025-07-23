@@ -8,6 +8,6 @@ export interface Product {
   Size?: string;
   'Stock Levels'?: number;
   slug: string;
-  Images?: { url: string }[];
+  Images?: { url: string; filename: string }[];
   // Add any other fields you use in your product objects
 }
