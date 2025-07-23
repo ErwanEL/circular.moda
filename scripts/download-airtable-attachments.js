@@ -1,6 +1,5 @@
 import fs from 'fs/promises';
 import path from 'node:path';
-import slugify from 'slugify';
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import fsSync from 'node:fs';
@@ -41,10 +40,10 @@ async function download(url, dest) {
     if (!attachments) continue;
 
     for (const file of attachments) {
-      const ext = path.extname(file.filename); // .png, .jpg, etc.
-      const baseName = file.filename.replace(ext, '');
-      const fileKey = `${r.id}-${slugify(baseName, { lower: true })}`;
-      const local = path.join(outputDir, fileKey + ext);
+      // Lowercase and replace spaces with underscores to match the transformer
+      const normalizedFilename = file.filename.toLowerCase().replace(/ /g, '_');
+      const fileKey = `${r.id}-${normalizedFilename}`;
+      const local = path.join(outputDir, fileKey);
       await download(file.url, local);
     }
   }

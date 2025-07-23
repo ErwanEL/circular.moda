@@ -26,18 +26,11 @@ export function transformProductsToCards(products: Product[]): ProductCard[] {
     // Compose local image path if possible
     let localImage = undefined;
     if (product.Images?.[0]?.filename && product.id) {
-      const ext = product.Images[0].filename.substring(
-        product.Images[0].filename.lastIndexOf('.')
-      );
-      const baseName = product.Images[0].filename.replace(ext, '');
-      const slugified =
-        product.id +
-        '-' +
-        baseName
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-          .replace(/(^-|-$)/g, '');
-      localImage = `/airtable/${slugified}${ext}`;
+      // Lowercase and replace spaces with underscores to match the file naming
+      const normalizedFilename = product.Images[0].filename
+        .toLowerCase()
+        .replace(/ /g, '_');
+      localImage = `/airtable/${product.id}-${normalizedFilename}`;
     }
     return {
       image: {
