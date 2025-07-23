@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "node scripts/download-airtable-attachments.js && node scripts/pull-airtable.mjs",
+    "prebuild": "node scripts/download-airtable-attachments.mjs && node scripts/pull-airtable.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
