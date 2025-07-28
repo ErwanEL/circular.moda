@@ -13,13 +13,13 @@ export default async function Home() {
   return (
     <main>
       <Hero />
-      <Features />
       <VenderFacil
         cta={{
           text: 'Empieza a vender',
           href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
         }}
       />
+      <Features />
       <ResponsiveCards products={products} />
       {/* <LeadMagnet /> */}
       <SocialShare />
