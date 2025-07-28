@@ -65,7 +65,7 @@ export default function VenderFacil({ cta }: VenderFacilProps) {
         </div>
         {cta && (
           <div className="flex justify-center">
-            <Button href={cta.href} variant="primary" size="xl">
+            <Button href={cta.href} variant="primary" size="xl" solid bold>
               {cta.text}
             </Button>
           </div>
