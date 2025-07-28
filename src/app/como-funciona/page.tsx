@@ -10,7 +10,6 @@ export default function ComoFuncionaPage() {
         description={
           'Una comunidad, miles de prendas y la moda de segunda mano con toda la onda. ¿Listo para arrancar? Así funciona.'
         }
-        showSecondaryButton={false}
       />
       <VenderFacil
         cta={{
