@@ -42,8 +42,8 @@ export default function SocialShare({
             </span>
           </h2>
           <p className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
-            Ayudanos a encontrar más prendas y más clientes para vaciar tu
-            placard.
+            Compartí para encontrar más prendas y más clientes para vaciar tu
+            armario.
           </p>
         </div>
         <div className="mt-6 flex flex-row justify-center gap-10 sm:gap-7">
