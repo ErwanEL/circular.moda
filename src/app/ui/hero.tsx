@@ -10,15 +10,15 @@ interface HeroProps {
 }
 
 export default function Hero({
-  heading = 'Transformá tu ropa en dinero. Fácil, rápido y circular.',
-  description = 'Esa prenda que ya no usás puede tener una segunda vida… y darte ingresos extra hoy mismo. Enviás tus fotos, nosotros hacemos el resto.',
+  heading = 'Tu armario está lleno de ropa que no usás?',
+  description = 'Subí tu ropa, vendela directamente por WhatsApp, hacé espacio y recuperá plata para comprarte ropa nueva.',
   showSecondaryButton = true,
 }: HeroProps) {
   const content = {
     heading,
     description,
     primaryButton: {
-      text: 'Quiero vender ya',
+      text: 'Vender ya',
       href: `https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda`,
     },
     secondaryButton: {
@@ -50,7 +50,7 @@ export default function Hero({
           <h1 className="mb-4 max-w-2xl text-4xl leading-none font-extrabold tracking-tight md:text-5xl xl:text-6xl dark:text-white">
             {content.heading}
           </h1>
-          <p className="mb-6 max-w-2xl font-light text-gray-500 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400">
+          <p className="mb-6 max-w-2xl font-light text-gray-900 md:text-lg lg:mb-8 lg:text-xl dark:text-gray-400">
             {content.description}
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
@@ -61,6 +61,8 @@ export default function Hero({
               variant="primary"
               target="_blank"
               rel="noopener noreferrer"
+              solid
+              bold
             >
               {content.primaryButton.text}
               <svg
@@ -76,7 +78,7 @@ export default function Hero({
                 ></path>
               </svg>
             </Button>
-            {showSecondaryButton && (
+            {/* {showSecondaryButton && (
               <Button
                 as={Link}
                 size="xl"
@@ -85,7 +87,7 @@ export default function Hero({
               >
                 {content.secondaryButton.text}
               </Button>
-            )}
+            )} */}
           </div>
         </div>
         {/* Desktop Image */}
