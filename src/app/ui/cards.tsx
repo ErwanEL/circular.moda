@@ -13,7 +13,7 @@ const fallbackContent = {
 export default function Cards({ products }: CardsProps) {
   const content =
     products && products.length > 0
-      ? { heading: 'Productos destacados', cards: products }
+      ? { heading: 'Novedades', cards: products }
       : fallbackContent;
 
   return (
