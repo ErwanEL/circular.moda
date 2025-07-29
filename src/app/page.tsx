@@ -5,7 +5,7 @@ import VenderFacil from './ui/vender-facil';
 import { getAllProducts } from './lib/products';
 import ResponsiveCards from './ui/ResponsiveCards';
 import SocialShare from './ui/social-share';
-// import LeadMagnet from './ui/lead-magnet';
+import LeadMagnet from './ui/lead-magnet';
 
 export default async function Home() {
   const products = await getAllProducts();
@@ -21,7 +21,7 @@ export default async function Home() {
       />
       <Features />
       <ResponsiveCards products={products} />
-      {/* <LeadMagnet /> */}
+      <LeadMagnet />
       <SocialShare />
       <Cta
         variant="centered"
