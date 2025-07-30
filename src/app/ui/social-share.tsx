@@ -11,12 +11,11 @@ const LOGO_SRC = {
 interface SocialShareProps {
   url?: string;
   message?: string;
+  heading?: string;
+  description?: string;
 }
 
-const DEFAULT_URL =
-  typeof window !== 'undefined'
-    ? window.location.href
-    : 'https://circular.moda';
+const DEFAULT_URL = 'https://circular.moda';
 const DEFAULT_MESSAGE = '¡Mirá esto en Circular Moda!';
 
 const getShareLinks = (url: string, message: string) => ({
@@ -26,24 +25,34 @@ const getShareLinks = (url: string, message: string) => ({
 });
 
 export default function SocialShare({
-  url = DEFAULT_URL,
+  url,
   message = DEFAULT_MESSAGE,
+  heading = 'Compartí circul.ar.moda',
+  description = 'Compartí para encontrar más prendas y más clientes para vaciar tu armario.',
 }: SocialShareProps) {
-  const links = getShareLinks(url, message);
+  // Always use current page URL if no custom URL provided
+  const shareUrl =
+    url || (typeof window !== 'undefined' ? window.location.href : DEFAULT_URL);
+  const links = getShareLinks(shareUrl, message);
 
   return (
     <section>
       <div className="mx-auto max-w-screen-xl items-center justify-center gap-8 px-2 py-8 text-center sm:px-4 lg:py-16">
         <div className="mx-auto max-w-2xl">
           <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-            Compartí{' '}
-            <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
-              circul<span className="text-primary-800">ar</span>.moda
-            </span>
+            {heading.includes('circul.ar.moda') ? (
+              <>
+                Compartí{' '}
+                <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
+                  circul<span className="text-primary-800">ar</span>.moda
+                </span>
+              </>
+            ) : (
+              heading
+            )}
           </h2>
           <p className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
-            Compartí para encontrar más prendas y más clientes para vaciar tu
-            armario.
+            {description}
           </p>
         </div>
         <div className="mt-6 flex flex-row justify-center gap-10 sm:gap-7">

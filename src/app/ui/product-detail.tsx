@@ -3,8 +3,10 @@
 import Image from 'next/image';
 import Button from './button';
 import Link from 'next/link';
+import SocialShare from './social-share';
 import { FaShoppingCart, FaInfoCircle } from 'react-icons/fa';
 import { translateColorToSpanish } from '../lib/helpers';
+import { useEffect, useState } from 'react';
 
 type ProductDetailProps = {
   product: {
@@ -58,6 +60,13 @@ export default function ProductDetail({
       </svg>
     ));
   };
+
+  const [shareUrl, setShareUrl] = useState('');
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setShareUrl(window.location.href);
+    }
+  }, []);
 
   return (
     <section className="py-8 antialiased md:py-16">
@@ -166,6 +175,11 @@ export default function ProductDetail({
           </div>
         </div>
       </div>
+      <SocialShare
+        url={shareUrl}
+        heading="Compartí esta prenda!"
+        description=""
+      />
     </section>
   );
 }
