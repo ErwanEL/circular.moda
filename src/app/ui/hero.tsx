@@ -1,4 +1,4 @@
-import HeroImage from '../../../public/roommates-fashion-fun_simple_compose.png';
+import HeroImage from '../../../public/woman-in-red.png';
 import Button from './button'; // Import your custom Button component
 import Link from 'next/link';
 import Image from 'next/image';
