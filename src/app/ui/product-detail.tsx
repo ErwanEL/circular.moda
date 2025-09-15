@@ -5,6 +5,8 @@ import Button from './button';
 import Link from 'next/link';
 import { FaShoppingCart, FaInfoCircle } from 'react-icons/fa';
 import { translateColorToSpanish } from '../lib/helpers';
+import { useState, useRef, useEffect } from 'react';
+import SocialShare from './social-share';
 
 type ProductDetailProps = {
   product: {
@@ -32,15 +34,125 @@ export default function ProductDetail({
     ? translateColorToSpanish(product.Color.toLowerCase())
     : 'Desconocido';
 
-  // Compose local image path if possible
-  let localImage = undefined;
-  if (product.Images?.[0]?.filename && product.id) {
-    // Lowercase and replace spaces with underscores to match the file naming
-    const normalizedFilename = product.Images[0].filename
-      .toLowerCase()
-      .replace(/ /g, '_');
-    localImage = `/airtable/${product.id}-${normalizedFilename}`;
-  }
+  // State for selected image
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  // Zoom functionality state and refs
+  const [isZooming, setIsZooming] = useState(false);
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const zoomPaneRef = useRef<HTMLDivElement>(null);
+  const mainImageRef = useRef<HTMLImageElement>(null);
+
+  // Process all images to create local paths
+  const processedImages =
+    product.Images?.map((image) => {
+      if (image.filename && product.id) {
+        const normalizedFilename = image.filename
+          .toLowerCase()
+          .replace(/ /g, '_');
+        return {
+          url: `/airtable/${product.id}-${normalizedFilename}`,
+          filename: image.filename,
+          isLocal: true,
+        };
+      }
+      return {
+        url: image.url,
+        filename: image.filename,
+        isLocal: false,
+      };
+    }) || [];
+
+  // Get current selected image
+  const currentImage =
+    processedImages[selectedImageIndex] || processedImages[0];
+
+  // Zoom functionality
+  const ZOOM_LEVEL = 3;
+
+  const updateZoomPane = (e: React.MouseEvent) => {
+    if (
+      !isZooming ||
+      !imageContainerRef.current ||
+      !zoomPaneRef.current ||
+      !mainImageRef.current
+    )
+      return;
+
+    const rect = imageContainerRef.current.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft =
+      window.pageXOffset || document.documentElement.scrollLeft;
+
+    // Calculate cursor position relative to the image
+    const x = e.pageX - rect.left - scrollLeft;
+    const y = e.pageY - rect.top - scrollTop;
+
+    // Calculate the position as a percentage of the image dimensions
+    const xPercent = Math.max(0, Math.min(1, x / rect.width));
+    const yPercent = Math.max(0, Math.min(1, y / rect.height));
+
+    // Position the zoom pane next to the image
+    const spaceRight = window.innerWidth - (rect.right - scrollLeft);
+    const zoomPaneWidth = 500;
+    const zoomPaneHeight = 500;
+
+    if (spaceRight > zoomPaneWidth + 20) {
+      zoomPaneRef.current.style.left = `${rect.right - scrollLeft + 20}px`;
+    } else {
+      zoomPaneRef.current.style.left = `${rect.left - scrollLeft - zoomPaneWidth - 20}px`;
+    }
+
+    zoomPaneRef.current.style.top = `${Math.min(
+      window.innerHeight - zoomPaneHeight,
+      rect.top - scrollTop
+    )}px`;
+
+    // Create the zoomed background image
+    const zoomWidth = rect.width * ZOOM_LEVEL;
+    const zoomHeight = rect.height * ZOOM_LEVEL;
+
+    // Calculate background position to center on cursor
+    const bgX = Math.max(
+      0,
+      Math.min(
+        zoomWidth - zoomPaneWidth,
+        xPercent * zoomWidth - zoomPaneWidth / 2
+      )
+    );
+    const bgY = Math.max(
+      0,
+      Math.min(
+        zoomHeight - zoomPaneHeight,
+        yPercent * zoomHeight - zoomPaneHeight / 2
+      )
+    );
+
+    zoomPaneRef.current.style.backgroundImage = `url(${mainImageRef.current.src})`;
+    zoomPaneRef.current.style.backgroundSize = `${zoomWidth}px ${zoomHeight}px`;
+    zoomPaneRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent) => {
+    if (window.innerWidth >= 1024) {
+      setIsZooming(true);
+      if (zoomPaneRef.current) {
+        zoomPaneRef.current.style.opacity = '1';
+      }
+      updateZoomPane(e);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsZooming(false);
+    if (zoomPaneRef.current) {
+      zoomPaneRef.current.style.opacity = '0';
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    updateZoomPane(e);
+  };
 
   const renderStars = (value: number) => {
     return Array.from({ length: Math.round(value) }).map((_, i) => (
@@ -59,32 +171,74 @@ export default function ProductDetail({
     ));
   };
 
+  // Share URL state
+  const [shareUrl, setShareUrl] = useState('');
+
+  // Set share URL on client side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setShareUrl(window.location.href);
+    }
+  }, []);
+
   return (
     <section className="py-8 antialiased md:py-16">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div className="mx-auto max-w-md shrink-0 lg:max-w-lg">
-            {localImage || (product.Images && product.Images[0]?.url) ? (
-              <Image
-                src={
-                  localImage
-                    ? localImage
-                    : product.Images && product.Images[0]?.url
-                      ? product.Images[0].url
-                      : ''
-                }
-                alt={product.SKU}
-                width={800}
-                height={600}
-                className="w-full rounded"
-              />
-            ) : (
-              <div className="flex h-96 w-full items-center justify-center rounded bg-gray-200 dark:bg-gray-700">
-                <span className="text-gray-500 dark:text-gray-400">
-                  Imagen no disponible
-                </span>
-              </div>
-            )}
+            <div className="space-y-4">
+              {/* Main Image */}
+              {currentImage ? (
+                <div
+                  ref={imageContainerRef}
+                  className="group relative cursor-zoom-in"
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  onMouseMove={handleMouseMove}
+                >
+                  <Image
+                    ref={mainImageRef}
+                    src={currentImage.url}
+                    alt={product.SKU}
+                    width={800}
+                    height={600}
+                    className="w-full rounded-lg shadow-sm"
+                  />
+                </div>
+              ) : (
+                <div className="flex h-96 w-full items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700">
+                  <span className="text-gray-500 dark:text-gray-400">
+                    Imagen no disponible
+                  </span>
+                </div>
+              )}
+
+              {/* Thumbnail Gallery */}
+              {processedImages.length > 1 && (
+                <div className="flex space-x-2 overflow-x-auto pb-2">
+                  {processedImages.map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImageIndex(index)}
+                      className={`h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 transition-colors ${
+                        selectedImageIndex === index
+                          ? 'border-blue-500 ring-2 ring-blue-200'
+                          : 'border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none'
+                      }`}
+                      aria-label={`Ver imagen ${index + 1}`}
+                    >
+                      <Image
+                        src={image.url}
+                        alt={`${product.SKU} - Vista ${index + 1}`}
+                        width={80}
+                        height={80}
+                        className="h-full w-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="mt-6 sm:mt-8 lg:mt-0">
@@ -166,6 +320,21 @@ export default function ProductDetail({
           </div>
         </div>
       </div>
+
+      <SocialShare
+        url={shareUrl}
+        message={`¡Mirá esta prenda en Circular Moda! ${product['Product Name'] || product.SKU}`}
+        title="¡Compartí esta prenda!"
+      />
+      {/* Zoom Pane */}
+      <div
+        ref={zoomPaneRef}
+        className="pointer-events-none fixed z-50 hidden h-[500px] w-[500px] rounded-lg border border-gray-200 bg-white opacity-0 shadow-xl transition-opacity duration-200 lg:block"
+        style={{
+          width: '500px',
+          height: '500px',
+        }}
+      />
     </section>
   );
 }
