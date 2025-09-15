@@ -11,6 +11,7 @@ const LOGO_SRC = {
 interface SocialShareProps {
   url?: string;
   message?: string;
+  title?: string;
 }
 
 const DEFAULT_URL =
@@ -28,6 +29,7 @@ const getShareLinks = (url: string, message: string) => ({
 export default function SocialShare({
   url = DEFAULT_URL,
   message = DEFAULT_MESSAGE,
+  title = 'Compartí circul<span className="text-primary-800">ar</span>.moda',
 }: SocialShareProps) {
   const links = getShareLinks(url, message);
 
@@ -35,12 +37,10 @@ export default function SocialShare({
     <section>
       <div className="mx-auto max-w-screen-xl items-center justify-center gap-8 px-2 py-8 text-center sm:px-4 lg:py-16">
         <div className="mx-auto max-w-2xl">
-          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-            Compartí{' '}
-            <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
-              circul<span className="text-primary-800">ar</span>.moda
-            </span>
-          </h2>
+          <h2
+            className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white"
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
           <p className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
             Compartí para encontrar más prendas y más clientes para vaciar tu
             armario.
