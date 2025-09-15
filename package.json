@@ -10,6 +10,7 @@
     "lint": "next lint",
     "postinstall": "flowbite-react patch",
     "update-products": "node scripts/update-products.mjs",
+    "fetch-dev": "node scripts/fetch-dev.mjs",
     "build:safe": "FETCH_AIRTABLE_AT_BUILD=false next build",
     "check-api": "node scripts/check-api-usage.mjs"
   },
