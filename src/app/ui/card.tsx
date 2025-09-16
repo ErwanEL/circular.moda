@@ -19,7 +19,7 @@ type CardProps = {
 
 export default function Card({ image, title, price, href }: CardProps) {
   const CardContent = () => (
-    <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <div className="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="h-56 w-full">
         <div className="relative h-full">
           <Image
@@ -40,13 +40,13 @@ export default function Card({ image, title, price, href }: CardProps) {
           />
         </div>
       </div>
-      <div className="pt-6">
+      <div className="flex flex-1 flex-col pt-6">
         <div className="mb-4 flex items-center justify-between gap-4">
           {/* <span className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300 me-2 rounded px-2.5 py-0.5 text-xs font-medium">
             {category}
           </span> */}
         </div>
-        <div className="text-lg leading-tight font-semibold text-gray-900 hover:underline dark:text-white">
+        <div className="flex-1 text-lg leading-tight font-semibold text-gray-900 hover:underline dark:text-white">
           {title}
         </div>
         <div className="mt-2 flex items-center gap-2">
