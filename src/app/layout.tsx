@@ -44,7 +44,9 @@ export default function RootLayout({
         <WhatsappFloat />
         <Footer />
         <Script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></Script>
-        <GoogleTagManager gtmId="GTM-P8TK9FBN" />
+        {process.env.NODE_ENV === 'production' && (
+          <GoogleTagManager gtmId="GTM-P8TK9FBN" />
+        )}
       </body>
     </html>
   );
