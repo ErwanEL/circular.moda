@@ -24,7 +24,7 @@ export default function Cards({ products }: CardsProps) {
             {content.heading}
           </h2>
         </div>
-        <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mb-4 grid items-stretch gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
           {content.cards.map((cardData, index) => (
             <Card key={index} {...cardData} />
           ))}
