@@ -20,9 +20,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Vende tu ropa usada fácil y rápido | circular.moda Argentina',
+  title: 'Vende tu ropa usada en Buenos Aires fácil y rápido | circular.moda',
   description:
-    'Vendé tu ropa usada fácil y rápido con circular.moda.. Enviás fotos por WhatsApp y ganás dinero sin comisiones.',
+    'Vendé tu ropa usada fácil y rápido con circular.moda en Buenos Aires. Enviás fotos por WhatsApp y ganás dinero sin comisiones. Solo CABA y GBA.',
+  openGraph: {
+    title: 'Vende tu ropa usada en Buenos Aires fácil y rápido | circular.moda',
+    description:
+      'Circular.moda • Mercado de ropa de segunda mano para Buenos Aires',
+  },
 };
 export default function RootLayout({
   children,

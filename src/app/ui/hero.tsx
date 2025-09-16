@@ -78,7 +78,7 @@ export default function Hero({
             </Button>
           </div>
           {/* 0 Comisión Badge - After Button */}
-          <div className="mt-4 flex justify-center sm:justify-start">
+          <div className="mt-4 flex justify-center gap-2 sm:justify-start">
             <div className="bg-primary-100 text-primary-800 border-primary-200 inline-flex items-center rounded-md border px-2.5 py-1 text-xs font-bold">
               <svg
                 className="mr-1.5 h-3 w-3"
@@ -92,6 +92,23 @@ export default function Hero({
                 />
               </svg>
               <span>Sin comisiones</span>
+            </div>
+            <div className="bg-primary-100 text-primary-800 border-primary-200 inline-flex items-center rounded-md border px-2.5 py-1 text-xs font-bold">
+              <div className="text-primary-800 flex items-center px-2 py-0.5 text-xs font-bold">
+                <svg
+                  className="mr-1.5 h-3 w-3"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 2C6.686 2 4 4.686 4 8c0 4.418 5.293 9.293 5.512 9.488a1 1 0 001.336 0C10.707 17.293 16 12.418 16 8c0-3.314-2.686-6-6-6zm0 2a4 4 0 110 8 4 4 0 010-8zm0 2a2 2 0 100 4 2 2 0 000-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Solo CABA
+              </div>
             </div>
           </div>
         </div>
