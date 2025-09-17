@@ -9,6 +9,7 @@ type CardProps = {
   };
   badge: string;
   title: string;
+  sku: string;
   rating: {
     value: number;
     count: number;
@@ -17,7 +18,7 @@ type CardProps = {
   href?: string;
 };
 
-export default function Card({ image, title, price, href }: CardProps) {
+export default function Card({ image, title, sku, price, href }: CardProps) {
   const CardContent = () => (
     <div className="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="h-56 w-full">
@@ -48,6 +49,11 @@ export default function Card({ image, title, price, href }: CardProps) {
         </div>
         <div className="flex-1 text-lg leading-tight font-semibold text-gray-900 hover:underline dark:text-white">
           {title}
+        </div>
+        <div className="mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="font-medium">Ref:</span> {sku}
+          </p>
         </div>
         <div className="mt-2 flex items-center gap-2">
           {/* <div className="flex items-center">
