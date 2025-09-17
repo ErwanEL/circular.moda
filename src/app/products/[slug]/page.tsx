@@ -2,6 +2,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllProducts, getProductBySlug } from '../../lib/products';
+import { getSuggestedProducts } from '../../lib/helpers';
 import ProductDetail from '../../ui/product-detail';
 
 /** Fully static – no ISR */
@@ -78,5 +79,13 @@ export default async function ProductPage({
   const product = await getProductBySlug(slug);
   if (!product) notFound(); // built-in 404
 
-  return <ProductDetail product={product} />;
+  // Get suggested products
+  const allProducts = await getAllProducts();
+  const suggestedProducts = product.id
+    ? getSuggestedProducts(allProducts, product.id, 6)
+    : [];
+
+  return (
+    <ProductDetail product={product} suggestedProducts={suggestedProducts} />
+  );
 }
