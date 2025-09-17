@@ -246,6 +246,13 @@ export default function ProductDetail({
               {product['Product Name'] || product.SKU}
             </h1>
 
+            {/* SKU Reference */}
+            <div className="mt-2">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="font-medium">Referencia:</span> {product.SKU}
+              </p>
+            </div>
+
             <div className="mt-4">
               {product.Price !== undefined && (
                 <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">

@@ -8,6 +8,7 @@ export interface ProductCard {
   };
   badge: string;
   title: string;
+  sku: string;
   rating: {
     value: number;
     count: number;
@@ -46,6 +47,7 @@ export function transformProductsToCards(products: Product[]): ProductCard[] {
       },
       badge: product.Category || 'Available',
       title: product['Product Name'] || `Product ${product.SKU}`,
+      sku: product.SKU.toString(),
       rating: {
         value: 5.0,
         count: Math.floor(Math.random() * 500) + 50, // Random rating count for demo
