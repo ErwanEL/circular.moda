@@ -72,3 +72,25 @@ export function getFeaturedProducts(
   const transformedProducts = transformProductsToCards(products);
   return transformedProducts.slice(0, limit);
 }
+
+/**
+ * Gets suggested products excluding the current product
+ * @param products - Array of all products
+ * @param currentProductId - ID of the current product to exclude
+ * @param limit - Maximum number of products to return (default: 6)
+ * @returns Array of suggested product cards
+ */
+export function getSuggestedProducts(
+  products: Product[],
+  currentProductId: string,
+  limit: number = 6
+): ProductCard[] {
+  const filteredProducts = products.filter(
+    (product) => product.id !== currentProductId
+  );
+  const transformedProducts = transformProductsToCards(filteredProducts);
+
+  // Shuffle the array to get random suggestions
+  const shuffled = transformedProducts.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, limit);
+}

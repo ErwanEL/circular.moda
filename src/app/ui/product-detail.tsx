@@ -7,6 +7,7 @@ import { FaShoppingCart, FaInfoCircle } from 'react-icons/fa';
 import { translateColorToSpanish } from '../lib/helpers';
 import { useState, useRef, useEffect } from 'react';
 import SocialShare from './social-share';
+import Card from './card';
 
 type ProductDetailProps = {
   product: {
@@ -24,11 +25,28 @@ type ProductDetailProps = {
     value: number;
     count: number;
   };
+  suggestedProducts?: Array<{
+    image: {
+      light: string;
+      dark: string;
+      alt: string;
+    };
+    badge: string;
+    title: string;
+    sku: string;
+    rating: {
+      value: number;
+      count: number;
+    };
+    price: string;
+    href: string;
+  }>;
 };
 
 export default function ProductDetail({
   product,
   rating = { value: 5.0, count: 345 },
+  suggestedProducts = [],
 }: ProductDetailProps) {
   const productColor = product.Color
     ? translateColorToSpanish(product.Color.toLowerCase())
@@ -333,6 +351,28 @@ export default function ProductDetail({
         message={`¡Mirá esta prenda en Circular Moda! ${product['Product Name'] || product.SKU}`}
         title="¡Compartí esta prenda!"
       />
+
+      {/* Suggested Products Section */}
+      {suggestedProducts.length > 0 && (
+        <section className="py-8 antialiased md:py-12">
+          <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+            <div className="mb-8 text-center">
+              <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">
+                Productos sugeridos
+              </h2>
+              <p className="mt-2 text-gray-600 dark:text-gray-400">
+                Descubrí más prendas que podrían interesarte
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {suggestedProducts.map((suggestedProduct, index) => (
+                <Card key={index} {...suggestedProduct} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Zoom Pane */}
       <div
         ref={zoomPaneRef}
