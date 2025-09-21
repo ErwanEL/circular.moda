@@ -57,6 +57,9 @@ export default function Header() {
             >
               Catalogo de articulos
             </NavbarLink>
+            <NavbarLink href="/blog" active={pathname.startsWith('/blog')}>
+              Blog
+            </NavbarLink>
             <NavbarLink
               href="https://wa.me/5491125115030?text=Hola%20Circular.moda%20tengo%20una%20pregunta:"
               active={

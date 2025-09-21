@@ -11,3 +11,27 @@ export interface Product {
   Images?: { url: string; filename: string }[];
   // Add any other fields you use in your product objects
 }
+
+export interface BlogArticle {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  publishedAt: string;
+  updatedAt?: string;
+  tags: string[];
+  featuredImage?: string | null;
+  readTime: number; // in minutes
+  published: boolean;
+}
+
+export interface BlogMetadata {
+  title: string;
+  description: string;
+  publishedAt: string;
+  author: string;
+  tags: string[];
+  featuredImage?: string | null;
+}
