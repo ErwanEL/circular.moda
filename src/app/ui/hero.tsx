@@ -9,7 +9,7 @@ interface HeroProps {
 }
 
 export default function Hero({
-  heading = 'Tu armario está lleno de ropa que no usás?',
+  heading = 'Tu armario está lleno de ropa que no usás',
   description = 'Vendé tu ropa por WhatsApp, liberá espacio y quedate con el 100 % de la plata para renovar tu armario',
 }: HeroProps) {
   const content = {
