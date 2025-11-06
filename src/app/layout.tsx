@@ -8,6 +8,7 @@ import './globals.css';
 import Header from './ui/header';
 import Footer from './ui/footer';
 import WhatsappFloat from './ui/whatsapp-float';
+import Popup from './ui/popup';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -42,6 +43,7 @@ export default function RootLayout({
         <Header />
         {children}
         <WhatsappFloat />
+        <Popup />
         <Footer />
         <Script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></Script>
         {process.env.NODE_ENV === 'production' && (
