@@ -31,7 +31,7 @@ type ProductDetailProps = {
       dark: string;
       alt: string;
     };
-    badge: string;
+    category: string;
     title: string;
     sku: string;
     rating: {
