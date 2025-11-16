@@ -6,7 +6,7 @@ export interface ProductCard {
     dark: string;
     alt: string;
   };
-  badge: string;
+  category: string;
   title: string;
   rating: {
     value: number;
@@ -44,7 +44,7 @@ export function transformProductsToCards(products: Product[]): ProductCard[] {
           'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg',
         alt: product['Product Name'] || `Product ${product.SKU}`,
       },
-      badge: product.Category || 'Available',
+      category: product.Category || 'Available',
       title: product['Product Name'] || `Product ${product.SKU}`,
       rating: {
         value: 5.0,

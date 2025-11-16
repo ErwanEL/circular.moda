@@ -46,7 +46,7 @@ interface ProductCard {
     dark: string;
     alt: string;
   };
-  badge: string;
+  category: string;
   title: string;
   rating: {
     value: number;

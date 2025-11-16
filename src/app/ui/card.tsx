@@ -7,7 +7,7 @@ type CardProps = {
     dark: string;
     alt: string;
   };
-  badge: string;
+  category: string;
   title: string;
   rating: {
     value: number;
@@ -43,7 +43,7 @@ export default function Card({ image, title, price, href }: CardProps) {
       <div className="pt-6">
         <div className="mb-4 flex items-center justify-between gap-4">
           {/* <span className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300 me-2 rounded px-2.5 py-0.5 text-xs font-medium">
-            {badge}
+            {category}
           </span> */}
         </div>
         <div className="text-lg leading-tight font-semibold text-gray-900 hover:underline dark:text-white">
