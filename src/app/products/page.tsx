@@ -9,7 +9,7 @@ import Link from 'next/link';
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: { categories?: string };
+  searchParams: Promise<{ categories?: string }>;
 }) {
   try {
     const products = await getAllProducts(); // runs at build time, then every 60 s
@@ -22,9 +22,12 @@ export default async function ProductsPage({
       new Set(productCards.map((card) => card.category).filter(Boolean))
     ).sort();
 
+    // Await searchParams before using
+    const params = await searchParams;
+
     // Get selected categories from URL (pipe-separated)
-    const selectedCategories = searchParams.categories
-      ? searchParams.categories.split('|')
+    const selectedCategories = params.categories
+      ? params.categories.split('|')
       : [];
 
     // Filter products based on selected categories
