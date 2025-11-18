@@ -1,13 +1,89 @@
 'use client';
 
-import Image from 'next/image';
+import Image, { type ImageProps } from 'next/image';
 import Button from './button';
 import Link from 'next/link';
 import { FaShoppingCart, FaInfoCircle } from 'react-icons/fa';
 import { translateColorToSpanish } from '../lib/helpers';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  Suspense,
+  forwardRef,
+} from 'react';
 import SocialShare from './social-share';
 import Card from './card';
+
+type ImageStatus = 'pending' | 'loaded' | 'error';
+
+const imagePromiseCache = new Map<string, Promise<void>>();
+const imageStatusCache = new Map<string, ImageStatus>();
+
+const ensureImagePromise = (src: string) => {
+  if (imagePromiseCache.has(src)) {
+    return imagePromiseCache.get(src) as Promise<void>;
+  }
+
+  if (typeof window === 'undefined') {
+    const resolved = Promise.resolve();
+    imagePromiseCache.set(src, resolved);
+    imageStatusCache.set(src, 'loaded');
+    return resolved;
+  }
+
+  imageStatusCache.set(src, 'pending');
+
+  const promise = new Promise<void>((resolve) => {
+    const img = new window.Image();
+    img.decoding = 'async';
+    img.src = src;
+    img.onload = () => {
+      imageStatusCache.set(src, 'loaded');
+      resolve();
+    };
+    img.onerror = () => {
+      imageStatusCache.set(src, 'error');
+      resolve();
+    };
+  });
+
+  imagePromiseCache.set(src, promise);
+  return promise;
+};
+
+const useImageReady = (src?: string) => {
+  if (!src || typeof window === 'undefined') return;
+
+  const status = imageStatusCache.get(src);
+  if (status === 'loaded' || status === 'error') return;
+
+  const promise = ensureImagePromise(src);
+  if (imageStatusCache.get(src) === 'error') return;
+
+  throw promise;
+};
+
+const isImageLoaded = (src?: string) =>
+  !!src && imageStatusCache.get(src) === 'loaded';
+
+type LazyImageProps = Omit<ImageProps, 'src'> & { src: string };
+
+const LazyProductImage = forwardRef<HTMLImageElement, LazyImageProps>(
+  function LazyProductImage({ src, ...rest }, ref) {
+    useImageReady(src);
+    return <Image ref={ref} src={src} {...rest} />;
+  }
+);
+
+const MainImageSkeleton = () => (
+  <div className="absolute inset-0 h-full w-full animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800" />
+);
+
+const ThumbnailSkeleton = () => (
+  <div className="h-full w-full animate-pulse rounded-md bg-gray-200 dark:bg-gray-700" />
+);
 
 type ProductDetailProps = {
   product: {
@@ -122,6 +198,8 @@ export default function ProductDetail({
   // Get current selected image
   const currentImage =
     processedImages[selectedImageIndex] || processedImages[0];
+  const canZoom = Boolean(currentImage?.url) && isImageLoaded(currentImage?.url);
+  const isInitialImage = selectedImageIndex === 0;
 
   // Zoom functionality
   const ZOOM_LEVEL = 3;
@@ -135,7 +213,7 @@ export default function ProductDetail({
       // Get the current image URL directly from processedImages using selectedImageIndex
       const currentImg =
         processedImages[selectedImageIndex] || processedImages[0];
-      if (!currentImg?.url) return;
+      if (!currentImg?.url || !isImageLoaded(currentImg.url)) return;
 
       const rect = imageContainerRef.current.getBoundingClientRect();
       const scrollTop =
@@ -197,6 +275,7 @@ export default function ProductDetail({
   );
 
   const handleMouseEnter = (e: React.MouseEvent) => {
+    if (!canZoom) return;
     if (window.innerWidth >= 1024) {
       setIsZooming(true);
       if (zoomPaneRef.current) {
@@ -214,6 +293,7 @@ export default function ProductDetail({
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (!canZoom) return;
     updateZoomPane(e);
   };
 
@@ -262,22 +342,29 @@ export default function ProductDetail({
               {currentImage ? (
                 <div
                   ref={imageContainerRef}
-                  className="group relative cursor-zoom-in"
+                  className={`group relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-gray-50 shadow-sm transition-colors dark:bg-gray-900 ${
+                    canZoom ? 'cursor-zoom-in' : 'cursor-default'
+                  }`}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                   onMouseMove={handleMouseMove}
                 >
-                  <Image
-                    ref={mainImageRef}
-                    src={currentImage.url}
-                    alt={product.SKU}
-                    width={800}
-                    height={600}
-                    className="w-full rounded-lg shadow-sm"
-                  />
+                  <Suspense fallback={<MainImageSkeleton />}>
+                    <LazyProductImage
+                      ref={mainImageRef}
+                      src={currentImage.url}
+                      alt={product.SKU}
+                      fill
+                      sizes="(min-width: 1024px) 40vw, 100vw"
+                      priority={isInitialImage}
+                      loading={isInitialImage ? undefined : 'lazy'}
+                      className="rounded-lg object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+                      draggable={false}
+                    />
+                  </Suspense>
                 </div>
               ) : (
-                <div className="flex h-96 w-full items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700">
+                <div className="flex aspect-[3/4] w-full items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700">
                   <span className="text-gray-500 dark:text-gray-400">
                     Imagen no disponible
                   </span>
@@ -290,21 +377,28 @@ export default function ProductDetail({
                   {processedImages.map((image, index) => (
                     <button
                       key={index}
+                      type="button"
                       onClick={() => setSelectedImageIndex(index)}
-                      className={`h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 transition-colors ${
+                      className={`h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 bg-gray-50 transition-colors dark:bg-gray-900 ${
                         selectedImageIndex === index
                           ? 'border-blue-500 ring-2 ring-blue-200'
                           : 'border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none'
                       }`}
+                      aria-pressed={selectedImageIndex === index}
                       aria-label={`Ver imagen ${index + 1}`}
                     >
-                      <Image
-                        src={image.url}
-                        alt={`${product.SKU} - Vista ${index + 1}`}
-                        width={80}
-                        height={80}
-                        className="h-full w-full object-cover"
-                      />
+                      <Suspense fallback={<ThumbnailSkeleton />}>
+                        <LazyProductImage
+                          src={image.url}
+                          alt={`${product.SKU} - Vista ${index + 1}`}
+                          width={80}
+                          height={80}
+                          sizes="80px"
+                          loading="lazy"
+                          className="h-full w-full rounded-md object-cover"
+                          draggable={false}
+                        />
+                      </Suspense>
                     </button>
                   ))}
                 </div>
