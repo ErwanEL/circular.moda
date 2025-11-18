@@ -61,13 +61,48 @@ export default function ProductDetail({
   const zoomPaneRef = useRef<HTMLDivElement>(null);
   const mainImageRef = useRef<HTMLImageElement>(null);
 
-  // Process all images to create local paths
-  const processedImages =
-    product.Images?.map((image) => {
+  // Process all images to create local paths and remove duplicates
+  const processedImages = (() => {
+    if (!product.Images || product.Images.length === 0) return [];
+
+    // Deduplicate images by URL only (URLs are unique identifiers)
+    const seenUrls = new Set<string>();
+    const uniqueImages = product.Images.filter((image) => {
+      // Skip images without URL
+      if (!image.url) return false;
+
+      // If we've seen this URL before, it's a duplicate
+      if (seenUrls.has(image.url)) {
+        return false;
+      }
+
+      seenUrls.add(image.url);
+      return true;
+    });
+
+    // Process unique images
+    // Track filenames to handle collisions (same filename, different URLs)
+    const filenameCounts = new Map<string, number>();
+    const processed = uniqueImages.map((image) => {
       if (image.filename && product.id) {
         const normalizedFilename = image.filename
           .toLowerCase()
           .replace(/ /g, '_');
+
+        // Check if we've seen this filename before
+        const count = filenameCounts.get(normalizedFilename) || 0;
+        filenameCounts.set(normalizedFilename, count + 1);
+
+        // If this filename was used before (collision), use original URL instead
+        // This handles cases where multiple images have the same filename but different URLs
+        if (count > 0) {
+          return {
+            url: image.url,
+            filename: image.filename,
+            isLocal: false,
+          };
+        }
+
         return {
           url: `/airtable/${product.id}-${normalizedFilename}`,
           filename: image.filename,
@@ -79,7 +114,10 @@ export default function ProductDetail({
         filename: image.filename,
         isLocal: false,
       };
-    }) || [];
+    });
+
+    return processed;
+  })();
 
   // Get current selected image
   const currentImage =
