@@ -5,7 +5,7 @@ import Button from './button';
 import Link from 'next/link';
 import { FaShoppingCart, FaInfoCircle } from 'react-icons/fa';
 import { translateColorToSpanish } from '../lib/helpers';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import SocialShare from './social-share';
 import Card from './card';
 
@@ -126,68 +126,75 @@ export default function ProductDetail({
   // Zoom functionality
   const ZOOM_LEVEL = 3;
 
-  const updateZoomPane = (e: React.MouseEvent) => {
-    if (
-      !isZooming ||
-      !imageContainerRef.current ||
-      !zoomPaneRef.current ||
-      !mainImageRef.current
-    )
-      return;
+  // Use useCallback to ensure we always have the latest processedImages and selectedImageIndex
+  const updateZoomPane = useCallback(
+    (e: React.MouseEvent) => {
+      if (!isZooming || !imageContainerRef.current || !zoomPaneRef.current)
+        return;
 
-    const rect = imageContainerRef.current.getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollLeft =
-      window.pageXOffset || document.documentElement.scrollLeft;
+      // Get the current image URL directly from processedImages using selectedImageIndex
+      const currentImg =
+        processedImages[selectedImageIndex] || processedImages[0];
+      if (!currentImg?.url) return;
 
-    // Calculate cursor position relative to the image
-    const x = e.pageX - rect.left - scrollLeft;
-    const y = e.pageY - rect.top - scrollTop;
+      const rect = imageContainerRef.current.getBoundingClientRect();
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const scrollLeft =
+        window.pageXOffset || document.documentElement.scrollLeft;
 
-    // Calculate the position as a percentage of the image dimensions
-    const xPercent = Math.max(0, Math.min(1, x / rect.width));
-    const yPercent = Math.max(0, Math.min(1, y / rect.height));
+      // Calculate cursor position relative to the image
+      const x = e.pageX - rect.left - scrollLeft;
+      const y = e.pageY - rect.top - scrollTop;
 
-    // Position the zoom pane next to the image
-    const spaceRight = window.innerWidth - (rect.right - scrollLeft);
-    const zoomPaneWidth = 500;
-    const zoomPaneHeight = 500;
+      // Calculate the position as a percentage of the image dimensions
+      const xPercent = Math.max(0, Math.min(1, x / rect.width));
+      const yPercent = Math.max(0, Math.min(1, y / rect.height));
 
-    if (spaceRight > zoomPaneWidth + 20) {
-      zoomPaneRef.current.style.left = `${rect.right - scrollLeft + 20}px`;
-    } else {
-      zoomPaneRef.current.style.left = `${rect.left - scrollLeft - zoomPaneWidth - 20}px`;
-    }
+      // Position the zoom pane next to the image
+      const spaceRight = window.innerWidth - (rect.right - scrollLeft);
+      const zoomPaneWidth = 500;
+      const zoomPaneHeight = 500;
 
-    zoomPaneRef.current.style.top = `${Math.min(
-      window.innerHeight - zoomPaneHeight,
-      rect.top - scrollTop
-    )}px`;
+      if (spaceRight > zoomPaneWidth + 20) {
+        zoomPaneRef.current.style.left = `${rect.right - scrollLeft + 20}px`;
+      } else {
+        zoomPaneRef.current.style.left = `${rect.left - scrollLeft - zoomPaneWidth - 20}px`;
+      }
 
-    // Create the zoomed background image
-    const zoomWidth = rect.width * ZOOM_LEVEL;
-    const zoomHeight = rect.height * ZOOM_LEVEL;
+      zoomPaneRef.current.style.top = `${Math.min(
+        window.innerHeight - zoomPaneHeight,
+        rect.top - scrollTop
+      )}px`;
 
-    // Calculate background position to center on cursor
-    const bgX = Math.max(
-      0,
-      Math.min(
-        zoomWidth - zoomPaneWidth,
-        xPercent * zoomWidth - zoomPaneWidth / 2
-      )
-    );
-    const bgY = Math.max(
-      0,
-      Math.min(
-        zoomHeight - zoomPaneHeight,
-        yPercent * zoomHeight - zoomPaneHeight / 2
-      )
-    );
+      // Create the zoomed background image
+      const zoomWidth = rect.width * ZOOM_LEVEL;
+      const zoomHeight = rect.height * ZOOM_LEVEL;
 
-    zoomPaneRef.current.style.backgroundImage = `url(${mainImageRef.current.src})`;
-    zoomPaneRef.current.style.backgroundSize = `${zoomWidth}px ${zoomHeight}px`;
-    zoomPaneRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
-  };
+      // Calculate background position to center on cursor
+      const bgX = Math.max(
+        0,
+        Math.min(
+          zoomWidth - zoomPaneWidth,
+          xPercent * zoomWidth - zoomPaneWidth / 2
+        )
+      );
+      const bgY = Math.max(
+        0,
+        Math.min(
+          zoomHeight - zoomPaneHeight,
+          yPercent * zoomHeight - zoomPaneHeight / 2
+        )
+      );
+
+      // Always use the current image URL from processedImages (quoted to allow parentheses/spaces)
+      const safeUrl = JSON.stringify(currentImg.url);
+      zoomPaneRef.current.style.backgroundImage = `url(${safeUrl})`;
+      zoomPaneRef.current.style.backgroundSize = `${zoomWidth}px ${zoomHeight}px`;
+      zoomPaneRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
+    },
+    [isZooming, processedImages, selectedImageIndex]
+  );
 
   const handleMouseEnter = (e: React.MouseEvent) => {
     if (window.innerWidth >= 1024) {
@@ -236,6 +243,14 @@ export default function ProductDetail({
       setShareUrl(window.location.href);
     }
   }, []);
+
+  // Reset zoom pane when selected image changes
+  useEffect(() => {
+    if (zoomPaneRef.current) {
+      zoomPaneRef.current.style.opacity = '0';
+      setIsZooming(false);
+    }
+  }, [selectedImageIndex]);
 
   return (
     <section className="py-8 antialiased md:py-16">
