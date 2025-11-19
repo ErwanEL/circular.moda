@@ -1,102 +1,114 @@
 'use client';
 
-import Image, { type ImageProps } from 'next/image';
+import Image from 'next/image';
 import Button from './button';
 import Link from 'next/link';
 import { FaShoppingCart, FaInfoCircle } from 'react-icons/fa';
 import { translateColorToSpanish } from '../lib/helpers';
+import type { Product } from '../lib/types';
 import {
   useState,
   useRef,
   useEffect,
   useCallback,
-  Suspense,
+  useMemo,
   forwardRef,
 } from 'react';
 import SocialShare from './social-share';
 import Card from './card';
 
-type ImageStatus = 'pending' | 'loaded' | 'error';
-
-const imagePromiseCache = new Map<string, Promise<void>>();
-const imageStatusCache = new Map<string, ImageStatus>();
-
-const ensureImagePromise = (src: string) => {
-  if (imagePromiseCache.has(src)) {
-    return imagePromiseCache.get(src) as Promise<void>;
-  }
-
-  if (typeof window === 'undefined') {
-    const resolved = Promise.resolve();
-    imagePromiseCache.set(src, resolved);
-    imageStatusCache.set(src, 'loaded');
-    return resolved;
-  }
-
-  imageStatusCache.set(src, 'pending');
-
-  const promise = new Promise<void>((resolve) => {
-    const img = new window.Image();
-    img.decoding = 'async';
-    img.src = src;
-    img.onload = () => {
-      imageStatusCache.set(src, 'loaded');
-      resolve();
-    };
-    img.onerror = () => {
-      imageStatusCache.set(src, 'error');
-      resolve();
-    };
-  });
-
-  imagePromiseCache.set(src, promise);
-  return promise;
+// Component to handle external images that Next.js Image might block
+// Uses regular img tag for external URLs to avoid Next.js Image restrictions
+type ExternalImageProps = {
+  src: string;
+  alt: string;
+  fill?: boolean;
+  width?: number;
+  height?: number;
+  className?: string;
+  loading?: 'lazy' | 'eager';
+  onError?: () => void;
+  draggable?: boolean;
 };
 
-const useImageReady = (src?: string) => {
-  if (!src || typeof window === 'undefined') return;
+const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
+  (
+    { src, alt, fill, width, height, className, loading, onError, draggable },
+    ref
+  ) => {
+    const handleError = useCallback(() => {
+      onError?.();
+    }, [onError]);
 
-  const status = imageStatusCache.get(src);
-  if (status === 'loaded' || status === 'error') return;
-
-  const promise = ensureImagePromise(src);
-  if (imageStatusCache.get(src) === 'error') return;
-
-  throw promise;
-};
-
-const isImageLoaded = (src?: string) =>
-  !!src && imageStatusCache.get(src) === 'loaded';
-
-type LazyImageProps = Omit<ImageProps, 'src'> & { src: string };
-
-const LazyProductImage = forwardRef<HTMLImageElement, LazyImageProps>(
-  function LazyProductImage({ src, ...rest }, ref) {
-    useImageReady(src);
-    return <Image ref={ref} src={src} {...rest} />;
+    if (src.startsWith('https://')) {
+      // Use regular img tag for external URLs to avoid Next.js Image issues
+      if (fill) {
+        return (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            ref={ref}
+            src={src}
+            alt={alt}
+            className={className}
+            onError={handleError}
+            loading={loading}
+            draggable={draggable}
+            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+          />
+        );
+      }
+      return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          ref={ref}
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className={className}
+          onError={handleError}
+          loading={loading}
+          draggable={draggable}
+        />
+      );
+    }
+    // Use Next.js Image for local URLs
+    if (fill) {
+      return (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className={className}
+          onError={handleError}
+        />
+      );
+    }
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        onError={handleError}
+      />
+    );
   }
 );
 
-const MainImageSkeleton = () => (
-  <div className="absolute inset-0 h-full w-full animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800" />
-);
+ExternalImage.displayName = 'ExternalImage';
 
-const ThumbnailSkeleton = () => (
-  <div className="h-full w-full animate-pulse rounded-md bg-gray-200 dark:bg-gray-700" />
-);
+type ProcessedImage = {
+  url: string;
+  originalUrl: string;
+  fallbackUrl?: string;
+  filename?: string;
+  isLocal: boolean;
+};
 
 type ProductDetailProps = {
-  product: {
-    SKU: string;
-    'Product Name'?: string;
-    Price?: number;
-    Category?: string;
-    Color?: string;
-    Size?: string;
-    StockLevels?: number;
-    id?: string;
-    Images?: Array<{ url: string; filename: string }>;
-  };
+  product: Product;
   rating?: {
     value: number;
     count: number;
@@ -127,6 +139,9 @@ export default function ProductDetail({
   const productColor = product.Color
     ? translateColorToSpanish(product.Color.toLowerCase())
     : 'Desconocido';
+  const productDescription = (
+    product.description ?? product['Description']
+  )?.trim();
 
   // State for selected image
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -137,83 +152,67 @@ export default function ProductDetail({
   const zoomPaneRef = useRef<HTMLDivElement>(null);
   const mainImageRef = useRef<HTMLImageElement>(null);
 
-  // Process all images to create local paths and remove duplicates
-  const processedImages = (() => {
+  // Process all images - use original URLs directly to ensure reliability
+  // Many local files don't exist, so using original URLs is more reliable
+  const processedImages = useMemo<ProcessedImage[]>(() => {
     if (!product.Images || product.Images.length === 0) return [];
 
-    // Deduplicate images by URL only (URLs are unique identifiers)
     const seenUrls = new Set<string>();
     const uniqueImages = product.Images.filter((image) => {
-      // Skip images without URL
       if (!image.url) return false;
-
-      // If we've seen this URL before, it's a duplicate
       if (seenUrls.has(image.url)) {
         return false;
       }
-
       seenUrls.add(image.url);
       return true;
     });
 
-    // Process unique images
-    // Track filenames to handle collisions (same filename, different URLs)
-    const filenameCounts = new Map<string, number>();
-    const processed = uniqueImages.map((image) => {
-      if (image.filename && product.id) {
-        const normalizedFilename = image.filename
-          .toLowerCase()
-          .replace(/ /g, '_');
+    // Simply use original URLs directly - no local path logic
+    // This ensures images always work
+    return uniqueImages.map((image) => ({
+      url: image.url,
+      originalUrl: image.url,
+      filename: image.filename,
+      isLocal: false,
+    }));
+  }, [product]);
 
-        // Check if we've seen this filename before
-        const count = filenameCounts.get(normalizedFilename) || 0;
-        filenameCounts.set(normalizedFilename, count + 1);
+  const displayedImages = useMemo<ProcessedImage[]>(() => {
+    // Filter out any images without valid URLs
+    return processedImages.filter((img) => img.url && img.url.trim() !== '');
+  }, [processedImages]);
 
-        // If this filename was used before (collision), use original URL instead
-        // This handles cases where multiple images have the same filename but different URLs
-        if (count > 0) {
-          return {
-            url: image.url,
-            filename: image.filename,
-            isLocal: false,
-          };
-        }
+  const handleImageError = useCallback((image?: ProcessedImage) => {
+    // Log error for debugging, but don't try to switch URLs since we're using original URLs directly
+    if (image?.url) {
+      console.warn('Image failed to load:', image.url);
+    }
+  }, []);
 
-        return {
-          url: `/airtable/${product.id}-${normalizedFilename}`,
-          filename: image.filename,
-          isLocal: true,
-        };
-      }
-      return {
-        url: image.url,
-        filename: image.filename,
-        isLocal: false,
-      };
-    });
-
-    return processed;
-  })();
+  // Removed proactive verification - it was too aggressive and caused false negatives
+  // Images will now rely solely on onError handlers for fallback logic
+  // This ensures images always attempt to render with their primary URL first
 
   // Get current selected image
   const currentImage =
-    processedImages[selectedImageIndex] || processedImages[0];
-  const canZoom = Boolean(currentImage?.url) && isImageLoaded(currentImage?.url);
+    displayedImages[selectedImageIndex] || displayedImages[0];
+  // Allow zoom if image exists - Next.js Image will handle loading
+  const canZoom = Boolean(currentImage?.url);
   const isInitialImage = selectedImageIndex === 0;
 
   // Zoom functionality
   const ZOOM_LEVEL = 3;
 
-  // Use useCallback to ensure we always have the latest processedImages and selectedImageIndex
+  // Use useCallback to ensure we always have the latest image list and selected index
   const updateZoomPane = useCallback(
     (e: React.MouseEvent) => {
       if (!isZooming || !imageContainerRef.current || !zoomPaneRef.current)
         return;
 
-      // Get the current image URL directly from processedImages using selectedImageIndex
+      // Get the current image URL directly from the displayed list using selectedImageIndex
       const currentImg =
-        processedImages[selectedImageIndex] || processedImages[0];
-      if (!currentImg?.url || !isImageLoaded(currentImg.url)) return;
+        displayedImages[selectedImageIndex] || displayedImages[0];
+      if (!currentImg?.url) return;
 
       const rect = imageContainerRef.current.getBoundingClientRect();
       const scrollTop =
@@ -265,13 +264,13 @@ export default function ProductDetail({
         )
       );
 
-      // Always use the current image URL from processedImages (quoted to allow parentheses/spaces)
+      // Always use the current image URL from the displayed images (quoted to allow parentheses/spaces)
       const safeUrl = JSON.stringify(currentImg.url);
       zoomPaneRef.current.style.backgroundImage = `url(${safeUrl})`;
       zoomPaneRef.current.style.backgroundSize = `${zoomWidth}px ${zoomHeight}px`;
       zoomPaneRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
     },
-    [isZooming, processedImages, selectedImageIndex]
+    [isZooming, displayedImages, selectedImageIndex]
   );
 
   const handleMouseEnter = (e: React.MouseEvent) => {
@@ -349,19 +348,16 @@ export default function ProductDetail({
                   onMouseLeave={handleMouseLeave}
                   onMouseMove={handleMouseMove}
                 >
-                  <Suspense fallback={<MainImageSkeleton />}>
-                    <LazyProductImage
-                      ref={mainImageRef}
-                      src={currentImage.url}
-                      alt={product.SKU}
-                      fill
-                      sizes="(min-width: 1024px) 40vw, 100vw"
-                      priority={isInitialImage}
-                      loading={isInitialImage ? undefined : 'lazy'}
-                      className="rounded-lg object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
-                      draggable={false}
-                    />
-                  </Suspense>
+                  <ExternalImage
+                    ref={mainImageRef}
+                    src={currentImage.url}
+                    alt={product.SKU}
+                    fill
+                    loading={isInitialImage ? undefined : 'lazy'}
+                    className="rounded-lg object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+                    draggable={false}
+                    onError={() => handleImageError(currentImage)}
+                  />
                 </div>
               ) : (
                 <div className="flex aspect-[3/4] w-full items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700">
@@ -372,9 +368,9 @@ export default function ProductDetail({
               )}
 
               {/* Thumbnail Gallery */}
-              {processedImages.length > 1 && (
+              {displayedImages.length > 1 && (
                 <div className="flex space-x-2 overflow-x-auto pb-2">
-                  {processedImages.map((image, index) => (
+                  {displayedImages.map((image, index) => (
                     <button
                       key={index}
                       type="button"
@@ -387,18 +383,16 @@ export default function ProductDetail({
                       aria-pressed={selectedImageIndex === index}
                       aria-label={`Ver imagen ${index + 1}`}
                     >
-                      <Suspense fallback={<ThumbnailSkeleton />}>
-                        <LazyProductImage
-                          src={image.url}
-                          alt={`${product.SKU} - Vista ${index + 1}`}
-                          width={80}
-                          height={80}
-                          sizes="80px"
-                          loading="lazy"
-                          className="h-full w-full rounded-md object-cover"
-                          draggable={false}
-                        />
-                      </Suspense>
+                      <ExternalImage
+                        src={image.url}
+                        alt={`${product.SKU} - Vista ${index + 1}`}
+                        width={80}
+                        height={80}
+                        loading="lazy"
+                        className="h-full w-full rounded-md object-cover"
+                        draggable={false}
+                        onError={() => handleImageError(image)}
+                      />
                     </button>
                   ))}
                 </div>
@@ -479,6 +473,11 @@ export default function ProductDetail({
                 {product.Size && (
                   <li>
                     <strong>Talle:</strong> {product.Size}
+                  </li>
+                )}
+                {productDescription && (
+                  <li>
+                    <strong>Descripción:</strong> {productDescription}
                   </li>
                 )}
               </ul>
