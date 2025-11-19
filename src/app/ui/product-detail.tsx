@@ -5,22 +5,110 @@ import Button from './button';
 import Link from 'next/link';
 import { FaShoppingCart, FaInfoCircle } from 'react-icons/fa';
 import { translateColorToSpanish } from '../lib/helpers';
-import { useState, useRef, useEffect } from 'react';
+import type { Product } from '../lib/types';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+  forwardRef,
+} from 'react';
 import SocialShare from './social-share';
 import Card from './card';
 
+// Component to handle external images that Next.js Image might block
+// Uses regular img tag for external URLs to avoid Next.js Image restrictions
+type ExternalImageProps = {
+  src: string;
+  alt: string;
+  fill?: boolean;
+  width?: number;
+  height?: number;
+  className?: string;
+  loading?: 'lazy' | 'eager';
+  onError?: () => void;
+  draggable?: boolean;
+};
+
+const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
+  (
+    { src, alt, fill, width, height, className, loading, onError, draggable },
+    ref
+  ) => {
+    const handleError = useCallback(() => {
+      onError?.();
+    }, [onError]);
+
+    if (src.startsWith('https://')) {
+      // Use regular img tag for external URLs to avoid Next.js Image issues
+      if (fill) {
+        return (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            ref={ref}
+            src={src}
+            alt={alt}
+            className={className}
+            onError={handleError}
+            loading={loading}
+            draggable={draggable}
+            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+          />
+        );
+      }
+      return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          ref={ref}
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className={className}
+          onError={handleError}
+          loading={loading}
+          draggable={draggable}
+        />
+      );
+    }
+    // Use Next.js Image for local URLs
+    if (fill) {
+      return (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className={className}
+          onError={handleError}
+        />
+      );
+    }
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        onError={handleError}
+      />
+    );
+  }
+);
+
+ExternalImage.displayName = 'ExternalImage';
+
+type ProcessedImage = {
+  url: string;
+  originalUrl: string;
+  fallbackUrl?: string;
+  filename?: string;
+  isLocal: boolean;
+};
+
 type ProductDetailProps = {
-  product: {
-    SKU: string;
-    'Product Name'?: string;
-    Price?: number;
-    Category?: string;
-    Color?: string;
-    Size?: string;
-    StockLevels?: number;
-    id?: string;
-    Images?: Array<{ url: string; filename: string }>;
-  };
+  product: Product;
   rating?: {
     value: number;
     count: number;
@@ -51,6 +139,9 @@ export default function ProductDetail({
   const productColor = product.Color
     ? translateColorToSpanish(product.Color.toLowerCase())
     : 'Desconocido';
+  const productDescription = (
+    product.description ?? product['Description']
+  )?.trim();
 
   // State for selected image
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -61,97 +152,129 @@ export default function ProductDetail({
   const zoomPaneRef = useRef<HTMLDivElement>(null);
   const mainImageRef = useRef<HTMLImageElement>(null);
 
-  // Process all images to create local paths
-  const processedImages =
-    product.Images?.map((image) => {
-      if (image.filename && product.id) {
-        const normalizedFilename = image.filename
-          .toLowerCase()
-          .replace(/ /g, '_');
-        return {
-          url: `/airtable/${product.id}-${normalizedFilename}`,
-          filename: image.filename,
-          isLocal: true,
-        };
+  // Process all images - use original URLs directly to ensure reliability
+  // Many local files don't exist, so using original URLs is more reliable
+  const processedImages = useMemo<ProcessedImage[]>(() => {
+    if (!product.Images || product.Images.length === 0) return [];
+
+    const seenUrls = new Set<string>();
+    const uniqueImages = product.Images.filter((image) => {
+      if (!image.url) return false;
+      if (seenUrls.has(image.url)) {
+        return false;
       }
-      return {
-        url: image.url,
-        filename: image.filename,
-        isLocal: false,
-      };
-    }) || [];
+      seenUrls.add(image.url);
+      return true;
+    });
+
+    // Simply use original URLs directly - no local path logic
+    // This ensures images always work
+    return uniqueImages.map((image) => ({
+      url: image.url,
+      originalUrl: image.url,
+      filename: image.filename,
+      isLocal: false,
+    }));
+  }, [product]);
+
+  const displayedImages = useMemo<ProcessedImage[]>(() => {
+    // Filter out any images without valid URLs
+    return processedImages.filter((img) => img.url && img.url.trim() !== '');
+  }, [processedImages]);
+
+  const handleImageError = useCallback((image?: ProcessedImage) => {
+    // Log error for debugging, but don't try to switch URLs since we're using original URLs directly
+    if (image?.url) {
+      console.warn('Image failed to load:', image.url);
+    }
+  }, []);
+
+  // Removed proactive verification - it was too aggressive and caused false negatives
+  // Images will now rely solely on onError handlers for fallback logic
+  // This ensures images always attempt to render with their primary URL first
 
   // Get current selected image
   const currentImage =
-    processedImages[selectedImageIndex] || processedImages[0];
+    displayedImages[selectedImageIndex] || displayedImages[0];
+  // Allow zoom if image exists - Next.js Image will handle loading
+  const canZoom = Boolean(currentImage?.url);
+  const isInitialImage = selectedImageIndex === 0;
 
   // Zoom functionality
   const ZOOM_LEVEL = 3;
 
-  const updateZoomPane = (e: React.MouseEvent) => {
-    if (
-      !isZooming ||
-      !imageContainerRef.current ||
-      !zoomPaneRef.current ||
-      !mainImageRef.current
-    )
-      return;
+  // Use useCallback to ensure we always have the latest image list and selected index
+  const updateZoomPane = useCallback(
+    (e: React.MouseEvent) => {
+      if (!isZooming || !imageContainerRef.current || !zoomPaneRef.current)
+        return;
 
-    const rect = imageContainerRef.current.getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollLeft =
-      window.pageXOffset || document.documentElement.scrollLeft;
+      // Get the current image URL directly from the displayed list using selectedImageIndex
+      const currentImg =
+        displayedImages[selectedImageIndex] || displayedImages[0];
+      if (!currentImg?.url) return;
 
-    // Calculate cursor position relative to the image
-    const x = e.pageX - rect.left - scrollLeft;
-    const y = e.pageY - rect.top - scrollTop;
+      const rect = imageContainerRef.current.getBoundingClientRect();
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const scrollLeft =
+        window.pageXOffset || document.documentElement.scrollLeft;
 
-    // Calculate the position as a percentage of the image dimensions
-    const xPercent = Math.max(0, Math.min(1, x / rect.width));
-    const yPercent = Math.max(0, Math.min(1, y / rect.height));
+      // Calculate cursor position relative to the image
+      const x = e.pageX - rect.left - scrollLeft;
+      const y = e.pageY - rect.top - scrollTop;
 
-    // Position the zoom pane next to the image
-    const spaceRight = window.innerWidth - (rect.right - scrollLeft);
-    const zoomPaneWidth = 500;
-    const zoomPaneHeight = 500;
+      // Calculate the position as a percentage of the image dimensions
+      const xPercent = Math.max(0, Math.min(1, x / rect.width));
+      const yPercent = Math.max(0, Math.min(1, y / rect.height));
 
-    if (spaceRight > zoomPaneWidth + 20) {
-      zoomPaneRef.current.style.left = `${rect.right - scrollLeft + 20}px`;
-    } else {
-      zoomPaneRef.current.style.left = `${rect.left - scrollLeft - zoomPaneWidth - 20}px`;
-    }
+      // Position the zoom pane next to the image
+      const spaceRight = window.innerWidth - (rect.right - scrollLeft);
+      const zoomPaneWidth = 500;
+      const zoomPaneHeight = 500;
 
-    zoomPaneRef.current.style.top = `${Math.min(
-      window.innerHeight - zoomPaneHeight,
-      rect.top - scrollTop
-    )}px`;
+      if (spaceRight > zoomPaneWidth + 20) {
+        zoomPaneRef.current.style.left = `${rect.right - scrollLeft + 20}px`;
+      } else {
+        zoomPaneRef.current.style.left = `${rect.left - scrollLeft - zoomPaneWidth - 20}px`;
+      }
 
-    // Create the zoomed background image
-    const zoomWidth = rect.width * ZOOM_LEVEL;
-    const zoomHeight = rect.height * ZOOM_LEVEL;
+      zoomPaneRef.current.style.top = `${Math.min(
+        window.innerHeight - zoomPaneHeight,
+        rect.top - scrollTop
+      )}px`;
 
-    // Calculate background position to center on cursor
-    const bgX = Math.max(
-      0,
-      Math.min(
-        zoomWidth - zoomPaneWidth,
-        xPercent * zoomWidth - zoomPaneWidth / 2
-      )
-    );
-    const bgY = Math.max(
-      0,
-      Math.min(
-        zoomHeight - zoomPaneHeight,
-        yPercent * zoomHeight - zoomPaneHeight / 2
-      )
-    );
+      // Create the zoomed background image
+      const zoomWidth = rect.width * ZOOM_LEVEL;
+      const zoomHeight = rect.height * ZOOM_LEVEL;
 
-    zoomPaneRef.current.style.backgroundImage = `url(${mainImageRef.current.src})`;
-    zoomPaneRef.current.style.backgroundSize = `${zoomWidth}px ${zoomHeight}px`;
-    zoomPaneRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
-  };
+      // Calculate background position to center on cursor
+      const bgX = Math.max(
+        0,
+        Math.min(
+          zoomWidth - zoomPaneWidth,
+          xPercent * zoomWidth - zoomPaneWidth / 2
+        )
+      );
+      const bgY = Math.max(
+        0,
+        Math.min(
+          zoomHeight - zoomPaneHeight,
+          yPercent * zoomHeight - zoomPaneHeight / 2
+        )
+      );
+
+      // Always use the current image URL from the displayed images (quoted to allow parentheses/spaces)
+      const safeUrl = JSON.stringify(currentImg.url);
+      zoomPaneRef.current.style.backgroundImage = `url(${safeUrl})`;
+      zoomPaneRef.current.style.backgroundSize = `${zoomWidth}px ${zoomHeight}px`;
+      zoomPaneRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
+    },
+    [isZooming, displayedImages, selectedImageIndex]
+  );
 
   const handleMouseEnter = (e: React.MouseEvent) => {
+    if (!canZoom) return;
     if (window.innerWidth >= 1024) {
       setIsZooming(true);
       if (zoomPaneRef.current) {
@@ -169,6 +292,7 @@ export default function ProductDetail({
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (!canZoom) return;
     updateZoomPane(e);
   };
 
@@ -199,6 +323,14 @@ export default function ProductDetail({
     }
   }, []);
 
+  // Reset zoom pane when selected image changes
+  useEffect(() => {
+    if (zoomPaneRef.current) {
+      zoomPaneRef.current.style.opacity = '0';
+      setIsZooming(false);
+    }
+  }, [selectedImageIndex]);
+
   return (
     <section className="py-8 antialiased md:py-16">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -209,22 +341,26 @@ export default function ProductDetail({
               {currentImage ? (
                 <div
                   ref={imageContainerRef}
-                  className="group relative cursor-zoom-in"
+                  className={`group relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-gray-50 shadow-sm transition-colors dark:bg-gray-900 ${
+                    canZoom ? 'cursor-zoom-in' : 'cursor-default'
+                  }`}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                   onMouseMove={handleMouseMove}
                 >
-                  <Image
+                  <ExternalImage
                     ref={mainImageRef}
                     src={currentImage.url}
                     alt={product.SKU}
-                    width={800}
-                    height={600}
-                    className="w-full rounded-lg shadow-sm"
+                    fill
+                    loading={isInitialImage ? undefined : 'lazy'}
+                    className="rounded-lg object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+                    draggable={false}
+                    onError={() => handleImageError(currentImage)}
                   />
                 </div>
               ) : (
-                <div className="flex h-96 w-full items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700">
+                <div className="flex aspect-[3/4] w-full items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700">
                   <span className="text-gray-500 dark:text-gray-400">
                     Imagen no disponible
                   </span>
@@ -232,25 +368,30 @@ export default function ProductDetail({
               )}
 
               {/* Thumbnail Gallery */}
-              {processedImages.length > 1 && (
+              {displayedImages.length > 1 && (
                 <div className="flex space-x-2 overflow-x-auto pb-2">
-                  {processedImages.map((image, index) => (
+                  {displayedImages.map((image, index) => (
                     <button
                       key={index}
+                      type="button"
                       onClick={() => setSelectedImageIndex(index)}
-                      className={`h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 transition-colors ${
+                      className={`h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 bg-gray-50 transition-colors dark:bg-gray-900 ${
                         selectedImageIndex === index
                           ? 'border-blue-500 ring-2 ring-blue-200'
                           : 'border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none'
                       }`}
+                      aria-pressed={selectedImageIndex === index}
                       aria-label={`Ver imagen ${index + 1}`}
                     >
-                      <Image
+                      <ExternalImage
                         src={image.url}
                         alt={`${product.SKU} - Vista ${index + 1}`}
                         width={80}
                         height={80}
-                        className="h-full w-full object-cover"
+                        loading="lazy"
+                        className="h-full w-full rounded-md object-cover"
+                        draggable={false}
+                        onError={() => handleImageError(image)}
                       />
                     </button>
                   ))}
@@ -332,6 +473,11 @@ export default function ProductDetail({
                 {product.Size && (
                   <li>
                     <strong>Talle:</strong> {product.Size}
+                  </li>
+                )}
+                {productDescription && (
+                  <li>
+                    <strong>Descripción:</strong> {productDescription}
                   </li>
                 )}
               </ul>
