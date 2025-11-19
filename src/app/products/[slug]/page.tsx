@@ -32,7 +32,11 @@ export async function generateMetadata({
 
   const productName = product['Product Name'] || 'Producto';
   const title = `${productName} | circular.moda`;
-  const description = `Descubre ${productName} en circular.moda. Moda circular y sostenible.`;
+  const productDescription =
+    (product.description ?? product['Description'])?.trim();
+  const description =
+    productDescription ||
+    `Descubre ${productName} en circular.moda. Moda circular y sostenible.`;
 
   // Get the first image if available
   const imageUrl =

@@ -9,6 +9,8 @@ export interface Product {
   'Stock Levels'?: number;
   slug: string;
   Images?: { url: string; filename: string }[];
+  'Description'?: string;
+  description?: string;
   // Add any other fields you use in your product objects
 }
 
