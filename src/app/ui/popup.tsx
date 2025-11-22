@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 
 export default function Popup() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const handleClose = useCallback(() => {
     setIsVisible(false);
@@ -46,7 +46,7 @@ export default function Popup() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#00000096]"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[#00000096] p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           handleClose();
@@ -64,23 +64,24 @@ export default function Popup() {
         }}
       />
       <div
-        className="mx-4 w-full max-w-2xl rounded-lg bg-white p-6 shadow-xl"
+        className="relative my-auto max-h-[calc(100vh-2rem)] w-full max-w-2xl overflow-y-auto rounded-lg bg-white p-4 shadow-xl sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="mb-4 flex items-start justify-end">
+        <div className="sticky top-0 z-10 -mt-2 mb-4 flex items-start justify-end bg-white pt-2 pb-2">
           <button
             onClick={handleClose}
-            className="cursor-pointer text-2xl leading-none text-gray-500 hover:text-gray-700"
+            className="-mt-2 -mr-2 flex min-h-[48px] min-w-[48px] cursor-pointer touch-manipulation items-center justify-center text-4xl leading-none text-gray-500 hover:text-gray-700 active:text-gray-900 sm:text-2xl"
             aria-label="Cerrar popup"
+            type="button"
           >
             ×
           </button>
         </div>
         <div className="text-center">
-          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+          <h2 className="mb-4 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
             Recibí cada mes tu catálogo de ropa
           </h2>
-          <p className="mb-4 font-light text-gray-500 md:text-lg dark:text-gray-400">
+          <p className="mb-4 text-sm font-light text-gray-500 sm:text-base md:text-lg dark:text-gray-400">
             Mantenete al tanto de las{' '}
             <span className="font-bold text-gray-900">
               últimas buenas ofertas
