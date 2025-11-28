@@ -40,17 +40,15 @@ const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
       onError?.();
     }, [onError]);
 
-    // Check if URL is from Airtable (configured in next.config.ts) or is a local path
-    const isAirtableUrl = src.includes('airtableusercontent.com');
+    // Use Next.js Image only for local paths (starting with /)
+    // For external URLs (including Airtable), use regular img tags to avoid Next.js Image issues
     const isLocalPath = src.startsWith('/');
 
-    // Use Next.js Image for Airtable URLs (configured in next.config.ts) and local paths
-    // This ensures proper optimization and loading
-    if (isAirtableUrl || isLocalPath) {
+    if (isLocalPath) {
+      // Use Next.js Image for local paths
       if (fill) {
         return (
           <Image
-            ref={ref as React.Ref<HTMLImageElement>}
             src={src}
             alt={alt}
             fill
@@ -62,7 +60,6 @@ const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
       }
       return (
         <Image
-          ref={ref as React.Ref<HTMLImageElement>}
           src={src}
           alt={alt}
           width={width}
@@ -73,8 +70,8 @@ const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
       );
     }
 
-    // Fallback to regular img tag for other external URLs
-    // This handles edge cases where Next.js Image might not work
+    // Use regular img tag for all external URLs (including Airtable)
+    // This ensures images load reliably in both dev and production
     if (fill) {
       return (
         // eslint-disable-next-line @next/next/no-img-element
