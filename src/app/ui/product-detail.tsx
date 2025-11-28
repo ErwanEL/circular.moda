@@ -40,58 +40,72 @@ const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
       onError?.();
     }, [onError]);
 
-    if (src.startsWith('https://')) {
-      // Use regular img tag for external URLs to avoid Next.js Image issues
+    // Use Next.js Image only for local paths (starting with /)
+    // For external URLs (including Airtable), use regular img tags to avoid Next.js Image issues
+    const isLocalPath = src.startsWith('/');
+
+    if (isLocalPath) {
+      // Use Next.js Image for local paths
       if (fill) {
         return (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            ref={ref}
+          <Image
             src={src}
             alt={alt}
+            fill
             className={className}
             onError={handleError}
-            loading={loading}
-            draggable={draggable}
-            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         );
       }
       return (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          ref={ref}
+        <Image
           src={src}
           alt={alt}
           width={width}
           height={height}
           className={className}
           onError={handleError}
-          loading={loading}
-          draggable={draggable}
         />
       );
     }
-    // Use Next.js Image for local URLs
+
+    // Use regular img tag for all external URLs (including Airtable)
+    // This ensures images load reliably in both dev and production
     if (fill) {
       return (
-        <Image
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          ref={ref}
           src={src}
           alt={alt}
-          fill
           className={className}
           onError={handleError}
+          loading={loading}
+          draggable={draggable}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
         />
       );
     }
     return (
-      <Image
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        ref={ref}
         src={src}
         alt={alt}
         width={width}
         height={height}
         className={className}
         onError={handleError}
+        loading={loading}
+        draggable={draggable}
       />
     );
   }
