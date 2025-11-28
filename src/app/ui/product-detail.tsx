@@ -40,58 +40,75 @@ const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
       onError?.();
     }, [onError]);
 
-    if (src.startsWith('https://')) {
-      // Use regular img tag for external URLs to avoid Next.js Image issues
+    // Check if URL is from Airtable (configured in next.config.ts) or is a local path
+    const isAirtableUrl = src.includes('airtableusercontent.com');
+    const isLocalPath = src.startsWith('/');
+
+    // Use Next.js Image for Airtable URLs (configured in next.config.ts) and local paths
+    // This ensures proper optimization and loading
+    if (isAirtableUrl || isLocalPath) {
       if (fill) {
         return (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            ref={ref}
+          <Image
+            ref={ref as React.Ref<HTMLImageElement>}
             src={src}
             alt={alt}
+            fill
             className={className}
             onError={handleError}
-            loading={loading}
-            draggable={draggable}
-            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         );
       }
       return (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          ref={ref}
+        <Image
+          ref={ref as React.Ref<HTMLImageElement>}
           src={src}
           alt={alt}
           width={width}
           height={height}
           className={className}
           onError={handleError}
-          loading={loading}
-          draggable={draggable}
         />
       );
     }
-    // Use Next.js Image for local URLs
+
+    // Fallback to regular img tag for other external URLs
+    // This handles edge cases where Next.js Image might not work
     if (fill) {
       return (
-        <Image
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          ref={ref}
           src={src}
           alt={alt}
-          fill
           className={className}
           onError={handleError}
+          loading={loading}
+          draggable={draggable}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
         />
       );
     }
     return (
-      <Image
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        ref={ref}
         src={src}
         alt={alt}
         width={width}
         height={height}
         className={className}
         onError={handleError}
+        loading={loading}
+        draggable={draggable}
       />
     );
   }
