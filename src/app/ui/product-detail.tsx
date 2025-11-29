@@ -166,8 +166,8 @@ export default function ProductDetail({
   const zoomPaneRef = useRef<HTMLDivElement>(null);
   const mainImageRef = useRef<HTMLImageElement>(null);
 
-  // Process all images - use original URLs directly to ensure reliability
-  // Many local files don't exist, so using original URLs is more reliable
+  // Process all images to create local paths
+  // Airtable URLs expire, so we use locally downloaded images from /public/airtable/
   const processedImages = useMemo<ProcessedImage[]>(() => {
     if (!product.Images || product.Images.length === 0) return [];
 
@@ -181,14 +181,28 @@ export default function ProductDetail({
       return true;
     });
 
-    // Simply use original URLs directly - no local path logic
-    // This ensures images always work
-    return uniqueImages.map((image) => ({
-      url: image.url,
-      originalUrl: image.url,
-      filename: image.filename,
-      isLocal: false,
-    }));
+    // Build local image paths using the same pattern as product-transformer.ts
+    return uniqueImages.map((image) => {
+      if (image.filename && product.id) {
+        const normalizedFilename = image.filename
+          .toLowerCase()
+          .replace(/ /g, '_');
+        return {
+          url: `/airtable/${product.id}-${normalizedFilename}`,
+          originalUrl: image.url,
+          fallbackUrl: image.url, // Airtable URL as fallback
+          filename: image.filename,
+          isLocal: true,
+        };
+      }
+      return {
+        url: image.url,
+        originalUrl: image.url,
+        fallbackUrl: image.url,
+        filename: image.filename,
+        isLocal: false,
+      };
+    });
   }, [product]);
 
   const displayedImages = useMemo<ProcessedImage[]>(() => {
