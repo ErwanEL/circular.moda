@@ -3,13 +3,21 @@ import { transformProductsToCards } from '../lib/helpers';
 import Card from '../ui/card';
 import Cta from '../ui/cta';
 import Link from 'next/link';
+import Script from 'next/script';
+import { headers } from 'next/headers';
 
-// Fully static, no revalidate
+// Force dynamic so query params/headers affect the response per request
+export const dynamic = 'force-dynamic';
 
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ categories?: string }>;
+  searchParams: Promise<{
+    categories?: string;
+    limit?: string;
+    offset?: string;
+    partial?: string;
+  }>;
 }) {
   try {
     const products = await getAllProducts(); // runs at build time, then every 60 s
@@ -37,6 +45,28 @@ export default async function ProductsPage({
             selectedCategories.includes(card.category)
           )
         : productCards;
+
+    // Pagination + partial rendering
+    const limit = Math.max(1, Math.min(48, Number(params.limit) || 12));
+    const offset = Math.max(0, Number(params.offset) || 0);
+    const isPartialHeader =
+      headers().get('x-requested-with') === 'infinite-scroll';
+    const isPartial = isPartialHeader || params.partial === '1';
+    const visibleProducts = filteredProducts.slice(offset, offset + limit);
+    const hasMore = offset + visibleProducts.length < filteredProducts.length;
+
+    if (isPartial) {
+      // Return only card fragments; each is wrapped for safe client extraction
+      return (
+        <>
+          {visibleProducts.map((cardData, index) => (
+            <div data-card="1" key={`${offset}-${index}`}>
+              <Card {...cardData} />
+            </div>
+          ))}
+        </>
+      );
+    }
 
     return (
       <>
@@ -104,17 +134,34 @@ export default async function ProductsPage({
 
               {/* Products Grid Container */}
               <div className="min-w-0 flex-1">
-                <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-2 xl:grid-cols-3">
-                  {filteredProducts.map((cardData, index) => (
-                    <Card key={index} {...cardData} />
+                <div
+                  id="products-grid"
+                  className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-2 xl:grid-cols-3"
+                >
+                  {visibleProducts.map((cardData, index) => (
+                    <div data-card="1" key={`${offset}-init-${index}`}>
+                      <Card {...cardData} />
+                    </div>
                   ))}
                 </div>
-                {filteredProducts.length === 0 && (
+
+                {filteredProducts.length === 0 && offset === 0 && (
                   <div className="py-12 text-center">
                     <p className="text-gray-500 dark:text-gray-400">
                       No hay productos disponibles en este momento.
                     </p>
                   </div>
+                )}
+
+                {/* Infinite scroll sentinel */}
+                {hasMore && (
+                  <div
+                    id="infinite-sentinel"
+                    data-offset={offset + visibleProducts.length}
+                    data-limit={limit}
+                    data-categories={selectedCategories.join('|')}
+                    className="h-10 w-full"
+                  />
                 )}
               </div>
             </div>
@@ -134,6 +181,80 @@ export default async function ProductsPage({
             },
           }}
         />
+
+        {/* Inline script to fetch more cards on scroll */}
+        {hasMore && (
+          <Script
+            id="infinite-scroll"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `
+(function(){
+  const sentinel = document.getElementById('infinite-sentinel');
+  const grid = document.getElementById('products-grid');
+  if (!sentinel || !grid) return;
+
+  let offset = parseInt(sentinel.dataset.offset || '0', 10);
+  const limit = parseInt(sentinel.dataset.limit || '12', 10);
+  const categories = sentinel.dataset.categories || '';
+  const base = window.location.pathname;
+  let loading = false;
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) loadMore();
+  }, { rootMargin: '100px' });
+
+  observer.observe(sentinel);
+
+  async function loadMore(){
+    if (loading) return;
+    loading = true;
+    try {
+      const params = new URLSearchParams();
+      params.set('partial', '1');
+      params.set('offset', String(offset));
+      params.set('limit', String(limit));
+      if (categories) params.set('categories', categories);
+
+      const url = base + '?' + params.toString();
+      const res = await fetch(url, { headers: { 'x-requested-with': 'infinite-scroll' } });
+      if (!res.ok) throw new Error('' + res.status);
+      const html = (await res.text()).trim();
+      if (!html) {
+        observer.disconnect();
+        sentinel.remove();
+        return;
+      }
+
+      // Parse and append only card fragments to avoid impacting layout
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      const nodes = Array.from(tmp.querySelectorAll('[data-card]'));
+      if (nodes.length === 0) {
+        observer.disconnect();
+        sentinel.remove();
+        return;
+      }
+      nodes.forEach((n) => grid.appendChild(n));
+      offset += nodes.length;
+      sentinel.dataset.offset = String(offset);
+
+      if (nodes.length < limit) {
+        observer.disconnect();
+        sentinel.remove();
+      }
+    } catch (e) {
+      console.error('Infinite scroll error', e);
+      observer.disconnect();
+    } finally {
+      loading = false;
+    }
+  }
+})();
+              `,
+            }}
+          />
+        )}
       </>
     );
   } catch (err: unknown) {
