@@ -27,11 +27,17 @@ export default async function ProductsPage({
 
     // Extract unique categories
     const uniqueCategories = Array.from(
-      new Set(productCards.map((card) => card.category).filter(Boolean))
+      new Set(productCards.map((card) => card.badge).filter(Boolean))
     ).sort();
 
     // Await searchParams before using
     const params = await searchParams;
+
+    // Await headers before using
+    const reqHeaders = await headers();
+    const isPartialHeader =
+      reqHeaders.get('x-requested-with') === 'infinite-scroll';
+    const isPartial = isPartialHeader || params.partial === '1';
 
     // Get selected categories from URL (pipe-separated)
     const selectedCategories = params.categories
@@ -41,17 +47,12 @@ export default async function ProductsPage({
     // Filter products based on selected categories
     const filteredProducts =
       selectedCategories.length > 0
-        ? productCards.filter((card) =>
-            selectedCategories.includes(card.category)
-          )
+        ? productCards.filter((card) => selectedCategories.includes(card.badge))
         : productCards;
 
     // Pagination + partial rendering
     const limit = Math.max(1, Math.min(48, Number(params.limit) || 12));
     const offset = Math.max(0, Number(params.offset) || 0);
-    const isPartialHeader =
-      headers().get('x-requested-with') === 'infinite-scroll';
-    const isPartial = isPartialHeader || params.partial === '1';
     const visibleProducts = filteredProducts.slice(offset, offset + limit);
     const hasMore = offset + visibleProducts.length < filteredProducts.length;
 
