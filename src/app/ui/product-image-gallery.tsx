@@ -39,7 +39,12 @@ export function ProductImageGallery({
 
   const updateZoomPane = useCallback(
     (e: React.MouseEvent) => {
-      if (!isZooming || !imageContainerRef.current || !zoomPaneRef.current)
+      if (
+        !isZooming ||
+        !imageContainerRef.current ||
+        !zoomPaneRef.current ||
+        !mainImageRef.current
+      )
         return;
 
       const currentImg =
@@ -47,6 +52,13 @@ export function ProductImageGallery({
       if (!currentImg?.url) return;
 
       const rect = imageContainerRef.current.getBoundingClientRect();
+      const imgElement = mainImageRef.current;
+
+      // Get actual image dimensions to maintain aspect ratio
+      const imgNaturalWidth = imgElement.naturalWidth || rect.width;
+      const imgNaturalHeight = imgElement.naturalHeight || rect.height;
+      const imgAspectRatio = imgNaturalWidth / imgNaturalHeight;
+
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
       const scrollLeft =
@@ -73,8 +85,22 @@ export function ProductImageGallery({
         rect.top - scrollTop
       )}px`;
 
-      const zoomWidth = rect.width * ZOOM_LEVEL;
-      const zoomHeight = rect.height * ZOOM_LEVEL;
+      // Calculate zoom dimensions maintaining image aspect ratio
+      // The zoom should be based on the actual image size, not container size
+      const containerAspectRatio = rect.width / rect.height;
+
+      let zoomWidth: number;
+      let zoomHeight: number;
+
+      if (imgAspectRatio > containerAspectRatio) {
+        // Image is wider than container - fit to width
+        zoomWidth = rect.width * ZOOM_LEVEL;
+        zoomHeight = zoomWidth / imgAspectRatio;
+      } else {
+        // Image is taller than container - fit to height
+        zoomHeight = rect.height * ZOOM_LEVEL;
+        zoomWidth = zoomHeight * imgAspectRatio;
+      }
 
       const bgX = Math.max(
         0,
@@ -95,6 +121,7 @@ export function ProductImageGallery({
       zoomPaneRef.current.style.backgroundImage = `url(${safeUrl})`;
       zoomPaneRef.current.style.backgroundSize = `${zoomWidth}px ${zoomHeight}px`;
       zoomPaneRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
+      zoomPaneRef.current.style.backgroundRepeat = 'no-repeat';
     },
     [isZooming, images, selectedImageIndex]
   );
