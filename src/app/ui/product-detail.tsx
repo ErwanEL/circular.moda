@@ -3,7 +3,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import Button from './button';
 import Link from 'next/link';
-import { FaShoppingCart, FaInfoCircle } from 'react-icons/fa';
+import { FaWhatsapp } from 'react-icons/fa6';
+import { FaShieldAlt } from 'react-icons/fa';
 import type { Product } from '../lib/types';
 import SocialShare from './social-share';
 import Card from './card';
@@ -14,9 +15,11 @@ import {
   getDisplayedImages,
   type ProcessedImage,
 } from '../lib/product-images';
+import type { User } from '../lib/types';
 
 type ProductDetailProps = {
   product: Product;
+  user?: User | null;
   rating?: {
     value: number;
     count: number;
@@ -41,10 +44,14 @@ type ProductDetailProps = {
 
 export default function ProductDetail({
   product,
+  user,
   rating = { value: 5.0, count: 345 },
   suggestedProducts = [],
 }: ProductDetailProps) {
   const [shareUrl, setShareUrl] = useState('');
+
+  console.log('[ProductDetail] User data:', user);
+  console.log('[ProductDetail] Product User ID:', product['User ID']);
 
   // Process product images
   const processedImages = useMemo<ProcessedImage[]>(() => {
@@ -62,11 +69,11 @@ export default function ProductDetail({
     }
   }, []);
 
+  console.log(product);
+
   const productColor = product.Color
     ? product.Color.toLowerCase()
     : 'Desconocido';
-
-  console.log(displayedImages);
 
   return (
     <section className="py-8 antialiased md:py-16">
@@ -82,7 +89,7 @@ export default function ProductDetail({
 
           {/* Product Info */}
           <div>
-            <ProductInfo product={product} rating={rating} />
+            <ProductInfo product={product} user={user} rating={rating} />
 
             {/* Action Buttons */}
             <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
@@ -91,25 +98,24 @@ export default function ProductDetail({
                 size="xl"
                 href={`https://wa.me/5491125115030?text=Hola%20me%20interesa%20esa%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
                 variant="primary"
-                className="dark:text-gray-900"
+                solid
+                bold
+                className="text-white dark:text-gray-900"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Comprar
-                <FaShoppingCart className="ml-2" />
+                Comprar por whatsapp
+                <FaWhatsapp className="ml-2" />
               </Button>
-              <Button
-                as={Link}
-                size="xl"
-                href={`https://wa.me/5491125115030?text=Hola%20queria%20mas%20info%20sobre%20esta%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
-                variant="secondary"
-                className="ml-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Más info
-                <FaInfoCircle className="ml-2" />
-              </Button>
+            </div>
+
+            {/* Trust Badge */}
+            <div className="mt-4 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <FaShieldAlt className="text-primary-800 h-4 w-4 flex-shrink-0" />
+              <p className="leading-relaxed">
+                <span className="font-bold">Sin comisión.</span> Coordinás pago
+                y entrega directamente con la persona vendedora.
+              </p>
             </div>
           </div>
         </div>
