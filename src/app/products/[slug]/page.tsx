@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllProducts, getProductBySlug } from '../../lib/products';
 import { getSuggestedProducts } from '../../lib/helpers';
+import { getUsersByIds } from '../../lib/users';
 import ProductDetail from '../../ui/product-detail';
 
 /** Fully static – no ISR */
@@ -83,6 +84,21 @@ export default async function ProductPage({
   const product = await getProductBySlug(slug);
   if (!product) notFound(); // built-in 404
 
+  // Fetch user data if User ID exists
+  let user = null;
+  if (product['User ID']) {
+    const userIds = Array.isArray(product['User ID'])
+      ? product['User ID']
+      : [product['User ID']];
+    console.log('[ProductPage] Fetching user data for IDs:', userIds);
+    const users = await getUsersByIds(userIds);
+    console.log('[ProductPage] Fetched users:', users);
+    user = users.length > 0 ? users[0] : null;
+    console.log('[ProductPage] Selected user:', user);
+  } else {
+    console.log('[ProductPage] No User ID found for product:', product.id);
+  }
+
   // Get suggested products
   const allProducts = await getAllProducts();
   const suggestedProducts = product.id
@@ -90,6 +106,10 @@ export default async function ProductPage({
     : [];
 
   return (
-    <ProductDetail product={product} suggestedProducts={suggestedProducts} />
+    <ProductDetail
+      product={product}
+      user={user}
+      suggestedProducts={suggestedProducts}
+    />
   );
 }

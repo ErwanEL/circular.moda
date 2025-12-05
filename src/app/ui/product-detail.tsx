@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Button from './button';
 import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa6';
-import { FaInfoCircle, FaShieldAlt } from 'react-icons/fa';
+import { FaShieldAlt } from 'react-icons/fa';
 import type { Product } from '../lib/types';
 import SocialShare from './social-share';
 import Card from './card';
@@ -15,9 +15,11 @@ import {
   getDisplayedImages,
   type ProcessedImage,
 } from '../lib/product-images';
+import type { User } from '../lib/types';
 
 type ProductDetailProps = {
   product: Product;
+  user?: User | null;
   rating?: {
     value: number;
     count: number;
@@ -42,10 +44,14 @@ type ProductDetailProps = {
 
 export default function ProductDetail({
   product,
+  user,
   rating = { value: 5.0, count: 345 },
   suggestedProducts = [],
 }: ProductDetailProps) {
   const [shareUrl, setShareUrl] = useState('');
+
+  console.log('[ProductDetail] User data:', user);
+  console.log('[ProductDetail] Product User ID:', product['User ID']);
 
   // Process product images
   const processedImages = useMemo<ProcessedImage[]>(() => {
@@ -62,6 +68,8 @@ export default function ProductDetail({
       setShareUrl(window.location.href);
     }
   }, []);
+
+  console.log(product);
 
   const productColor = product.Color
     ? product.Color.toLowerCase()
@@ -81,7 +89,7 @@ export default function ProductDetail({
 
           {/* Product Info */}
           <div>
-            <ProductInfo product={product} rating={rating} />
+            <ProductInfo product={product} user={user} rating={rating} />
 
             {/* Action Buttons */}
             <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
@@ -99,18 +107,6 @@ export default function ProductDetail({
                 Comprar por whatsapp
                 <FaWhatsapp className="ml-2" />
               </Button>
-              {/* <Button
-                as={Link}
-                size="xl"
-                href={`https://wa.me/5491125115030?text=Hola%20queria%20mas%20info%20sobre%20esta%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
-                variant="secondary"
-                className="ml-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Más info
-                <FaInfoCircle className="ml-2" />
-              </Button> */}
             </div>
 
             {/* Trust Badge */}

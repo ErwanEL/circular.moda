@@ -1,19 +1,23 @@
 import { translateColorToSpanish } from '../lib/helpers';
-import type { Product } from '../lib/types';
+import type { Product, User } from '../lib/types';
 import { ProductStarRating } from './product-star-rating';
 
 type ProductInfoProps = {
   product: Product;
+  user?: User | null;
   rating: { value: number; count: number };
 };
 
-export function ProductInfo({ product, rating }: ProductInfoProps) {
+export function ProductInfo({ product, user, rating }: ProductInfoProps) {
   const productColor = product.Color
     ? translateColorToSpanish(product.Color.toLowerCase())
     : 'Desconocido';
   const productDescription = (
     product.description ?? product['Description']
   )?.trim();
+
+  // Extract first name only (before first space)
+  const firstName = user?.Name ? user.Name.split(' ')[0].trim() : null;
 
   return (
     <div className="mt-6 sm:mt-8 lg:mt-0">
@@ -36,14 +40,44 @@ export function ProductInfo({ product, rating }: ProductInfoProps) {
         )}
       </div>
 
-      <div className="mt-2 flex items-center gap-2">
-        <ProductStarRating value={rating.value} />
-        <p className="text-sm leading-none font-medium text-gray-500 dark:text-gray-400">
-          Calificación del vendedor
-        </p>
+      <div className="mt-2 space-y-2">
+        <div className="flex items-center gap-2">
+          <ProductStarRating value={rating.value} />
+          <p className="text-sm leading-none font-medium text-gray-500 dark:text-gray-400">
+            Calificación del vendedor
+          </p>
+        </div>
+
+        {/* User Info */}
+        {firstName && (
+          <div className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="font-bold">{firstName}</span>
+            {' – '}
+            <span className="font-bold">CABA</span>
+            {user?.Products &&
+              (() => {
+                const productCount = Array.isArray(user.Products)
+                  ? user.Products.length
+                  : typeof user.Products === 'string'
+                    ? 1
+                    : 0;
+                return (
+                  <>
+                    {' · '}
+                    <span>
+                      {productCount}{' '}
+                      {productCount === 1
+                        ? 'prenda publicada'
+                        : 'prendas publicadas'}
+                    </span>
+                  </>
+                );
+              })()}
+          </div>
+        )}
       </div>
 
-      <div className="mb-6 mt-6 text-gray-500 dark:text-gray-400">
+      <div className="mt-6 mb-6 text-gray-500 dark:text-gray-400">
         <ul className="space-y-2">
           {product.Category && (
             <li>
@@ -70,4 +104,3 @@ export function ProductInfo({ product, rating }: ProductInfoProps) {
     </div>
   );
 }
-

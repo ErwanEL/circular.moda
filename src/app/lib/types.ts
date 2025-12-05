@@ -9,9 +9,17 @@ export interface Product {
   'Stock Levels'?: number;
   slug: string;
   Images?: { url: string; filename: string }[];
-  'Description'?: string;
+  Description?: string;
   description?: string;
+  'User ID'?: string | string[]; // Linked record field from Airtable
   // Add any other fields you use in your product objects
+}
+
+export interface User {
+  id: string;
+  Name?: string;
+  Products?: string | string[]; // Linked products or product IDs
+  // Only Name and Products are fetched for confidentiality
 }
 
 export interface BlogArticle {
