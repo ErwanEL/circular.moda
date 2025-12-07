@@ -79,9 +79,9 @@ export function ProductInfo({ product, user, rating }: ProductInfoProps) {
 
       <div className="mt-6 mb-6 text-gray-500 dark:text-gray-400">
         <ul className="space-y-2">
-          {product.Category && (
+          {product.category && (
             <li>
-              <strong>Categoría:</strong> {product.Category}
+              <strong>Categoría:</strong> {product.category}
             </li>
           )}
           {product.Color && (
