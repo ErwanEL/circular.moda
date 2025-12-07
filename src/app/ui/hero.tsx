@@ -37,10 +37,10 @@ export default function Hero({
           <div className="relative h-56 w-full max-w-xs">
             <Image
               fill={true}
-              objectFit={'cover'}
               src={content.image.src}
               alt={content.image.alt}
               className="rounded-3xl"
+              style={{ objectFit: 'cover' }}
             />
           </div>
         </div>
@@ -53,7 +53,6 @@ export default function Hero({
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button
-              as={Link}
               size="xl"
               href={content.primaryButton.href}
               variant="primary"
@@ -117,11 +116,11 @@ export default function Hero({
           <div className="h-xl relative w-xl">
             <Image
               fill={true}
-              objectFit={'cover'}
               src={content.image.src}
               // sizes="300px"
               alt={content.image.alt}
               className="rounded-3xl"
+              style={{ objectFit: 'cover' }}
             />
           </div>
         </div>
