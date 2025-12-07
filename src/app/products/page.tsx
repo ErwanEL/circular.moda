@@ -3,8 +3,7 @@ import { transformProductsToCards } from '../lib/helpers';
 import Card from '../ui/card';
 import Cta from '../ui/cta';
 import Link from 'next/link';
-import Script from 'next/script';
-import { headers } from 'next/headers';
+
 
 import { getMasterCategory, CATEGORY_OTHERS } from '../../lib/categoryMapping';
 
@@ -26,7 +25,6 @@ export default async function ProductsPage({
 
     // Transform products to match Card component interface using helper function
     const productCards = transformProductsToCards(products);
-    console.log('productCards', productCards);
 
     // Extract unique master categories
     const uniqueCategories = Array.from(
@@ -40,11 +38,7 @@ export default async function ProductsPage({
     // Await searchParams before using
     const params = await searchParams;
 
-    // Await headers before using
-    const reqHeaders = await headers();
-    const isPartialHeader =
-      reqHeaders.get('x-requested-with') === 'infinite-scroll';
-    const isPartial = isPartialHeader || params.partial === '1';
+
 
     // Get selected categories from URL (pipe-separated)
     const selectedCategories = params.categories
@@ -63,20 +57,9 @@ export default async function ProductsPage({
     const limit = Math.max(1, Math.min(48, Number(params.limit) || 12));
     const offset = Math.max(0, Number(params.offset) || 0);
     const visibleProducts = filteredProducts.slice(offset, offset + limit);
-    const hasMore = offset + visibleProducts.length < filteredProducts.length;
 
-    if (isPartial) {
-      // Return only card fragments; each is wrapped for safe client extraction
-      return (
-        <>
-          {visibleProducts.map((cardData, index) => (
-            <div data-card="1" key={`${offset}-${index}`}>
-              <Card {...cardData} />
-            </div>
-          ))}
-        </>
-      );
-    }
+
+
 
     return (
       <>
@@ -110,9 +93,11 @@ export default async function ProductsPage({
                     </h3>
                     {uniqueCategories.map((category) => {
                       const isChecked = selectedCategories.includes(category);
-                      const newCategories = isChecked
-                        ? selectedCategories.filter((c) => c !== category)
-                        : [...selectedCategories, category];
+                      // Single selection logic:
+                      // If clicked category is already selected, deselect it (return empty array).
+                      // Otherwise, select ONLY the clicked category.
+                      const newCategories = isChecked ? [] : [category];
+                      
                       const href =
                         newCategories.length > 0
                           ? `/products?categories=${newCategories.map(encodeURIComponent).join('|')}`
@@ -123,10 +108,10 @@ export default async function ProductsPage({
                           <Link href={href} className="flex items-center">
                             <input
                               id={`category-${category}`}
-                              type="checkbox"
+                              type="radio"
                               checked={isChecked}
                               readOnly
-                              className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                              className="h-4 w-4 rounded-full border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
                             />
                             <label
                               htmlFor={`category-${category}`}
@@ -163,16 +148,7 @@ export default async function ProductsPage({
                   </div>
                 )}
 
-                {/* Infinite scroll sentinel */}
-                {hasMore && (
-                  <div
-                    id="infinite-sentinel"
-                    data-offset={offset + visibleProducts.length}
-                    data-limit={limit}
-                    data-categories={selectedCategories.join('|')}
-                    className="h-10 w-full"
-                  />
-                )}
+
               </div>
             </div>
           </div>
@@ -191,80 +167,6 @@ export default async function ProductsPage({
             },
           }}
         />
-
-        {/* Inline script to fetch more cards on scroll */}
-        {hasMore && (
-          <Script
-            id="infinite-scroll"
-            strategy="lazyOnload"
-            dangerouslySetInnerHTML={{
-              __html: `
-(function(){
-  const sentinel = document.getElementById('infinite-sentinel');
-  const grid = document.getElementById('products-grid');
-  if (!sentinel || !grid) return;
-
-  let offset = parseInt(sentinel.dataset.offset || '0', 10);
-  const limit = parseInt(sentinel.dataset.limit || '12', 10);
-  const categories = sentinel.dataset.categories || '';
-  const base = window.location.pathname;
-  let loading = false;
-
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) loadMore();
-  }, { rootMargin: '100px' });
-
-  observer.observe(sentinel);
-
-  async function loadMore(){
-    if (loading) return;
-    loading = true;
-    try {
-      const params = new URLSearchParams();
-      params.set('partial', '1');
-      params.set('offset', String(offset));
-      params.set('limit', String(limit));
-      if (categories) params.set('categories', categories);
-
-      const url = base + '?' + params.toString();
-      const res = await fetch(url, { headers: { 'x-requested-with': 'infinite-scroll' } });
-      if (!res.ok) throw new Error('' + res.status);
-      const html = (await res.text()).trim();
-      if (!html) {
-        observer.disconnect();
-        sentinel.remove();
-        return;
-      }
-
-      // Parse and append only card fragments to avoid impacting layout
-      const tmp = document.createElement('div');
-      tmp.innerHTML = html;
-      const nodes = Array.from(tmp.querySelectorAll('[data-card]'));
-      if (nodes.length === 0) {
-        observer.disconnect();
-        sentinel.remove();
-        return;
-      }
-      nodes.forEach((n) => grid.appendChild(n));
-      offset += nodes.length;
-      sentinel.dataset.offset = String(offset);
-
-      if (nodes.length < limit) {
-        observer.disconnect();
-        sentinel.remove();
-      }
-    } catch (e) {
-      console.error('Infinite scroll error', e);
-      observer.disconnect();
-    } finally {
-      loading = false;
-    }
-  }
-})();
-              `,
-            }}
-          />
-        )}
       </>
     );
   } catch (err: unknown) {
