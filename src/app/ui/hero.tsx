@@ -53,7 +53,6 @@ export default function Hero({
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button
-              as={Link}
               size="xl"
               href={content.primaryButton.href}
               variant="primary"

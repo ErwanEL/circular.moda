@@ -94,7 +94,6 @@ export default function ProductDetail({
             {/* Action Buttons */}
             <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
               <Button
-                as={Link}
                 size="xl"
                 href={`https://wa.me/5491125115030?text=Hola%20me%20interesa%20esa%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
                 variant="primary"
