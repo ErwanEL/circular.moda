@@ -31,7 +31,6 @@ export default function Header() {
               bold
               variant="primary"
               size="md"
-              as={Link}
               href="https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda"
               target="_blank"
               rel="noopener noreferrer"
