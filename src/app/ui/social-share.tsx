@@ -132,7 +132,7 @@ export default function SocialShare({
           {/* Copy Link */}
           <div className="flex flex-col items-center border-0 bg-transparent shadow-none">
             <div className="group relative">
-              <button
+              <div
                 onClick={handleCopyLink}
                 aria-label="Copiar enlace"
                 className="block"
@@ -152,7 +152,7 @@ export default function SocialShare({
                     className="h-12 w-12 object-contain sm:h-16 sm:w-16"
                   />
                 </Button>
-              </button>
+              </div>
               {/* Tooltip */}
               <div className="absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 transform group-hover:block">
                 <div className="rounded bg-gray-800 px-2 py-1 text-xs text-white">

@@ -6,6 +6,8 @@ import Link from 'next/link';
 import Script from 'next/script';
 import { headers } from 'next/headers';
 
+import { getMasterCategory, CATEGORY_OTHERS } from '../../lib/categoryMapping';
+
 // Force dynamic so query params/headers affect the response per request
 export const dynamic = 'force-dynamic';
 
@@ -24,10 +26,15 @@ export default async function ProductsPage({
 
     // Transform products to match Card component interface using helper function
     const productCards = transformProductsToCards(products);
+    console.log('productCards', productCards);
 
-    // Extract unique categories
+    // Extract unique master categories
     const uniqueCategories = Array.from(
-      new Set(productCards.map((card) => card.badge).filter(Boolean))
+      new Set(
+        productCards
+          .map((card) => getMasterCategory(card.badge))
+          .filter((c) => c !== CATEGORY_OTHERS) // Optional: hide 'Otros' if you don't want it in the filter list
+      )
     ).sort();
 
     // Await searchParams before using
@@ -44,10 +51,12 @@ export default async function ProductsPage({
       ? params.categories.split('|')
       : [];
 
-    // Filter products based on selected categories
+    // Filter products based on selected master categories
     const filteredProducts =
       selectedCategories.length > 0
-        ? productCards.filter((card) => selectedCategories.includes(card.badge))
+        ? productCards.filter((card) =>
+            selectedCategories.includes(getMasterCategory(card.badge))
+          )
         : productCards;
 
     // Pagination + partial rendering

@@ -3,7 +3,7 @@ export interface Product {
   SKU: string;
   'Product Name'?: string; // Primary field from Airtable
   Price?: number;
-  Category?: string;
+  category?: string;
   Color?: string;
   Size?: string;
   'Stock Levels'?: number;

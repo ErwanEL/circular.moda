@@ -25,6 +25,7 @@ export interface ProductCard {
 export function transformProductsToCards(products: Product[]): ProductCard[] {
   return products.map((product) => {
     // Compose local image path if possible
+
     let localImage = undefined;
     if (product.Images?.[0]?.filename && product.id) {
       // Lowercase and replace spaces with underscores to match the file naming
@@ -45,7 +46,7 @@ export function transformProductsToCards(products: Product[]): ProductCard[] {
           'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg',
         alt: product['Product Name'] || `Product ${product.SKU}`,
       },
-      badge: product.Category || 'Available',
+      badge: product.category || 'Available',
       title: product['Product Name'] || `Product ${product.SKU}`,
       sku: product.SKU.toString(),
       rating: {
