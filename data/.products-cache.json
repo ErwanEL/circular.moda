@@ -1,6 +1,25 @@
 {
   "data": [
     {
+      "id": "1",
+      "slug": "1",
+      "SKU": "1",
+      "Product Name": "Campera militar vintage Cuero Original",
+      "Price": 100000,
+      "category": "jacket",
+      "stock": 1,
+      "color": "black",
+      "Size": "M",
+      "gender": [],
+      "Date": "2025-09-27T23:59:20.001826+00:00",
+      "User ID": [
+        "1"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cuero-ai.png"
+      ]
+    },
+    {
       "id": "recLUtkxIkPj3ik33",
       "slug": "249",
       "Product Name": "Jeans Zara (Hombre)",
@@ -14088,5 +14107,5 @@
       ]
     }
   ],
-  "timestamp": 1765533815212
+  "timestamp": 1765536475740
 }

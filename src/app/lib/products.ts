@@ -1,6 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Product } from './types';
+import {
+  getAllProductsFromSupabase,
+  getProductBySlugFromSupabase,
+} from './supabase-products';
 
 const jsonPath = path.join(process.cwd(), 'data/products.json');
 const cacheFile = path.join(process.cwd(), 'data/.products-cache.json');
@@ -62,27 +66,53 @@ export async function getAllProducts(): Promise<Product[]> {
     return [...cache];
   }
 
-  // Load from products.json file
-  try {
-    const products = await loadProductsFromFile();
+  // Load from both sources: JSON (anciens) + Supabase (nouveaux)
+  const [jsonProducts, supabaseProducts] = await Promise.all([
+    loadProductsFromFile().catch(() => []), // Fallback si JSON échoue
+    getAllProductsFromSupabase().catch(() => []), // Fallback si Supabase échoue
+  ]);
 
-    // Update cache
-    cache = products;
-    cacheTimestamp = Date.now();
+  // Dédupliquer: créer un set des IDs/SKUs Supabase pour éviter les doublons
+  const supabaseKeys = new Set<string>();
+  supabaseProducts.forEach((product) => {
+    const key = product.SKU?.toString() || product.slug || product.id;
+    if (key) {
+      supabaseKeys.add(key);
+    }
+  });
 
-    // Save to disk cache for next time
-    await saveCacheToDisk(products);
+  // Filtrer les produits JSON pour exclure ceux qui existent dans Supabase
+  const uniqueJsonProducts = jsonProducts.filter((product) => {
+    const key = product.SKU?.toString() || product.slug || product.id;
+    return key ? !supabaseKeys.has(key) : true;
+  });
 
-    return [...products];
-  } catch (error) {
-    // If all else fails, return empty array to prevent crashes
-    console.error('Failed to load products:', error);
-    return [];
-  }
+  // Combiner: Supabase en premier, puis JSON (sans doublons)
+  const allProducts = [...supabaseProducts, ...uniqueJsonProducts];
+
+  // Update cache
+  cache = allProducts;
+  cacheTimestamp = Date.now();
+
+  // Save to disk cache for next time
+  await saveCacheToDisk(allProducts);
+
+  console.log(
+    `[Products] Loaded ${allProducts.length} products (${jsonProducts.length} from JSON, ${supabaseProducts.length} from Supabase)`
+  );
+
+  return [...allProducts];
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
+    // Chercher d'abord dans Supabase (nouveaux produits)
+    const supabaseProduct = await getProductBySlugFromSupabase(slug);
+    if (supabaseProduct) {
+      return supabaseProduct;
+    }
+
+    // Sinon chercher dans JSON (anciens produits)
     const all = await getAllProducts();
     return all.find((p) => p.slug === slug) ?? null;
   } catch (error) {
