@@ -28,14 +28,24 @@ export function ProductImageGallery({
   const zoomPaneRef = useRef<HTMLDivElement>(null);
   const mainImageRef = useRef<HTMLImageElement>(null);
 
+  // Filter out invalid images first
+  const validImages = images.filter((img) => img && img.url && img.url.trim() !== '');
+
   // Always get the first available image or the selected one
   // This ensures consistent rendering for both single and multiple images
   const currentImage =
-    images.length > 0
-      ? images[Math.min(selectedImageIndex, images.length - 1)] || images[0]
+    validImages.length > 0
+      ? validImages[Math.min(selectedImageIndex, validImages.length - 1)] || validImages[0]
       : null;
   const canZoom = Boolean(currentImage?.url);
   const isInitialImage = selectedImageIndex === 0;
+
+  // Reset selected index if it's out of bounds
+  useEffect(() => {
+    if (selectedImageIndex >= validImages.length && validImages.length > 0) {
+      setSelectedImageIndex(0);
+    }
+  }, [validImages.length, selectedImageIndex]);
 
   const updateZoomPane = useCallback(
     (e: React.MouseEvent) => {
@@ -48,7 +58,7 @@ export function ProductImageGallery({
         return;
 
       const currentImg =
-        images[Math.min(selectedImageIndex, images.length - 1)] || images[0];
+        validImages[Math.min(selectedImageIndex, validImages.length - 1)] || validImages[0];
       if (!currentImg?.url) return;
 
       const rect = imageContainerRef.current.getBoundingClientRect();
@@ -123,7 +133,7 @@ export function ProductImageGallery({
       zoomPaneRef.current.style.backgroundPosition = `-${bgX}px -${bgY}px`;
       zoomPaneRef.current.style.backgroundRepeat = 'no-repeat';
     },
-    [isZooming, images, selectedImageIndex]
+    [isZooming, validImages, selectedImageIndex]
   );
 
   const handleMouseEnter = (e: React.MouseEvent) => {
@@ -157,7 +167,7 @@ export function ProductImageGallery({
   }, [selectedImageIndex]);
 
   // If no images, show placeholder
-  if (!currentImage || !currentImage.url || images.length === 0) {
+  if (!currentImage || !currentImage.url || validImages.length === 0) {
     return (
       <div className="flex aspect-[3/4] w-full items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700">
         <span className="text-gray-500 dark:text-gray-400">
@@ -184,39 +194,45 @@ export function ProductImageGallery({
             ref={mainImageRef}
             src={currentImage.url}
             alt={String(productSku)}
+            fallbackSrc={currentImage.fallbackUrl}
             loading={isInitialImage ? 'eager' : 'lazy'}
             className="h-full w-full rounded-lg object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
             draggable={false}
           />
         </div>
 
-        {/* Thumbnail Gallery */}
-        {images.length > 1 && (
+        {/* Thumbnail Gallery - Show if there are 2+ valid images */}
+        {validImages.length > 1 && (
           <div className="flex space-x-2 overflow-x-auto pb-2">
-            {images.map((image, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => setSelectedImageIndex(index)}
-                className={`h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 bg-gray-50 transition-colors dark:bg-gray-900 ${
-                  selectedImageIndex === index
-                    ? 'border-blue-500 ring-2 ring-blue-200'
-                    : 'border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none'
-                }`}
-                aria-pressed={selectedImageIndex === index}
-                aria-label={`Ver imagen ${index + 1}`}
-              >
-                <ExternalImage
-                  src={image.url}
-                  alt={`${productSku} - Vista ${index + 1}`}
-                  width={80}
-                  height={80}
-                  loading="lazy"
-                  className="h-full w-full rounded-md object-cover"
-                  draggable={false}
-                />
-              </button>
-            ))}
+            {validImages.map((image, index) => {
+              // Use a more stable key combining index and filename/url
+              const imageKey = image.filename || image.url || `image-${index}`;
+              return (
+                <button
+                  key={`${index}-${imageKey}`}
+                  type="button"
+                  onClick={() => setSelectedImageIndex(index)}
+                  className={`h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 bg-gray-50 transition-colors dark:bg-gray-900 ${
+                    selectedImageIndex === index
+                      ? 'border-blue-500 ring-2 ring-blue-200'
+                      : 'border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none'
+                  }`}
+                  aria-pressed={selectedImageIndex === index}
+                  aria-label={`Ver imagen ${index + 1} de ${validImages.length}`}
+                >
+                  <ExternalImage
+                    src={image.url}
+                    alt={`${productSku} - Vista ${index + 1}`}
+                    fallbackSrc={image.fallbackUrl}
+                    width={80}
+                    height={80}
+                    loading="lazy"
+                    className="h-full w-full rounded-md object-cover"
+                    draggable={false}
+                  />
+                </button>
+              );
+            })}
           </div>
         )}
       </div>
