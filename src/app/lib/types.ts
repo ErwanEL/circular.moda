@@ -8,7 +8,7 @@ export interface Product {
   Size?: string;
   'Stock Levels'?: number;
   slug: string;
-  Images?: { url: string; filename: string }[];
+  Images?: { id?: string; url: string; filename?: string }[];
   Description?: string;
   description?: string;
   'User ID'?: string | string[]; // Linked record field from Airtable
