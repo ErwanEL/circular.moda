@@ -30,16 +30,40 @@ function buildLocalImagePath(productId: string, filename: string): string {
   return `/airtable/${productId}-${normalizedFilename}`;
 }
 
+/**
+ * Extrait l'URL de la première image d'un produit
+ * Gère les formats Supabase (string) et Airtable (objet avec url)
+ */
+function getProductImageUrl(product: Product): string | undefined {
+  if (!product.Images || product.Images.length === 0) {
+    return undefined;
+  }
+
+  const firstImage = product.Images[0];
+
+  // Si c'est une string (Supabase), l'utiliser directement
+  if (typeof firstImage === 'string') {
+    return firstImage;
+  }
+
+  // Si c'est un objet avec url (Airtable)
+  if (typeof firstImage === 'object' && firstImage.url) {
+    // Pour les produits Airtable, essayer d'abord le fichier local
+    if (firstImage.filename && product.id && product.id.startsWith('rec')) {
+      const localPath = buildLocalImagePath(product.id, firstImage.filename);
+      return localPath;
+    }
+    // Sinon utiliser l'URL Airtable
+    return firstImage.url;
+  }
+
+  return undefined;
+}
+
 export function transformProductsToCards(products: Product[]): ProductCard[] {
   return products.map((product) => {
-    // Compose local image path if possible
-    // Priorité: fichier local > URL Airtable > placeholder
-    let localImage: string | undefined = undefined;
-    if (product.Images?.[0]?.filename && product.id) {
-      localImage = buildLocalImagePath(product.id, product.Images[0].filename);
-    }
-
-    const imageUrl = localImage || product.Images?.[0]?.url;
+    // Obtenir l'URL de l'image (gère Supabase et Airtable)
+    const imageUrl = getProductImageUrl(product);
     const fallbackImage = 'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg';
     const fallbackImageDark = 'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg';
 

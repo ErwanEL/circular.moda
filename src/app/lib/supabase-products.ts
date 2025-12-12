@@ -136,6 +136,7 @@ export async function getAllProductsFromSupabase(): Promise<Product[]> {
 
 /**
  * Récupère un produit par slug depuis Supabase
+ * Note: La colonne slug peut ne pas exister, on cherche par SKU/ID ou génère le slug
  */
 export async function getProductBySlugFromSupabase(
   slug: string
@@ -145,12 +146,49 @@ export async function getProductBySlugFromSupabase(
   }
 
   try {
-    const { data, error } = await supabase
+    // Essayer d'abord par slug si la colonne existe
+    let { data, error } = await supabase
       .from('products')
       .select('*')
       .eq('slug', slug)
-      .single();
+      .maybeSingle();
 
+    // Si la colonne slug n'existe pas (erreur 42703), chercher autrement
+    if (error && error.code === '42703') {
+      // La colonne slug n'existe pas, chercher tous les produits et filtrer par slug généré
+      const { data: allData, error: allError } = await supabase
+        .from('products')
+        .select('*');
+
+      if (allError) {
+        console.error('[Supabase] Error fetching all products:', allError);
+        return null;
+      }
+
+      if (!allData || allData.length === 0) {
+        return null;
+      }
+
+      // Transformer et chercher par slug généré
+      const transformed = allData.map(transformSupabaseToProduct);
+      const found = transformed.find(p => p.slug === slug);
+      
+      if (found) {
+        // Retrouver les données originales
+        const originalData = allData.find(d => {
+          const t = transformSupabaseToProduct(d);
+          return t.slug === slug;
+        });
+        
+        if (originalData) {
+          return transformSupabaseToProduct(originalData);
+        }
+      }
+      
+      return null;
+    }
+
+    // Si autre erreur (pas de colonne inexistante)
     if (error) {
       if (error.code === 'PGRST116') {
         // No rows returned
