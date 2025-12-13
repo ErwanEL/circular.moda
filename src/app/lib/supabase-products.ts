@@ -70,8 +70,23 @@ function transformSupabaseToProduct(row: any): Product {
     userId = [String(row.owner)];
   }
 
-  // Générer le slug si absent (utiliser SKU en priorité, sinon name, sinon id)
-  const slug = row.slug || (sku ? slugify(String(sku)) : productName ? slugify(productName) : slugify(String(row.id || '')));
+  // Générer le slug au format: {name-slugified}-{public_id}
+  // Exemple: "vestido-lino-verde-f1f881a3-a813-4633-951a-70cc2bdf559f"
+  let slug: string;
+  if (row.public_id && productName) {
+    // Combiner le nom slugifié avec le public_id
+    const nameSlug = slugify(productName);
+    slug = `${nameSlug}-${row.public_id}`;
+  } else if (row.public_id) {
+    // Si pas de nom, utiliser juste le public_id
+    slug = row.public_id;
+  } else if (row.slug) {
+    // Fallback vers slug existant
+    slug = row.slug;
+  } else {
+    // Dernier fallback: générer depuis SKU ou name
+    slug = sku ? slugify(String(sku)) : productName ? slugify(productName) : slugify(String(row.id || ''));
+  }
 
   return {
     id: row.id?.toString() || '',
@@ -135,8 +150,20 @@ export async function getAllProductsFromSupabase(): Promise<Product[]> {
 }
 
 /**
+ * Extrait le public_id d'un slug au format: {name-slugified}-{public_id}
+ * Exemple: "vestido-lino-verde-f1f881a3-a813-4633-951a-70cc2bdf559f" -> "f1f881a3-a813-4633-951a-70cc2bdf559f"
+ */
+function extractPublicIdFromSlug(slug: string): string | null {
+  // UUID format: 8-4-4-4-12 (avec tirets)
+  // Chercher le dernier segment qui correspond à un UUID
+  const uuidPattern = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i;
+  const match = slug.match(uuidPattern);
+  return match ? match[1] : null;
+}
+
+/**
  * Récupère un produit par slug depuis Supabase
- * Note: La colonne slug peut ne pas exister, on cherche par SKU/ID ou génère le slug
+ * Le slug peut être au format: {name-slugified}-{public_id} ou juste {public_id}
  */
 export async function getProductBySlugFromSupabase(
   slug: string
@@ -146,16 +173,34 @@ export async function getProductBySlugFromSupabase(
   }
 
   try {
-    // Essayer d'abord par slug si la colonne existe
-    let { data, error } = await supabase
-      .from('products')
-      .select('*')
-      .eq('slug', slug)
-      .maybeSingle();
+    // Extraire le public_id du slug (format: name-public_id)
+    const publicId = extractPublicIdFromSlug(slug);
+    
+    // Chercher par public_id en priorité (si on peut l'extraire)
+    let { data, error } = publicId
+      ? await supabase
+          .from('products')
+          .select('*')
+          .eq('public_id', publicId)
+          .maybeSingle()
+      : { data: null, error: { code: 'NO_PUBLIC_ID' } };
 
-    // Si la colonne slug n'existe pas (erreur 42703), chercher autrement
-    if (error && error.code === '42703') {
-      // La colonne slug n'existe pas, chercher tous les produits et filtrer par slug généré
+    // Si la colonne public_id n'existe pas ou pas de résultat, essayer par slug direct
+    if ((error && error.code === '42703') || !data) {
+      const { data: dataBySlug, error: errorBySlug } = await supabase
+        .from('products')
+        .select('*')
+        .eq('slug', slug)
+        .maybeSingle();
+
+      if (!errorBySlug && dataBySlug) {
+        data = dataBySlug;
+        error = null;
+      }
+    }
+
+    // Si toujours pas trouvé, chercher tous les produits et filtrer par slug généré
+    if (!data || (error && error.code !== 'PGRST116' && error.code !== 'NO_PUBLIC_ID')) {
       const { data: allData, error: allError } = await supabase
         .from('products')
         .select('*');
@@ -188,13 +233,16 @@ export async function getProductBySlugFromSupabase(
       return null;
     }
 
-    // Si autre erreur (pas de colonne inexistante)
+    // Si autre erreur
     if (error) {
       if (error.code === 'PGRST116') {
         // No rows returned
         return null;
       }
-      console.error('[Supabase] Error fetching product by slug:', error);
+      // Ne pas logger les erreurs de colonne inexistante (déjà géré)
+      if (error.code !== '42703' && error.code !== 'NO_PUBLIC_ID') {
+        console.error('[Supabase] Error fetching product by slug:', error);
+      }
       return null;
     }
 

@@ -1,0 +1,60 @@
+-- ============================================
+-- ⚡ EXÉCUTEZ CE SCRIPT DANS SUPABASE SQL EDITOR ⚡
+-- ============================================
+-- Configuration SKU pour Supabase Products
+-- Les SKUs commenceront à 250 (après le dernier SKU Airtable: 249)
+-- ============================================
+
+-- Étape 1: Ajouter la colonne SKU si elle n'existe pas
+DO $$ 
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns 
+    WHERE table_name = 'products' AND column_name = 'SKU'
+  ) THEN
+    ALTER TABLE products ADD COLUMN "SKU" TEXT UNIQUE;
+    RAISE NOTICE '✅ Colonne SKU créée';
+  ELSE
+    RAISE NOTICE 'ℹ️ Colonne SKU existe déjà';
+  END IF;
+END $$;
+
+-- Étape 2: Créer la séquence qui commence à 250
+CREATE SEQUENCE IF NOT EXISTS product_sku_seq START 250;
+
+-- Étape 3: Fonction trigger pour auto-générer le SKU
+CREATE OR REPLACE FUNCTION generate_product_sku()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Si SKU n'est pas fourni, générer depuis la séquence
+  IF NEW."SKU" IS NULL OR NEW."SKU" = '' THEN
+    NEW."SKU" := nextval('product_sku_seq')::TEXT;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Étape 4: Créer le trigger (supprimer d'abord s'il existe)
+DROP TRIGGER IF EXISTS set_product_sku ON products;
+
+CREATE TRIGGER set_product_sku
+  BEFORE INSERT ON products
+  FOR EACH ROW
+  EXECUTE FUNCTION generate_product_sku();
+
+-- ============================================
+-- ✅ Configuration terminée !
+-- ============================================
+-- 
+-- Testez avec :
+-- 
+-- INSERT INTO products (name, price, category)
+-- VALUES ('Test Product', 10000, 'test');
+-- 
+-- SELECT "SKU", name FROM products WHERE name = 'Test Product';
+-- 
+-- Vous devriez voir SKU = '250'
+-- 
+-- DELETE FROM products WHERE name = 'Test Product';
+-- ============================================
+

@@ -1,9 +1,24 @@
 {
   "data": [
     {
+      "id": "4",
+      "slug": "72f7180f-20d8-41e4-b116-3f966b11f372",
+      "SKU": "SKU-000004",
+      "Product Name": "",
+      "Price": null,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "Date": "2025-12-12T16:33:40.694716+00:00",
+      "User ID": [],
+      "Images": []
+    },
+    {
       "id": "1",
-      "slug": "1",
-      "SKU": "1",
+      "slug": "campera-militar-vintage-cuero-original-f1f881a3-a813-4633-951a-70cc2bdf559f",
+      "SKU": "SKU-000001",
       "Product Name": "Campera militar vintage Cuero Original",
       "Price": 100000,
       "category": "jacket",
@@ -14107,5 +14122,5 @@
       ]
     }
   ],
-  "timestamp": 1765555672677
+  "timestamp": 1765618774313
 }
