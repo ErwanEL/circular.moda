@@ -6,11 +6,19 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const name = formData.get('name') as string;
+    const ownerId = formData.get('ownerId') as string;
     const files = formData.getAll('images') as File[];
 
     if (!name || name.trim() === '') {
       return NextResponse.json(
         { error: 'Le nom du produit est requis' },
+        { status: 400 }
+      );
+    }
+
+    if (!ownerId || ownerId.trim() === '') {
+      return NextResponse.json(
+        { error: 'Un utilisateur est requis' },
         { status: 400 }
       );
     }
@@ -76,6 +84,7 @@ export async function POST(request: NextRequest) {
         name: name.trim(),
         public_id: publicId,
         images: imageUrls,
+        owner: parseInt(ownerId, 10), // Convertir en nombre si nécessaire
         created_at: new Date().toISOString(),
       })
       .select()

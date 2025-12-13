@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS products_preprod (
   name TEXT NOT NULL,
   public_id UUID UNIQUE NOT NULL,
   images TEXT[] DEFAULT '{}',
+  owner BIGINT REFERENCES users(id), -- Référence vers la table users
   -- Champs optionnels (ajoutez selon vos besoins)
   price NUMERIC,
   category TEXT,

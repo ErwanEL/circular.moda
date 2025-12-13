@@ -2,9 +2,11 @@
 
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
+import UserSelector from '@/app/ui/user-selector';
 
 export default function UploadProductPage() {
   const [name, setName] = useState('');
+  const [ownerId, setOwnerId] = useState('');
   const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -47,6 +49,11 @@ export default function UploadProductPage() {
       return;
     }
 
+    if (!ownerId) {
+      setMessage({ type: 'error', text: 'Veuillez sélectionner ou créer un utilisateur' });
+      return;
+    }
+
     if (files.length === 0) {
       setMessage({ type: 'error', text: 'Veuillez ajouter au moins une image' });
       return;
@@ -57,6 +64,7 @@ export default function UploadProductPage() {
     try {
       const formData = new FormData();
       formData.append('name', name.trim());
+      formData.append('ownerId', ownerId);
       files.forEach((file) => {
         formData.append('images', file);
       });
@@ -75,6 +83,7 @@ export default function UploadProductPage() {
       setMessage({ type: 'success', text: 'Produit uploadé avec succès !' });
       // Reset form
       setName('');
+      setOwnerId('');
       setFiles([]);
       // Revoke all object URLs before clearing previews
       previews.forEach((url) => URL.revokeObjectURL(url));
@@ -114,6 +123,15 @@ export default function UploadProductPage() {
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 placeholder="Ex: Vestido Lino Verde"
+                required
+              />
+            </div>
+
+            {/* Sélection/Création d'utilisateur */}
+            <div>
+              <UserSelector
+                value={ownerId}
+                onChange={setOwnerId}
                 required
               />
             </div>
