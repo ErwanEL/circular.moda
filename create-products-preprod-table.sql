@@ -10,12 +10,14 @@ CREATE TABLE IF NOT EXISTS products_preprod (
   public_id UUID UNIQUE NOT NULL,
   images TEXT[] DEFAULT '{}',
   owner BIGINT REFERENCES users(id), -- Référence vers la table users
-  -- Champs optionnels (ajoutez selon vos besoins)
+  -- Champs optionnels
   price NUMERIC,
   category TEXT,
   size TEXT,
   color TEXT,
   description TEXT,
+  gender TEXT[], -- Array de genres (men, women, unisex, etc.)
+  featured BOOLEAN DEFAULT FALSE,
   stock INTEGER DEFAULT 1
 );
 

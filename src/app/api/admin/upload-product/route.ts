@@ -7,7 +7,27 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const name = formData.get('name') as string;
     const ownerId = formData.get('ownerId') as string;
+    const price = formData.get('price') as string;
+    const size = formData.get('size') as string;
+    const color = formData.get('color') as string;
+    const category = formData.get('category') as string;
+    const genderStr = formData.get('gender') as string;
+    const description = formData.get('description') as string;
+    const featuredStr = formData.get('featured') as string;
     const files = formData.getAll('images') as File[];
+
+    // Parser gender si fourni
+    let gender: string[] = [];
+    if (genderStr) {
+      try {
+        gender = JSON.parse(genderStr);
+      } catch {
+        gender = [];
+      }
+    }
+
+    // Parser featured (booléen)
+    const featured = featuredStr === 'true';
 
     if (!name || name.trim() === '') {
       return NextResponse.json(
@@ -77,16 +97,39 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Préparer les données d'insertion
+    const insertData: any = {
+      name: name.trim(),
+      public_id: publicId,
+      images: imageUrls,
+      owner: parseInt(ownerId, 10),
+    };
+
+    // Ajouter les champs optionnels seulement s'ils sont fournis
+    if (price && price.trim() !== '') {
+      insertData.price = parseFloat(price);
+    }
+    if (size && size.trim() !== '') {
+      insertData.size = size.trim();
+    }
+    if (color && color.trim() !== '') {
+      insertData.color = color.trim();
+    }
+    if (category && category.trim() !== '') {
+      insertData.category = category.trim();
+    }
+    if (gender.length > 0) {
+      insertData.gender = gender;
+    }
+    if (description && description.trim() !== '') {
+      insertData.description = description.trim();
+    }
+    insertData.featured = featured;
+
     // Insérer le produit dans products_preprod
     const { data: productData, error: insertError } = await supabase
       .from('products_preprod')
-      .insert({
-        name: name.trim(),
-        public_id: publicId,
-        images: imageUrls,
-        owner: parseInt(ownerId, 10), // Convertir en nombre si nécessaire
-        created_at: new Date().toISOString(),
-      })
+      .insert(insertData)
       .select()
       .single();
 
