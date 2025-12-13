@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import UserSelector from '@/app/ui/user-selector';
 
@@ -27,35 +27,88 @@ export default function UploadProductPage() {
   const [aiDescription, setAiDescription] = useState('');
   const [analyzing, setAnalyzing] = useState(false);
 
-  const categories = [
-    'accessories',
-    'bikinis',
-    'blazers',
-    'blouses',
-    'body',
-    'casual_dresses',
-    'cover_ups',
-    'crop_tops',
-    'formal_dresses',
-    'hoodies',
-    'jackets',
-    'jeans',
-    'jumpsuits_rompers',
-    'lounge_sets',
-    'mini_dresses',
-    'shirts',
-    'shoes',
-    'shorts',
-    'skirts',
-    'sports_bras',
-    'sweaters',
-    't_shirts',
-    'tank_tops',
-    'trousers',
-    'vests',
-  ];
+  // Fetch colors from Supabase public.colors
+  const [colors, setColors] = useState<string[]>([]);
+  const [loadingColors, setLoadingColors] = useState(true);
+  const [colorsError, setColorsError] = useState<string | null>(null);
+  // Fetch categories from Supabase public.categories
+  const [categories, setCategories] = useState<string[]>([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
+  const [categoriesError, setCategoriesError] = useState<string | null>(null);
+  // Fetch genders from Supabase public.genders
+  const [gendersList, setGendersList] = useState<string[]>([]);
+  const [loadingGenders, setLoadingGenders] = useState(true);
+  const [gendersError, setGendersError] = useState<string | null>(null);
 
-  const gendersList = ['men', 'women', 'unisex', 'man'];
+  // Fetch categories and colors on mount
+  useEffect(() => {
+    const fetchColors = async () => {
+      setLoadingColors(true);
+      setColorsError(null);
+      try {
+        const res = await fetch('/api/colors');
+        if (!res.ok) throw new Error('Erreur lors du chargement des couleurs');
+        const data = await res.json();
+        if (Array.isArray(data.colors)) {
+          const sortedColors = data.colors
+            .slice()
+            .sort((a, b) =>
+              a.localeCompare(b, undefined, { sensitivity: 'base' })
+            );
+          setColors(sortedColors);
+        } else {
+          setColors([]);
+        }
+      } catch (err) {
+        setColorsError('Impossible de charger les couleurs');
+        setColors([]);
+      }
+      setLoadingColors(false);
+    };
+    const fetchCategories = async () => {
+      setLoadingCategories(true);
+      setCategoriesError(null);
+      try {
+        const res = await fetch('/api/categories');
+        if (!res.ok)
+          throw new Error('Erreur lors du chargement des catégories');
+        const data = await res.json();
+        if (Array.isArray(data.categories)) {
+          setCategories(data.categories);
+        } else {
+          setCategories([]);
+        }
+      } catch (err) {
+        setCategoriesError('Impossible de charger les catégories');
+        setCategories([]);
+      } finally {
+        setLoadingCategories(false);
+      }
+    };
+    const fetchGenders = async () => {
+      setLoadingGenders(true);
+      setGendersError(null);
+      try {
+        const res = await fetch('/api/genders');
+        if (!res.ok) throw new Error('Erreur lors du chargement des genres');
+        const data = await res.json();
+        if (Array.isArray(data.genders)) {
+          setGendersList(data.genders);
+        } else {
+          setGendersList([]);
+        }
+      } catch (err) {
+        setGendersError('Impossible de charger les genres');
+        setGendersList([]);
+      } finally {
+        setLoadingGenders(false);
+      }
+    };
+
+    fetchCategories();
+    fetchColors();
+    fetchGenders();
+  }, []);
 
   const handleGenderToggle = (g: string) => {
     setGender((prev) =>
@@ -96,7 +149,7 @@ export default function UploadProductPage() {
       });
 
       const result = await response.json();
-
+      await fetchGenders();
       if (!response.ok) {
         throw new Error(result.error || "Erreur lors de l'analyse AI");
       }
@@ -378,14 +431,29 @@ export default function UploadProductPage() {
               >
                 Couleur
               </label>
-              <input
-                type="text"
-                id="color"
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-                className="focus:ring-primary-500 focus:border-primary-500 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                placeholder="Ex: noir, bleu, rouge"
-              />
+              {loadingColors ? (
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Chargement des couleurs...
+                </div>
+              ) : colorsError ? (
+                <div className="text-sm text-red-600 dark:text-red-400">
+                  {colorsError}
+                </div>
+              ) : (
+                <select
+                  id="color"
+                  value={color}
+                  onChange={(e) => setColor(e.target.value)}
+                  className="focus:ring-primary-500 focus:border-primary-500 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                >
+                  <option value="">-- Sélectionner une couleur --</option>
+                  {colors.map((c) => (
+                    <option key={c} value={c}>
+                      {c.charAt(0).toUpperCase() + c.slice(1)}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
 
             {/* Catégorie */}
@@ -396,21 +464,31 @@ export default function UploadProductPage() {
               >
                 Catégorie
               </label>
-              <select
-                id="category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="focus:ring-primary-500 focus:border-primary-500 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-              >
-                <option value="">-- Sélectionner une catégorie --</option>
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat
-                      .replace(/_/g, ' ')
-                      .replace(/\b\w/g, (l) => l.toUpperCase())}
-                  </option>
-                ))}
-              </select>
+              {loadingCategories ? (
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Chargement des catégories...
+                </div>
+              ) : categoriesError ? (
+                <div className="text-sm text-red-600 dark:text-red-400">
+                  {categoriesError}
+                </div>
+              ) : (
+                <select
+                  id="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="focus:ring-primary-500 focus:border-primary-500 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                >
+                  <option value="">-- Sélectionner une catégorie --</option>
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat
+                        .replace(/_/g, ' ')
+                        .replace(/\b\w/g, (l) => l.toUpperCase())}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
 
             {/* Genre */}
@@ -418,23 +496,34 @@ export default function UploadProductPage() {
               <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Genre
               </label>
-              <div className="flex flex-wrap gap-2">
-                {gendersList.map((g) => (
-                  <button
-                    key={g}
-                    type="button"
-                    onClick={() => handleGenderToggle(g)}
-                    className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                      gender.includes(g)
-                        ? 'bg-primary-600 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
-                    }`}
-                  >
-                    {g.charAt(0).toUpperCase() + g.slice(1)}
-                    {gender.includes(g) && ' ✓'}
-                  </button>
-                ))}
-              </div>
+              {loadingGenders ? (
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Chargement des genres...
+                </div>
+              ) : gendersError ? (
+                <div className="text-sm text-red-600 dark:text-red-400">
+                  {gendersError}
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {gendersList &&
+                    gendersList.map((g) => (
+                      <button
+                        key={g}
+                        type="button"
+                        onClick={() => handleGenderToggle(g)}
+                        className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                          gender.includes(g)
+                            ? 'bg-primary-600 text-white'
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                        }`}
+                      >
+                        {g.charAt(0).toUpperCase() + g.slice(1)}
+                        {gender.includes(g) && ' ✓'}
+                      </button>
+                    ))}
+                </div>
+              )}
             </div>
 
             {/* Description */}
