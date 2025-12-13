@@ -61,6 +61,39 @@ CREATE TABLE products (
 );
 ```
 
+## Auto-Génération des SKUs (Recommandé)
+
+Pour éviter les conflits avec les produits Airtable existants (dernier SKU: 249), configurez une séquence PostgreSQL qui génère automatiquement les SKUs à partir de 250 :
+
+```sql
+-- Créer une séquence qui commence à 250 (après le dernier SKU Airtable)
+CREATE SEQUENCE product_sku_seq START 250;
+
+-- Fonction trigger pour auto-générer le SKU
+CREATE OR REPLACE FUNCTION generate_product_sku()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Si SKU n'est pas fourni, générer depuis la séquence
+  IF NEW."SKU" IS NULL OR NEW."SKU" = '' THEN
+    NEW."SKU" := nextval('product_sku_seq')::TEXT;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Créer le trigger
+CREATE TRIGGER set_product_sku
+  BEFORE INSERT ON products
+  FOR EACH ROW
+  EXECUTE FUNCTION generate_product_sku();
+```
+
+**Résultat :** Les nouveaux produits auront automatiquement des SKUs 250, 251, 252, etc.
+
+**Note :** Vous pouvez toujours définir un SKU manuellement lors de l'insertion, le trigger ne s'activera que si le SKU est vide ou NULL.
+
+Voir `SUPABASE_SKU_STRATEGY.md` pour plus de détails et d'alternatives.
+
 ## Fonctionnement
 
 Le système utilise une **approche hybride** :
