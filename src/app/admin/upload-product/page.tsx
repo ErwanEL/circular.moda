@@ -7,10 +7,33 @@ import UserSelector from '@/app/ui/user-selector';
 export default function UploadProductPage() {
   const [name, setName] = useState('');
   const [ownerId, setOwnerId] = useState('');
+  const [price, setPrice] = useState('');
+  const [size, setSize] = useState('');
+  const [color, setColor] = useState('');
+  const [category, setCategory] = useState('');
+  const [gender, setGender] = useState<string[]>([]);
+  const [description, setDescription] = useState('');
+  const [featured, setFeatured] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  const categories = [
+    'accessories', 'bikinis', 'blazers', 'blouses', 'body', 'casual_dresses',
+    'cover_ups', 'crop_tops', 'formal_dresses', 'hoodies', 'jackets', 'jeans',
+    'jumpsuits_rompers', 'lounge_sets', 'mini_dresses', 'shirts', 'shoes',
+    'shorts', 'skirts', 'sports_bras', 'sweaters', 't_shirts', 'tank_tops',
+    'trousers', 'vests'
+  ];
+
+  const gendersList = ['men', 'women', 'unisex', 'man'];
+
+  const handleGenderToggle = (g: string) => {
+    setGender((prev) =>
+      prev.includes(g) ? prev.filter((item) => item !== g) : [...prev, g]
+    );
+  };
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newFiles = [...files, ...acceptedFiles];
@@ -65,6 +88,13 @@ export default function UploadProductPage() {
       const formData = new FormData();
       formData.append('name', name.trim());
       formData.append('ownerId', ownerId);
+      if (price) formData.append('price', price);
+      if (size) formData.append('size', size);
+      if (color) formData.append('color', color);
+      if (category) formData.append('category', category);
+      if (gender.length > 0) formData.append('gender', JSON.stringify(gender));
+      if (description) formData.append('description', description);
+      formData.append('featured', featured.toString());
       files.forEach((file) => {
         formData.append('images', file);
       });
@@ -84,6 +114,13 @@ export default function UploadProductPage() {
       // Reset form
       setName('');
       setOwnerId('');
+      setPrice('');
+      setSize('');
+      setColor('');
+      setCategory('');
+      setGender([]);
+      setDescription('');
+      setFeatured(false);
       setFiles([]);
       // Revoke all object URLs before clearing previews
       previews.forEach((url) => URL.revokeObjectURL(url));
@@ -134,6 +171,144 @@ export default function UploadProductPage() {
                 onChange={setOwnerId}
                 required
               />
+            </div>
+
+            {/* Prix */}
+            <div>
+              <label
+                htmlFor="price"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                Prix
+              </label>
+              <input
+                type="number"
+                id="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="Ex: 10000"
+                min="0"
+                step="1"
+              />
+            </div>
+
+            {/* Taille */}
+            <div>
+              <label
+                htmlFor="size"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                Taille
+              </label>
+              <input
+                type="text"
+                id="size"
+                value={size}
+                onChange={(e) => setSize(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="Ex: M, 42, S/M/L"
+              />
+            </div>
+
+            {/* Couleur */}
+            <div>
+              <label
+                htmlFor="color"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                Couleur
+              </label>
+              <input
+                type="text"
+                id="color"
+                value={color}
+                onChange={(e) => setColor(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="Ex: noir, bleu, rouge"
+              />
+            </div>
+
+            {/* Catégorie */}
+            <div>
+              <label
+                htmlFor="category"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                Catégorie
+              </label>
+              <select
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              >
+                <option value="">-- Sélectionner une catégorie --</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Genre */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Genre
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {gendersList.map((g) => (
+                  <button
+                    key={g}
+                    type="button"
+                    onClick={() => handleGenderToggle(g)}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      gender.includes(g)
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                    }`}
+                  >
+                    {g.charAt(0).toUpperCase() + g.slice(1)}
+                    {gender.includes(g) && ' ✓'}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Description */}
+            <div>
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                Description
+              </label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={4}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="Description du produit..."
+              />
+            </div>
+
+            {/* Featured */}
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="featured"
+                checked={featured}
+                onChange={(e) => setFeatured(e.target.checked)}
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+              />
+              <label
+                htmlFor="featured"
+                className="ml-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Produit en vedette
+              </label>
             </div>
 
             {/* Zone de drag & drop */}
