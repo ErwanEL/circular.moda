@@ -41,7 +41,7 @@ function isSupabaseProduct(product: Product): boolean {
   }
   
   // Si pas d'ID Airtable et pas d'images string, on assume que c'est Supabase si l'ID est numérique
-  return !hasAirtableId && product.id && !isNaN(Number(product.id));
+  return !hasAirtableId && !!product.id && !isNaN(Number(product.id));
 }
 
 /**

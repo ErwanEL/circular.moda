@@ -100,7 +100,6 @@ function transformSupabaseToProduct(row: any): Product {
     Size: size,
     description,
     gender,
-    Date: row.Date || row.date || row.created_at,
     'User ID': userId,
     Images: images,
   };

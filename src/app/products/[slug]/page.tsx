@@ -40,10 +40,12 @@ export async function generateMetadata({
     `Descubre ${productName} en circular.moda. Moda circular y sostenible.`;
 
   // Get the first image if available
-  const imageUrl =
-    product.Images && product.Images.length > 0
-      ? product.Images[0].url
-      : '/roommates-fashion-fun_simple_compose.png'; // fallback image
+  const firstImage = product.Images && product.Images.length > 0 ? product.Images[0] : null;
+  const imageUrl = firstImage
+    ? typeof firstImage === 'string'
+      ? firstImage
+      : firstImage.url
+    : '/roommates-fashion-fun_simple_compose.png'; // fallback image
 
   return {
     title,
