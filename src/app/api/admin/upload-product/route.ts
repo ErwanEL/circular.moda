@@ -26,6 +26,96 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Valider et mapper les genres aux valeurs valides dans Supabase
+    if (gender.length > 0) {
+      const { data: gendersData } = await supabase
+        .from('genders')
+        .select('gender')
+        .order('gender', { ascending: true });
+
+      const validGenders = gendersData
+        ? gendersData.map((row: { gender: string }) => row.gender)
+        : [];
+
+      if (validGenders.length > 0) {
+        console.log('[Upload] Genres valides dans Supabase:', JSON.stringify(validGenders));
+        console.log('[Upload] Genres reçus à mapper:', JSON.stringify(gender));
+        
+        // Fonction pour trouver la correspondance la plus proche
+        const findClosestGender = (value: string): string | null => {
+          const normalizedValue = value.toLowerCase().trim();
+          
+          // Correspondance exacte
+          const exactMatch = validGenders.find(
+            (g) => g.toLowerCase().trim() === normalizedValue
+          );
+          if (exactMatch) {
+            console.log(`[Upload] Correspondance exacte trouvée: "${value}" → "${exactMatch}"`);
+            return exactMatch;
+          }
+
+          // Mapping spécial pour les variations communes
+          const genderMapping: Record<string, string> = {
+            'men': 'male',
+            'man': 'male',
+            'women': 'female',
+            'woman': 'female',
+            'unisex': 'unisex',
+          };
+          
+          const mappedValue = genderMapping[normalizedValue];
+          if (mappedValue) {
+            const found = validGenders.find(g => g.toLowerCase() === mappedValue);
+            if (found) {
+              console.log(`[Upload] Mapping spécial: "${value}" → "${found}"`);
+              return found;
+            }
+          }
+
+          // Correspondance partielle
+          const partialMatch = validGenders.find((g) => {
+            const normalizedG = g.toLowerCase().trim();
+            return (
+              normalizedG.includes(normalizedValue) ||
+              normalizedValue.includes(normalizedG)
+            );
+          });
+          if (partialMatch) {
+            console.log(`[Upload] Correspondance partielle trouvée: "${value}" → "${partialMatch}"`);
+            return partialMatch;
+          }
+
+          console.warn(`[Upload] Aucune correspondance trouvée pour: "${value}"`);
+          return null;
+        };
+
+        // Mapper chaque genre aux valeurs valides
+        const mappedGenders = gender
+          .map((g: string) => {
+            const matched = findClosestGender(g);
+            if (!matched) {
+              console.warn(`[Upload] Genre invalide filtré: "${g}"`);
+            } else {
+              console.log(`[Upload] Genre mappé: "${g}" → "${matched}"`);
+            }
+            return matched;
+          })
+          .filter((g: string | null): g is string => g !== null);
+
+        if (gender.length > 0 && mappedGenders.length === 0) {
+          console.warn(
+            `[Upload] Tous les genres ont été filtrés. Genres originaux: ${JSON.stringify(gender)}, Genres valides disponibles: ${JSON.stringify(validGenders)}`
+          );
+        }
+
+        console.log(`[Upload] Genres avant mapping: ${JSON.stringify(gender)}, après mapping: ${JSON.stringify(mappedGenders)}`);
+        gender = mappedGenders;
+      } else {
+        // Si pas de genres valides disponibles, vider le tableau
+        gender = [];
+      }
+    }
+
     // Parser featured (booléen)
     const featured = featuredStr === 'true';
 
@@ -121,12 +211,52 @@ export async function POST(request: NextRequest) {
       insertData.category = category.trim();
     }
     if (gender.length > 0) {
-      insertData.gender = gender;
+      // Récupérer tous les genres valides depuis Supabase
+      const { data: allValidGenders } = await supabase
+        .from('genders')
+        .select('gender');
+      
+      const validGenderValues = allValidGenders
+        ? allValidGenders.map((row: { gender: string }) => row.gender)
+        : [];
+      
+      console.log('[Upload] Genres valides dans Supabase:', JSON.stringify(validGenderValues));
+      console.log('[Upload] Genres à valider:', JSON.stringify(gender));
+      
+      // Vérifier manuellement chaque genre et ne garder que ceux qui existent
+      const validatedGenders = gender.filter((g: string) => {
+        const exists = validGenderValues.includes(g);
+        if (!exists) {
+          console.warn(`[Upload] Genre "${g}" n'existe pas dans la table genders. Genres valides: ${JSON.stringify(validGenderValues)}`);
+        }
+        return exists;
+      });
+      
+      if (validatedGenders.length > 0) {
+        // S'assurer que c'est bien un tableau JavaScript (pas une chaîne)
+        insertData.gender = validatedGenders;
+        console.log('[Upload] Genres validés à insérer:', JSON.stringify(insertData.gender));
+        console.log('[Upload] Type de gender:', typeof insertData.gender, Array.isArray(insertData.gender));
+      } else {
+        console.warn('[Upload] Aucun genre valide après validation, le champ gender ne sera pas ajouté');
+        // Ne pas ajouter le champ gender si aucun n'est valide
+      }
     }
     if (description && description.trim() !== '') {
       insertData.description = description.trim();
     }
     insertData.featured = featured;
+
+    // Log des données avant insertion pour déboguer
+    console.log('[Upload] Données complètes à insérer:', JSON.stringify(insertData, null, 2));
+    if (insertData.gender) {
+      console.log('[Upload] Type de gender dans insertData:', typeof insertData.gender, Array.isArray(insertData.gender));
+      console.log('[Upload] Contenu de gender:', insertData.gender);
+      // Vérifier que chaque élément est une string
+      insertData.gender.forEach((g: any, idx: number) => {
+        console.log(`[Upload] gender[${idx}]:`, typeof g, g);
+      });
+    }
 
     // Insérer le produit dans products
     const { data: productData, error: insertError } = await supabase
@@ -136,7 +266,38 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (insertError) {
-      console.error('Error inserting product:', insertError);
+      console.error('[Upload] Error inserting product:', insertError);
+      console.error('[Upload] InsertData qui a causé l\'erreur:', JSON.stringify(insertData, null, 2));
+      
+      // Si l'erreur est liée à gender, essayer sans le champ gender
+      if (insertError.code === '23503' && insertError.details?.includes('gender')) {
+        console.warn('[Upload] Erreur FK sur gender, tentative sans le champ gender');
+        const insertDataWithoutGender = { ...insertData };
+        delete insertDataWithoutGender.gender;
+        
+        const { data: productDataRetry, error: insertErrorRetry } = await supabase
+          .from('products')
+          .insert(insertDataWithoutGender)
+          .select()
+          .single();
+        
+        if (insertErrorRetry) {
+          return NextResponse.json(
+            {
+              error: `Erreur lors de l'insertion du produit: ${insertErrorRetry.message}. Le champ gender a été retiré mais l'erreur persiste.`,
+            },
+            { status: 500 }
+          );
+        }
+        
+        return NextResponse.json({
+          success: true,
+          product: productDataRetry,
+          message: 'Produit uploadé avec succès (sans genre car contrainte FK invalide)',
+          warning: 'Le champ gender n\'a pas pu être inséré en raison d\'une contrainte de clé étrangère. Veuillez vérifier la configuration de la table.',
+        });
+      }
+      
       return NextResponse.json(
         {
           error: `Erreur lors de l'insertion du produit: ${insertError.message}`,

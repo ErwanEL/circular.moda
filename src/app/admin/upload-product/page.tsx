@@ -40,75 +40,197 @@ export default function UploadProductPage() {
   const [loadingGenders, setLoadingGenders] = useState(true);
   const [gendersError, setGendersError] = useState<string | null>(null);
 
-  // Fetch categories and colors on mount
-  useEffect(() => {
-    const fetchColors = async () => {
-      setLoadingColors(true);
-      setColorsError(null);
-      try {
-        const res = await fetch('/api/colors');
-        if (!res.ok) throw new Error('Erreur lors du chargement des couleurs');
-        const data = await res.json();
-        if (Array.isArray(data.colors)) {
-          const sortedColors = data.colors
-            .slice()
-            .sort((a, b) =>
-              a.localeCompare(b, undefined, { sensitivity: 'base' })
-            );
-          setColors(sortedColors);
-        } else {
-          setColors([]);
-        }
-      } catch (err) {
-        setColorsError('Impossible de charger les couleurs');
+  // Fetch functions (defined outside useEffect to be accessible)
+  const fetchColors = async () => {
+    setLoadingColors(true);
+    setColorsError(null);
+    try {
+      const res = await fetch('/api/colors');
+      if (!res.ok) throw new Error('Erreur lors du chargement des couleurs');
+      const data = await res.json();
+      if (Array.isArray(data.colors)) {
+        const sortedColors = data.colors
+          .slice()
+          .sort((a: string, b: string) =>
+            a.localeCompare(b, undefined, { sensitivity: 'base' })
+          );
+        setColors(sortedColors);
+      } else {
         setColors([]);
       }
-      setLoadingColors(false);
-    };
-    const fetchCategories = async () => {
-      setLoadingCategories(true);
-      setCategoriesError(null);
-      try {
-        const res = await fetch('/api/categories');
-        if (!res.ok)
-          throw new Error('Erreur lors du chargement des catégories');
-        const data = await res.json();
-        if (Array.isArray(data.categories)) {
-          setCategories(data.categories);
-        } else {
-          setCategories([]);
-        }
-      } catch (err) {
-        setCategoriesError('Impossible de charger les catégories');
-        setCategories([]);
-      } finally {
-        setLoadingCategories(false);
-      }
-    };
-    const fetchGenders = async () => {
-      setLoadingGenders(true);
-      setGendersError(null);
-      try {
-        const res = await fetch('/api/genders');
-        if (!res.ok) throw new Error('Erreur lors du chargement des genres');
-        const data = await res.json();
-        if (Array.isArray(data.genders)) {
-          setGendersList(data.genders);
-        } else {
-          setGendersList([]);
-        }
-      } catch (err) {
-        setGendersError('Impossible de charger les genres');
-        setGendersList([]);
-      } finally {
-        setLoadingGenders(false);
-      }
-    };
+    } catch (err) {
+      setColorsError('Impossible de charger les couleurs');
+      setColors([]);
+    }
+    setLoadingColors(false);
+  };
 
+  const fetchCategories = async () => {
+    setLoadingCategories(true);
+    setCategoriesError(null);
+    try {
+      const res = await fetch('/api/categories');
+      if (!res.ok) throw new Error('Erreur lors du chargement des catégories');
+      const data = await res.json();
+      if (Array.isArray(data.categories)) {
+        setCategories(data.categories);
+      } else {
+        setCategories([]);
+      }
+    } catch (err) {
+      setCategoriesError('Impossible de charger les catégories');
+      setCategories([]);
+    } finally {
+      setLoadingCategories(false);
+    }
+  };
+
+  const fetchGenders = async () => {
+    setLoadingGenders(true);
+    setGendersError(null);
+    try {
+      const res = await fetch('/api/genders');
+      if (!res.ok) throw new Error('Erreur lors du chargement des genres');
+      const data = await res.json();
+      if (Array.isArray(data.genders)) {
+        setGendersList(data.genders);
+      } else {
+        setGendersList([]);
+      }
+    } catch (err) {
+      setGendersError('Impossible de charger les genres');
+      setGendersList([]);
+    } finally {
+      setLoadingGenders(false);
+    }
+  };
+
+  // Fetch categories, colors and genders on mount
+  useEffect(() => {
     fetchCategories();
     fetchColors();
     fetchGenders();
   }, []);
+
+  // Fonction pour trouver la valeur la plus proche dans une liste
+  const findClosestMatch = (
+    value: string,
+    options: string[]
+  ): string | null => {
+    if (!value || !options || options.length === 0) return null;
+
+    const normalizedValue = value.toLowerCase().trim();
+
+    // 1. Correspondance exacte (insensible à la casse)
+    const exactMatch = options.find(
+      (opt) => opt.toLowerCase().trim() === normalizedValue
+    );
+    if (exactMatch) return exactMatch;
+
+    // 2. Extraction du mot principal (avant les parenthèses)
+    const mainWord = normalizedValue.split('(')[0].trim();
+
+    // 3. Correspondance par mot principal (insensible aux parenthèses)
+    const mainWordMatch = options.find((opt) => {
+      const normalizedOpt = opt.toLowerCase().trim();
+      const optMainWord = normalizedOpt.split('(')[0].trim();
+      return optMainWord === mainWord || mainWord === optMainWord;
+    });
+    if (mainWordMatch) return mainWordMatch;
+
+    // 4. Correspondance partielle (contient le mot principal)
+    const partialMatch = options.find((opt) => {
+      const normalizedOpt = opt.toLowerCase().trim();
+      const optMainWord = normalizedOpt.split('(')[0].trim();
+      return (
+        normalizedOpt.includes(mainWord) ||
+        mainWord.includes(optMainWord) ||
+        optMainWord.includes(mainWord) ||
+        normalizedOpt.includes(normalizedValue) ||
+        normalizedValue.includes(normalizedOpt)
+      );
+    });
+    if (partialMatch) return partialMatch;
+
+    // 5. Correspondance par similarité (Levenshtein simplifié) sur le mot principal
+    let bestMatch: string | null = null;
+    let bestScore = Infinity;
+
+    for (const opt of options) {
+      const normalizedOpt = opt.toLowerCase().trim();
+      const optMainWord = normalizedOpt.split('(')[0].trim();
+
+      // Comparer le mot principal
+      const score = levenshteinDistance(mainWord, optMainWord);
+      if (score < bestScore && score <= Math.max(3, mainWord.length / 2)) {
+        bestScore = score;
+        bestMatch = opt;
+      }
+    }
+
+    return bestMatch;
+  };
+
+  // Distance de Levenshtein simplifiée pour la similarité
+  const levenshteinDistance = (str1: string, str2: string): number => {
+    const matrix: number[][] = [];
+    for (let i = 0; i <= str2.length; i++) {
+      matrix[i] = [i];
+    }
+    for (let j = 0; j <= str1.length; j++) {
+      matrix[0][j] = j;
+    }
+    for (let i = 1; i <= str2.length; i++) {
+      for (let j = 1; j <= str1.length; j++) {
+        if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+          matrix[i][j] = matrix[i - 1][j - 1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j] + 1
+          );
+        }
+      }
+    }
+    return matrix[str2.length][str1.length];
+  };
+
+  // Mapper les valeurs de l'IA aux valeurs valides
+  const mapAiValuesToValid = (data: any) => {
+    const mapped: any = { ...data };
+
+    // Mapper la couleur
+    if (data.color && colors.length > 0) {
+      const matchedColor = findClosestMatch(data.color, colors);
+      if (matchedColor) {
+        mapped.color = matchedColor;
+      } else {
+        // Si aucune correspondance, laisser vide pour éviter l'erreur FK
+        mapped.color = '';
+      }
+    }
+
+    // Mapper la catégorie
+    if (data.category && categories.length > 0) {
+      const matchedCategory = findClosestMatch(data.category, categories);
+      if (matchedCategory) {
+        mapped.category = matchedCategory;
+      } else {
+        mapped.category = '';
+      }
+    }
+
+    // Mapper les genres
+    if (data.gender && Array.isArray(data.gender) && gendersList.length > 0) {
+      const matchedGenders = data.gender
+        .map((g: string) => findClosestMatch(g, gendersList))
+        .filter((g: string | null): g is string => g !== null);
+      mapped.gender = matchedGenders;
+    }
+
+    return mapped;
+  };
 
   const handleGenderToggle = (g: string) => {
     setGender((prev) =>
@@ -156,19 +278,49 @@ export default function UploadProductPage() {
 
       // Remplir automatiquement les champs avec les données AI
       if (result.data) {
-        const data = result.data;
-        if (data.name) setName(data.name);
-        if (data.price) setPrice(data.price);
-        if (data.size) setSize(data.size);
-        if (data.color) setColor(data.color);
-        if (data.category) setCategory(data.category);
-        if (data.gender && Array.isArray(data.gender)) setGender(data.gender);
-        if (data.description) setDescription(data.description);
-        if (data.featured !== undefined) setFeatured(data.featured);
+        // Mapper les valeurs de l'IA aux valeurs valides dans Supabase
+        const mappedData = mapAiValuesToValid(result.data);
+
+        if (mappedData.name) setName(mappedData.name);
+        if (mappedData.price) setPrice(mappedData.price);
+        if (mappedData.size) setSize(mappedData.size);
+        if (mappedData.color) {
+          setColor(mappedData.color);
+        } else if (result.data.color) {
+          // Si la couleur n'a pas été mappée, informer l'utilisateur
+          console.warn(
+            `Couleur "${result.data.color}" non trouvée dans la liste. Veuillez la sélectionner manuellement.`
+          );
+        }
+        if (mappedData.category) {
+          setCategory(mappedData.category);
+        } else if (result.data.category) {
+          console.warn(
+            `Catégorie "${result.data.category}" non trouvée dans la liste. Veuillez la sélectionner manuellement.`
+          );
+        }
+        if (mappedData.gender && Array.isArray(mappedData.gender)) {
+          setGender(mappedData.gender);
+        }
+        if (mappedData.description) setDescription(mappedData.description);
+        if (mappedData.featured !== undefined) setFeatured(mappedData.featured);
+
+        const warnings: string[] = [];
+        if (result.data.color && !mappedData.color) {
+          warnings.push(`Couleur "${result.data.color}" non trouvée`);
+        }
+        if (result.data.category && !mappedData.category) {
+          warnings.push(`Catégorie "${result.data.category}" non trouvée`);
+        }
+
+        const messageText =
+          warnings.length > 0
+            ? `Analyse AI terminée ! ${warnings.join(', ')}. Veuillez sélectionner manuellement.`
+            : 'Analyse AI terminée ! Les champs ont été remplis automatiquement.';
 
         setMessage({
-          type: 'success',
-          text: 'Analyse AI terminée ! Les champs ont été remplis automatiquement.',
+          type: warnings.length > 0 ? 'error' : 'success',
+          text: messageText,
         });
       }
     } catch (error) {
@@ -241,6 +393,54 @@ export default function UploadProductPage() {
       return;
     }
 
+    // Valider et corriger les valeurs avant l'envoi
+    let validatedColor = color;
+    let validatedCategory = category;
+    let validatedGender = gender;
+
+    // Valider la couleur
+    if (color && colors.length > 0) {
+      const matchedColor = findClosestMatch(color, colors);
+      if (matchedColor) {
+        validatedColor = matchedColor;
+      } else {
+        setMessage({
+          type: 'error',
+          text: `La couleur "${color}" n'est pas valide. Veuillez en sélectionner une dans la liste.`,
+        });
+        return;
+      }
+    }
+
+    // Valider la catégorie
+    if (category && categories.length > 0) {
+      const matchedCategory = findClosestMatch(category, categories);
+      if (matchedCategory) {
+        validatedCategory = matchedCategory;
+      } else {
+        setMessage({
+          type: 'error',
+          text: `La catégorie "${category}" n'est pas valide. Veuillez en sélectionner une dans la liste.`,
+        });
+        return;
+      }
+    }
+
+    // Valider les genres
+    if (gender.length > 0 && gendersList.length > 0) {
+      const matchedGenders = gender
+        .map((g) => findClosestMatch(g, gendersList))
+        .filter((g): g is string => g !== null);
+      if (matchedGenders.length === 0 && gender.length > 0) {
+        setMessage({
+          type: 'error',
+          text: `Les genres sélectionnés ne sont pas valides. Veuillez en sélectionner dans la liste.`,
+        });
+        return;
+      }
+      validatedGender = matchedGenders;
+    }
+
     setUploading(true);
 
     try {
@@ -249,9 +449,10 @@ export default function UploadProductPage() {
       formData.append('ownerId', ownerId);
       if (price) formData.append('price', price);
       if (size) formData.append('size', size);
-      if (color) formData.append('color', color);
-      if (category) formData.append('category', category);
-      if (gender.length > 0) formData.append('gender', JSON.stringify(gender));
+      if (validatedColor) formData.append('color', validatedColor);
+      if (validatedCategory) formData.append('category', validatedCategory);
+      if (validatedGender.length > 0)
+        formData.append('gender', JSON.stringify(validatedGender));
       if (description) formData.append('description', description);
       formData.append('featured', featured.toString());
       files.forEach((file) => {
