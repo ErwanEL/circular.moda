@@ -34,14 +34,16 @@ export async function generateMetadata({
 
   const productName = product['Product Name'] || 'Producto';
   const title = `${productName} | circular.moda`;
-  const productDescription =
-    (product.description ?? product['Description'])?.trim();
+  const productDescription = (
+    product.description ?? product['Description']
+  )?.trim();
   const description =
     productDescription ||
     `Descubre ${productName} en circular.moda. Moda circular y sostenible.`;
 
   // Get the first image if available
-  const firstImage = product.Images && product.Images.length > 0 ? product.Images[0] : null;
+  const firstImage =
+    product.Images && product.Images.length > 0 ? product.Images[0] : null;
   const imageUrl = firstImage
     ? typeof firstImage === 'string'
       ? firstImage
@@ -90,34 +92,38 @@ export default async function ProductPage({
   // Fetch user data - try Supabase first, fallback to Airtable
   // Make this non-blocking: if user fetch fails, page still renders without user info
   let user = null;
-  
+
   // Safely extract and validate User ID
   const rawUserIds = product['User ID'];
   if (rawUserIds) {
     // Handle various formats: array, string, or empty/null values
     let userIds: (string | number)[] = [];
-    
+
     if (Array.isArray(rawUserIds)) {
-      userIds = rawUserIds.filter(id => 
-        id !== null && 
-        id !== undefined && 
-        String(id).trim() !== '' &&
-        String(id) !== 'null' &&
-        String(id) !== 'undefined'
+      userIds = rawUserIds.filter(
+        (id) =>
+          id !== null &&
+          id !== undefined &&
+          String(id).trim() !== '' &&
+          String(id) !== 'null' &&
+          String(id) !== 'undefined'
       );
-    } else if (typeof rawUserIds === 'string' || typeof rawUserIds === 'number') {
+    } else if (
+      typeof rawUserIds === 'string' ||
+      typeof rawUserIds === 'number'
+    ) {
       const idStr = String(rawUserIds).trim();
       if (idStr && idStr !== 'null' && idStr !== 'undefined') {
         userIds = [rawUserIds];
       }
     }
-    
+
     // Only attempt fetch if we have valid user IDs
     if (userIds.length > 0) {
       try {
         // Try Supabase first (for numeric IDs or Supabase products)
         // Check if any ID looks like a Supabase ID (numeric) vs Airtable ID (starts with 'rec')
-        const hasSupabaseIds = userIds.some(id => {
+        const hasSupabaseIds = userIds.some((id) => {
           if (typeof id === 'string') {
             // If it's numeric or can be parsed as number, it's likely Supabase
             return !id.startsWith('rec') && !isNaN(parseInt(id, 10));
@@ -133,8 +139,8 @@ export default async function ProductPage({
           // Add timeout protection: don't wait too long during build
           const users = await Promise.race([
             getUsersByIds(userIds as string[]),
-            new Promise<User[]>((resolve) => 
-              setTimeout(() => resolve([]), 5000) // 5 second timeout
+            new Promise<User[]>(
+              (resolve) => setTimeout(() => resolve([]), 5000) // 5 second timeout
             ),
           ]);
           user = users.length > 0 ? users[0] : null;

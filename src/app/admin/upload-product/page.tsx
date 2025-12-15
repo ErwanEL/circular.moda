@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import UserSelector from '@/app/ui/user-selector';
 import {
   useColors,
@@ -40,6 +40,11 @@ export default function UploadProductPage() {
 
   // Local state
   const [ownerId, setOwnerId] = useState('');
+
+  // Sync ownerId to form data when it changes
+  useEffect(() => {
+    updateField('ownerId', ownerId);
+  }, [ownerId, updateField]);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState<{
     type: 'success' | 'error';
@@ -127,6 +132,15 @@ export default function UploadProductPage() {
         setMessage({
           type: 'error',
           text: 'Veuillez ajouter au moins une image',
+        });
+        return;
+      }
+
+      // Validate ownerId (check both component state and form data)
+      if (!ownerId || ownerId.trim() === '') {
+        setMessage({
+          type: 'error',
+          text: 'Veuillez sélectionner ou créer un utilisateur',
         });
         return;
       }

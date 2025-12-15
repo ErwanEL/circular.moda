@@ -1,6 +1,30 @@
 {
   "data": [
     {
+      "id": "14",
+      "slug": "zapatillas-puma-originales-7e566957-0072-412e-89b2-fb6e854aaaa6",
+      "SKU": "SKU-000014",
+      "Product Name": "Zapatillas Puma originales",
+      "Price": 75000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "pink",
+      "Size": "37",
+      "description": "Zapatillas Puma originales, talle 37. Diseño moderno y cómodo, ideales para el día a día.",
+      "gender": [],
+      "User ID": [
+        "4"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-6.jpeg"
+      ]
+    },
+    {
       "id": "12",
       "slug": "zapatillas-puma-originales-nuevas-629a11bc-66ab-476a-8ad2-6e0860546210",
       "SKU": "SKU-000012",
@@ -14151,5 +14175,5 @@
       ]
     }
   ],
-  "timestamp": 1765786408473
+  "timestamp": 1765787249175
 }
