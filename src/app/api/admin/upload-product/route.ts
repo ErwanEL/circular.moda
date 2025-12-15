@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       const file = files[i];
       const fileExt = file.name.split('.').pop();
       const fileName = `${publicId}-${i + 1}.${fileExt}`;
-      const filePath = `products_preprod/${fileName}`;
+      const filePath = `products/${fileName}`;
 
       // Convertir File en ArrayBuffer puis en Uint8Array
       const arrayBuffer = await file.arrayBuffer();
@@ -78,7 +78,9 @@ export async function POST(request: NextRequest) {
       if (uploadError) {
         console.error('Error uploading image:', uploadError);
         return NextResponse.json(
-          { error: `Erreur lors de l'upload de l'image ${i + 1}: ${uploadError.message}` },
+          {
+            error: `Erreur lors de l'upload de l'image ${i + 1}: ${uploadError.message}`,
+          },
           { status: 500 }
         );
       }
@@ -126,9 +128,9 @@ export async function POST(request: NextRequest) {
     }
     insertData.featured = featured;
 
-    // Insérer le produit dans products_preprod
+    // Insérer le produit dans products
     const { data: productData, error: insertError } = await supabase
-      .from('products_preprod')
+      .from('products')
       .insert(insertData)
       .select()
       .single();
@@ -136,7 +138,9 @@ export async function POST(request: NextRequest) {
     if (insertError) {
       console.error('Error inserting product:', insertError);
       return NextResponse.json(
-        { error: `Erreur lors de l'insertion du produit: ${insertError.message}` },
+        {
+          error: `Erreur lors de l'insertion du produit: ${insertError.message}`,
+        },
         { status: 500 }
       );
     }
@@ -149,9 +153,8 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json(
-      { error: 'Une erreur inattendue s\'est produite' },
+      { error: "Une erreur inattendue s'est produite" },
       { status: 500 }
     );
   }
 }
-
