@@ -103,7 +103,7 @@ export default function ProductDetail({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Comprar por whatsapp
+                Contactar al vendedor por WhatsApp
                 <FaWhatsapp className="ml-2" />
               </Button>
             </div>
