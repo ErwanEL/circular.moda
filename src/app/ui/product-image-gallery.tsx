@@ -29,13 +29,16 @@ export function ProductImageGallery({
   const mainImageRef = useRef<HTMLImageElement>(null);
 
   // Filter out invalid images first
-  const validImages = images.filter((img) => img && img.url && img.url.trim() !== '');
+  const validImages = images.filter(
+    (img) => img && img.url && img.url.trim() !== ''
+  );
 
   // Always get the first available image or the selected one
   // This ensures consistent rendering for both single and multiple images
   const currentImage =
     validImages.length > 0
-      ? validImages[Math.min(selectedImageIndex, validImages.length - 1)] || validImages[0]
+      ? validImages[Math.min(selectedImageIndex, validImages.length - 1)] ||
+        validImages[0]
       : null;
   const canZoom = Boolean(currentImage?.url);
   const isInitialImage = selectedImageIndex === 0;
@@ -58,7 +61,8 @@ export function ProductImageGallery({
         return;
 
       const currentImg =
-        validImages[Math.min(selectedImageIndex, validImages.length - 1)] || validImages[0];
+        validImages[Math.min(selectedImageIndex, validImages.length - 1)] ||
+        validImages[0];
       if (!currentImg?.url) return;
 
       const rect = imageContainerRef.current.getBoundingClientRect();
@@ -183,7 +187,7 @@ export function ProductImageGallery({
         {/* Main Image - renders the same whether 1 image or multiple */}
         <div
           ref={imageContainerRef}
-          className={`group aspect-[3/4] w-full overflow-hidden rounded-lg bg-gray-50 shadow-sm transition-colors dark:bg-gray-900 ${
+          className={`group flex aspect-[3/4] w-full items-center justify-center overflow-hidden rounded-lg bg-gray-50 shadow-sm transition-colors dark:bg-gray-900 ${
             canZoom ? 'cursor-zoom-in' : 'cursor-default'
           }`}
           onMouseEnter={handleMouseEnter}
@@ -196,7 +200,7 @@ export function ProductImageGallery({
             alt={String(productSku)}
             fallbackSrc={currentImage.fallbackUrl}
             loading={isInitialImage ? 'eager' : 'lazy'}
-            className="h-full w-full rounded-lg object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+            className="max-h-full max-w-full rounded-lg object-contain transition-transform duration-300 ease-out group-hover:scale-[1.02]"
             draggable={false}
           />
         </div>
