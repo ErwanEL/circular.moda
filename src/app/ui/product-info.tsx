@@ -17,7 +17,9 @@ export function ProductInfo({ product, user, rating }: ProductInfoProps) {
   )?.trim();
 
   // Extract first name only (before first space)
-  const firstName = user?.Name ? user.Name.split(' ')[0].trim() : null;
+  // Support both Airtable (Name) and Supabase (name) formats
+  const userName = user?.Name || user?.name || null;
+  const firstName = userName ? userName.split(' ')[0].trim() : null;
 
   return (
     <div className="mt-6 sm:mt-8 lg:mt-0">
@@ -54,13 +56,23 @@ export function ProductInfo({ product, user, rating }: ProductInfoProps) {
             <span className="font-bold">{firstName}</span>
             {' – '}
             <span className="font-bold">CABA</span>
-            {user?.Products &&
-              (() => {
-                const productCount = Array.isArray(user.Products)
+            {(() => {
+              // Support both Airtable (Products array) and Supabase (productCount) formats
+              let productCount: number | null = null;
+
+              if (user?.productCount !== undefined) {
+                // Supabase format: use productCount directly
+                productCount = user.productCount;
+              } else if (user?.Products) {
+                // Airtable format: count from Products array
+                productCount = Array.isArray(user.Products)
                   ? user.Products.length
                   : typeof user.Products === 'string'
                     ? 1
                     : 0;
+              }
+
+              if (productCount !== null && productCount > 0) {
                 return (
                   <>
                     {' · '}
@@ -72,7 +84,9 @@ export function ProductInfo({ product, user, rating }: ProductInfoProps) {
                     </span>
                   </>
                 );
-              })()}
+              }
+              return null;
+            })()}
           </div>
         )}
       </div>

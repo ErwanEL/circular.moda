@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllProducts, getProductBySlug } from '../../lib/products';
 import { getSuggestedProducts } from '../../lib/helpers';
-// import { getUsersByIds } from '../../lib/users'; // Disabled: No Airtable fetching
+import { getUsersByIds, getUsersByIdsFromSupabase } from '../../lib/users';
 import ProductDetail from '../../ui/product-detail';
 
 /** Fully static – no ISR */
@@ -86,30 +86,49 @@ export default async function ProductPage({
   const product = await getProductBySlug(slug);
   if (!product) notFound(); // built-in 404
 
-  // User fetching disabled - running locally without Airtable API calls
-  // TODO: Re-enable when migrating to Supabase
-  // if (product['User ID']) {
-  //   const userIds = Array.isArray(product['User ID'])
-  //     ? product['User ID']
-  //     : [product['User ID']];
-  //   console.log('[ProductPage] Fetching user data for IDs:', userIds);
-  //   try {
-  //     const users = await getUsersByIds(userIds);
-  //     user = users.length > 0 ? users[0] : null;
-  //     if (user) {
-  //       console.log('[ProductPage] Successfully fetched user:', user.id);
-  //     } else {
-  //       console.log('[ProductPage] No user data available (timeout or not found)');
-  //     }
-  //   } catch (error) {
-  //     // Don't block page rendering if user fetch fails
-  //     console.warn('[ProductPage] Failed to fetch user data, continuing without it:', error);
-  //     user = null;
-  //   }
-  // } else {
-  //   console.log('[ProductPage] No User ID found for product:', product.id);
-  // }
-  const user = null; // Disabled: No Airtable fetching
+  // Fetch user data - try Supabase first, fallback to Airtable
+  let user = null;
+  if (product['User ID']) {
+    const userIds = Array.isArray(product['User ID'])
+      ? product['User ID']
+      : [product['User ID']];
+    console.log('[ProductPage] Fetching user data for IDs:', userIds);
+    
+    try {
+      // Try Supabase first (for numeric IDs or Supabase products)
+      // Check if any ID looks like a Supabase ID (numeric) vs Airtable ID (starts with 'rec')
+      const hasSupabaseIds = userIds.some(id => {
+        if (typeof id === 'string') {
+          // If it's numeric or can be parsed as number, it's likely Supabase
+          return !id.startsWith('rec') && !isNaN(parseInt(id, 10));
+        }
+        return typeof id === 'number';
+      });
+
+      if (hasSupabaseIds) {
+        console.log('[ProductPage] Using Supabase to fetch users');
+        const users = await getUsersByIdsFromSupabase(userIds);
+        user = users.length > 0 ? users[0] : null;
+      } else {
+        // Fallback to Airtable for Airtable IDs
+        console.log('[ProductPage] Using Airtable to fetch users');
+        const users = await getUsersByIds(userIds);
+        user = users.length > 0 ? users[0] : null;
+      }
+
+      if (user) {
+        console.log('[ProductPage] Successfully fetched user:', user.id);
+      } else {
+        console.log('[ProductPage] No user data available (not found)');
+      }
+    } catch (error) {
+      // Don't block page rendering if user fetch fails
+      console.warn('[ProductPage] Failed to fetch user data, continuing without it:', error);
+      user = null;
+    }
+  } else {
+    console.log('[ProductPage] No User ID found for product:', product.id);
+  }
 
   // Get suggested products
   const allProducts = await getAllProducts();

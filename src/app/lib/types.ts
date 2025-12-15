@@ -23,9 +23,11 @@ export interface Product {
 
 export interface User {
   id: string;
-  Name?: string;
-  Products?: string | string[]; // Linked products or product IDs
-  // Only Name and Products are fetched for confidentiality
+  Name?: string; // Airtable format
+  name?: string; // Supabase format
+  Products?: string | string[]; // Linked products or product IDs (Airtable)
+  productCount?: number; // Product count (Supabase) - computed from products table
+  // Only Name/name and Products/productCount are fetched for confidentiality
 }
 
 export interface BlogArticle {
