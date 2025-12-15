@@ -118,7 +118,6 @@ function slugify(text: string): string {
  */
 export async function getAllProductsFromSupabase(): Promise<Product[]> {
   if (!isSupabaseConfigured()) {
-    console.log('[Supabase] Not configured, skipping Supabase products');
     return [];
   }
 
@@ -134,13 +133,11 @@ export async function getAllProductsFromSupabase(): Promise<Product[]> {
     }
 
     if (!data || data.length === 0) {
-      console.log('[Supabase] No products found');
       return [];
     }
 
     // Transformer les données Supabase vers le format Product
     const products = data.map(transformSupabaseToProduct);
-    console.log(`[Supabase] Fetched ${products.length} products`);
     return products;
   } catch (error) {
     console.error('[Supabase] Failed to fetch products:', error);

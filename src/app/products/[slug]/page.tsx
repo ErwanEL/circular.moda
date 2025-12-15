@@ -92,7 +92,6 @@ export default async function ProductPage({
     const userIds = Array.isArray(product['User ID'])
       ? product['User ID']
       : [product['User ID']];
-    console.log('[ProductPage] Fetching user data for IDs:', userIds);
     
     try {
       // Try Supabase first (for numeric IDs or Supabase products)
@@ -106,28 +105,18 @@ export default async function ProductPage({
       });
 
       if (hasSupabaseIds) {
-        console.log('[ProductPage] Using Supabase to fetch users');
         const users = await getUsersByIdsFromSupabase(userIds);
         user = users.length > 0 ? users[0] : null;
       } else {
         // Fallback to Airtable for Airtable IDs
-        console.log('[ProductPage] Using Airtable to fetch users');
         const users = await getUsersByIds(userIds);
         user = users.length > 0 ? users[0] : null;
       }
-
-      if (user) {
-        console.log('[ProductPage] Successfully fetched user:', user.id);
-      } else {
-        console.log('[ProductPage] No user data available (not found)');
-      }
     } catch (error) {
       // Don't block page rendering if user fetch fails
-      console.warn('[ProductPage] Failed to fetch user data, continuing without it:', error);
+      console.error('[ProductPage] Failed to fetch user data:', error);
       user = null;
     }
-  } else {
-    console.log('[ProductPage] No User ID found for product:', product.id);
   }
 
   // Get suggested products

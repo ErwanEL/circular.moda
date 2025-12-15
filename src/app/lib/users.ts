@@ -13,7 +13,6 @@ const base = new Airtable({
  */
 export async function getUsersByIds(userIds: string[]): Promise<User[]> {
   if (!userIds || userIds.length === 0) {
-    console.log('[getUsersByIds] No user IDs provided');
     return [];
   }
 
@@ -21,15 +20,12 @@ export async function getUsersByIds(userIds: string[]): Promise<User[]> {
     // Assuming you have a "Users" table in Airtable
     // Adjust the table name to match your Airtable setup
     const usersTableName = process.env.AIRTABLE_USERS_TABLE_NAME || 'Users';
-    console.log('[getUsersByIds] Fetching users from table:', usersTableName);
-    console.log('[getUsersByIds] User IDs to fetch:', userIds);
 
     // Fetch users by their record IDs
     // Only fetch Name and Products fields for confidentiality
     const records = await Promise.all(
       userIds.map(async (id) => {
         try {
-          console.log('[getUsersByIds] Fetching user record:', id);
           const record = await base(usersTableName).find(id);
 
           // Only extract Name and Products fields for confidentiality
@@ -38,17 +34,14 @@ export async function getUsersByIds(userIds: string[]): Promise<User[]> {
             Name: record.fields.Name,
             Products: record.fields.Products,
           } as User;
-          console.log('[getUsersByIds] Found user (filtered fields):', user);
           return user;
         } catch (error) {
-          console.warn(`[getUsersByIds] User ${id} not found:`, error);
           return null;
         }
       })
     );
 
     const validUsers = records.filter((user): user is User => user !== null);
-    console.log('[getUsersByIds] Returning users:', validUsers);
     return validUsers;
   } catch (error) {
     console.error('[getUsersByIds] Error fetching users from Airtable:', error);
@@ -74,12 +67,10 @@ export async function getUserById(userId: string): Promise<User | null> {
  */
 export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): Promise<User[]> {
   if (!userIds || userIds.length === 0) {
-    console.log('[getUsersByIdsFromSupabase] No user IDs provided');
     return [];
   }
 
   if (!isSupabaseConfigured()) {
-    console.log('[getUsersByIdsFromSupabase] Supabase not configured');
     return [];
   }
 
@@ -98,11 +89,8 @@ export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): P
     }).filter((id): id is number => id !== null);
 
     if (numericIds.length === 0) {
-      console.log('[getUsersByIdsFromSupabase] No valid numeric IDs found');
       return [];
     }
-
-    console.log('[getUsersByIdsFromSupabase] Fetching users from Supabase:', numericIds);
 
     // OPTIMIZATION: Fetch all users in a single query
     const { data: usersData, error: usersError } = await supabase
@@ -116,7 +104,6 @@ export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): P
     }
 
     if (!usersData || usersData.length === 0) {
-      console.log('[getUsersByIdsFromSupabase] No users found');
       return [];
     }
 
@@ -128,7 +115,6 @@ export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): P
       .in('owner', numericIds);
 
     if (productsError) {
-      console.warn('[getUsersByIdsFromSupabase] Error fetching product counts:', productsError);
       // Continue with 0 counts if error
     }
 
@@ -148,7 +134,6 @@ export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): P
       productCount: productCounts.get(userData.id) || 0,
     }));
 
-    console.log(`[getUsersByIdsFromSupabase] Found ${users.length} users with product counts`);
     return users;
   } catch (error) {
     console.error('[getUsersByIdsFromSupabase] Error fetching users from Supabase:', error);
@@ -175,12 +160,10 @@ export async function getUserByIdFromSupabase(userId: string | number): Promise<
  */
 export async function getUsersByIdsFromSupabaseRPC(userIds: (string | number)[]): Promise<User[]> {
   if (!userIds || userIds.length === 0) {
-    console.log('[getUsersByIdsFromSupabaseRPC] No user IDs provided');
     return [];
   }
 
   if (!isSupabaseConfigured()) {
-    console.log('[getUsersByIdsFromSupabaseRPC] Supabase not configured');
     return [];
   }
 
@@ -197,11 +180,8 @@ export async function getUsersByIdsFromSupabaseRPC(userIds: (string | number)[])
     }).filter((id): id is number => id !== null);
 
     if (numericIds.length === 0) {
-      console.log('[getUsersByIdsFromSupabaseRPC] No valid numeric IDs found');
       return [];
     }
-
-    console.log('[getUsersByIdsFromSupabaseRPC] Using RPC to fetch users:', numericIds);
 
     // Call the database function - single query with JOIN + COUNT
     const { data, error } = await supabase.rpc('get_users_with_product_counts', {
@@ -209,13 +189,11 @@ export async function getUsersByIdsFromSupabaseRPC(userIds: (string | number)[])
     });
 
     if (error) {
-      console.warn('[getUsersByIdsFromSupabaseRPC] RPC call failed, falling back to batch queries:', error);
       // Fallback to batch query approach
       return getUsersByIdsFromSupabase(userIds);
     }
 
     if (!data || data.length === 0) {
-      console.log('[getUsersByIdsFromSupabaseRPC] No users found');
       return [];
     }
 
@@ -226,7 +204,6 @@ export async function getUsersByIdsFromSupabaseRPC(userIds: (string | number)[])
       productCount: row.product_count || 0,
     }));
 
-    console.log(`[getUsersByIdsFromSupabaseRPC] Found ${users.length} users via RPC`);
     return users;
   } catch (error) {
     console.error('[getUsersByIdsFromSupabaseRPC] Error:', error);

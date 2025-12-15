@@ -97,10 +97,6 @@ export async function getAllProducts(): Promise<Product[]> {
   // Save to disk cache for next time
   await saveCacheToDisk(allProducts);
 
-  console.log(
-    `[Products] Loaded ${allProducts.length} products (${jsonProducts.length} from JSON, ${supabaseProducts.length} from Supabase)`
-  );
-
   return [...allProducts];
 }
 
