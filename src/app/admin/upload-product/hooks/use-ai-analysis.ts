@@ -100,3 +100,4 @@ export function useAiAnalysis(): UseAiAnalysisResult {
   return { analyzing, analyze };
 }
 
+

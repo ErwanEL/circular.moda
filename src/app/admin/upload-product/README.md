@@ -103,3 +103,4 @@ const { analyzing, analyze } = useAiAnalysis();
 
 Cela rend le code principal beaucoup plus lisible et maintenable.
 
+
