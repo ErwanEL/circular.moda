@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "node scripts/download-airtable-attachments.mjs && node scripts/pull-airtable.mjs",
+    "prebuild": "echo 'Skipping Airtable fetch (set FETCH_AIRTABLE_AT_BUILD=true to enable)'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

@@ -2,9 +2,9 @@
   "data": [
     {
       "id": "14",
-      "slug": "zapatillas-puma-originales-7e566957-0072-412e-89b2-fb6e854aaaa6",
+      "slug": "zapatillas-puma-originales-nuevas-7e566957-0072-412e-89b2-fb6e854aaaa6",
       "SKU": "SKU-000014",
-      "Product Name": "Zapatillas Puma originales",
+      "Product Name": "Zapatillas Puma originales (Nuevas)",
       "Price": 75000,
       "category": "footwear (sneakers, boots, sandals)",
       "stock": 1,
@@ -16,12 +16,12 @@
         "4"
       ],
       "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-6.jpeg",
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-1.jpeg",
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-2.jpeg",
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-3.jpeg",
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-4.jpeg",
-        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-5.jpeg",
-        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-6.jpeg"
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7e566957-0072-412e-89b2-fb6e854aaaa6-5.jpeg"
       ]
     },
     {
@@ -51,40 +51,6 @@
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/629a11bc-66ab-476a-8ad2-6e0860546210-7.jpeg",
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/629a11bc-66ab-476a-8ad2-6e0860546210-8.jpeg",
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/629a11bc-66ab-476a-8ad2-6e0860546210-9.jpeg"
-      ]
-    },
-    {
-      "id": "4",
-      "slug": "72f7180f-20d8-41e4-b116-3f966b11f372",
-      "SKU": "SKU-000004",
-      "Product Name": "",
-      "Price": null,
-      "category": null,
-      "stock": 1,
-      "color": null,
-      "Size": null,
-      "gender": [],
-      "User ID": [
-        "3"
-      ],
-      "Images": []
-    },
-    {
-      "id": "1",
-      "slug": "campera-militar-vintage-cuero-original-f1f881a3-a813-4633-951a-70cc2bdf559f",
-      "SKU": "SKU-000001",
-      "Product Name": "Campera militar vintage Cuero Original",
-      "Price": 100000,
-      "category": "trousers and chinos",
-      "stock": 1,
-      "color": "white",
-      "Size": "M",
-      "gender": [],
-      "User ID": [
-        "1"
-      ],
-      "Images": [
-        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cuero-ai.png"
       ]
     },
     {
@@ -14175,5 +14141,5 @@
       ]
     }
   ],
-  "timestamp": 1765787249175
+  "timestamp": 1766065449252
 }

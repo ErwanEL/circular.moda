@@ -4,12 +4,15 @@ import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import fsSync from 'node:fs';
 dotenv.config({ path: '.env.local' });
-console.log('CWD:', process.cwd());
-console.log(
-  'ENV FILES:',
-  fsSync.readdirSync(process.cwd()).filter((f) => f.startsWith('.env'))
-);
-console.log('AIRTABLE_TOKEN in script:', process.env.AIRTABLE_TOKEN);
+
+// Strict environment check - only run when explicitly enabled
+if (process.env.FETCH_AIRTABLE_AT_BUILD !== 'true') {
+  console.log(
+    '▶︎ Skip Airtable attachments download – FETCH_AIRTABLE_AT_BUILD is not set to "true"'
+  );
+  process.exit(0);
+}
+
 import Airtable from 'airtable';
 
 // ① configure

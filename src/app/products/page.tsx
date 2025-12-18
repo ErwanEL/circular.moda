@@ -12,8 +12,6 @@ export default async function ProductsPage() {
     // Transform products to match Card component interface using helper function
     const productCards = transformProductsToCards(products);
 
-    console.log(products);
-
     return (
       <>
         {/* Hero Section */}

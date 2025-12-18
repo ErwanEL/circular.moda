@@ -11,8 +11,6 @@ interface BlogCardProps {
 export default function BlogCard({ article, featured = false }: BlogCardProps) {
   const cardClasses = featured ? 'md:col-span-2 md:row-span-2' : '';
 
-  console.log(article);
-
   return (
     <article
       className={`group relative overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-lg ${cardClasses}`}
