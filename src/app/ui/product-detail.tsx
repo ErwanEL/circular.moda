@@ -50,9 +50,6 @@ export default function ProductDetail({
 }: ProductDetailProps) {
   const [shareUrl, setShareUrl] = useState('');
 
-  console.log('[ProductDetail] User data:', user);
-  console.log('[ProductDetail] Product User ID:', product['User ID']);
-
   // Process product images
   const processedImages = useMemo<ProcessedImage[]>(() => {
     return processProductImages(product);
@@ -68,8 +65,6 @@ export default function ProductDetail({
       setShareUrl(window.location.href);
     }
   }, []);
-
-  console.log(product);
 
   const productColor = product.Color
     ? product.Color.toLowerCase()
@@ -103,7 +98,7 @@ export default function ProductDetail({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Comprar por whatsapp
+                Contactar al vendedor por WhatsApp
                 <FaWhatsapp className="ml-2" />
               </Button>
             </div>

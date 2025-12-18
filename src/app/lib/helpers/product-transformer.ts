@@ -22,32 +22,60 @@ export interface ProductCard {
  * @param products - Array of products from Airtable
  * @returns Array of transformed product cards
  */
+/**
+ * Construit le chemin local pour une image
+ */
+function buildLocalImagePath(productId: string, filename: string): string {
+  const normalizedFilename = filename.toLowerCase().replace(/ /g, '_');
+  return `/airtable/${productId}-${normalizedFilename}`;
+}
+
+/**
+ * Extrait l'URL de la première image d'un produit
+ * Gère les formats Supabase (string) et Airtable (objet avec url)
+ */
+function getProductImageUrl(product: Product): string | undefined {
+  if (!product.Images || product.Images.length === 0) {
+    return undefined;
+  }
+
+  const firstImage = product.Images[0];
+
+  // Si c'est une string (Supabase), l'utiliser directement
+  if (typeof firstImage === 'string') {
+    return firstImage;
+  }
+
+  // Si c'est un objet avec url (Airtable)
+  if (typeof firstImage === 'object' && firstImage.url) {
+    // Pour les produits Airtable, essayer d'abord le fichier local
+    if (firstImage.filename && product.id && product.id.startsWith('rec')) {
+      const localPath = buildLocalImagePath(product.id, firstImage.filename);
+      return localPath;
+    }
+    // Sinon utiliser l'URL Airtable
+    return firstImage.url;
+  }
+
+  return undefined;
+}
+
 export function transformProductsToCards(products: Product[]): ProductCard[] {
   return products.map((product) => {
-    // Compose local image path if possible
-    let localImage = undefined;
-    if (product.Images?.[0]?.filename && product.id) {
-      // Lowercase and replace spaces with underscores to match the file naming
-      const normalizedFilename = product.Images[0].filename
-        .toLowerCase()
-        .replace(/ /g, '_');
-      localImage = `/airtable/${product.id}-${normalizedFilename}`;
-    }
+    // Obtenir l'URL de l'image (gère Supabase et Airtable)
+    const imageUrl = getProductImageUrl(product);
+    const fallbackImage = 'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg';
+    const fallbackImageDark = 'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg';
+
     return {
       image: {
-        light:
-          localImage ||
-          product.Images?.[0]?.url ||
-          'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg',
-        dark:
-          localImage ||
-          product.Images?.[0]?.url ||
-          'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg',
+        light: imageUrl || fallbackImage,
+        dark: imageUrl || fallbackImageDark,
         alt: product['Product Name'] || `Product ${product.SKU}`,
       },
-      badge: product.Category || 'Available',
+      badge: product.Category || product.category || 'Available',
       title: product['Product Name'] || `Product ${product.SKU}`,
-      sku: product.SKU.toString(),
+      sku: product.SKU?.toString() || product.slug || '',
       rating: {
         value: 5.0,
         count: Math.floor(Math.random() * 500) + 50, // Random rating count for demo
