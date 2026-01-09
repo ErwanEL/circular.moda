@@ -2,12 +2,18 @@
 import { useState } from 'react';
 import { createClient } from '../lib/supabase/client';
 import { useRouter } from 'next/navigation';
+import Button from './button';
+
+type LoginFormProps = {
+  description?: string;
+};
 
 const supabase = createClient();
 
-export default function LoginForm() {
+export default function LoginForm({ description }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | ''>(''); // add messageType
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -15,6 +21,7 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setMessage('');
+    setMessageType('');
     const { data, error } = await supabase.auth.signInWithOtp({
       email,
       options: {
@@ -24,8 +31,12 @@ export default function LoginForm() {
     });
     if (error) {
       setMessage(error.message);
+      setMessageType('error');
     } else {
-      setMessage('Check your email for the login link!');
+      setMessage(
+        'Revise su correo electrónico para obtener el enlace de inicio de sesión!'
+      );
+      setMessageType('success');
     }
     setLoading(false);
   }
@@ -42,16 +53,27 @@ export default function LoginForm() {
           required
         />
       </label>
-      <button
-        type="submit"
-        className="w-full rounded bg-blue-600 py-2 text-white disabled:opacity-50"
-        disabled={loading}
-      >
-        {loading ? 'Sending...' : 'Login with Magic Link'}
-      </button>
-      {message && (
-        <div className="text-center text-sm text-red-600">{message}</div>
+      {!message && (
+        <Button
+          type="submit"
+          solid
+          size="md"
+          className="w-full"
+          disabled={loading}
+        >
+          {loading ? 'Sending...' : ' Iniciar sesión con Magic Link 💫'}
+        </Button>
       )}
+      {message && (
+        <div
+          className={`text-center text-sm ${
+            messageType === 'success' ? 'text-green-600' : 'text-red-600'
+          }`}
+        >
+          {message}
+        </div>
+      )}
+      {description && <p className="text-sm text-gray-600">{description}</p>}
     </form>
   );
 }
