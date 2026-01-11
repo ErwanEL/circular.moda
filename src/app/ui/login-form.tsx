@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Button from './button';
 
 type LoginFormProps = {
-  description?: string;
+  description?: React.ReactNode;
 };
 
 const supabase = createClient();
