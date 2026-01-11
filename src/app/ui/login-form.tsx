@@ -97,7 +97,7 @@ export default function LoginForm({ description }: LoginFormProps) {
           className="w-full"
           disabled={loading}
         >
-          {loading ? 'Sending...' : ' Iniciar sesión con Magic Link 💫'}
+          {loading ? 'Sending...' : ' Iniciar sesión con un enlace-mágico 💫'}
         </Button>
       )}
       {message && (
