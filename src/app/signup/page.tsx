@@ -1,12 +1,6 @@
 import LoginForm from '../ui/login-form';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-
-function LoginFormWithParams(props) {
-  const searchParams = useSearchParams();
-  return <LoginForm {...props} searchParams={searchParams} />;
-}
 
 export default function LoginPage() {
   return (
@@ -14,7 +8,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md rounded bg-white p-8 shadow">
         <h1 className="mb-6 text-center text-2xl font-bold">Inscribirse</h1>
         <Suspense>
-          <LoginFormWithParams
+          <LoginForm
             description={
               <>
                 ¿Aún no tienes cuenta? Ingresa tu correo electrónico y recibirás
