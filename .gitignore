@@ -5,7 +5,7 @@ node_modules/
 .next/
 out/
 data/
-public/airtable/
+# public/airtable/ - Commenté pour permettre le déploiement des images en production
 
 # misc
 .DS_Store

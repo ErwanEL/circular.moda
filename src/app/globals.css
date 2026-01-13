@@ -50,3 +50,55 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Blog utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Blog content styling */
+.prose h1 {
+  @apply mb-6 text-3xl font-bold text-gray-900;
+}
+
+.prose h2 {
+  @apply mt-8 mb-4 text-2xl font-bold text-gray-900;
+}
+
+.prose h3 {
+  @apply mt-6 mb-3 text-xl font-semibold text-gray-900;
+}
+
+.prose p {
+  @apply mb-4 leading-relaxed text-gray-700;
+}
+
+.prose strong {
+  @apply font-semibold text-gray-900;
+}
+
+.prose ul {
+  @apply mb-4 text-gray-700;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose hr {
+  @apply my-8 border-gray-300;
+}
+
+.prose blockquote {
+  @apply border-primary-200 my-6 border-l-4 pl-4 text-gray-600 italic;
+}

@@ -1,5 +1,5 @@
 const content = {
-  heading: '¿Por qué usar nuestra plataforma hoy?',
+  heading: 'Por qué usar esta plataforma hoy?',
   description: '',
   features: [
     {
@@ -26,7 +26,7 @@ const content = {
           <path d="M10.5 14.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
         </svg>
       ),
-      title: 'Ganá plata rápido',
+      title: 'Vaciá tu armario.',
       description: 'Vendé tu prenda y cobrala al toque, sin pagar comisión.',
     },
     {
@@ -47,9 +47,9 @@ const content = {
           />
         </svg>
       ),
-      title: 'Publicá sin vueltas',
+      title: 'Publicación fácil en WhatsApp.',
       description:
-        'Mandanos las fotos de la prenda y nosotros nos ocupamos del resto.',
+        'Mandá fotos de la prenda por WhatsApp y se publican al instante en el catálogo.',
     },
     {
       icon: (

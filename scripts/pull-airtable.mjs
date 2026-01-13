@@ -1,6 +1,11 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import Airtable from 'airtable';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env.local
+// This must be done BEFORE checking environment variables
+dotenv.config({ path: '.env.local' });
 
 // Strict environment check - only run when explicitly enabled
 if (process.env.FETCH_AIRTABLE_AT_BUILD !== 'true') {

@@ -19,17 +19,17 @@ const venderFacilSteps = [
   {
     img: '/step1.webp',
     title: 'Mandá tus fotos por WhatsApp',
-    desc: 'Sacales unas buenas fotos a tus prendas, indicá el precio que querés cobrar y mandalas por WhatsApp. Nosotros nos encargamos de todo lo demás.',
+    desc: 'Sacales unas fotos de tus prendas, indicá el precio que querés cobrar y mandalas por WhatsApp.',
   },
   {
     img: '/step2.webp',
-    title: 'Publicamos tu artículo en el catálogo',
-    desc: 'Subimos tu prenda a circular.moda con precio y descripción clara para que la vea toda nuestra comunidad.',
+    title: 'Se publica al instante en el catálogo.',
+    desc: 'Se publica al instante tu prenda a circular.moda con precio y descripción clara para que la vea todos los visitantes.',
   },
   {
     img: '/step3.webp',
-    title: 'Te contactan directo por WhatsApp',
-    desc: 'Cuando alguien se cope con tu artículo, te escribe al toque por WhatsApp para cerrar la venta. Sin comisiones: lo que ganás es tuyo.',
+    title: 'Vendé directo, sin comisiones',
+    desc: 'Alguien se cope con tu ropa? Te escribe al toque por WhatsApp para cerrar la venta. Sin comisiones: lo que cobras es tuyo.',
   },
 ];
 
@@ -65,7 +65,7 @@ export default function VenderFacil({ cta }: VenderFacilProps) {
         </div>
         {cta && (
           <div className="flex justify-center">
-            <Button href={cta.href} variant="primary" size="xl">
+            <Button href={cta.href} variant="primary" size="xl" solid bold>
               {cta.text}
             </Button>
           </div>
