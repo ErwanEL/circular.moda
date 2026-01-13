@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 type CardProps = {
   image: {
@@ -23,21 +22,15 @@ export default function Card({ image, title, sku, price, href }: CardProps) {
     <div className="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="h-56 w-full">
         <div className="relative h-full">
-          <Image
-            className="mx-auto dark:hidden"
+          <img
+            className="mx-auto h-full w-full object-contain dark:hidden"
             src={image.light}
             alt={image.alt}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ objectFit: 'contain' }}
           />
-          <Image
-            className="mx-auto hidden dark:block"
+          <img
+            className="mx-auto hidden h-full w-full object-contain dark:block"
             src={image.dark}
             alt={image.alt}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ objectFit: 'contain' }}
           />
         </div>
       </div>

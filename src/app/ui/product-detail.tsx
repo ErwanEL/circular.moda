@@ -94,12 +94,12 @@ export default function ProductDetail({
                 variant="primary"
                 solid
                 bold
-                className="text-white dark:text-gray-900"
+                className="w-full text-white sm:w-auto dark:text-gray-900"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Contactar al vendedor por WhatsApp
-                <FaWhatsapp className="ml-2" />
+                Hacer una oferta al vendedor
+                <FaWhatsapp className="ml-2 h-6 w-6" />
               </Button>
             </div>
 
