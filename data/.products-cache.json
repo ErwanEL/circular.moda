@@ -1,6 +1,4381 @@
 {
   "data": [
     {
+      "id": "445",
+      "slug": "vestido-de-flores-negro-fd384c8d-f118-45ee-9fbf-a2dcedd83369",
+      "SKU": "SKU-000445",
+      "Product Name": "Vestido de flores negro",
+      "Price": 30000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": null,
+      "description": "Vestido de flores negro con mangas largas, ideal para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "20"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fd384c8d-f118-45ee-9fbf-a2dcedd83369-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fd384c8d-f118-45ee-9fbf-a2dcedd83369-2.jpg"
+      ]
+    },
+    {
+      "id": "443",
+      "slug": "vestido-largo-teal-con-tirantes-5d16e4c4-989f-4fae-9aa9-26c1cb31b2e9",
+      "SKU": "SKU-000443",
+      "Product Name": "Vestido largo teal con tirantes",
+      "Price": 85000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "cyan",
+      "Size": null,
+      "description": "Elegante vestido largo teal con tirantes finos.",
+      "gender": [],
+      "User ID": [
+        "20"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5d16e4c4-989f-4fae-9aa9-26c1cb31b2e9-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5d16e4c4-989f-4fae-9aa9-26c1cb31b2e9-2.jpg"
+      ]
+    },
+    {
+      "id": "441",
+      "slug": "zapatillas-hello-kitty-edici-n-limitada-06f565fb-3f8f-404b-89bf-088cb291dbae",
+      "SKU": "SKU-000441",
+      "Product Name": "Zapatillas Hello Kitty edición limitada",
+      "Price": 25000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "pink",
+      "Size": "24",
+      "description": "Zapatillas Hello Kitty edición limitada de Zara, talle 24. Perfectas para las más pequeñas, con un diseño divertido y colorido.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/06f565fb-3f8f-404b-89bf-088cb291dbae-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/06f565fb-3f8f-404b-89bf-088cb291dbae-2.jpg"
+      ]
+    },
+    {
+      "id": "439",
+      "slug": "zapatillas-adidas-blancas-originales-talle-34-7db19fc9-7a60-484b-9464-466961083f28",
+      "SKU": "SKU-000439",
+      "Product Name": "Zapatillas Adidas blancas originales talle 34",
+      "Price": 30000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "white",
+      "Size": "34",
+      "description": "Zapatillas Adidas blancas originales en buen estado, talle 34.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7db19fc9-7a60-484b-9464-466961083f28-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7db19fc9-7a60-484b-9464-466961083f28-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7db19fc9-7a60-484b-9464-466961083f28-3.jpg"
+      ]
+    },
+    {
+      "id": "437",
+      "slug": "crocs-originales-edici-n-limitada-con-glitter-talle-c12-a90e784e-d29c-469a-a913-9e5c82530f25",
+      "SKU": "SKU-000437",
+      "Product Name": "Crocs originales edición limitada con glitter talle C12",
+      "Price": 45000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "silver",
+      "Size": "C12",
+      "description": "Crocs originales edición limitada con glitter. Talle C12, en estado bueno.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a90e784e-d29c-469a-a913-9e5c82530f25-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a90e784e-d29c-469a-a913-9e5c82530f25-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a90e784e-d29c-469a-a913-9e5c82530f25-3.jpg"
+      ]
+    },
+    {
+      "id": "435",
+      "slug": "converse-all-star-edici-n-limitada-unicornios-84ff72ec-52c6-4ecd-90b3-2a8d84427ad3",
+      "SKU": "SKU-000435",
+      "Product Name": "Converse All Star edición limitada unicornios",
+      "Price": 45000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "blue",
+      "Size": "35",
+      "description": "Zapatillas Converse All Star edición limitada con diseño de unicornios. Talle 35, en muy buen estado.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/84ff72ec-52c6-4ecd-90b3-2a8d84427ad3-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/84ff72ec-52c6-4ecd-90b3-2a8d84427ad3-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/84ff72ec-52c6-4ecd-90b3-2a8d84427ad3-3.jpg"
+      ]
+    },
+    {
+      "id": "433",
+      "slug": "vestido-gap-talle-6-8e17115f-f18b-4c4b-8c92-ed6ac18673a3",
+      "SKU": "SKU-000433",
+      "Product Name": "Vestido Gap talle 6",
+      "Price": 40000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "white",
+      "Size": "6",
+      "description": "Vestido Gap talle 6, casi nuevo.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8e17115f-f18b-4c4b-8c92-ed6ac18673a3-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8e17115f-f18b-4c4b-8c92-ed6ac18673a3-2.jpg"
+      ]
+    },
+    {
+      "id": "431",
+      "slug": "vestido-azul-oscuro-tommy-hilfiger-4ca9054b-02d9-4ec5-88f7-34c1e0d7ce91",
+      "SKU": "SKU-000431",
+      "Product Name": "Vestido Azul Oscuro Tommy Hilfiger",
+      "Price": 80000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "navy",
+      "Size": "17",
+      "description": "Vestido azul oscuro de Tommy Hilfiger, talle 17.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4ca9054b-02d9-4ec5-88f7-34c1e0d7ce91-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4ca9054b-02d9-4ec5-88f7-34c1e0d7ce91-2.jpeg"
+      ]
+    },
+    {
+      "id": "429",
+      "slug": "zapatillas-adidas-blancas-talle-37-5-362319a1-93fa-4320-bd22-569a26de4e77",
+      "SKU": "SKU-000429",
+      "Product Name": "Zapatillas Adidas blancas talle 37.5",
+      "Price": 60000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "white",
+      "Size": "37.5",
+      "description": "Zapatillas Adidas blancas, talle 37.5.",
+      "gender": [],
+      "User ID": [
+        "19"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/362319a1-93fa-4320-bd22-569a26de4e77-1.jpg"
+      ]
+    },
+    {
+      "id": "427",
+      "slug": "falda-larga-de-encaje-negra-talle-m-264b5bbd-afab-413d-a3bd-92c03e67efba",
+      "SKU": "SKU-000427",
+      "Product Name": "Falda larga de encaje negra talle M",
+      "Price": 65000,
+      "category": "skirts",
+      "stock": 1,
+      "color": "black",
+      "Size": "M",
+      "description": "Falda larga de encaje negra, elegante y cómoda, ideal para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "18"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/264b5bbd-afab-413d-a3bd-92c03e67efba-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/264b5bbd-afab-413d-a3bd-92c03e67efba-2.jpg"
+      ]
+    },
+    {
+      "id": "425",
+      "slug": "vestido-negro-con-detalles-brillantes-talle-s-6ce70bad-e47a-44c6-b840-100518d217d1",
+      "SKU": "SKU-000425",
+      "Product Name": "Vestido negro con detalles brillantes talle S",
+      "Price": 70000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Elegante vestido negro talle S con detalles brillantes.",
+      "gender": [],
+      "User ID": [
+        "18"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6ce70bad-e47a-44c6-b840-100518d217d1-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6ce70bad-e47a-44c6-b840-100518d217d1-2.jpeg"
+      ]
+    },
+    {
+      "id": "423",
+      "slug": "vestido-largo-azul-6c196a43-82f1-4d74-a511-e698dce2db8f",
+      "SKU": "SKU-000423",
+      "Product Name": "Vestido largo azul",
+      "Price": 90000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "blue",
+      "Size": "S",
+      "description": "Vestido largo azul con tirantes finos, ideal para ocasiones especiales.",
+      "gender": [],
+      "User ID": [
+        "18"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6c196a43-82f1-4d74-a511-e698dce2db8f-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6c196a43-82f1-4d74-a511-e698dce2db8f-2.jpg"
+      ]
+    },
+    {
+      "id": "421",
+      "slug": "vestido-largo-naranja-con-tirante-asim-trico-474f5dea-9caa-4971-b0a2-4ebb580bdbec",
+      "SKU": "SKU-000421",
+      "Product Name": "Vestido largo naranja con tirante asimétrico",
+      "Price": 90000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "orange",
+      "Size": "M",
+      "description": "Elegante vestido largo naranja con tirante asimétrico.",
+      "gender": [],
+      "User ID": [
+        "18"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/474f5dea-9caa-4971-b0a2-4ebb580bdbec-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/474f5dea-9caa-4971-b0a2-4ebb580bdbec-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/474f5dea-9caa-4971-b0a2-4ebb580bdbec-3.jpg"
+      ]
+    },
+    {
+      "id": "419",
+      "slug": "vestido-gap-talle-10-2d3e590b-1d64-4282-af20-1bbe1ad65eca",
+      "SKU": "SKU-000419",
+      "Product Name": "Vestido Gap talle 10",
+      "Price": 60000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "10",
+      "description": "Vestido Gap talle 10, nuevo y elegante. Ideal para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2d3e590b-1d64-4282-af20-1bbe1ad65eca-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2d3e590b-1d64-4282-af20-1bbe1ad65eca-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2d3e590b-1d64-4282-af20-1bbe1ad65eca-3.jpg"
+      ]
+    },
+    {
+      "id": "417",
+      "slug": "chaleco-zara-talle-s-f7d71c61-87d7-4d2c-a40e-0b0afabff06a",
+      "SKU": "SKU-000417",
+      "Product Name": "Chaleco Zara talle S",
+      "Price": 40000,
+      "category": "blazers and suits",
+      "stock": 1,
+      "color": "brown",
+      "Size": "S",
+      "description": "Chaleco Zara en color marrón, talle S.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f7d71c61-87d7-4d2c-a40e-0b0afabff06a-1.jpg"
+      ]
+    },
+    {
+      "id": "415",
+      "slug": "pantal-n-zara-cb1710f5-80bd-4767-b0da-7a598fd7e845",
+      "SKU": "SKU-000415",
+      "Product Name": "Pantalón Zara",
+      "Price": 35000,
+      "category": "trousers and chinos",
+      "stock": 1,
+      "color": "white",
+      "Size": "M",
+      "description": "Pantalón Zara talle M, color blanco.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cb1710f5-80bd-4767-b0da-7a598fd7e845-1.jpg"
+      ]
+    },
+    {
+      "id": "413",
+      "slug": "vestido-short-espaldas-descubiertas-forever-c846bb32-1335-4e20-9909-fc845f982df0",
+      "SKU": "SKU-000413",
+      "Product Name": "Vestido short espaldas descubiertas Forever",
+      "Price": 50000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "green",
+      "Size": "XS",
+      "description": "Vestido short Forever XS con espalda descubierta y estampado de hojas.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c846bb32-1335-4e20-9909-fc845f982df0-1.jpg"
+      ]
+    },
+    {
+      "id": "411",
+      "slug": "short-estampado-con-hojas-895ef2dc-9d6e-4584-8ffa-e90a5dfdf535",
+      "SKU": "SKU-000411",
+      "Product Name": "Short estampado con hojas",
+      "Price": 35000,
+      "category": "shorts",
+      "stock": 1,
+      "color": "blue",
+      "Size": null,
+      "description": "Short estampado con hojas en tonos verdes y fucsias.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/895ef2dc-9d6e-4584-8ffa-e90a5dfdf535-1.jpg"
+      ]
+    },
+    {
+      "id": "409",
+      "slug": "remera-zara-283b186e-230c-42d8-b927-4e4ecad5faf0",
+      "SKU": "SKU-000409",
+      "Product Name": "Remera Zara",
+      "Price": 45000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Remera Zara negra talle S, nueva, con detalles brillantes.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/283b186e-230c-42d8-b927-4e4ecad5faf0-1.jpg"
+      ]
+    },
+    {
+      "id": "407",
+      "slug": "short-pollera-stradivarius-60d8cf49-81dd-4ea2-bbe0-05e682a3a218",
+      "SKU": "SKU-000407",
+      "Product Name": "Short pollera Stradivarius",
+      "Price": 40000,
+      "category": "skirts",
+      "stock": 1,
+      "color": "brown",
+      "Size": "34",
+      "description": "Short pollera Stradivarius talle 34 en color marrón.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/60d8cf49-81dd-4ea2-bbe0-05e682a3a218-1.jpg"
+      ]
+    },
+    {
+      "id": "405",
+      "slug": "short-stradivarius-talle-s-0a1ca57a-a6e2-4126-91e3-571e3e526a83",
+      "SKU": "SKU-000405",
+      "Product Name": "Short Stradivarius talle S",
+      "Price": 50000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "description": "Short Stradivarius talle S, ideal para el verano.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0a1ca57a-a6e2-4126-91e3-571e3e526a83-1.jpg"
+      ]
+    },
+    {
+      "id": "403",
+      "slug": "vestido-short-de-lino-3b527cb3-489b-47c5-aa7a-79c9e9d2de3b",
+      "SKU": "SKU-000403",
+      "Product Name": "Vestido short de lino",
+      "Price": 45000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": null,
+      "description": "Vestido short de lino de Zara, ideal para el verano.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3b527cb3-489b-47c5-aa7a-79c9e9d2de3b-1.jpg"
+      ]
+    },
+    {
+      "id": "401",
+      "slug": "blazer-stradivarius-nuevo-talle-xs-19879f4a-8e10-4751-b9c3-d7cd9223704a",
+      "SKU": "SKU-000401",
+      "Product Name": "Blazer Stradivarius nuevo talle XS",
+      "Price": 60000,
+      "category": "blazers and suits",
+      "stock": 1,
+      "color": "brown",
+      "Size": "XS",
+      "description": "Blazer Stradivarius nuevo en color marrón, talle XS.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/19879f4a-8e10-4751-b9c3-d7cd9223704a-1.jpg"
+      ]
+    },
+    {
+      "id": "399",
+      "slug": "top-y-pantal-n-stradivarius-b8d75fa4-d04e-4a0e-9840-abb14da19619",
+      "SKU": "SKU-000399",
+      "Product Name": "Top y pantalón Stradivarius",
+      "Price": 65000,
+      "category": "loungewear",
+      "stock": 1,
+      "color": "brown",
+      "Size": "M",
+      "description": "Conjunto de top y pantalón de Stradivarius en color marrón.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b8d75fa4-d04e-4a0e-9840-abb14da19619-1.jpg"
+      ]
+    },
+    {
+      "id": "397",
+      "slug": "pollera-pantal-n-zara-nuevo-988efe58-e5da-4481-a1aa-7470d08f593e",
+      "SKU": "SKU-000397",
+      "Product Name": "Pollera pantalón Zara nuevo",
+      "Price": 45000,
+      "category": "skirts",
+      "stock": 1,
+      "color": "gray",
+      "Size": null,
+      "description": "Pollera pantalón Zara nuevo en color gris.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/988efe58-e5da-4481-a1aa-7470d08f593e-1.jpg"
+      ]
+    },
+    {
+      "id": "395",
+      "slug": "short-zara-f09e774d-6d30-4d62-be2e-da161a3eab3e",
+      "SKU": "SKU-000395",
+      "Product Name": "Short Zara",
+      "Price": 45000,
+      "category": "shorts",
+      "stock": 1,
+      "color": "white",
+      "Size": null,
+      "description": "Short Zara blanco, ideal para el verano.",
+      "gender": [],
+      "User ID": [
+        "16"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f09e774d-6d30-4d62-be2e-da161a3eab3e-1.jpg"
+      ]
+    },
+    {
+      "id": "393",
+      "slug": "shorts-nena-bb5821ca-5f91-49bd-940c-40a5ebf831c6",
+      "SKU": "SKU-000393",
+      "Product Name": "Shorts Nena",
+      "Price": 7000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "8/10",
+      "description": "Shorts Nena de marcas como Nike y Under Armour, talle 8/10. Perfectos para el verano y actividades al aire libre.",
+      "gender": [],
+      "User ID": [
+        "15"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bb5821ca-5f91-49bd-940c-40a5ebf831c6-1.jpg"
+      ]
+    },
+    {
+      "id": "391",
+      "slug": "botas-de-invierno-negras-talle-37-e1371309-55b0-4a5e-9592-67b74682ee9f",
+      "SKU": "SKU-000391",
+      "Product Name": "Botas de invierno negras talle 37",
+      "Price": 5000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "black",
+      "Size": "37",
+      "description": "Botas de invierno negras, talle 37. Con forro suave y diseño resistente, ideales para el frío.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e1371309-55b0-4a5e-9592-67b74682ee9f-1.jpg"
+      ]
+    },
+    {
+      "id": "389",
+      "slug": "zapatillas-de-moda-blancas-y-azules-talle-37-df8546c1-880b-4947-898e-2cc3b22d09ad",
+      "SKU": "SKU-000389",
+      "Product Name": "Zapatillas de moda blancas y azules talle 37",
+      "Price": 5000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "white",
+      "Size": "37",
+      "description": "Zapatillas de moda en blanco y azul, talle 37. Comodidad y estilo para el día a día. Perfectas para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/df8546c1-880b-4947-898e-2cc3b22d09ad-1.jpg"
+      ]
+    },
+    {
+      "id": "387",
+      "slug": "pantalones-estampados-talle-40-42-56c27820-b290-4a72-9e83-4743df033fc9",
+      "SKU": "SKU-000387",
+      "Product Name": "Pantalones estampados talle 40/42",
+      "Price": 5000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "cyan",
+      "Size": "40/42",
+      "description": "Pantalones estampados en cyan, talle 40/42.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/56c27820-b290-4a72-9e83-4743df033fc9-1.jpg"
+      ]
+    },
+    {
+      "id": "385",
+      "slug": "pantal-n-c-modo-gris-talle-40-42-b0c7af2c-aeca-4c94-aca9-9951fc23ccb9",
+      "SKU": "SKU-000385",
+      "Product Name": "Pantalón cómodo gris talle 40/42",
+      "Price": 5000,
+      "category": "loungewear",
+      "stock": 1,
+      "color": "gray",
+      "Size": "40/42",
+      "description": "Pantalón loungewear gris, talle 40/42. Ideal para estar cómodo en casa o salir.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b0c7af2c-aeca-4c94-aca9-9951fc23ccb9-1.jpg"
+      ]
+    },
+    {
+      "id": "383",
+      "slug": "pantalones-c-modos-negros-talle-40-42-dd50447d-59f6-446c-a77f-414264c589b3",
+      "SKU": "SKU-000383",
+      "Product Name": "Pantalones cómodos negros talle 40/42",
+      "Price": 5000,
+      "category": "loungewear",
+      "stock": 1,
+      "color": "black",
+      "Size": "40/42",
+      "description": "Pantalones cómodos negros, talle 40/42. Perfectos para el hogar o salir.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dd50447d-59f6-446c-a77f-414264c589b3-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dd50447d-59f6-446c-a77f-414264c589b3-2.jpg"
+      ]
+    },
+    {
+      "id": "381",
+      "slug": "remera-deportiva-fucsia-c9865a5d-610b-4d5a-9d9f-8df2a96f47c8",
+      "SKU": "SKU-000381",
+      "Product Name": "Remera deportiva fucsia",
+      "Price": 5000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "pink",
+      "Size": "L",
+      "description": "Remera deportiva fucsia de la marca Lurdesport, ideal para tus entrenamientos. Comodidad y estilo en cada movimiento.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c9865a5d-610b-4d5a-9d9f-8df2a96f47c8-1.jpg"
+      ]
+    },
+    {
+      "id": "379",
+      "slug": "leggings-deportivos-estampados-e67a15cd-cc10-45a0-a604-aae2047f5794",
+      "SKU": "SKU-000379",
+      "Product Name": "Leggings deportivos estampados",
+      "Price": 5000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "blue",
+      "Size": "40/42",
+      "description": "Leggings deportivos con estampado geométrico en azul y negro. Comodidad y estilo para tus entrenamientos. Perfectos para cualquier actividad.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e67a15cd-cc10-45a0-a604-aae2047f5794-1.jpg"
+      ]
+    },
+    {
+      "id": "377",
+      "slug": "leggings-deportivos-con-estampado-azul-0893ba47-1002-4765-b723-354425379fe5",
+      "SKU": "SKU-000377",
+      "Product Name": "Leggings deportivos con estampado azul",
+      "Price": 5000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "cyan",
+      "Size": "40/42",
+      "description": "Leggings deportivos con estampado moderno en tonos cian y negro. Comodidad y estilo para tus entrenamientos. Perfectos para cualquier actividad.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0893ba47-1002-4765-b723-354425379fe5-1.jpg"
+      ]
+    },
+    {
+      "id": "375",
+      "slug": "leggings-deportivos-con-dise-o-abstracto-00e094df-e114-4ebf-905d-82796bcc6bcd",
+      "SKU": "SKU-000375",
+      "Product Name": "Leggings deportivos con diseño abstracto",
+      "Price": 5000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "red",
+      "Size": "40/42",
+      "description": "Leggings deportivos con diseño abstracto en rojo y negro. Perfectos para el gimnasio o actividades al aire libre. Comodidad y estilo en uno.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/00e094df-e114-4ebf-905d-82796bcc6bcd-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/00e094df-e114-4ebf-905d-82796bcc6bcd-2.jpg"
+      ]
+    },
+    {
+      "id": "373",
+      "slug": "remera-de-manga-corta-celeste-2edb657a-c0ca-41ad-ad17-f243ab346528",
+      "SKU": "SKU-000373",
+      "Product Name": "Remera de manga corta celeste",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "blue",
+      "Size": "L",
+      "description": "Remera de manga corta celeste, talle L. Ideal para el verano, cómoda y fresca. Perfecta para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2edb657a-c0ca-41ad-ad17-f243ab346528-1.jpg"
+      ]
+    },
+    {
+      "id": "371",
+      "slug": "blusa-negra-con-mangas-fruncidas-talle-l-40ea8ef1-ad24-4598-8edc-44c29e130f18",
+      "SKU": "SKU-000371",
+      "Product Name": "Blusa negra con mangas fruncidas talle L",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "L",
+      "description": "Blusa negra con mangas fruncidas, ideal para un look casual y moderno. Perfecta para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/40ea8ef1-ad24-4598-8edc-44c29e130f18-1.jpg"
+      ]
+    },
+    {
+      "id": "369",
+      "slug": "remera-blanca-con-estampado-floral-cc1e5894-098e-4109-ad57-094d1ee73984",
+      "SKU": "SKU-000369",
+      "Product Name": "Remera blanca con estampado floral",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "white",
+      "Size": "L",
+      "description": "Remera blanca de mujer, talle L, con hermoso estampado floral. Ideal para un look fresco y casual. Perfecta para el día a día.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cc1e5894-098e-4109-ad57-094d1ee73984-1.jpg"
+      ]
+    },
+    {
+      "id": "367",
+      "slug": "blusa-yd-nueva-colecci-n-fd16cab4-8c55-4a4f-a6b4-02f2ac1ca33a",
+      "SKU": "SKU-000367",
+      "Product Name": "Blusa YD nueva colección",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "description": "Blusa YD de la nueva colección, talla L. Con detalles bordados y estilo bohemio, ideal para lucir en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fd16cab4-8c55-4a4f-a6b4-02f2ac1ca33a-1.jpg"
+      ]
+    },
+    {
+      "id": "365",
+      "slug": "remera-amarilla-con-dise-o-de-pez-8ea9c392-94db-4adf-ab6b-1d1dee0b54ac",
+      "SKU": "SKU-000365",
+      "Product Name": "Remera amarilla con diseño de pez",
+      "Price": 5000,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "yellow",
+      "Size": "L",
+      "description": "Remera amarilla con diseño de pez colorido. Ideal para un look fresco y divertido. Perfecta para cualquier ocasión casual.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8ea9c392-94db-4adf-ab6b-1d1dee0b54ac-1.jpg"
+      ]
+    },
+    {
+      "id": "363",
+      "slug": "blusa-de-lino-con-detalles-de-botones-931007a5-884b-4a68-8773-6ce7e3b43c06",
+      "SKU": "SKU-000363",
+      "Product Name": "Blusa de lino con detalles de botones",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "white",
+      "Size": "L",
+      "description": "Blusa de lino blanca con detalles de botones, ideal para un look fresco y elegante.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/931007a5-884b-4a68-8773-6ce7e3b43c06-1.jpg"
+      ]
+    },
+    {
+      "id": "361",
+      "slug": "blusa-bordada-mujer-talle-l-70584712-8499-4663-90f9-b26bafc5f385",
+      "SKU": "SKU-000361",
+      "Product Name": "Blusa bordada mujer talle L",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "maroon",
+      "Size": "L",
+      "description": "Blusa bordada de estilo bohemio, talle L. Perfecta para lucir en cualquier ocasión. Comodidad y estilo en un solo producto.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/70584712-8499-4663-90f9-b26bafc5f385-1.jpeg"
+      ]
+    },
+    {
+      "id": "359",
+      "slug": "blusa-o-s-s-a-fashion-l-con-bordados-3589fb05-cbbf-4913-abee-a98eb13f0689",
+      "SKU": "SKU-000359",
+      "Product Name": "Blusa O.S.S.A. Fashion L con bordados",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "description": "Blusa O.S.S.A. Fashion talle L con delicados bordados y detalles florales. Ideal para lucir elegante y cómoda en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3589fb05-cbbf-4913-abee-a98eb13f0689-1.jpg"
+      ]
+    },
+    {
+      "id": "357",
+      "slug": "blusa-de-encaje-negra-bb2914fd-4e34-4f19-9ea1-1066f9186d57",
+      "SKU": "SKU-000357",
+      "Product Name": "Blusa de encaje negra",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "L",
+      "description": "Blusa de encaje negra, talle L. Ideal para ocasiones especiales o para el día a día. Estilo elegante y fresco, perfecta para combinar.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bb2914fd-4e34-4f19-9ea1-1066f9186d57-1.jpg"
+      ]
+    },
+    {
+      "id": "355",
+      "slug": "remera-b-sica-lila-ec4310fc-7022-440e-87d3-46d48e636943",
+      "SKU": "SKU-000355",
+      "Product Name": "Remera básica lila",
+      "Price": 5000,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "purple",
+      "Size": "L",
+      "description": "Remera básica lila de algodón, cómoda y versátil. Ideal para el día a día. Perfecta para combinar con cualquier outfit.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ec4310fc-7022-440e-87d3-46d48e636943-1.jpg"
+      ]
+    },
+    {
+      "id": "353",
+      "slug": "musculosa-b-sica-l-430e1043-d631-4bd4-b0e5-f6c585efead1",
+      "SKU": "SKU-000353",
+      "Product Name": "Musculosa básica L",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "white",
+      "Size": "L",
+      "description": "Musculosa básica blanca, talle L. Ideal para combinar en cualquier ocasión. Comodidad y estilo para tu día a día.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/430e1043-d631-4bd4-b0e5-f6c585efead1-1.jpg"
+      ]
+    },
+    {
+      "id": "351",
+      "slug": "top-negro-sin-mangas-talle-l-5ec32f82-137d-474c-9031-2db45563178c",
+      "SKU": "SKU-000351",
+      "Product Name": "Top negro sin mangas talle L",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "L",
+      "description": "Top negro sin mangas, talle L. Ideal para combinar en cualquier ocasión. Prenda versátil y cómoda para tu guardarropa diario.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5ec32f82-137d-474c-9031-2db45563178c-1.jpg"
+      ]
+    },
+    {
+      "id": "349",
+      "slug": "top-negro-con-detalle-de-encaje-ff60f45e-d47f-4d39-bc18-a6b36c696fef",
+      "SKU": "SKU-000349",
+      "Product Name": "Top negro con detalle de encaje",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "L",
+      "description": "Top negro de mujer con detalle de encaje en la espalda. Ideal para combinar en cualquier ocasión. Comodidad y estilo en un solo producto.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ff60f45e-d47f-4d39-bc18-a6b36c696fef-1.jpg"
+      ]
+    },
+    {
+      "id": "347",
+      "slug": "top-blanco-con-detalles-de-encaje-71c3bcf9-bc01-4248-a4e2-b2a8a6fa8c05",
+      "SKU": "SKU-000347",
+      "Product Name": "Top blanco con detalles de encaje",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "white",
+      "Size": "L",
+      "description": "Top blanco de mujer con detalles de encaje, ideal para el verano. Comodidad y estilo para lucir en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/71c3bcf9-bc01-4248-a4e2-b2a8a6fa8c05-1.jpg"
+      ]
+    },
+    {
+      "id": "345",
+      "slug": "top-de-mujer-gris-con-detalles-de-encaje-0416e873-6109-4fa5-ae66-c8e0b7f49ffe",
+      "SKU": "SKU-000345",
+      "Product Name": "Top de mujer gris con detalles de encaje",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "gray",
+      "Size": "L",
+      "description": "Top de mujer gris con detalles de encaje en los hombros. Ideal para un look casual y fresco. Perfecto para el verano.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0416e873-6109-4fa5-ae66-c8e0b7f49ffe-1.jpg"
+      ]
+    },
+    {
+      "id": "343",
+      "slug": "top-de-verano-estampado-d43951c0-f218-41a1-8f2d-fc56be7741b4",
+      "SKU": "SKU-000343",
+      "Product Name": "Top de verano estampado",
+      "Price": 5000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "description": "Top de verano con estampado vibrante, ideal para lucir en días calurosos. Perfecto para combinar con shorts o jeans.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d43951c0-f218-41a1-8f2d-fc56be7741b4-1.jpg"
+      ]
+    },
+    {
+      "id": "341",
+      "slug": "vestido-negro-con-volados-b09541e4-c188-4969-9f6d-26ee5314cb0c",
+      "SKU": "SKU-000341",
+      "Product Name": "Vestido negro con volados",
+      "Price": 5000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "L",
+      "description": "Vestido negro con volados, ideal para cualquier ocasión. Comodidad y estilo en un solo look. Perfecto para el día a día en Buenos Aires.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b09541e4-c188-4969-9f6d-26ee5314cb0c-1.jpg"
+      ]
+    },
+    {
+      "id": "339",
+      "slug": "short-river-original-e4b87b81-49e7-46ab-b1b6-ab1abd86568f",
+      "SKU": "SKU-000339",
+      "Product Name": "Short River Original",
+      "Price": 20000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "red",
+      "Size": "8/10 años",
+      "description": "Short River Original para niños, talle 8/10 años. Ideal para el deporte y el juego. Comodidad y estilo en color rojo vibrante.",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e4b87b81-49e7-46ab-b1b6-ab1abd86568f-1.jpg"
+      ]
+    },
+    {
+      "id": "337",
+      "slug": "short-river-original-a5c7e4fa-1cf0-4f94-827a-331473ef86a1",
+      "SKU": "SKU-000337",
+      "Product Name": "Short River Original",
+      "Price": 20000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "black",
+      "Size": "8/10 años",
+      "description": "Short River Original para niños, talle 8/10 años. Ideal para el deporte y el juego. Diseño cómodo y moderno.",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a5c7e4fa-1cf0-4f94-827a-331473ef86a1-1.jpg"
+      ]
+    },
+    {
+      "id": "335",
+      "slug": "buzo-river-2016-original-ni-o-10-a-os-6f087081-cdd3-4cb8-aa75-c22a83115bfc",
+      "SKU": "SKU-000335",
+      "Product Name": "Buzo River 2016 Original Niño 10 años",
+      "Price": 45000,
+      "category": "hoodies and sweatshirts",
+      "stock": 1,
+      "color": "red",
+      "Size": "10 años",
+      "description": "Buzo original River Plate 2016, talle 10 años. Con etiqueta y estilo único. Ideal para los fanáticos del fútbol.",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6f087081-cdd3-4cb8-aa75-c22a83115bfc-1.jpg"
+      ]
+    },
+    {
+      "id": "333",
+      "slug": "camisa-negra-7ff9915f-6ff5-4a68-90c1-a953caa3364b",
+      "SKU": "SKU-000333",
+      "Product Name": "Camisa negra",
+      "Price": 10000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "S/M",
+      "description": "Camisa negra S/M, ideal para cualquier ocasión. Estilo moderno y versátil, perfecta para combinar con tus looks diarios.",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7ff9915f-6ff5-4a68-90c1-a953caa3364b-1.jpg"
+      ]
+    },
+    {
+      "id": "331",
+      "slug": "mono-manga-larga-negro-talle-s-74a82cd4-b352-425d-9202-6afc95fff678",
+      "SKU": "SKU-000331",
+      "Product Name": "Mono manga larga negro talle S",
+      "Price": 8000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Mono negro de manga larga, talle S. Ideal para cualquier ocasión, combina estilo y comodidad. ¡Perfecto para lucir en cualquier evento!",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/74a82cd4-b352-425d-9202-6afc95fff678-1.jpg"
+      ]
+    },
+    {
+      "id": "329",
+      "slug": "mono-negro-con-detalles-plateados-db53ed83-ed42-45d9-8399-e743400f1dff",
+      "SKU": "SKU-000329",
+      "Product Name": "Mono negro con detalles plateados",
+      "Price": 18000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Mono negro con detalles plateados, talle S. Ideal para ocasiones especiales, combina elegancia y estilo. ¡Atrévete a brillar!",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/db53ed83-ed42-45d9-8399-e743400f1dff-1.jpg"
+      ]
+    },
+    {
+      "id": "327",
+      "slug": "camisa-express-2ba26cdf-d833-406e-8345-0c479398b913",
+      "SKU": "SKU-000327",
+      "Product Name": "Camisa Express",
+      "Price": 19000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "red",
+      "Size": "M",
+      "description": "Camisa de cuadros Express talle M, ideal para un look casual y moderno. Perfecta para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2ba26cdf-d833-406e-8345-0c479398b913-1.jpg"
+      ]
+    },
+    {
+      "id": "325",
+      "slug": "campera-de-jean-blanca-2be8dd62-4ca0-4807-a93c-4ce4c7b535e9",
+      "SKU": "SKU-000325",
+      "Product Name": "Campera de jean blanca",
+      "Price": 15000,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "white",
+      "Size": "S",
+      "description": "Campera de jean blanca, talle S. Ideal para cualquier ocasión, combina con todo y aporta estilo a tu look diario.",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2be8dd62-4ca0-4807-a93c-4ce4c7b535e9-1.jpg"
+      ]
+    },
+    {
+      "id": "323",
+      "slug": "campera-de-jean-bordada-7ae2f01f-9889-49d2-bb91-029045980262",
+      "SKU": "SKU-000323",
+      "Product Name": "Campera de Jean Bordada",
+      "Price": 40000,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "blue",
+      "Size": "M",
+      "description": "Campera de jean bordada con detalles florales y tigre. Estilo único y moderno, ideal para cualquier ocasión. ¡Atrévete a lucirla!",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7ae2f01f-9889-49d2-bb91-029045980262-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7ae2f01f-9889-49d2-bb91-029045980262-2.jpg"
+      ]
+    },
+    {
+      "id": "321",
+      "slug": "campera-de-jean-roja-1df2a343-fcd5-487a-a393-6229ef1acff8",
+      "SKU": "SKU-000321",
+      "Product Name": "Campera de jean roja",
+      "Price": 18000,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "red",
+      "Size": "S",
+      "description": "Campera de jean roja talle S, ideal para un look casual y moderno. Perfecta para combinar en cualquier ocasión. ¡No te la pierdas!",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1df2a343-fcd5-487a-a393-6229ef1acff8-1.jpg"
+      ]
+    },
+    {
+      "id": "319",
+      "slug": "pollera-de-jean-20d9a6ff-938f-4545-a0e6-6003856be3c4",
+      "SKU": "SKU-000319",
+      "Product Name": "Pollera de jean",
+      "Price": 18000,
+      "category": "skirts",
+      "stock": 1,
+      "color": "blue",
+      "Size": "M",
+      "description": "Pollera de jean azul talle M, con detalles desgastados. Ideal para un look casual y moderno. Perfecta para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "14"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/20d9a6ff-938f-4545-a0e6-6003856be3c4-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/20d9a6ff-938f-4545-a0e6-6003856be3c4-2.jpg"
+      ]
+    },
+    {
+      "id": "317",
+      "slug": "vestido-negro-b-sico-de458ab1-244d-4fab-8f1e-f919395235fd",
+      "SKU": "SKU-000317",
+      "Product Name": "Vestido negro básico",
+      "Price": 5000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": null,
+      "description": "Vestido negro básico, ideal para cualquier ocasión. Comodidad y estilo en una sola prenda",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/de458ab1-244d-4fab-8f1e-f919395235fd-1.jpg"
+      ]
+    },
+    {
+      "id": "315",
+      "slug": "chaleco-patagonia-583f2468-fd15-4537-9f64-e32da908c9d3",
+      "SKU": "SKU-000315",
+      "Product Name": "Chaleco Patagonia",
+      "Price": 10000,
+      "category": "outerwear",
+      "stock": 1,
+      "color": "gray",
+      "Size": "L",
+      "description": "Chaleco Patagonia gris, ideal para el entretiempo. Ligero y cómodo, perfecto para combinar con cualquier outfit.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/583f2468-fd15-4537-9f64-e32da908c9d3-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/583f2468-fd15-4537-9f64-e32da908c9d3-2.jpg"
+      ]
+    },
+    {
+      "id": "313",
+      "slug": "campera-acolchada-negra-ef5bcbf5-3d1f-41b8-b998-21c5f161d664",
+      "SKU": "SKU-000313",
+      "Product Name": "Campera acolchada negra",
+      "Price": 20000,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "black",
+      "Size": null,
+      "description": "Campera acolchada negra, ideal para el frío. Con cierre y detalles en dorado. Perfecta para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ef5bcbf5-3d1f-41b8-b998-21c5f161d664-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ef5bcbf5-3d1f-41b8-b998-21c5f161d664-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ef5bcbf5-3d1f-41b8-b998-21c5f161d664-3.jpg"
+      ]
+    },
+    {
+      "id": "311",
+      "slug": "abrigo-acolchado-talle-l-101d9885-9a14-4a62-9073-f45fb9b45126",
+      "SKU": "SKU-000311",
+      "Product Name": "Abrigo acolchado talle L",
+      "Price": 20000,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "brown",
+      "Size": "L",
+      "description": "Abrigo acolchado en color marrón, talle L. Ideal para el invierno, con forro suave y capucha.",
+      "gender": [],
+      "User ID": [
+        "13"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/101d9885-9a14-4a62-9073-f45fb9b45126-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/101d9885-9a14-4a62-9073-f45fb9b45126-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/101d9885-9a14-4a62-9073-f45fb9b45126-3.jpg"
+      ]
+    },
+    {
+      "id": "307",
+      "slug": "pantalones-cher-talle-26-63f4cbbf-2730-4c26-bc39-35904d0c8ed6",
+      "SKU": "SKU-000307",
+      "Product Name": "Pantalones CHER talle 26",
+      "Price": 95000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "olive",
+      "Size": "26",
+      "description": "Pantalones CHER talle 26, sin uso. Estilo moderno y cómodo, ideales para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "12"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/63f4cbbf-2730-4c26-bc39-35904d0c8ed6-1.jpg"
+      ]
+    },
+    {
+      "id": "305",
+      "slug": "jean-zara-talle-40-a7e011d1-a422-4ccf-b2b0-aa63d57228f1",
+      "SKU": "SKU-000305",
+      "Product Name": "Jean Zara talle 40",
+      "Price": 75000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "black",
+      "Size": "40",
+      "description": "Jean Zara nuevo sin uso, talle 40. Ideal para cualquier ocasión, combina estilo y comodidad.",
+      "gender": [],
+      "User ID": [
+        "12"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a7e011d1-a422-4ccf-b2b0-aa63d57228f1-1.jpg"
+      ]
+    },
+    {
+      "id": "303",
+      "slug": "top-negro-mango-sin-uso-a1974739-296f-4d1b-9611-b144afec3685",
+      "SKU": "SKU-000303",
+      "Product Name": "Top negro Mango sin uso",
+      "Price": 35000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "M",
+      "description": "Top negro de Mango, talle M, sin uso. Ideal para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "12"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a1974739-296f-4d1b-9611-b144afec3685-1.jpg"
+      ]
+    },
+    {
+      "id": "301",
+      "slug": "remera-guess-1c46848c-1825-470c-bd8a-8408dd03af7f",
+      "SKU": "SKU-000301",
+      "Product Name": "Remera Guess",
+      "Price": 15000,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "green",
+      "Size": "M",
+      "description": "Remera Guess verde, talle M. Estilo casual y cómodo, ideal para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "11"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1c46848c-1825-470c-bd8a-8408dd03af7f-1.jpg"
+      ]
+    },
+    {
+      "id": "299",
+      "slug": "piloto-nike-2cbdfa62-0664-40b3-8b13-b38728f1d90e",
+      "SKU": "SKU-000299",
+      "Product Name": "Piloto Nike",
+      "Price": 25000,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "cyan",
+      "Size": "S",
+      "description": "Piloto Nike unisex talle S, diseño vibrante con estampado tropical. Ideal para días de lluvia y actividades al aire libre.",
+      "gender": [],
+      "User ID": [
+        "11"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2cbdfa62-0664-40b3-8b13-b38728f1d90e-1.jpg"
+      ]
+    },
+    {
+      "id": "297",
+      "slug": "calzas-calvin-klein-5d4815f1-845c-44a4-8b64-ad39c6e69627",
+      "SKU": "SKU-000297",
+      "Product Name": "Calzas Calvin Klein",
+      "Price": 18000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "black",
+      "Size": "XL",
+      "description": "Calzas Calvin Klein en talle XL, ideales para el gym o el día a día. Comodidad y estilo en un solo producto.",
+      "gender": [],
+      "User ID": [
+        "11"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5d4815f1-845c-44a4-8b64-ad39c6e69627-1.jpg"
+      ]
+    },
+    {
+      "id": "295",
+      "slug": "pantal-n-boca-juniors-adidas-c0750d56-d923-4dd1-87ee-978ba75696d8",
+      "SKU": "SKU-000295",
+      "Product Name": "Pantalón Boca Juniors Adidas",
+      "Price": 25000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "navy",
+      "Size": null,
+      "description": "Pantalón Adidas Boca Juniors, ideal para el deporte y el día a día.",
+      "gender": [],
+      "User ID": [
+        "10"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c0750d56-d923-4dd1-87ee-978ba75696d8-1.jpg"
+      ]
+    },
+    {
+      "id": "293",
+      "slug": "botines-adidas-originales-talle-39-e0182ce7-7f6c-4682-86a2-ceae708864fb",
+      "SKU": "SKU-000293",
+      "Product Name": "Botines Adidas originales talle 39",
+      "Price": 60000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "black",
+      "Size": "39",
+      "description": "Botines Adidas originales talle 39 sin uso, ideales para el fútbol. Incluye medias Adidas.",
+      "gender": [],
+      "User ID": [
+        "10"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e0182ce7-7f6c-4682-86a2-ceae708864fb-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e0182ce7-7f6c-4682-86a2-ceae708864fb-2.jpg"
+      ]
+    },
+    {
+      "id": "291",
+      "slug": "su-ter-lovely-denim-azul-talle-6-39092d45-4cfc-4940-9f15-2ae067c88f64",
+      "SKU": "SKU-000291",
+      "Product Name": "Suéter Lovely Denim azul talle 6",
+      "Price": 75000,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "blue",
+      "Size": "6",
+      "description": "Suéter Lovely Denim azul, talle 6, abrigado y cómodo. Ideal para lucir en cualquier ocasión. ¡No te lo pierdas!",
+      "gender": [],
+      "User ID": [
+        "9"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/39092d45-4cfc-4940-9f15-2ae067c88f64-1.jpg"
+      ]
+    },
+    {
+      "id": "289",
+      "slug": "campera-h-m-negra-talle-s-0eba8c01-ad50-4748-ad60-6c4de4629212",
+      "SKU": "SKU-000289",
+      "Product Name": "Campera H&M negra talle S",
+      "Price": 75000,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Campera H&M negra de cuero, talle S. Estilo moderno y versátil, ideal para cualquier ocasión. Perfecta para combinar con tu look diario.",
+      "gender": [],
+      "User ID": [
+        "9"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0eba8c01-ad50-4748-ad60-6c4de4629212-1.jpg"
+      ]
+    },
+    {
+      "id": "287",
+      "slug": "campera-calvin-klein-6fae4081-2542-41b3-a56c-cc3bbb09c67a",
+      "SKU": "SKU-000287",
+      "Product Name": "Campera Calvin Klein",
+      "Price": 135000,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "white",
+      "Size": "M",
+      "description": "Campera Calvin Klein blanca, talle M. Estilo moderno y versátil, ideal para cualquier ocasión. ¡Luce increíble y cómodo en todo momento!",
+      "gender": [],
+      "User ID": [
+        "9"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6fae4081-2542-41b3-a56c-cc3bbb09c67a-1.jpg"
+      ]
+    },
+    {
+      "id": "285",
+      "slug": "vestido-h-m-kids-5cfac008-3549-4374-b4ab-55f2220ea8d2",
+      "SKU": "SKU-000285",
+      "Product Name": "Vestido H&M Kids",
+      "Price": 145000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "pink",
+      "Size": "10/10",
+      "description": "Vestido H&M Kids talle 10/10, ideal para ocasiones especiales. Estilo fresco con estampado de lunares y detalles encantadores. ¡Perfecto para tu pequeña!",
+      "gender": [],
+      "User ID": [
+        "9"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5cfac008-3549-4374-b4ab-55f2220ea8d2-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5cfac008-3549-4374-b4ab-55f2220ea8d2-2.jpg"
+      ]
+    },
+    {
+      "id": "283",
+      "slug": "vestido-h-m-kids-10-11-a-os-6cd856fe-9772-4797-bccf-3f566f78791a",
+      "SKU": "SKU-000283",
+      "Product Name": "Vestido H&M kids 10/11 años",
+      "Price": 145000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "navy",
+      "Size": "10/11 años",
+      "description": "Vestido H&M kids para 10/11 años, con brillos y falda de tul. Ideal para ocasiones especiales.",
+      "gender": [],
+      "User ID": [
+        "9"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6cd856fe-9772-4797-bccf-3f566f78791a-1.jpg"
+      ]
+    },
+    {
+      "id": "281",
+      "slug": "tapado-de-gamuza-marr-n-chocolate-searle-new-york-2605de72-4800-4a07-847f-13b73ab5d031",
+      "SKU": "SKU-000281",
+      "Product Name": "Tapado de gamuza marrón chocolate Searle New York",
+      "Price": 400000,
+      "category": "outerwear",
+      "stock": 1,
+      "color": "brown",
+      "Size": "M",
+      "description": "Elegante tapado de gamuza marrón chocolate con interior en nutria. Marca Searle, estilo sofisticado y cómodo para el invierno.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2605de72-4800-4a07-847f-13b73ab5d031-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2605de72-4800-4a07-847f-13b73ab5d031-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2605de72-4800-4a07-847f-13b73ab5d031-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2605de72-4800-4a07-847f-13b73ab5d031-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2605de72-4800-4a07-847f-13b73ab5d031-5.jpeg"
+      ]
+    },
+    {
+      "id": "279",
+      "slug": "pollera-emilio-pucci-small-053abc1e-2755-42ce-8eea-c2c1a71c8d4e",
+      "SKU": "SKU-000279",
+      "Product Name": "Pollera Emilio Pucci small",
+      "Price": 60000,
+      "category": "skirts",
+      "stock": 1,
+      "color": "pink",
+      "Size": "S",
+      "description": "Pollera Emilio Pucci talle small en excelente estado. Diseño moderno y vibrante, ideal para destacar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/053abc1e-2755-42ce-8eea-c2c1a71c8d4e-1.jpg"
+      ]
+    },
+    {
+      "id": "277",
+      "slug": "conjunto-de-chaqueta-y-pollera-emilio-pucci-9eed6bfe-377b-465e-bd58-2e4d2c6d1b83",
+      "SKU": "SKU-000277",
+      "Product Name": "Conjunto de chaqueta y pollera Emilio Pucci",
+      "Price": 90000,
+      "category": "blazers and suits",
+      "stock": 1,
+      "color": "brown",
+      "Size": "S",
+      "description": "Conjunto de chaqueta y pollera Emilio Pucci en excelente estado. Talle S, ideal para un look elegante y moderno. ¡No te lo pierdas!",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9eed6bfe-377b-465e-bd58-2e4d2c6d1b83-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9eed6bfe-377b-465e-bd58-2e4d2c6d1b83-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9eed6bfe-377b-465e-bd58-2e4d2c6d1b83-3.jpg"
+      ]
+    },
+    {
+      "id": "275",
+      "slug": "vestido-de-lino-italiano-talle-large-e941aa36-0806-40d9-b084-f07cba1bc7a0",
+      "SKU": "SKU-000275",
+      "Product Name": "Vestido de Lino Italiano Talle Large",
+      "Price": 50000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "navy",
+      "Size": "Large",
+      "description": "Elegante vestido de lino italiano en talle Large. Ideal para ocasiones especiales. Muy buen estado y cómodo para lucir en cualquier evento.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e941aa36-0806-40d9-b084-f07cba1bc7a0-1.jpg"
+      ]
+    },
+    {
+      "id": "273",
+      "slug": "vestido-talle-large-3746afc1-46ed-4a35-b95e-27307e4fd8c7",
+      "SKU": "SKU-000273",
+      "Product Name": "Vestido talle Large",
+      "Price": 70000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "gray",
+      "Size": "Large",
+      "description": "Vestido talle Large en excelente estado. Ideal para cualquier ocasión, cómodo y versátil.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3746afc1-46ed-4a35-b95e-27307e4fd8c7-1.jpg"
+      ]
+    },
+    {
+      "id": "271",
+      "slug": "camisa-blanca-con-bordados-3e1c916e-6c85-4614-b88e-36d32f7a9b4e",
+      "SKU": "SKU-000271",
+      "Product Name": "Camisa blanca con bordados",
+      "Price": 50000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "white",
+      "Size": "M",
+      "description": "Camisa blanca talle M con bordados elegantes. Ideal para lucir en ocasiones especiales o en el día a día.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3e1c916e-6c85-4614-b88e-36d32f7a9b4e-1.jpg"
+      ]
+    },
+    {
+      "id": "269",
+      "slug": "camisola-negra-talle-medium-9cc95a31-3e48-4681-8136-6ab24d4cca8a",
+      "SKU": "SKU-000269",
+      "Product Name": "Camisola negra talle medium",
+      "Price": 50000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "M",
+      "description": "Camisola negra talle medium en excelente estado. Ideal para combinar en cualquier ocasión. ¡No te la pierdas!",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9cc95a31-3e48-4681-8136-6ab24d4cca8a-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9cc95a31-3e48-4681-8136-6ab24d4cca8a-2.jpg"
+      ]
+    },
+    {
+      "id": "267",
+      "slug": "camisa-emilio-pucci-small-f780f954-44d5-4e7f-827c-81a5e2670b26",
+      "SKU": "SKU-000267",
+      "Product Name": "Camisa Emilio Pucci small",
+      "Price": 60000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "purple",
+      "Size": "S",
+      "description": "Camisa Emilio Pucci talle S, con diseño geométrico en tonos púrpuras. Ideal para un look moderno y elegante.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f780f954-44d5-4e7f-827c-81a5e2670b26-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f780f954-44d5-4e7f-827c-81a5e2670b26-2.jpg"
+      ]
+    },
+    {
+      "id": "263",
+      "slug": "camisa-equipment-small-a-rayas-8e3747ad-a8c7-4a5d-9ec6-fa23767392ba",
+      "SKU": "SKU-000263",
+      "Product Name": "Camisa Equipment small a rayas",
+      "Price": 60000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "blue",
+      "Size": "S",
+      "description": "Camisa Equipment small, sastrería francesa en New York, con estilo a rayas. Ideal para un look elegante y moderno. Muy buen estado.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8e3747ad-a8c7-4a5d-9ec6-fa23767392ba-1.jpg"
+      ]
+    },
+    {
+      "id": "261",
+      "slug": "vestido-exclusivo-talle-medium-0c001982-a286-434f-a219-302942973dcf",
+      "SKU": "SKU-000261",
+      "Product Name": "Vestido exclusivo talle Medium",
+      "Price": 70000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "gray",
+      "Size": "M",
+      "description": "Vestido exclusivo talle Medium en excelente estado. Ideal para ocasiones especiales. Estilo moderno y único que realza tu figura.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0c001982-a286-434f-a219-302942973dcf-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0c001982-a286-434f-a219-302942973dcf-2.jpg"
+      ]
+    },
+    {
+      "id": "259",
+      "slug": "vestido-exclusivo-talle-medium-b5fa2435-afb1-4248-ba6f-3ae477fc9af5",
+      "SKU": "SKU-000259",
+      "Product Name": "Vestido exclusivo talle Medium",
+      "Price": 70000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "red",
+      "Size": "M",
+      "description": "Vestido exclusivo talle Medium en excelente estado. Ideal para ocasiones especiales. Dale un toque único a tu guardarropa.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b5fa2435-afb1-4248-ba6f-3ae477fc9af5-1.jpg"
+      ]
+    },
+    {
+      "id": "257",
+      "slug": "vestido-exclusivo-talle-medium-032f0cf5-1154-46f5-9293-3d425ce30368",
+      "SKU": "SKU-000257",
+      "Product Name": "Vestido exclusivo talle Medium",
+      "Price": 70000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "red",
+      "Size": "M",
+      "description": "Vestido exclusivo talle Medium en excelente estado. Ideal para ocasiones especiales. Dale un toque único a tu guardarropa con este diseño vibrante.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/032f0cf5-1154-46f5-9293-3d425ce30368-1.jpg"
+      ]
+    },
+    {
+      "id": "255",
+      "slug": "camisa-talle-large-968c9ac5-642a-46a2-a029-12bba4d2f59e",
+      "SKU": "SKU-000255",
+      "Product Name": "Camisa Talle Large",
+      "Price": 60000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "blue",
+      "Size": "Large",
+      "description": "Camisa azul talle Large en excelente estado. Ideal para cualquier ocasión, combina estilo y comodidad.",
+      "gender": [],
+      "User ID": [
+        "8"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/968c9ac5-642a-46a2-a029-12bba4d2f59e-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/968c9ac5-642a-46a2-a029-12bba4d2f59e-2.jpg"
+      ]
+    },
+    {
+      "id": "253",
+      "slug": "pantal-n-deportivo-afa-talle-3-01ec21cc-e808-4157-ac78-0dd1fae6d795",
+      "SKU": "SKU-000253",
+      "Product Name": "Pantalón deportivo AFA talle 3",
+      "Price": 10000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "black",
+      "Size": "3",
+      "description": "Pantalón deportivo AFA talle 3, ideal para el entrenamiento. Muy poco uso, comodidad y estilo para tus actividades deportivas.",
+      "gender": [],
+      "User ID": [
+        "7"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/01ec21cc-e808-4157-ac78-0dd1fae6d795-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/01ec21cc-e808-4157-ac78-0dd1fae6d795-2.jpeg"
+      ]
+    },
+    {
+      "id": "251",
+      "slug": "pantal-n-puma-original-talle-s-007fec0c-218f-4a7f-adb9-1bf7a0395c49",
+      "SKU": "SKU-000251",
+      "Product Name": "Pantalón Puma original talle S",
+      "Price": 50000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "cyan",
+      "Size": "S",
+      "description": "Pantalón Puma original talle S, ideal para el deporte. Diseño moderno en color cyan, poco uso. Perfecto para cualquier actividad física.",
+      "gender": [],
+      "User ID": [
+        "7"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/007fec0c-218f-4a7f-adb9-1bf7a0395c49-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/007fec0c-218f-4a7f-adb9-1bf7a0395c49-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/007fec0c-218f-4a7f-adb9-1bf7a0395c49-3.jpeg"
+      ]
+    },
+    {
+      "id": "249",
+      "slug": "botines-topper-35e97808-ced6-44a1-90b2-b6a0b561baac",
+      "SKU": "SKU-000249",
+      "Product Name": "Botines Topper",
+      "Price": 20000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "white",
+      "Size": "39",
+      "description": "Botines Topper talle 39, en excelente estado y con muy poco uso. Ideal para el fútbol y actividades deportivas.",
+      "gender": [],
+      "User ID": [
+        "7"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/35e97808-ced6-44a1-90b2-b6a0b561baac-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/35e97808-ced6-44a1-90b2-b6a0b561baac-2.jpeg"
+      ]
+    },
+    {
+      "id": "247",
+      "slug": "zapatillas-47-street-talle-38-6fcfd306-45d1-4a29-af42-0c8d6d6cdf6f",
+      "SKU": "SKU-000247",
+      "Product Name": "Zapatillas 47 Street talle 38",
+      "Price": 70000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "white",
+      "Size": "38",
+      "description": "Zapatillas 47 Street talle 38, casi nuevas y originales. Perfectas para el día a día. Comodidad y estilo en cada paso.",
+      "gender": [],
+      "User ID": [
+        "7"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6fcfd306-45d1-4a29-af42-0c8d6d6cdf6f-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6fcfd306-45d1-4a29-af42-0c8d6d6cdf6f-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6fcfd306-45d1-4a29-af42-0c8d6d6cdf6f-3.jpeg"
+      ]
+    },
+    {
+      "id": "245",
+      "slug": "jean-lovely-denim-xs-ff1b0986-db04-413a-a073-2882c3486246",
+      "SKU": "SKU-000245",
+      "Product Name": "Jean Lovely Denim XS",
+      "Price": 29900,
+      "category": "jeans",
+      "stock": 1,
+      "color": "brown",
+      "Size": "XS",
+      "description": "Jean Lovely Denim XS, estilo moderno con detalles rotos. Perfecto para un look casual y trendy. ¡Ideal para lucir en cualquier ocasión!",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ff1b0986-db04-413a-a073-2882c3486246-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ff1b0986-db04-413a-a073-2882c3486246-2.jpeg"
+      ]
+    },
+    {
+      "id": "243",
+      "slug": "pollera-my-denim-como-quieres-adcdf521-4709-4034-82ae-e21af65d9ce2",
+      "SKU": "SKU-000243",
+      "Product Name": "Pollera My Denim como quieres",
+      "Price": 21900,
+      "category": "skirts",
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Pollera My Denim negra talle XS, estilo moderno y cómodo. Ideal para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/adcdf521-4709-4034-82ae-e21af65d9ce2-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/adcdf521-4709-4034-82ae-e21af65d9ce2-2.jpeg"
+      ]
+    },
+    {
+      "id": "241",
+      "slug": "puffer-kiwano-8a04f467-5fa9-4046-953c-1be5f6158eb3",
+      "SKU": "SKU-000241",
+      "Product Name": "Puffer Kiwano",
+      "Price": 19900,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "white",
+      "Size": "S",
+      "description": "Puffer Kiwano blanco talle S, ideal para el invierno. Ligero y abrigado, combina estilo y confort.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8a04f467-5fa9-4046-953c-1be5f6158eb3-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8a04f467-5fa9-4046-953c-1be5f6158eb3-2.jpeg"
+      ]
+    },
+    {
+      "id": "239",
+      "slug": "jean-ossira-talle-22-a293d550-7bcd-42a7-b940-c015cf19005d",
+      "SKU": "SKU-000239",
+      "Product Name": "Jean Ossira talle 22",
+      "Price": 22900,
+      "category": "jeans",
+      "stock": 1,
+      "color": "blue",
+      "Size": "22",
+      "description": "Jean Ossira talle 22, estilo moderno y cómodo. Ideal para lucir en cualquier ocasión. ¡Tu aliado perfecto para el día a día!",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a293d550-7bcd-42a7-b940-c015cf19005d-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a293d550-7bcd-42a7-b940-c015cf19005d-2.jpeg"
+      ]
+    },
+    {
+      "id": "237",
+      "slug": "jean-kiwano-0639cc80-cbe6-4c5e-a511-617aa7ac584a",
+      "SKU": "SKU-000237",
+      "Product Name": "Jean Kiwano",
+      "Price": 22900,
+      "category": "jeans",
+      "stock": 1,
+      "color": "blue",
+      "Size": "38",
+      "description": "Jean Kiwano talle 38, estilo amplio y moderno. Perfecto para un look casual y cómodo. ¡Luce genial en cualquier ocasión!",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0639cc80-cbe6-4c5e-a511-617aa7ac584a-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0639cc80-cbe6-4c5e-a511-617aa7ac584a-2.jpeg"
+      ]
+    },
+    {
+      "id": "235",
+      "slug": "jean-kiwano-xs-e6255c03-2c38-4813-9201-66bace86c589",
+      "SKU": "SKU-000235",
+      "Product Name": "Jean Kiwano XS",
+      "Price": 22900,
+      "category": "jeans",
+      "stock": 1,
+      "color": "brown",
+      "Size": "XS",
+      "description": "Jean Kiwano en color marrón, talle XS. Estilo moderno y cómodo, ideal para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e6255c03-2c38-4813-9201-66bace86c589-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e6255c03-2c38-4813-9201-66bace86c589-2.jpeg"
+      ]
+    },
+    {
+      "id": "233",
+      "slug": "jean-vitamina-talle-44-192625fa-623b-44ba-9d10-6e2ff8c8a8c1",
+      "SKU": "SKU-000233",
+      "Product Name": "Jean Vitamina talle 44",
+      "Price": 22900,
+      "category": "jeans",
+      "stock": 1,
+      "color": "black",
+      "Size": "44",
+      "description": "Jean Vitamina talle 44, corte recto y color negro. Ideal para un look moderno y cómodo en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/192625fa-623b-44ba-9d10-6e2ff8c8a8c1-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/192625fa-623b-44ba-9d10-6e2ff8c8a8c1-2.jpeg"
+      ]
+    },
+    {
+      "id": "229",
+      "slug": "sweter-47-azul-a5f9cd46-3ce4-4836-86e5-4e37b5e8410a",
+      "SKU": "SKU-000229",
+      "Product Name": "Sweter 47 azul",
+      "Price": 18000,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "blue",
+      "Size": "38",
+      "description": "Sweter de la marca 47, talle 38, color azul. Ideal para el invierno, suave y cómodo. Perfecto para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a5f9cd46-3ce4-4836-86e5-4e37b5e8410a-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a5f9cd46-3ce4-4836-86e5-4e37b5e8410a-2.jpeg"
+      ]
+    },
+    {
+      "id": "227",
+      "slug": "jean-zara-11-12-3a7dae26-daa3-430d-9f0a-6122b8a08585",
+      "SKU": "SKU-000227",
+      "Product Name": "Jean Zara 11-12",
+      "Price": 18900,
+      "category": "jeans",
+      "stock": 1,
+      "color": "white",
+      "Size": "11-12",
+      "description": "Jean Zara para niños talle 11-12. Estilo moderno y cómodo, ideal para el uso diario. Perfecto para combinar con cualquier outfit.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3a7dae26-daa3-430d-9f0a-6122b8a08585-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3a7dae26-daa3-430d-9f0a-6122b8a08585-2.jpeg"
+      ]
+    },
+    {
+      "id": "225",
+      "slug": "camiseta-blanca-bordada-cae0a3c3-b05a-44a4-9473-ba2f96a337e5",
+      "SKU": "SKU-000225",
+      "Product Name": "Camiseta blanca bordada",
+      "Price": 13000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "white",
+      "Size": "S",
+      "description": "Camiseta blanca con bordado delicado. Ideal para un look fresco y elegante. Perfecta para combinar en cualquier ocasión. ¡No te la pierdas!",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cae0a3c3-b05a-44a4-9473-ba2f96a337e5-1.jpeg"
+      ]
+    },
+    {
+      "id": "223",
+      "slug": "sweter-con-cierre-color-mostaza-333ccae8-7daa-40ab-b107-617fdd7992fc",
+      "SKU": "SKU-000223",
+      "Product Name": "Sweter con cierre color mostaza",
+      "Price": 14900,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "brown",
+      "Size": "M",
+      "description": "Sweter con cierre en color mostaza, ideal para combinar con cualquier outfit. Perfecto para días frescos y looks modernos.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/333ccae8-7daa-40ab-b107-617fdd7992fc-1.jpeg"
+      ]
+    },
+    {
+      "id": "221",
+      "slug": "sweter-h-m-negro-talle-xs-09159bdd-15b1-4f08-816a-165f470c4141",
+      "SKU": "SKU-000221",
+      "Product Name": "Sweter H&M negro talle XS",
+      "Price": 13000,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Sweter H&M negro en talle XS, ideal para combinar con cualquier outfit. Confeccionado en material suave y cómodo, perfecto para el día a día.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/09159bdd-15b1-4f08-816a-165f470c4141-1.jpeg"
+      ]
+    },
+    {
+      "id": "219",
+      "slug": "sweter-mini-naranja-xs-384a5624-ac51-4a08-8bc0-6f51a1eb9071",
+      "SKU": "SKU-000219",
+      "Product Name": "Sweter mini naranja XS",
+      "Price": 11900,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "orange",
+      "Size": "XS",
+      "description": "Sweter mini naranja de punto abierto, talle XS. Ideal para combinar en looks frescos y modernos. Perfecto para el verano en Buenos Aires.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/384a5624-ac51-4a08-8bc0-6f51a1eb9071-1.jpeg"
+      ]
+    },
+    {
+      "id": "217",
+      "slug": "mini-sweter-bershka-c8ca671b-585f-48a7-b5c1-a57b4724429e",
+      "SKU": "SKU-000217",
+      "Product Name": "Mini sweter Bershka",
+      "Price": 11900,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "white",
+      "Size": "XS",
+      "description": "Mini sweter Bershka en color blanco, talle XS. Ideal para un look fresco y moderno. Perfecto para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c8ca671b-585f-48a7-b5c1-a57b4724429e-1.jpeg"
+      ]
+    },
+    {
+      "id": "215",
+      "slug": "bermuda-deportiva-nike-xs-7104ba9a-81f7-42c3-b0cc-3937b1a061af",
+      "SKU": "SKU-000215",
+      "Product Name": "Bermuda deportiva Nike XS",
+      "Price": 12000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "purple",
+      "Size": "XS",
+      "description": "Bermuda deportiva Nike talle XS, ideal para entrenar. Confeccionada en material liviano y cómodo. Perfecta para tus actividades deportivas.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7104ba9a-81f7-42c3-b0cc-3937b1a061af-1.jpeg"
+      ]
+    },
+    {
+      "id": "213",
+      "slug": "buzo-con-capucha-azul-e7c1ab70-9ace-474b-8011-a49a30447b6d",
+      "SKU": "SKU-000213",
+      "Product Name": "Buzo con capucha azul",
+      "Price": 14000,
+      "category": "hoodies and sweatshirts",
+      "stock": 1,
+      "color": "navy",
+      "Size": "XS",
+      "description": "Buzo con capucha azul en talle XS. Estilo moderno y cómodo, ideal para el día a día.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e7c1ab70-9ace-474b-8011-a49a30447b6d-1.jpeg"
+      ]
+    },
+    {
+      "id": "211",
+      "slug": "buzo-bershka-tupac-dc483359-abd2-43ad-bbd8-94b796313be3",
+      "SKU": "SKU-000211",
+      "Product Name": "Buzo Bershka Tupac",
+      "Price": 14900,
+      "category": "hoodies and sweatshirts",
+      "stock": 1,
+      "color": "white",
+      "Size": "XS",
+      "description": "Buzo Bershka en color blanco con estampado de Tupac. Estilo urbano y cómodo, ideal para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dc483359-abd2-43ad-bbd8-94b796313be3-1.jpeg"
+      ]
+    },
+    {
+      "id": "209",
+      "slug": "sweter-a-rayas-h-m-xs-5f7bef3b-56c9-4a69-a8e5-364bccb71468",
+      "SKU": "SKU-000209",
+      "Product Name": "Sweter a rayas H&M XS",
+      "Price": 12000,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Sweter H&M XS a rayas en blanco y negro, ideal para combinar en cualquier ocasión. Comodidad y estilo en una sola prenda.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5f7bef3b-56c9-4a69-a8e5-364bccb71468-1.jpeg"
+      ]
+    },
+    {
+      "id": "207",
+      "slug": "sweter-h-m-color-beige-bd6875c8-fba0-44ae-9245-d8f59da3e1bb",
+      "SKU": "SKU-000207",
+      "Product Name": "Sweter H&M color beige",
+      "Price": 14000,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "brown",
+      "Size": "XXS",
+      "description": "Sweter H&M en color beige, talle XXS. Ideal para combinar en looks de otoño e invierno. Comodidad y estilo en cada prenda.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bd6875c8-fba0-44ae-9245-d8f59da3e1bb-1.jpeg"
+      ]
+    },
+    {
+      "id": "205",
+      "slug": "sweter-con-cierre-blanco-ebefedf9-9858-4af2-ae47-bd53bf494ac7",
+      "SKU": "SKU-000205",
+      "Product Name": "Sweter con cierre blanco",
+      "Price": 12800,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "white",
+      "Size": "XS",
+      "description": "Sweter con cierre en color blanco, talle XS. Ideal para combinar en cualquier ocasión. Comodidad y estilo en una prenda versátil.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ebefedf9-9858-4af2-ae47-bd53bf494ac7-1.jpeg"
+      ]
+    },
+    {
+      "id": "203",
+      "slug": "sweter-marr-n-xs-5e9d7c91-9761-429c-bf7d-68c245454305",
+      "SKU": "SKU-000203",
+      "Product Name": "Sweter marrón XS",
+      "Price": 14900,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "brown",
+      "Size": "XS",
+      "description": "Sweter marrón XS, ideal para el invierno. Tejido suave y cómodo, perfecto para combinar con cualquier outfit.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5e9d7c91-9761-429c-bf7d-68c245454305-1.jpeg"
+      ]
+    },
+    {
+      "id": "201",
+      "slug": "sweter-beige-ca7e9a34-1ae5-4fc2-acff-6193a52840dc",
+      "SKU": "SKU-000201",
+      "Product Name": "Sweter beige",
+      "Price": 12000,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "brown",
+      "Size": "XS",
+      "description": "Sweter beige de manga larga, talle XS. Ideal para combinar en looks de otoño e invierno. Estilo cómodo y elegante para el día a día.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ca7e9a34-1ae5-4fc2-acff-6193a52840dc-1.jpeg"
+      ]
+    },
+    {
+      "id": "199",
+      "slug": "campera-puffer-zara-323d8781-9684-41a2-8ad7-2e88f6fe8b58",
+      "SKU": "SKU-000199",
+      "Product Name": "Campera puffer Zara",
+      "Price": 19900,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "white",
+      "Size": "Xs",
+      "description": "Campera puffer Zara color blanco, talle XS. Ideal para el invierno, combina estilo y calidez. Perfecta para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/323d8781-9684-41a2-8ad7-2e88f6fe8b58-1.jpeg"
+      ]
+    },
+    {
+      "id": "197",
+      "slug": "pa-uelo-pierre-balmain-f2f9091b-d55f-4f55-b6d0-077caf6ff66f",
+      "SKU": "SKU-000197",
+      "Product Name": "Pañuelo Pierre Balmain",
+      "Price": 11000,
+      "category": "accessories (belts, hats, scarves)",
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "description": "Pañuelo nuevo Pierre Balmain, ideal para complementar tu look con estilo. Un accesorio elegante y versátil para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f2f9091b-d55f-4f55-b6d0-077caf6ff66f-1.jpeg"
+      ]
+    },
+    {
+      "id": "195",
+      "slug": "porta-pasaportes-de-cuero-marr-n-290eaf86-765f-4311-b002-90d3453d717c",
+      "SKU": "SKU-000195",
+      "Product Name": "Porta pasaportes de cuero marrón",
+      "Price": 12000,
+      "category": "bags and wallets",
+      "stock": 1,
+      "color": "brown",
+      "Size": null,
+      "description": "Elegante porta pasaportes de cuero marrón, ideal para viajar. Organiza tus documentos con estilo y seguridad.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/290eaf86-765f-4311-b002-90d3453d717c-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/290eaf86-765f-4311-b002-90d3453d717c-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/290eaf86-765f-4311-b002-90d3453d717c-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/290eaf86-765f-4311-b002-90d3453d717c-4.jpeg"
+      ]
+    },
+    {
+      "id": "194",
+      "slug": "billetera-roja-y-negra-de-cuero-7742ee06-625e-4ed6-83c3-45bb3e33beed",
+      "SKU": "SKU-000194",
+      "Product Name": "Billetera roja y negra de cuero",
+      "Price": 17000,
+      "category": "bags and wallets",
+      "stock": 1,
+      "color": "red",
+      "Size": null,
+      "description": "Billetera de cuero genuino en rojo y negro. Diseño compacto y elegante, ideal para llevar tus tarjetas y dinero. Perfecta para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7742ee06-625e-4ed6-83c3-45bb3e33beed-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7742ee06-625e-4ed6-83c3-45bb3e33beed-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7742ee06-625e-4ed6-83c3-45bb3e33beed-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7742ee06-625e-4ed6-83c3-45bb3e33beed-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7742ee06-625e-4ed6-83c3-45bb3e33beed-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7742ee06-625e-4ed6-83c3-45bb3e33beed-6.jpeg"
+      ]
+    },
+    {
+      "id": "192",
+      "slug": "corbatas-variadas-9dcb8b40-2234-46b6-8701-13e3fa7c6b88",
+      "SKU": "SKU-000192",
+      "Product Name": "Corbatas variadas",
+      "Price": 15000,
+      "category": "accessories (belts, hats, scarves)",
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "description": "Corbatas elegantes para hombres a solo 15.000. Perfectas para cualquier ocasión, estilo y comodidad garantizados.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9dcb8b40-2234-46b6-8701-13e3fa7c6b88-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9dcb8b40-2234-46b6-8701-13e3fa7c6b88-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9dcb8b40-2234-46b6-8701-13e3fa7c6b88-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9dcb8b40-2234-46b6-8701-13e3fa7c6b88-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9dcb8b40-2234-46b6-8701-13e3fa7c6b88-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9dcb8b40-2234-46b6-8701-13e3fa7c6b88-6.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9dcb8b40-2234-46b6-8701-13e3fa7c6b88-7.jpeg"
+      ]
+    },
+    {
+      "id": "190",
+      "slug": "corbatas-variadas-ed9fac80-094e-4b60-b0d5-c6af6c2e6c93",
+      "SKU": "SKU-000190",
+      "Product Name": "Corbatas variadas",
+      "Price": 15000,
+      "category": "accessories (belts, hats, scarves)",
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "description": "Corbatas elegantes a solo $15.000. Perfectas para cualquier ocasión, con diseños únicos que realzan tu estilo.",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-6.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-7.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-8.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-9.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-10.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-11.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ed9fac80-094e-4b60-b0d5-c6af6c2e6c93-12.jpeg"
+      ]
+    },
+    {
+      "id": "188",
+      "slug": "corbatas-variadas-7329d105-5972-4ba0-9470-8f3f66183696",
+      "SKU": "SKU-000188",
+      "Product Name": "Corbatas variadas",
+      "Price": 15000,
+      "category": "accessories (belts, hats, scarves)",
+      "stock": 1,
+      "color": "red",
+      "Size": null,
+      "description": "Corbatas elegantes y coloridas a 15.000. Perfectas para cualquier ocasión, con diseños únicos y materiales de calidad. ¡Renueva tu estilo!",
+      "gender": [],
+      "User ID": [
+        "6"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-6.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-7.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-8.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-9.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-10.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-11.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7329d105-5972-4ba0-9470-8f3f66183696-12.jpeg"
+      ]
+    },
+    {
+      "id": "186",
+      "slug": "pantal-n-paula-cahen-d-anvers-0d5c3415-c3ac-4a5f-8a21-82c41b47570a",
+      "SKU": "SKU-000186",
+      "Product Name": "Pantalón Paula Cahen D'Anvers",
+      "Price": 40700,
+      "category": "trousers and chinos",
+      "stock": 1,
+      "color": "pink",
+      "Size": null,
+      "description": "Pantalón de Paula Cahen D'Anvers con diseño colorido, ideal para un look moderno y fresco. Perfecto para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d5c3415-c3ac-4a5f-8a21-82c41b47570a-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d5c3415-c3ac-4a5f-8a21-82c41b47570a-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d5c3415-c3ac-4a5f-8a21-82c41b47570a-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d5c3415-c3ac-4a5f-8a21-82c41b47570a-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d5c3415-c3ac-4a5f-8a21-82c41b47570a-5.jpeg"
+      ]
+    },
+    {
+      "id": "184",
+      "slug": "conjunto-de-bikini-naranja-91aa6e52-fbad-4eae-bcec-e446541d04af",
+      "SKU": "SKU-000184",
+      "Product Name": "Conjunto de bikini naranja",
+      "Price": 15500,
+      "category": "swimwear",
+      "stock": 1,
+      "color": "orange",
+      "Size": "único",
+      "description": "Conjunto de bikini naranja ideal para el verano. Estilo moderno y cómodo, perfecto para disfrutar en la playa o la pileta.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/91aa6e52-fbad-4eae-bcec-e446541d04af-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/91aa6e52-fbad-4eae-bcec-e446541d04af-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/91aa6e52-fbad-4eae-bcec-e446541d04af-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/91aa6e52-fbad-4eae-bcec-e446541d04af-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/91aa6e52-fbad-4eae-bcec-e446541d04af-5.jpeg"
+      ]
+    },
+    {
+      "id": "180",
+      "slug": "top-vintage-shein-e168e49f-1b8f-46d7-b2d3-4d7653703fd4",
+      "SKU": "SKU-000180",
+      "Product Name": "Top Vintage Shein",
+      "Price": 24398,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "white",
+      "Size": "S",
+      "description": "Top blanco de estilo vintage de Shein, ideal para lucir en cualquier ocasión. Combínalo con jeans o shorts para un look moderno y fresco.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e168e49f-1b8f-46d7-b2d3-4d7653703fd4-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e168e49f-1b8f-46d7-b2d3-4d7653703fd4-2.jpeg"
+      ]
+    },
+    {
+      "id": "178",
+      "slug": "pantal-n-banana-republic-talle-2-c1b59167-6ad9-47f0-85ce-a9c4f9daec60",
+      "SKU": "SKU-000178",
+      "Product Name": "Pantalón Banana Republic talle 2",
+      "Price": 38800,
+      "category": "trousers and chinos",
+      "stock": 1,
+      "color": "black",
+      "Size": "2",
+      "description": "Elegante pantalón Banana Republic talle 2 en color negro. Ideal para ocasiones formales y casuales.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c1b59167-6ad9-47f0-85ce-a9c4f9daec60-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c1b59167-6ad9-47f0-85ce-a9c4f9daec60-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c1b59167-6ad9-47f0-85ce-a9c4f9daec60-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c1b59167-6ad9-47f0-85ce-a9c4f9daec60-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c1b59167-6ad9-47f0-85ce-a9c4f9daec60-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c1b59167-6ad9-47f0-85ce-a9c4f9daec60-6.jpeg"
+      ]
+    },
+    {
+      "id": "176",
+      "slug": "mochila-camuflada-18204f1c-c4c0-4714-ba06-8f0e83d36165",
+      "SKU": "SKU-000176",
+      "Product Name": "Mochila camuflada",
+      "Price": 36400,
+      "category": "bags and wallets",
+      "stock": 1,
+      "color": "pink",
+      "Size": null,
+      "description": "Mochila camuflada en tonos rosa y negro, ideal para el día a día. Diseño moderno y práctico para llevar tus esenciales con estilo.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/18204f1c-c4c0-4714-ba06-8f0e83d36165-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/18204f1c-c4c0-4714-ba06-8f0e83d36165-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/18204f1c-c4c0-4714-ba06-8f0e83d36165-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/18204f1c-c4c0-4714-ba06-8f0e83d36165-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/18204f1c-c4c0-4714-ba06-8f0e83d36165-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/18204f1c-c4c0-4714-ba06-8f0e83d36165-6.jpeg"
+      ]
+    },
+    {
+      "id": "174",
+      "slug": "pendientes-swarovski-228600-144c4bec-d20d-489c-adc6-ae2789a63b9e",
+      "SKU": "SKU-000174",
+      "Product Name": "Pendientes Swarovski 228600",
+      "Price": 228593,
+      "category": "accessories (belts, hats, scarves)",
+      "stock": 1,
+      "color": "gold",
+      "Size": null,
+      "description": "Pendientes Swarovski 228600 en dorado, elegantes y brillantes. Perfectos para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/144c4bec-d20d-489c-adc6-ae2789a63b9e-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/144c4bec-d20d-489c-adc6-ae2789a63b9e-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/144c4bec-d20d-489c-adc6-ae2789a63b9e-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/144c4bec-d20d-489c-adc6-ae2789a63b9e-4.jpeg"
+      ]
+    },
+    {
+      "id": "172",
+      "slug": "body-de-manga-larga-zara-efc6b85f-0660-4e30-96b1-d41c5079f592",
+      "SKU": "SKU-000172",
+      "Product Name": "Body de manga larga Zara",
+      "Price": 40000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "pink",
+      "Size": "S",
+      "description": "Body de manga larga Zara en color rosa, talle S. Ideal para combinar con jeans o faldas.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/efc6b85f-0660-4e30-96b1-d41c5079f592-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/efc6b85f-0660-4e30-96b1-d41c5079f592-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/efc6b85f-0660-4e30-96b1-d41c5079f592-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/efc6b85f-0660-4e30-96b1-d41c5079f592-4.jpeg"
+      ]
+    },
+    {
+      "id": "170",
+      "slug": "zapatillas-rossati-talle-38-cbe01f35-0d1a-4197-814f-80b1fb9b28f1",
+      "SKU": "SKU-000170",
+      "Product Name": "Zapatillas Rossati talle 38",
+      "Price": 43500,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "black",
+      "Size": "38",
+      "description": "Zapatillas Rossati negras con detalles plateados, talle 38. Estilo moderno y cómodo, ideales para el día a día. ¡No te las pierdas!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cbe01f35-0d1a-4197-814f-80b1fb9b28f1-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cbe01f35-0d1a-4197-814f-80b1fb9b28f1-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cbe01f35-0d1a-4197-814f-80b1fb9b28f1-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cbe01f35-0d1a-4197-814f-80b1fb9b28f1-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cbe01f35-0d1a-4197-814f-80b1fb9b28f1-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cbe01f35-0d1a-4197-814f-80b1fb9b28f1-6.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cbe01f35-0d1a-4197-814f-80b1fb9b28f1-7.jpeg"
+      ]
+    },
+    {
+      "id": "168",
+      "slug": "havaianas-17600-87ddc747-e396-4e6c-869a-08643f379864",
+      "SKU": "SKU-000168",
+      "Product Name": "Havaianas 17600",
+      "Price": 17600,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "white",
+      "Size": "39,5",
+      "description": "Havaianas 17600 en color blanco, talle 39,5. Ideal para el verano, comodidad y estilo en cada paso. Perfectas para disfrutar al aire libre.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/87ddc747-e396-4e6c-869a-08643f379864-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/87ddc747-e396-4e6c-869a-08643f379864-2.jpeg"
+      ]
+    },
+    {
+      "id": "166",
+      "slug": "pa-uelo-tucci-c9048ebb-a01a-401a-8e0b-d853a8793848",
+      "SKU": "SKU-000166",
+      "Product Name": "Pañuelo Tucci",
+      "Price": 17500,
+      "category": "accessories (belts, hats, scarves)",
+      "stock": 1,
+      "color": "cyan",
+      "Size": null,
+      "description": "Pañuelo Tucci en color cyan con diseño floral. Ideal para complementar tu outfit y darle un toque de estilo. Perfecto para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c9048ebb-a01a-401a-8e0b-d853a8793848-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c9048ebb-a01a-401a-8e0b-d853a8793848-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c9048ebb-a01a-401a-8e0b-d853a8793848-3.jpeg"
+      ]
+    },
+    {
+      "id": "164",
+      "slug": "bolso-mishka-74d16406-4453-40d5-a059-1c2048eb6ed4",
+      "SKU": "SKU-000164",
+      "Product Name": "Bolso Mishka",
+      "Price": 76498,
+      "category": "bags and wallets",
+      "stock": 1,
+      "color": "black",
+      "Size": null,
+      "description": "Bolso Mishka de diseño moderno, con combinación de colores negro y crema. Ideal para cualquier ocasión y fácil de llevar.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/74d16406-4453-40d5-a059-1c2048eb6ed4-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/74d16406-4453-40d5-a059-1c2048eb6ed4-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/74d16406-4453-40d5-a059-1c2048eb6ed4-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/74d16406-4453-40d5-a059-1c2048eb6ed4-4.jpeg"
+      ]
+    },
+    {
+      "id": "162",
+      "slug": "vestido-chocolate-nico-395c4da3-26c0-4205-a132-1fef7f14e40c",
+      "SKU": "SKU-000162",
+      "Product Name": "Vestido chocolate único",
+      "Price": 80900,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "único",
+      "description": "Vestido negro con detalles de volados, ideal para ocasiones especiales. Estilo único que resalta tu figura.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/395c4da3-26c0-4205-a132-1fef7f14e40c-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/395c4da3-26c0-4205-a132-1fef7f14e40c-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/395c4da3-26c0-4205-a132-1fef7f14e40c-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/395c4da3-26c0-4205-a132-1fef7f14e40c-4.jpeg"
+      ]
+    },
+    {
+      "id": "160",
+      "slug": "bolso-pr-ne-negro-69f939e8-1c35-4ead-8b76-7cf434b58e5c",
+      "SKU": "SKU-000160",
+      "Product Name": "Bolso Prüne negro",
+      "Price": 63398,
+      "category": "bags and wallets",
+      "stock": 1,
+      "color": "black",
+      "Size": null,
+      "description": "Bolso Prüne negro con diseño moderno y práctico. Ideal para el día a día, combina con cualquier look.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-6.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-7.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-8.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-9.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/69f939e8-1c35-4ead-8b76-7cf434b58e5c-10.jpeg"
+      ]
+    },
+    {
+      "id": "158",
+      "slug": "remera-cherry-gang-bershka-66bfe65e-6f56-44c8-9a3a-e04aebb97a28",
+      "SKU": "SKU-000158",
+      "Product Name": "Remera Cherry Gang Bershka",
+      "Price": 28000,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "white",
+      "Size": "S",
+      "description": "Remera blanca de Bershka con estampado Cherry Gang. Estilo juvenil y fresco, ideal para lucir en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/66bfe65e-6f56-44c8-9a3a-e04aebb97a28-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/66bfe65e-6f56-44c8-9a3a-e04aebb97a28-2.jpeg"
+      ]
+    },
+    {
+      "id": "156",
+      "slug": "vestido-akiabara-bba1aef5-d336-47e0-84e2-497e02f1340b",
+      "SKU": "SKU-000156",
+      "Product Name": "Vestido Akiabara",
+      "Price": 57195,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "Único",
+      "description": "Vestido negro Akiabara, estilo único y elegante. Ideal para cualquier ocasión, cómodo y versátil.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bba1aef5-d336-47e0-84e2-497e02f1340b-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bba1aef5-d336-47e0-84e2-497e02f1340b-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bba1aef5-d336-47e0-84e2-497e02f1340b-3.jpeg"
+      ]
+    },
+    {
+      "id": "154",
+      "slug": "vestido-negro-ajustado-con-tirantes-2980ff44-5f0d-43c7-a2e4-386190d26468",
+      "SKU": "SKU-000154",
+      "Product Name": "Vestido negro ajustado con tirantes",
+      "Price": 39400,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "único",
+      "description": "Vestido negro ajustado con tirantes finos. Ideal para ocasiones especiales y salidas nocturnas. Comodidad y estilo en un solo look.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2980ff44-5f0d-43c7-a2e4-386190d26468-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2980ff44-5f0d-43c7-a2e4-386190d26468-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2980ff44-5f0d-43c7-a2e4-386190d26468-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2980ff44-5f0d-43c7-a2e4-386190d26468-4.jpeg"
+      ]
+    },
+    {
+      "id": "152",
+      "slug": "vestido-zara-s-bfb0c718-91e6-4215-94e1-9e1c6b9549a1",
+      "SKU": "SKU-000152",
+      "Product Name": "Vestido Zara S",
+      "Price": 54397,
+      "category": "dresses",
+      "stock": 1,
+      "color": "gray",
+      "Size": "S",
+      "description": "Vestido Zara en talle S, color gris. Estilo moderno con detalles únicos, ideal para lucir en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bfb0c718-91e6-4215-94e1-9e1c6b9549a1-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bfb0c718-91e6-4215-94e1-9e1c6b9549a1-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bfb0c718-91e6-4215-94e1-9e1c6b9549a1-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bfb0c718-91e6-4215-94e1-9e1c6b9549a1-4.jpeg"
+      ]
+    },
+    {
+      "id": "150",
+      "slug": "vestido-maria-v-zquez-911ecfe0-bb14-4689-81ba-4ce572e5a344",
+      "SKU": "SKU-000150",
+      "Product Name": "Vestido Maria Vázquez",
+      "Price": 58800,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Vestido negro de Maria Vázquez, talle S. Diseño moderno y elegante, ideal para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/911ecfe0-bb14-4689-81ba-4ce572e5a344-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/911ecfe0-bb14-4689-81ba-4ce572e5a344-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/911ecfe0-bb14-4689-81ba-4ce572e5a344-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/911ecfe0-bb14-4689-81ba-4ce572e5a344-4.jpeg"
+      ]
+    },
+    {
+      "id": "148",
+      "slug": "vestido-ajustado-verde-oscuro-ae3eeee3-6b2b-4d23-bde4-26407c41504f",
+      "SKU": "SKU-000148",
+      "Product Name": "Vestido ajustado verde oscuro",
+      "Price": 43000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "green",
+      "Size": "S",
+      "description": "Vestido ajustado verde oscuro, talle S. Ideal para ocasiones especiales. Estilo elegante y cómodo, perfecto para lucir en cualquier evento.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ae3eeee3-6b2b-4d23-bde4-26407c41504f-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ae3eeee3-6b2b-4d23-bde4-26407c41504f-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ae3eeee3-6b2b-4d23-bde4-26407c41504f-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ae3eeee3-6b2b-4d23-bde4-26407c41504f-4.jpeg"
+      ]
+    },
+    {
+      "id": "146",
+      "slug": "mono-enbabia-negro-talle-s-1f7bd2a6-a46b-46c2-ad1f-2448bc09398d",
+      "SKU": "SKU-000146",
+      "Product Name": "Mono enbabia negro talle S",
+      "Price": 44900,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Mono enbabia negro talle S, ideal para ocasiones especiales. Estilo elegante y cómodo, perfecto para lucir en cualquier evento.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1f7bd2a6-a46b-46c2-ad1f-2448bc09398d-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1f7bd2a6-a46b-46c2-ad1f-2448bc09398d-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1f7bd2a6-a46b-46c2-ad1f-2448bc09398d-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1f7bd2a6-a46b-46c2-ad1f-2448bc09398d-4.jpeg"
+      ]
+    },
+    {
+      "id": "144",
+      "slug": "pulsera-pandora-con-coraz-n-a9497e66-7f16-4db7-a274-8006ea0b5503",
+      "SKU": "SKU-000144",
+      "Product Name": "Pulsera Pandora con corazón",
+      "Price": 270000,
+      "category": "accessories (belts, hats, scarves)",
+      "stock": 1,
+      "color": "silver",
+      "Size": "único",
+      "description": "Elegante pulsera Pandora con diseño de corazón. Ideal para complementar tu look diario. Regalo perfecto para esa persona especial.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a9497e66-7f16-4db7-a274-8006ea0b5503-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a9497e66-7f16-4db7-a274-8006ea0b5503-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a9497e66-7f16-4db7-a274-8006ea0b5503-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a9497e66-7f16-4db7-a274-8006ea0b5503-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a9497e66-7f16-4db7-a274-8006ea0b5503-5.jpeg"
+      ]
+    },
+    {
+      "id": "142",
+      "slug": "vestido-zara-xs-4da6112b-28d5-472a-ae32-bb2f90aa1883",
+      "SKU": "SKU-000142",
+      "Product Name": "Vestido Zara XS",
+      "Price": 71598,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Elegante vestido negro Zara XS con tirantes decorativos. Ideal para ocasiones especiales. Comodidad y estilo en un solo look.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4da6112b-28d5-472a-ae32-bb2f90aa1883-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4da6112b-28d5-472a-ae32-bb2f90aa1883-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4da6112b-28d5-472a-ae32-bb2f90aa1883-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4da6112b-28d5-472a-ae32-bb2f90aa1883-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4da6112b-28d5-472a-ae32-bb2f90aa1883-5.jpeg"
+      ]
+    },
+    {
+      "id": "140",
+      "slug": "pantalones-zara-s-9d4b36f8-38de-49b7-a2a0-61e5695ea4e3",
+      "SKU": "SKU-000140",
+      "Product Name": "Pantalones Zara S",
+      "Price": 42600,
+      "category": "trousers and chinos",
+      "stock": 1,
+      "color": "maroon",
+      "Size": "S",
+      "description": "Pantalones Zara en color marrón, talle S. Diseño cómodo y moderno, ideales para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9d4b36f8-38de-49b7-a2a0-61e5695ea4e3-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9d4b36f8-38de-49b7-a2a0-61e5695ea4e3-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9d4b36f8-38de-49b7-a2a0-61e5695ea4e3-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9d4b36f8-38de-49b7-a2a0-61e5695ea4e3-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9d4b36f8-38de-49b7-a2a0-61e5695ea4e3-5.jpeg"
+      ]
+    },
+    {
+      "id": "138",
+      "slug": "mono-zara-xs-e450f5e5-cada-4071-8b47-1bb35a6f509f",
+      "SKU": "SKU-000138",
+      "Product Name": "Mono Zara XS",
+      "Price": 83400,
+      "category": "dresses",
+      "stock": 1,
+      "color": "gray",
+      "Size": "XS",
+      "description": "Mono Zara XS en color gris, ideal para un look moderno y cómodo. Perfecto para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e450f5e5-cada-4071-8b47-1bb35a6f509f-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e450f5e5-cada-4071-8b47-1bb35a6f509f-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e450f5e5-cada-4071-8b47-1bb35a6f509f-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e450f5e5-cada-4071-8b47-1bb35a6f509f-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e450f5e5-cada-4071-8b47-1bb35a6f509f-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e450f5e5-cada-4071-8b47-1bb35a6f509f-6.jpeg"
+      ]
+    },
+    {
+      "id": "136",
+      "slug": "jersey-verde-zara-talle-s-83fb2f20-103c-476a-b706-9bf4f6027b38",
+      "SKU": "SKU-000136",
+      "Product Name": "Jersey verde Zara talle S",
+      "Price": 50800,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "green",
+      "Size": "S",
+      "description": "Jersey verde de Zara, talle S. Estilo moderno y cómodo, ideal para cualquier ocasión. Perfecto para combinar en tu look diario.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83fb2f20-103c-476a-b706-9bf4f6027b38-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83fb2f20-103c-476a-b706-9bf4f6027b38-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83fb2f20-103c-476a-b706-9bf4f6027b38-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83fb2f20-103c-476a-b706-9bf4f6027b38-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83fb2f20-103c-476a-b706-9bf4f6027b38-5.jpeg"
+      ]
+    },
+    {
+      "id": "134",
+      "slug": "pantal-n-zara-mujer-talle-s-7094c3bf-4fd8-4eb2-a8e0-df0b77044ed8",
+      "SKU": "SKU-000134",
+      "Product Name": "Pantalón Zara mujer talle S",
+      "Price": 55200,
+      "category": "trousers and chinos",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Pantalón Zara mujer talle S, diseño elegante en color negro. Ideal para cualquier ocasión, combina confort y estilo en tu guardarropa.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7094c3bf-4fd8-4eb2-a8e0-df0b77044ed8-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7094c3bf-4fd8-4eb2-a8e0-df0b77044ed8-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7094c3bf-4fd8-4eb2-a8e0-df0b77044ed8-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7094c3bf-4fd8-4eb2-a8e0-df0b77044ed8-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7094c3bf-4fd8-4eb2-a8e0-df0b77044ed8-5.jpeg"
+      ]
+    },
+    {
+      "id": "132",
+      "slug": "body-zara-s-e20e6c98-fef8-45d3-9ffc-dc205e4b3427",
+      "SKU": "SKU-000132",
+      "Product Name": "Body Zara S",
+      "Price": 35000,
+      "category": "swimwear",
+      "stock": 1,
+      "color": "red",
+      "Size": "S",
+      "description": "Body Zara rojo talle S, ideal para lucir en la playa. Diseño moderno y cómodo, perfecto para el verano.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e20e6c98-fef8-45d3-9ffc-dc205e4b3427-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e20e6c98-fef8-45d3-9ffc-dc205e4b3427-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e20e6c98-fef8-45d3-9ffc-dc205e4b3427-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e20e6c98-fef8-45d3-9ffc-dc205e4b3427-4.jpeg"
+      ]
+    },
+    {
+      "id": "130",
+      "slug": "pantal-n-zara-s-976d1bfd-93b8-437a-946d-ab183e2c51c9",
+      "SKU": "SKU-000130",
+      "Product Name": "Pantalón Zara S",
+      "Price": 44199,
+      "category": "trousers and chinos",
+      "stock": 1,
+      "color": "olive",
+      "Size": "S",
+      "description": "Pantalón Zara talle S en color oliva, ideal para un look casual y cómodo. Perfecto para el día a día y actividades al aire libre.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/976d1bfd-93b8-437a-946d-ab183e2c51c9-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/976d1bfd-93b8-437a-946d-ab183e2c51c9-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/976d1bfd-93b8-437a-946d-ab183e2c51c9-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/976d1bfd-93b8-437a-946d-ab183e2c51c9-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/976d1bfd-93b8-437a-946d-ab183e2c51c9-5.jpeg"
+      ]
+    },
+    {
+      "id": "128",
+      "slug": "top-deportivo-under-armour-xs-973e765f-f0ce-44a5-a1f9-746780f8140e",
+      "SKU": "SKU-000128",
+      "Product Name": "Top deportivo Under Armour XS",
+      "Price": 26698,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "gray",
+      "Size": "XS",
+      "description": "Top deportivo Under Armour XS en color gris. Ideal para entrenamientos, cómodo y con estilo. Perfecto para lucir en el gimnasio o al aire libre.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/973e765f-f0ce-44a5-a1f9-746780f8140e-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/973e765f-f0ce-44a5-a1f9-746780f8140e-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/973e765f-f0ce-44a5-a1f9-746780f8140e-3.jpeg"
+      ]
+    },
+    {
+      "id": "126",
+      "slug": "pantalones-gap-talle-s-47569771-5b4c-43bc-8f50-6054a57da96a",
+      "SKU": "SKU-000126",
+      "Product Name": "Pantalones GAP talle S",
+      "Price": 25100,
+      "category": "loungewear",
+      "stock": 1,
+      "color": "brown",
+      "Size": "S",
+      "description": "Pantalones GAP en color marrón, talle S. Comodidad y estilo para tu día a día. Perfectos para relajarte en casa o salir.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/47569771-5b4c-43bc-8f50-6054a57da96a-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/47569771-5b4c-43bc-8f50-6054a57da96a-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/47569771-5b4c-43bc-8f50-6054a57da96a-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/47569771-5b4c-43bc-8f50-6054a57da96a-4.jpeg"
+      ]
+    },
+    {
+      "id": "124",
+      "slug": "bata-women-s-secret-s-38100-ef943e58-94b1-4218-ac42-228a13c3f737",
+      "SKU": "SKU-000124",
+      "Product Name": "Bata Women’s Secret S 38100",
+      "Price": 38095,
+      "category": "loungewear",
+      "stock": 1,
+      "color": "pink",
+      "Size": "S",
+      "description": "Bata de Women’s Secret en talle S, color rosa suave. Ideal para relajarte en casa con estilo y comodidad. Perfecta para tus momentos de descanso.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ef943e58-94b1-4218-ac42-228a13c3f737-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ef943e58-94b1-4218-ac42-228a13c3f737-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ef943e58-94b1-4218-ac42-228a13c3f737-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ef943e58-94b1-4218-ac42-228a13c3f737-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ef943e58-94b1-4218-ac42-228a13c3f737-5.jpeg"
+      ]
+    },
+    {
+      "id": "122",
+      "slug": "top-zara-negro-talle-s-31baa2a5-7b71-490b-8a5f-eb5a16469695",
+      "SKU": "SKU-000122",
+      "Product Name": "Top Zara negro talle S",
+      "Price": 28200,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Top negro de Zara, talle S. Ideal para combinar en cualquier ocasión. Estilo moderno y versátil para tu guardarropa.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/31baa2a5-7b71-490b-8a5f-eb5a16469695-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/31baa2a5-7b71-490b-8a5f-eb5a16469695-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/31baa2a5-7b71-490b-8a5f-eb5a16469695-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/31baa2a5-7b71-490b-8a5f-eb5a16469695-4.jpeg"
+      ]
+    },
+    {
+      "id": "120",
+      "slug": "top-sin-mangas-h-m-xs-90d045e8-705e-4db1-9d93-4aa39a8f044a",
+      "SKU": "SKU-000120",
+      "Product Name": "Top sin mangas H&M XS",
+      "Price": 16600,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "gray",
+      "Size": "XS",
+      "description": "Top sin mangas H&M en color gris, talle XS. Ideal para combinar en looks casuales y cómodos. Perfecto para el verano.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/90d045e8-705e-4db1-9d93-4aa39a8f044a-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/90d045e8-705e-4db1-9d93-4aa39a8f044a-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/90d045e8-705e-4db1-9d93-4aa39a8f044a-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/90d045e8-705e-4db1-9d93-4aa39a8f044a-4.jpeg"
+      ]
+    },
+    {
+      "id": "118",
+      "slug": "top-sin-mangas-h-m-divided-talle-xxs-c4f4b808-e36e-4139-be09-e9004cb2fe36",
+      "SKU": "SKU-000118",
+      "Product Name": "Top sin mangas H&M Divided talle XXS",
+      "Price": 15000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "XXS",
+      "description": "Top sin mangas H&M Divided en color negro, talle XXS. Ideal para combinar en looks casuales y cómodos. Perfecto para el verano.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c4f4b808-e36e-4139-be09-e9004cb2fe36-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c4f4b808-e36e-4139-be09-e9004cb2fe36-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c4f4b808-e36e-4139-be09-e9004cb2fe36-3.jpeg"
+      ]
+    },
+    {
+      "id": "116",
+      "slug": "top-zara-negro-talle-xs-0101b1c5-ff19-4917-b8d2-c992f0b7508b",
+      "SKU": "SKU-000116",
+      "Product Name": "Top Zara negro talle XS",
+      "Price": 26200,
+      "category": "underwear and lingerie",
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Top negro de Zara, talle XS. Con detalles de encaje, ideal para lucir con estilo y comodidad en cualquier ocasión. Perfecto para tu guardarropa.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0101b1c5-ff19-4917-b8d2-c992f0b7508b-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0101b1c5-ff19-4917-b8d2-c992f0b7508b-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0101b1c5-ff19-4917-b8d2-c992f0b7508b-3.jpeg"
+      ]
+    },
+    {
+      "id": "114",
+      "slug": "top-allo-mart-nez-talle-2-2f3b31b1-3eb3-409d-bd73-96b3d3d82128",
+      "SKU": "SKU-000114",
+      "Product Name": "Top Allo Martínez talle 2",
+      "Price": 32800,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "2",
+      "description": "Top Allo Martínez negro, talle 2. Ideal para combinar con cualquier outfit. Comodidad y estilo para tu día a día en Buenos Aires.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2f3b31b1-3eb3-409d-bd73-96b3d3d82128-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2f3b31b1-3eb3-409d-bd73-96b3d3d82128-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2f3b31b1-3eb3-409d-bd73-96b3d3d82128-3.jpeg"
+      ]
+    },
+    {
+      "id": "112",
+      "slug": "body-negro-ayres-83667567-fca4-41f2-ad0b-349734c2ce88",
+      "SKU": "SKU-000112",
+      "Product Name": "Body negro Ayres",
+      "Price": 40600,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Body negro Ayres de talle S, con escote en V y mangas largas. Ideal para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83667567-fca4-41f2-ad0b-349734c2ce88-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83667567-fca4-41f2-ad0b-349734c2ce88-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83667567-fca4-41f2-ad0b-349734c2ce88-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83667567-fca4-41f2-ad0b-349734c2ce88-4.jpeg"
+      ]
+    },
+    {
+      "id": "110",
+      "slug": "disfraz-de-bruja-con-sombrero-9e825f80-5634-418f-8e8b-fe92375f2ab8",
+      "SKU": "SKU-000110",
+      "Product Name": "Disfraz de bruja con sombrero",
+      "Price": 15000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "purple",
+      "Size": "9",
+      "description": "Disfraz de bruja talle 9, incluye vestido negro y morado con detalles en tul. Ideal para Halloween o fiestas temáticas. ¡Sé la más original!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9e825f80-5634-418f-8e8b-fe92375f2ab8-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9e825f80-5634-418f-8e8b-fe92375f2ab8-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9e825f80-5634-418f-8e8b-fe92375f2ab8-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9e825f80-5634-418f-8e8b-fe92375f2ab8-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9e825f80-5634-418f-8e8b-fe92375f2ab8-5.jpeg"
+      ]
+    },
+    {
+      "id": "108",
+      "slug": "remera-gap-talle-m-b2e245c7-4ad8-4214-8c31-c034cfdb4f4c",
+      "SKU": "SKU-000108",
+      "Product Name": "Remera Gap Talle M",
+      "Price": 15000,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "blue",
+      "Size": "M",
+      "description": "Remera Gap color azul, talle M. Ideal para un look casual y cómodo. Perfecta para el día a día en Buenos Aires.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b2e245c7-4ad8-4214-8c31-c034cfdb4f4c-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b2e245c7-4ad8-4214-8c31-c034cfdb4f4c-2.jpeg"
+      ]
+    },
+    {
+      "id": "106",
+      "slug": "shorts-abercrombie-talle-7-ae29d160-55f3-4f87-8226-af7c54e50329",
+      "SKU": "SKU-000106",
+      "Product Name": "Shorts Abercrombie talle 7",
+      "Price": 15000,
+      "category": "shorts",
+      "stock": 1,
+      "color": "navy",
+      "Size": "7",
+      "description": "Shorts Abercrombie para niños, talle 7. Diseño cómodo y moderno, ideal para el verano. Perfectos para jugar y disfrutar al aire libre.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ae29d160-55f3-4f87-8226-af7c54e50329-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ae29d160-55f3-4f87-8226-af7c54e50329-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ae29d160-55f3-4f87-8226-af7c54e50329-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ae29d160-55f3-4f87-8226-af7c54e50329-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ae29d160-55f3-4f87-8226-af7c54e50329-5.jpeg"
+      ]
+    },
+    {
+      "id": "104",
+      "slug": "camisa-zara-talle-12-a19629bf-b5a3-4020-bf64-cdefe5f4d9bd",
+      "SKU": "SKU-000104",
+      "Product Name": "Camisa Zara talle 12",
+      "Price": 25000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "12",
+      "description": "Camisa negra de Zara, talle 12. Estilo moderno y versátil, ideal para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a19629bf-b5a3-4020-bf64-cdefe5f4d9bd-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a19629bf-b5a3-4020-bf64-cdefe5f4d9bd-2.jpeg"
+      ]
+    },
+    {
+      "id": "102",
+      "slug": "camisa-de-cuadros-herencia-talle-12-1311141b-1419-4b7d-90b8-41f784576d38",
+      "SKU": "SKU-000102",
+      "Product Name": "Camisa de cuadros Herencia talle 12",
+      "Price": 15000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "navy",
+      "Size": "12",
+      "description": "Camisa de cuadros Herencia, talle 12. Estilo moderno y cómodo, ideal para cualquier ocasión. Perfecta para combinar con jeans o shorts.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1311141b-1419-4b7d-90b8-41f784576d38-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1311141b-1419-4b7d-90b8-41f784576d38-2.jpeg"
+      ]
+    },
+    {
+      "id": "100",
+      "slug": "remera-nightmares-1e869282-2cf2-4a00-97b1-9491bd3e2871",
+      "SKU": "SKU-000100",
+      "Product Name": "Remera Nightmares",
+      "Price": 14400,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "brown",
+      "Size": "S",
+      "description": "Remera unisex Nightmares en color marrón, estilo relajado con diseño gráfico. Ideal para un look casual y moderno. ¡Atrévete a lucirla!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1e869282-2cf2-4a00-97b1-9491bd3e2871-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1e869282-2cf2-4a00-97b1-9491bd3e2871-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1e869282-2cf2-4a00-97b1-9491bd3e2871-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1e869282-2cf2-4a00-97b1-9491bd3e2871-4.jpeg"
+      ]
+    },
+    {
+      "id": "98",
+      "slug": "remera-nasa-gris-talle-m-7ed85cc5-7496-4be1-aa1e-bf7d9023b374",
+      "SKU": "SKU-000098",
+      "Product Name": "Remera NASA gris talle M",
+      "Price": 15200,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "gray",
+      "Size": "M",
+      "description": "Remera gris de la NASA, talle M. Ideal para los amantes del espacio y la moda. Comodidad y estilo en un solo producto.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7ed85cc5-7496-4be1-aa1e-bf7d9023b374-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7ed85cc5-7496-4be1-aa1e-bf7d9023b374-2.jpeg"
+      ]
+    },
+    {
+      "id": "96",
+      "slug": "shorts-rast-blanco-talle-m-eec2f48f-a967-43e0-bc8b-605bcf29a357",
+      "SKU": "SKU-000096",
+      "Product Name": "Shorts RAST blanco talle M",
+      "Price": 15296,
+      "category": "shorts",
+      "stock": 1,
+      "color": "white",
+      "Size": "M",
+      "description": "Shorts RAST blanco, talle M. Ideal para el verano, con diseño moderno y cómodo. Perfectos para disfrutar al aire libre.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/eec2f48f-a967-43e0-bc8b-605bcf29a357-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/eec2f48f-a967-43e0-bc8b-605bcf29a357-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/eec2f48f-a967-43e0-bc8b-605bcf29a357-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/eec2f48f-a967-43e0-bc8b-605bcf29a357-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/eec2f48f-a967-43e0-bc8b-605bcf29a357-5.jpeg"
+      ]
+    },
+    {
+      "id": "94",
+      "slug": "top-negro-ajustado-con-mangas-largas-dcee06db-9268-4f36-82df-370d16e57893",
+      "SKU": "SKU-000094",
+      "Product Name": "Top negro ajustado con mangas largas",
+      "Price": 24100,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Top negro de la marca Cherry, talle S. Diseño ajustado con mangas largas, ideal para combinar con tus looks diarios. ¡Estilo y comodidad asegurados!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dcee06db-9268-4f36-82df-370d16e57893-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dcee06db-9268-4f36-82df-370d16e57893-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dcee06db-9268-4f36-82df-370d16e57893-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dcee06db-9268-4f36-82df-370d16e57893-4.jpeg"
+      ]
+    },
+    {
+      "id": "92",
+      "slug": "campera-tucci-xs-7258f0df-2ab9-4102-b46c-a94140a39338",
+      "SKU": "SKU-000092",
+      "Product Name": "Campera Tucci XS",
+      "Price": 44096,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Campera Tucci XS negra, ideal para el entretiempo. Confección liviana y cómoda, perfecta para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7258f0df-2ab9-4102-b46c-a94140a39338-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7258f0df-2ab9-4102-b46c-a94140a39338-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7258f0df-2ab9-4102-b46c-a94140a39338-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7258f0df-2ab9-4102-b46c-a94140a39338-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7258f0df-2ab9-4102-b46c-a94140a39338-5.jpeg"
+      ]
+    },
+    {
+      "id": "90",
+      "slug": "camisa-de-cuadros-h-m-70368dd7-b792-426c-8200-9ebef957f160",
+      "SKU": "SKU-000090",
+      "Product Name": "Camisa de cuadros H&M",
+      "Price": 39557,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "navy",
+      "Size": "S",
+      "description": "Camisa de cuadros H&M en tonos navy y blanco. Ideal para un look casual y cómodo. Perfecta para cualquier ocasión en Buenos Aires.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/70368dd7-b792-426c-8200-9ebef957f160-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/70368dd7-b792-426c-8200-9ebef957f160-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/70368dd7-b792-426c-8200-9ebef957f160-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/70368dd7-b792-426c-8200-9ebef957f160-4.jpeg"
+      ]
+    },
+    {
+      "id": "88",
+      "slug": "sandalias-clara-barcel-38-85bcd168-435e-41e3-b216-bea432a23d97",
+      "SKU": "SKU-000088",
+      "Product Name": "Sandalias Clara Barceló 38",
+      "Price": 26983,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "brown",
+      "Size": "38",
+      "description": "Sandalias Clara Barceló talle 38, en color marrón con diseño trenzado y detalles metálicos. Comodidad y estilo para el verano.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/85bcd168-435e-41e3-b216-bea432a23d97-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/85bcd168-435e-41e3-b216-bea432a23d97-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/85bcd168-435e-41e3-b216-bea432a23d97-3.jpeg"
+      ]
+    },
+    {
+      "id": "86",
+      "slug": "remera-rip-curl-xs-0d8a437b-c39e-485b-8228-08d03ad2037b",
+      "SKU": "SKU-000086",
+      "Product Name": "Remera Rip Curl XS",
+      "Price": 19314,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "pink",
+      "Size": "XS",
+      "description": "Remera Rip Curl XS de color rosa, ideal para el verano. Estilo casual y cómodo, perfecta para cualquier ocasión. ¡Luce genial y fresco!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d8a437b-c39e-485b-8228-08d03ad2037b-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d8a437b-c39e-485b-8228-08d03ad2037b-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d8a437b-c39e-485b-8228-08d03ad2037b-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d8a437b-c39e-485b-8228-08d03ad2037b-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d8a437b-c39e-485b-8228-08d03ad2037b-5.jpeg"
+      ]
+    },
+    {
+      "id": "84",
+      "slug": "camisa-zara-morada-talle-xs-7b992cf4-1927-4149-9ce8-5f2b870484e0",
+      "SKU": "SKU-000084",
+      "Product Name": "Camisa Zara morada talle XS",
+      "Price": 19000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "purple",
+      "Size": "XS",
+      "description": "Camisa morada de Zara, talle XS. Ideal para un look moderno y elegante. Perfecta para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b992cf4-1927-4149-9ce8-5f2b870484e0-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b992cf4-1927-4149-9ce8-5f2b870484e0-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b992cf4-1927-4149-9ce8-5f2b870484e0-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b992cf4-1927-4149-9ce8-5f2b870484e0-4.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b992cf4-1927-4149-9ce8-5f2b870484e0-5.jpg"
+      ]
+    },
+    {
+      "id": "82",
+      "slug": "sandalias-de-plataforma-5462c424-1b7b-4a51-b96b-1ef14b80b3b2",
+      "SKU": "SKU-000082",
+      "Product Name": "Sandalias de plataforma",
+      "Price": 36000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "black",
+      "Size": "38",
+      "description": "Elegantes sandalias de plataforma negras, talle 38. Perfectas para cualquier ocasión, combinan comodidad y estilo en cada paso.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5462c424-1b7b-4a51-b96b-1ef14b80b3b2-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5462c424-1b7b-4a51-b96b-1ef14b80b3b2-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5462c424-1b7b-4a51-b96b-1ef14b80b3b2-3.jpg"
+      ]
+    },
+    {
+      "id": "80",
+      "slug": "remera-label-99-negra-con-estampado-colorido-c6fbb473-fa85-42da-986d-8ad36edc949e",
+      "SKU": "SKU-000080",
+      "Product Name": "Remera LABEL 99 negra con estampado colorido",
+      "Price": 22000,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Remera LABEL 99 negra, con estampado colorido de abeja. Ideal para un look moderno y casual. Perfecta para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c6fbb473-fa85-42da-986d-8ad36edc949e-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c6fbb473-fa85-42da-986d-8ad36edc949e-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c6fbb473-fa85-42da-986d-8ad36edc949e-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c6fbb473-fa85-42da-986d-8ad36edc949e-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c6fbb473-fa85-42da-986d-8ad36edc949e-5.jpeg"
+      ]
+    },
+    {
+      "id": "78",
+      "slug": "sudadera-boston-b209a888-198f-4417-9351-25c07dc2e2f3",
+      "SKU": "SKU-000078",
+      "Product Name": "Sudadera Boston",
+      "Price": 16000,
+      "category": "hoodies and sweatshirts",
+      "stock": 1,
+      "color": "navy",
+      "Size": "único",
+      "description": "Sudadera Boston en color navy, cómoda y con estilo. Ideal para el día a día. Perfecta para combinar con cualquier outfit.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b209a888-198f-4417-9351-25c07dc2e2f3-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b209a888-198f-4417-9351-25c07dc2e2f3-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b209a888-198f-4417-9351-25c07dc2e2f3-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b209a888-198f-4417-9351-25c07dc2e2f3-4.jpg"
+      ]
+    },
+    {
+      "id": "76",
+      "slug": "pantal-n-h-m-talle-11-938df037-bacd-4907-b14b-a9640c5dab8a",
+      "SKU": "SKU-000076",
+      "Product Name": "Pantalón H&M talle 11",
+      "Price": 20000,
+      "category": "trousers and chinos",
+      "stock": 1,
+      "color": "olive",
+      "Size": "11",
+      "description": "Pantalón H&M talle 11 en color oliva, cómodo y versátil. Ideal para un look casual y moderno. ¡No te lo pierdas!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/938df037-bacd-4907-b14b-a9640c5dab8a-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/938df037-bacd-4907-b14b-a9640c5dab8a-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/938df037-bacd-4907-b14b-a9640c5dab8a-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/938df037-bacd-4907-b14b-a9640c5dab8a-4.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/938df037-bacd-4907-b14b-a9640c5dab8a-5.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/938df037-bacd-4907-b14b-a9640c5dab8a-6.jpg"
+      ]
+    },
+    {
+      "id": "74",
+      "slug": "shorts-tucci-talle-xs-ad1e4f50-fbb6-4044-bd60-90a6f6622020",
+      "SKU": "SKU-000074",
+      "Product Name": "Shorts Tucci talle XS",
+      "Price": 20000,
+      "category": "shorts",
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Shorts Tucci de denim negro, talle XS. Estilo moderno y cómodo, ideal para el verano. Perfectos para combinar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ad1e4f50-fbb6-4044-bd60-90a6f6622020-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ad1e4f50-fbb6-4044-bd60-90a6f6622020-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ad1e4f50-fbb6-4044-bd60-90a6f6622020-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ad1e4f50-fbb6-4044-bd60-90a6f6622020-4.jpg"
+      ]
+    },
+    {
+      "id": "72",
+      "slug": "top-cher-rojo-con-encaje-dd8569d3-8042-4022-bb70-a8d5e456e475",
+      "SKU": "SKU-000072",
+      "Product Name": "Top Cher rojo con encaje",
+      "Price": 22997,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "red",
+      "Size": "XS",
+      "description": "Top Cher rojo con detalles de encaje negro. Ideal para un look moderno y fresco, perfecto para cualquier ocasión. ¡Atrévete a lucirlo!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dd8569d3-8042-4022-bb70-a8d5e456e475-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dd8569d3-8042-4022-bb70-a8d5e456e475-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dd8569d3-8042-4022-bb70-a8d5e456e475-3.jpg"
+      ]
+    },
+    {
+      "id": "70",
+      "slug": "top-zara-rosa-talle-s-08504233-6327-4320-acb4-857eebc50cd6",
+      "SKU": "SKU-000070",
+      "Product Name": "Top Zara rosa talle S",
+      "Price": 21000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "pink",
+      "Size": "S",
+      "description": "Top Zara rosa de corte moderno, ideal para combinar en looks casuales. Perfecto para lucir en cualquier ocasión. ¡No te lo pierdas!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/08504233-6327-4320-acb4-857eebc50cd6-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/08504233-6327-4320-acb4-857eebc50cd6-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/08504233-6327-4320-acb4-857eebc50cd6-3.jpg"
+      ]
+    },
+    {
+      "id": "68",
+      "slug": "top-sin-mangas-zara-talle-s-c58cc5f1-c4b3-4d63-95bc-f67319f987d9",
+      "SKU": "SKU-000068",
+      "Product Name": "Top sin mangas Zara talle S",
+      "Price": 20000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "green",
+      "Size": "S",
+      "description": "Top sin mangas de Zara en color verde, talle S. Ideal para combinar en looks casuales y frescos. Perfecto para el verano en Buenos Aires.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c58cc5f1-c4b3-4d63-95bc-f67319f987d9-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c58cc5f1-c4b3-4d63-95bc-f67319f987d9-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c58cc5f1-c4b3-4d63-95bc-f67319f987d9-3.jpg"
+      ]
+    },
+    {
+      "id": "66",
+      "slug": "top-zara-verde-talle-s-ffb2cf6f-a0b3-4ada-9a64-206954ead04b",
+      "SKU": "SKU-000066",
+      "Product Name": "Top Zara verde talle S",
+      "Price": 27000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "green",
+      "Size": "S",
+      "description": "Top Zara verde en talle S, ideal para lucir en cualquier ocasión. Comodidad y estilo en una prenda básica y versátil.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ffb2cf6f-a0b3-4ada-9a64-206954ead04b-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ffb2cf6f-a0b3-4ada-9a64-206954ead04b-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ffb2cf6f-a0b3-4ada-9a64-206954ead04b-3.jpg"
+      ]
+    },
+    {
+      "id": "64",
+      "slug": "vestido-zara-basic-s-d0f92029-4e0f-4487-8de0-6d374fc1cca3",
+      "SKU": "SKU-000064",
+      "Product Name": "Vestido Zara Basic S",
+      "Price": 72000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Elegante vestido negro de Zara Basic, talle S. Ideal para ocasiones especiales y uso diario. Comodidad y estilo en un solo look.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d0f92029-4e0f-4487-8de0-6d374fc1cca3-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d0f92029-4e0f-4487-8de0-6d374fc1cca3-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d0f92029-4e0f-4487-8de0-6d374fc1cca3-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d0f92029-4e0f-4487-8de0-6d374fc1cca3-4.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d0f92029-4e0f-4487-8de0-6d374fc1cca3-5.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d0f92029-4e0f-4487-8de0-6d374fc1cca3-6.jpg"
+      ]
+    },
+    {
+      "id": "62",
+      "slug": "top-negro-zara-talle-s-962e17b5-a928-478d-a5a0-f22e08ceb970",
+      "SKU": "SKU-000062",
+      "Product Name": "Top negro Zara talle S",
+      "Price": 31000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Top negro de Zara, talle S, con cierre y tirantes. Ideal para combinar en cualquier ocasión y lucir con estilo en Buenos Aires.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/962e17b5-a928-478d-a5a0-f22e08ceb970-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/962e17b5-a928-478d-a5a0-f22e08ceb970-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/962e17b5-a928-478d-a5a0-f22e08ceb970-3.jpg"
+      ]
+    },
+    {
+      "id": "60",
+      "slug": "top-sin-mangas-zara-talle-s-9f59246d-e7a4-4356-a370-09d263ef2978",
+      "SKU": "SKU-000060",
+      "Product Name": "Top sin mangas Zara talle S",
+      "Price": 23000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "white",
+      "Size": "S",
+      "description": "Top sin mangas de Zara en color blanco, talle S. Ideal para combinar en looks casuales y frescos. Perfecto para el verano en Buenos Aires.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9f59246d-e7a4-4356-a370-09d263ef2978-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9f59246d-e7a4-4356-a370-09d263ef2978-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9f59246d-e7a4-4356-a370-09d263ef2978-3.jpg"
+      ]
+    },
+    {
+      "id": "58",
+      "slug": "gafas-de-sol-4b10f6fb-af72-4a03-bc45-d0e599f784be",
+      "SKU": "SKU-000058",
+      "Product Name": "Gafas de sol",
+      "Price": 20000,
+      "category": "accessories (belts, hats, scarves)",
+      "stock": 1,
+      "color": "purple",
+      "Size": "único",
+      "description": "Gafas de sol únicas con marco transparente y lentes morados. Perfectas para cualquier ocasión. ¡Dale un toque especial a tu look!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4b10f6fb-af72-4a03-bc45-d0e599f784be-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4b10f6fb-af72-4a03-bc45-d0e599f784be-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4b10f6fb-af72-4a03-bc45-d0e599f784be-3.jpg"
+      ]
+    },
+    {
+      "id": "56",
+      "slug": "sweater-con-estampado-gr-fico-b76d32f7-37cf-4f94-895a-81a9cc4e9320",
+      "SKU": "SKU-000056",
+      "Product Name": "Sweater con estampado gráfico",
+      "Price": 15000,
+      "category": "hoodies and sweatshirts",
+      "stock": 1,
+      "color": "white",
+      "Size": "único",
+      "description": "Sweater único con estampado gráfico en blanco y negro. Ideal para un look casual y moderno. Perfecto para el día a día.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b76d32f7-37cf-4f94-895a-81a9cc4e9320-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b76d32f7-37cf-4f94-895a-81a9cc4e9320-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b76d32f7-37cf-4f94-895a-81a9cc4e9320-3.jpg"
+      ]
+    },
+    {
+      "id": "54",
+      "slug": "remera-gap-talle-9-df8ad422-2038-422d-881d-fe0a56ee2ddc",
+      "SKU": "SKU-000054",
+      "Product Name": "Remera Gap talle 9",
+      "Price": 15000,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "gray",
+      "Size": "9",
+      "description": "Remera Gap talle 9 de algodón gris con estampado de skates. Ideal para un look casual y divertido. Perfecta para los amantes del skate.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/df8ad422-2038-422d-881d-fe0a56ee2ddc-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/df8ad422-2038-422d-881d-fe0a56ee2ddc-2.jpg"
+      ]
+    },
+    {
+      "id": "52",
+      "slug": "top-hollister-m-af4c1f66-b2ba-48ef-9fd5-5852ac1096e5",
+      "SKU": "SKU-000052",
+      "Product Name": "Top Hollister M",
+      "Price": 15000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "gray",
+      "Size": "M",
+      "description": "Top Hollister en talle M, color gris, con diseño de rayas. Ideal para un look casual y moderno. Perfecto para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/af4c1f66-b2ba-48ef-9fd5-5852ac1096e5-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/af4c1f66-b2ba-48ef-9fd5-5852ac1096e5-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/af4c1f66-b2ba-48ef-9fd5-5852ac1096e5-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/af4c1f66-b2ba-48ef-9fd5-5852ac1096e5-4.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/af4c1f66-b2ba-48ef-9fd5-5852ac1096e5-5.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/af4c1f66-b2ba-48ef-9fd5-5852ac1096e5-6.jpg"
+      ]
+    },
+    {
+      "id": "50",
+      "slug": "abrigo-kenneth-cole-6c932044-c723-471e-9535-d6676760ca46",
+      "SKU": "SKU-000050",
+      "Product Name": "Abrigo Kenneth Cole",
+      "Price": 75500,
+      "category": "outerwear",
+      "stock": 1,
+      "color": "black",
+      "Size": "M",
+      "description": "Abrigo Kenneth Cole negro, talle M. Estilo elegante y moderno, ideal para el invierno. Perfecto para combinar con cualquier outfit.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6c932044-c723-471e-9535-d6676760ca46-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6c932044-c723-471e-9535-d6676760ca46-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6c932044-c723-471e-9535-d6676760ca46-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6c932044-c723-471e-9535-d6676760ca46-4.jpeg"
+      ]
+    },
+    {
+      "id": "48",
+      "slug": "camisa-akiabara-7fe9a581-50ab-41a0-b5c3-e13a57225b98",
+      "SKU": "SKU-000048",
+      "Product Name": "Camisa Akiabara",
+      "Price": 15000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "yellow",
+      "Size": "S",
+      "description": "Camisa Akiabara con estampado paisley en tonos amarillos y negros. Ideal para un look fresco y moderno. Perfecta para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7fe9a581-50ab-41a0-b5c3-e13a57225b98-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7fe9a581-50ab-41a0-b5c3-e13a57225b98-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7fe9a581-50ab-41a0-b5c3-e13a57225b98-3.jpeg"
+      ]
+    },
+    {
+      "id": "46",
+      "slug": "jeans-gap-talle-27-29f0de7e-5b08-45d1-87cf-de5d2c291968",
+      "SKU": "SKU-000046",
+      "Product Name": "Jeans Gap talle 27",
+      "Price": 55000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "blue",
+      "Size": "27",
+      "description": "Jeans Gap talle 27, estilo moderno y cómodo. Perfectos para cualquier ocasión. ¡Luce increíble con estos jeans de calidad!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/29f0de7e-5b08-45d1-87cf-de5d2c291968-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/29f0de7e-5b08-45d1-87cf-de5d2c291968-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/29f0de7e-5b08-45d1-87cf-de5d2c291968-3.jpeg"
+      ]
+    },
+    {
+      "id": "44",
+      "slug": "pantal-n-allo-martinez-f4a5f0c4-dadd-43e8-9d24-094e9480429a",
+      "SKU": "SKU-000044",
+      "Product Name": "Pantalón Allo Martinez",
+      "Price": 15000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "maroon",
+      "Size": "S",
+      "description": "Pantalón Allo Martinez en color burdeos con cintura negra. Ideal para el entrenamiento y el día a día. Comodidad y estilo en cada movimiento.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f4a5f0c4-dadd-43e8-9d24-094e9480429a-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f4a5f0c4-dadd-43e8-9d24-094e9480429a-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f4a5f0c4-dadd-43e8-9d24-094e9480429a-3.jpeg"
+      ]
+    },
+    {
+      "id": "42",
+      "slug": "kimono-estampado-en-tonos-burdeos-30d31ddf-6eb6-478f-89e9-2df361ce0742",
+      "SKU": "SKU-000042",
+      "Product Name": "Kimono estampado en tonos burdeos",
+      "Price": 15000,
+      "category": "outerwear",
+      "stock": 1,
+      "color": "maroon",
+      "Size": "único",
+      "description": "Kimono único en tonos burdeos con estampado elegante. Ideal para cualquier ocasión, combina con tu estilo diario. ¡Atrévete a lucirlo!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/30d31ddf-6eb6-478f-89e9-2df361ce0742-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/30d31ddf-6eb6-478f-89e9-2df361ce0742-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/30d31ddf-6eb6-478f-89e9-2df361ce0742-3.jpeg"
+      ]
+    },
+    {
+      "id": "40",
+      "slug": "vestido-hym-talle-6-3cdfbd7d-965e-424b-9dad-84f94a90e7b5",
+      "SKU": "SKU-000040",
+      "Product Name": "Vestido Hym talle 6",
+      "Price": 15000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "black",
+      "Size": "6",
+      "description": "Vestido negro Hym talle 6, ideal para cualquier ocasión. Estilo moderno y cómodo, perfecto para lucir en eventos o salidas diarias.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3cdfbd7d-965e-424b-9dad-84f94a90e7b5-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3cdfbd7d-965e-424b-9dad-84f94a90e7b5-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3cdfbd7d-965e-424b-9dad-84f94a90e7b5-3.jpeg"
+      ]
+    },
+    {
+      "id": "38",
+      "slug": "top-zara-s-464808a0-d00d-45d7-9653-4fb6f204608d",
+      "SKU": "SKU-000038",
+      "Product Name": "Top Zara S",
+      "Price": 15000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Top de Zara en talle S, con diseño moderno y estampado único. Ideal para un look casual y fresco en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/464808a0-d00d-45d7-9653-4fb6f204608d-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/464808a0-d00d-45d7-9653-4fb6f204608d-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/464808a0-d00d-45d7-9653-4fb6f204608d-3.jpeg"
+      ]
+    },
+    {
+      "id": "36",
+      "slug": "vestido-diego-vaz-xs-7b0e9035-b188-4caa-8a8b-f10153187589",
+      "SKU": "SKU-000036",
+      "Product Name": "Vestido Diego Vaz XS",
+      "Price": 160000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "gold",
+      "Size": "XS",
+      "description": "Elegante vestido de Diego Vaz en talle XS, con detalles en encaje y cinta dorada. Ideal para ocasiones especiales y eventos formales.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b0e9035-b188-4caa-8a8b-f10153187589-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b0e9035-b188-4caa-8a8b-f10153187589-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b0e9035-b188-4caa-8a8b-f10153187589-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b0e9035-b188-4caa-8a8b-f10153187589-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7b0e9035-b188-4caa-8a8b-f10153187589-5.jpeg"
+      ]
+    },
+    {
+      "id": "34",
+      "slug": "remera-bonus-track-7f58688e-5877-42e3-a500-447bf7920fbb",
+      "SKU": "SKU-000034",
+      "Product Name": "Remera Bonus Track",
+      "Price": 15000,
+      "category": "t-shirts",
+      "stock": 1,
+      "color": "gray",
+      "Size": "S",
+      "description": "Remera gris con estampado 'Bonus Track'. Ideal para un look casual y moderno. Comodidad y estilo para el día a día.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7f58688e-5877-42e3-a500-447bf7920fbb-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7f58688e-5877-42e3-a500-447bf7920fbb-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7f58688e-5877-42e3-a500-447bf7920fbb-3.jpeg"
+      ]
+    },
+    {
+      "id": "32",
+      "slug": "remera-verde-con-detalles-negros-a4b660cd-ae7c-4544-a9a3-74d5cb63f85c",
+      "SKU": "SKU-000032",
+      "Product Name": "Remera verde con detalles negros",
+      "Price": 15000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "green",
+      "Size": "S",
+      "description": "Remera verde con detalles en negro y mensaje 'FOLLOW ME LOVE ME'. Ideal para un look casual y moderno. Perfecta para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a4b660cd-ae7c-4544-a9a3-74d5cb63f85c-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a4b660cd-ae7c-4544-a9a3-74d5cb63f85c-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a4b660cd-ae7c-4544-a9a3-74d5cb63f85c-3.jpeg"
+      ]
+    },
+    {
+      "id": "30",
+      "slug": "leggings-camuflados-talle-s-fd346a42-6987-409d-9899-ce6f6bd5edf7",
+      "SKU": "SKU-000030",
+      "Product Name": "Leggings camuflados talle S",
+      "Price": 15000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "green",
+      "Size": "S",
+      "description": "Leggings camuflados talle S, ideales para el gym o actividades al aire libre. Comodidad y estilo en cada movimiento.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fd346a42-6987-409d-9899-ce6f6bd5edf7-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fd346a42-6987-409d-9899-ce6f6bd5edf7-2.jpeg"
+      ]
+    },
+    {
+      "id": "28",
+      "slug": "top-rapsodia-s-72623017-68e9-4dce-820a-a46cf0215183",
+      "SKU": "SKU-000028",
+      "Product Name": "Top Rapsodia S",
+      "Price": 15000,
+      "category": "shirts and tops",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Top Rapsodia talle S con estampado vibrante y detalles brillantes. Ideal para lucir en cualquier ocasión. ¡Dale un toque único a tu outfit!",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/72623017-68e9-4dce-820a-a46cf0215183-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/72623017-68e9-4dce-820a-a46cf0215183-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/72623017-68e9-4dce-820a-a46cf0215183-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/72623017-68e9-4dce-820a-a46cf0215183-4.jpeg"
+      ]
+    },
+    {
+      "id": "26",
+      "slug": "vestido-tucci-con-estampado-de-hojas-26dcff06-02c2-46f1-8841-76ceda8c3ea4",
+      "SKU": "SKU-000026",
+      "Product Name": "Vestido Tucci con estampado de hojas",
+      "Price": 15000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "pink",
+      "Size": "S",
+      "description": "Vestido Tucci de estilo fresco y moderno, con estampado de hojas en tonos rosa y negro. Ideal para lucir en días soleados y ocasiones casuales.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/26dcff06-02c2-46f1-8841-76ceda8c3ea4-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/26dcff06-02c2-46f1-8841-76ceda8c3ea4-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/26dcff06-02c2-46f1-8841-76ceda8c3ea4-3.jpeg"
+      ]
+    },
+    {
+      "id": "24",
+      "slug": "vestido-delaostia-48b958b0-72ad-480e-9c4d-5285150ff963",
+      "SKU": "SKU-000024",
+      "Product Name": "Vestido Delaostia",
+      "Price": 15000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "pink",
+      "Size": "S",
+      "description": "Vestido Delaostia en color rosa con bordados. Ideal para lucir fresca y elegante en cualquier ocasión. Perfecto para el verano.",
+      "gender": [],
+      "User ID": [
+        "5"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/48b958b0-72ad-480e-9c4d-5285150ff963-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/48b958b0-72ad-480e-9c4d-5285150ff963-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/48b958b0-72ad-480e-9c4d-5285150ff963-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/48b958b0-72ad-480e-9c4d-5285150ff963-4.jpeg"
+      ]
+    },
+    {
+      "id": "22",
+      "slug": "short-champion-original-d422e795-586e-482b-b782-53978f8c74d5",
+      "SKU": "SKU-000022",
+      "Product Name": "Short Champion original",
+      "Price": 20000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Short Champion original en excelente estado, talle XS. Ideal para actividades deportivas y confort diario.",
+      "gender": [],
+      "User ID": [
+        "4"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d422e795-586e-482b-b782-53978f8c74d5-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d422e795-586e-482b-b782-53978f8c74d5-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d422e795-586e-482b-b782-53978f8c74d5-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d422e795-586e-482b-b782-53978f8c74d5-4.jpeg"
+      ]
+    },
+    {
+      "id": "20",
+      "slug": "chaleco-under-armour-original-d7603f38-5d98-4974-a724-4ddfd07963af",
+      "SKU": "SKU-000020",
+      "Product Name": "Chaleco Under Armour original",
+      "Price": 10000,
+      "category": "outerwear",
+      "stock": 1,
+      "color": "red",
+      "Size": "XS",
+      "description": "Chaleco Under Armour original talle XS, ideal para el entretiempo. Comodidad y estilo para tus actividades diarias.",
+      "gender": [],
+      "User ID": [
+        "4"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7603f38-5d98-4974-a724-4ddfd07963af-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7603f38-5d98-4974-a724-4ddfd07963af-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7603f38-5d98-4974-a724-4ddfd07963af-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7603f38-5d98-4974-a724-4ddfd07963af-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7603f38-5d98-4974-a724-4ddfd07963af-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7603f38-5d98-4974-a724-4ddfd07963af-6.jpeg"
+      ]
+    },
+    {
+      "id": "18",
+      "slug": "zapatillas-puma-flyer-runner-mesh-mujer-dc1681e1-e2d0-4569-b394-0035d449b459",
+      "SKU": "SKU-000018",
+      "Product Name": "Zapatillas Puma Flyer Runner Mesh mujer",
+      "Price": 70000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "black",
+      "Size": "35",
+      "description": "Zapatillas Puma Flyer Runner Mesh, talle 35, ideales para el día a día. Comodidad y estilo en cada paso.",
+      "gender": [],
+      "User ID": [
+        "4"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dc1681e1-e2d0-4569-b394-0035d449b459-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dc1681e1-e2d0-4569-b394-0035d449b459-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dc1681e1-e2d0-4569-b394-0035d449b459-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dc1681e1-e2d0-4569-b394-0035d449b459-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dc1681e1-e2d0-4569-b394-0035d449b459-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/dc1681e1-e2d0-4569-b394-0035d449b459-6.jpeg"
+      ]
+    },
+    {
+      "id": "16",
+      "slug": "zapatillas-puma-run-xx-originales-485e460a-7a30-4040-8266-a188a2f88346",
+      "SKU": "SKU-000016",
+      "Product Name": "Zapatillas Puma Run XX originales",
+      "Price": 30000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "black",
+      "Size": "37.5",
+      "description": "Zapatillas Puma Run XX originales, talle 37.5. Perfectas para correr, con diseño moderno y comodidad garantizada.",
+      "gender": [],
+      "User ID": [
+        "4"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/485e460a-7a30-4040-8266-a188a2f88346-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/485e460a-7a30-4040-8266-a188a2f88346-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/485e460a-7a30-4040-8266-a188a2f88346-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/485e460a-7a30-4040-8266-a188a2f88346-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/485e460a-7a30-4040-8266-a188a2f88346-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/485e460a-7a30-4040-8266-a188a2f88346-6.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/485e460a-7a30-4040-8266-a188a2f88346-7.jpeg"
+      ]
+    },
+    {
       "id": "14",
       "slug": "zapatillas-puma-originales-nuevas-7e566957-0072-412e-89b2-fb6e854aaaa6",
       "SKU": "SKU-000014",
@@ -14141,5 +18516,5 @@
       ]
     }
   ],
-  "timestamp": 1766065449252
+  "timestamp": 1768320323344
 }
