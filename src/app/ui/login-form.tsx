@@ -1,22 +1,25 @@
 'use client';
 import { useState } from 'react';
 import { createClient } from '../lib/supabase/client';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Button from './button';
 
 type LoginFormProps = {
   description?: React.ReactNode;
+  searchParams: URLSearchParams;
 };
 
 const supabase = createClient();
 
-export default function LoginForm({ description }: LoginFormProps) {
+export default function LoginForm({
+  description,
+  searchParams,
+}: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   // Extract error from URL params
   const error = searchParams.get('error');
