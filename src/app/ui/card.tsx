@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 type CardProps = {
   image: {
@@ -9,6 +8,7 @@ type CardProps = {
   };
   badge: string;
   title: string;
+  sku: string;
   rating: {
     value: number;
     count: number;
@@ -17,37 +17,36 @@ type CardProps = {
   href?: string;
 };
 
-export default function Card({ image, title, price, href }: CardProps) {
+export default function Card({ image, title, sku, price, href }: CardProps) {
   const CardContent = () => (
-    <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <div className="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <div className="h-56 w-full">
         <div className="relative h-full">
-          <Image
-            className="mx-auto dark:hidden"
+          <img
+            className="mx-auto h-full w-full object-contain dark:hidden"
             src={image.light}
             alt={image.alt}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ objectFit: 'contain' }}
           />
-          <Image
-            className="mx-auto hidden dark:block"
+          <img
+            className="mx-auto hidden h-full w-full object-contain dark:block"
             src={image.dark}
             alt={image.alt}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ objectFit: 'contain' }}
           />
         </div>
       </div>
-      <div className="pt-6">
+      <div className="flex flex-1 flex-col pt-6">
         <div className="mb-4 flex items-center justify-between gap-4">
           {/* <span className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300 me-2 rounded px-2.5 py-0.5 text-xs font-medium">
             {badge}
           </span> */}
         </div>
-        <div className="text-lg leading-tight font-semibold text-gray-900 hover:underline dark:text-white">
+        <div className="flex-1 text-lg leading-tight font-semibold text-gray-900 hover:underline dark:text-white">
           {title}
+        </div>
+        <div className="mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="font-medium">Ref:</span> {sku}
+          </p>
         </div>
         <div className="mt-2 flex items-center gap-2">
           {/* <div className="flex items-center">

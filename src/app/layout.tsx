@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 import './globals.css';
 
 import Header from './ui/header';
 import Footer from './ui/footer';
 import WhatsappFloat from './ui/whatsapp-float';
+import Popup from './ui/popup';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -20,9 +21,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Vende tu ropa usada fácil y rápido | circular.moda Argentina',
+  title: 'Vende tu ropa usada en Buenos Aires fácil y rápido | circular.moda',
   description:
-    'Vendé tu ropa usada fácil y rápido con circular.moda.. Enviás fotos por WhatsApp y ganás dinero sin comisiones.',
+    'Vendé tu ropa usada fácil y rápido con circular.moda en Buenos Aires. Enviás fotos por WhatsApp y ganás dinero sin comisiones. Solo CABA y GBA.',
+  openGraph: {
+    title: 'Vende tu ropa usada en Buenos Aires fácil y rápido | circular.moda',
+    description:
+      'Circular.moda • Mercado de ropa de segunda mano para Buenos Aires',
+  },
 };
 export default function RootLayout({
   children,
@@ -37,9 +43,12 @@ export default function RootLayout({
         <Header />
         {children}
         <WhatsappFloat />
+        <Popup />
         <Footer />
         <Script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></Script>
-        <GoogleAnalytics gaId="G-WB8MV5JN0Q" />
+        {process.env.NODE_ENV === 'production' && (
+          <GoogleTagManager gtmId="GTM-P8TK9FBN" />
+        )}
       </body>
     </html>
   );
