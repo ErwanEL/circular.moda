@@ -26,6 +26,17 @@ export default function Header() {
             </span>
           </NavbarBrand>
           <div className="flex md:order-2">
+            <ul className="border-default rounded-base bg-neutral-secondary-soft md:bg-neutral-primary mt-4 flex flex-col border p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse">
+              <li>
+                <a
+                  href="#"
+                  className="bg-brand md:text-fg-brand block rounded-sm px-3 py-2 text-white md:bg-transparent md:p-0"
+                  aria-current="page"
+                >
+                  Home
+                </a>
+              </li>
+            </ul>
             <Button
               solid
               bold
