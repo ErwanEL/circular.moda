@@ -26,15 +26,16 @@ export default function Header() {
             </span>
           </NavbarBrand>
           <div className="flex md:order-2">
-            <ul className="border-default rounded-base bg-neutral-secondary-soft md:bg-neutral-primary mt-4 flex flex-col border p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse">
-              <li>
-                <a
-                  href="#"
-                  className="bg-brand md:text-fg-brand block rounded-sm px-3 py-2 text-white md:bg-transparent md:p-0"
-                  aria-current="page"
-                >
-                  Home
-                </a>
+            <ul className="border-default rounded-base bg-neutral-secondary-soft md:bg-neutral-primary mt-4 hidden flex-col items-center gap-4 border p-4 text-sm font-medium md:mt-0 md:flex md:flex-row md:space-x-8 md:border-0 md:px-4 md:py-0 rtl:space-x-reverse">
+              <li className="m-0 p-0">
+                <NavbarLink href="/signup" active={pathname === '/signup'}>
+                  Inscribirse
+                </NavbarLink>
+              </li>
+              <li className="m-0 p-0">
+                <NavbarLink href="/login" active={pathname === '/login'}>
+                  Iniciar sesión
+                </NavbarLink>
               </li>
             </ul>
             <Button
@@ -82,6 +83,14 @@ export default function Header() {
             >
               Contact
             </NavbarLink>
+            <div className="mt-6 flex justify-center border-t-[1px] border-solid border-gray-200 p-0 pt-4 md:hidden">
+              <NavbarLink href="/signup" active={pathname === '/signup'}>
+                Inscribirse
+              </NavbarLink>
+              <NavbarLink href="/login" active={pathname === '/login'}>
+                Iniciar sesión
+              </NavbarLink>
+            </div>
           </NavbarCollapse>
         </Navbar>
       </div>
