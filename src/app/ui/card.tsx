@@ -79,7 +79,7 @@ export default function Card({ image, title, size, sku, price, href }: CardProps
           </p> */}
         </div>
         <div className="mt-4 flex items-center justify-between gap-4">
-          <p className="text-2xl leading-tight font-extrabold text-gray-900 dark:text-white">
+          <p className="text-2xl leading-tight font-extrabold text-primary-800 dark:text-primary-300">
             {price}
           </p>
           {/* <Button
