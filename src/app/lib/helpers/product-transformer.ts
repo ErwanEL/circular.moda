@@ -8,6 +8,7 @@ export interface ProductCard {
   };
   badge: string;
   title: string;
+  size?: string;
   sku: string;
   rating: {
     value: number;
@@ -75,6 +76,7 @@ export function transformProductsToCards(products: Product[]): ProductCard[] {
       },
       badge: product.Category || product.category || 'Available',
       title: product['Product Name'] || `Product ${product.SKU}`,
+      size: product.Size || product.size,
       sku: product.SKU?.toString() || product.slug || '',
       rating: {
         value: 5.0,

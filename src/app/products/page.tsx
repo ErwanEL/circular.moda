@@ -30,7 +30,7 @@ export default async function ProductsPage() {
         {/* Products Grid */}
         <section className="py-8 antialiased md:py-12">
           <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-            <div className="mb-4 grid items-stretch gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="mb-4 grid items-stretch gap-x-4 gap-y-8 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
               {productCards.map((cardData, index) => (
                 <Card key={index} {...cardData} />
               ))}
