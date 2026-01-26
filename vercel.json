@@ -1,0 +1,944 @@
+{
+  "redirects": [
+    {
+      "source": "/products/249",
+      "destination": "/products/jeans-zara-hombre-4d54f23a-eb12-47f1-825b-526c21e5df4f",
+      "permanent": true
+    },
+    {
+      "source": "/products/248",
+      "destination": "/products/buzo-uniqlo-bac5f2ad-ddd6-4df5-9afe-d0291fa3282b",
+      "permanent": true
+    },
+    {
+      "source": "/products/247",
+      "destination": "/products/remera-lippi-82bfed5a-106c-4da7-9f8c-1260579502e6",
+      "permanent": true
+    },
+    {
+      "source": "/products/246",
+      "destination": "/products/chombas-ferouch-tipo-slimfit-ba145b60-9580-44df-8260-2655d461f0f9",
+      "permanent": true
+    },
+    {
+      "source": "/products/245",
+      "destination": "/products/chombas-ferouch-tipo-slimfit-86335e05-5c15-4fb8-8110-60795b2cf06e",
+      "permanent": true
+    },
+    {
+      "source": "/products/244",
+      "destination": "/products/remera-levis-celeste-tipo-oversize-3d3abc08-3e7d-41e7-8d33-8fdcb9ce0c99",
+      "permanent": true
+    },
+    {
+      "source": "/products/243",
+      "destination": "/products/remera-marca-sioux-6e8abfb2-8276-46ff-8001-9f8d4661834a",
+      "permanent": true
+    },
+    {
+      "source": "/products/242",
+      "destination": "/products/buzo-con-capucha-marca-champion-harvard-f30d8faf-07c4-45f7-90d8-9672f50011bc",
+      "permanent": true
+    },
+    {
+      "source": "/products/241",
+      "destination": "/products/musculosa-marca-chilena-a01f5fb3-bc93-4efe-9e55-b681b258e166",
+      "permanent": true
+    },
+    {
+      "source": "/products/238",
+      "destination": "/products/pollera-de-jean-denim-tiro-alto-marca-iniquita-jeans-casi-sin-uso-411100fc-9ed7-4b74-a445-6945e2b2d492",
+      "permanent": true
+    },
+    {
+      "source": "/products/237",
+      "destination": "/products/vestido-corto-de-encaje-sin-uso-marca-te-lo-juro-a54be8da-6c9d-4a6e-baa3-a3cb3bceaca4",
+      "permanent": true
+    },
+    {
+      "source": "/products/236",
+      "destination": "/products/blusa-transparente-47-street-297c2245-5e30-475c-a802-5c2eb7cf2714",
+      "permanent": true
+    },
+    {
+      "source": "/products/235",
+      "destination": "/products/top-de-verano-47-street-sin-uso-9e41a858-88d1-4d54-8f76-54a13a28a19f",
+      "permanent": true
+    },
+    {
+      "source": "/products/234",
+      "destination": "/products/campera-die-verruckt-heit-619067cf-5784-4c0c-aba9-004248f50978",
+      "permanent": true
+    },
+    {
+      "source": "/products/232",
+      "destination": "/products/camisa-m-tascani-cead794c-109c-406b-8da6-80b78b4cd76d",
+      "permanent": true
+    },
+    {
+      "source": "/products/231",
+      "destination": "/products/camisa-gtico-b3bd93fa-c2ae-43e6-a935-aaacb9cbf05c",
+      "permanent": true
+    },
+    {
+      "source": "/products/230",
+      "destination": "/products/malla-tascani-b9381ea0-b82f-49e6-8db4-8a624fa6d4c3",
+      "permanent": true
+    },
+    {
+      "source": "/products/229",
+      "destination": "/products/jean-blanco-tascani-585ad350-280f-44bc-b79e-2397f89f42c6",
+      "permanent": true
+    },
+    {
+      "source": "/products/228",
+      "destination": "/products/jean-tascani-78858055-04ce-4046-abe8-f4c866b46a84",
+      "permanent": true
+    },
+    {
+      "source": "/products/227",
+      "destination": "/products/jean-tascani-8e7c636d-73d5-4a82-8794-626b82972ef3",
+      "permanent": true
+    },
+    {
+      "source": "/products/226",
+      "destination": "/products/bermuda-tascani-4f235d25-00b5-468f-93c7-14cea122247d",
+      "permanent": true
+    },
+    {
+      "source": "/products/225",
+      "destination": "/products/bermuda-tascani-8c2ad907-f39e-4122-8d12-23cc93ae07f6",
+      "permanent": true
+    },
+    {
+      "source": "/products/224",
+      "destination": "/products/bermuda-tascani-5c482fd8-1aaf-4e55-92dc-b4377d75917d",
+      "permanent": true
+    },
+    {
+      "source": "/products/223",
+      "destination": "/products/bermuda-tascani-8c5bedbe-50cf-4083-9fa1-b344f7007037",
+      "permanent": true
+    },
+    {
+      "source": "/products/209",
+      "destination": "/products/mochila-pink-aea9eb79-8726-44fb-b031-7cfd30f98703",
+      "permanent": true
+    },
+    {
+      "source": "/products/208",
+      "destination": "/products/buzo-kimeika-blanco-fa745efb-0b21-4751-8600-84288bbaea54",
+      "permanent": true
+    },
+    {
+      "source": "/products/207",
+      "destination": "/products/buzo-tommy-hilfiger-1f78146b-667d-4269-829c-5865572f89f5",
+      "permanent": true
+    },
+    {
+      "source": "/products/206",
+      "destination": "/products/buzo-forever21-0afe5b5a-068c-4e8d-b772-f454776dc5f7",
+      "permanent": true
+    },
+    {
+      "source": "/products/205",
+      "destination": "/products/buzo-kimeika-eb6be8f5-bc55-479a-bf84-22475db757b0",
+      "permanent": true
+    },
+    {
+      "source": "/products/204",
+      "destination": "/products/campera-basement-4114647b-4138-499e-9602-d6b399cdb5d8",
+      "permanent": true
+    },
+    {
+      "source": "/products/203",
+      "destination": "/products/buzo-converse-f157dc6a-18f5-4a3c-8e93-19484920fbaa",
+      "permanent": true
+    },
+    {
+      "source": "/products/202",
+      "destination": "/products/musculosa-nike-bfd94a4a-9136-413d-a3e1-288b878ad70d",
+      "permanent": true
+    },
+    {
+      "source": "/products/201",
+      "destination": "/products/vestido-al-cuerpo-largo-estampado-cebra-24935b42-9370-4dbf-94ff-8bd0be83bdc0",
+      "permanent": true
+    },
+    {
+      "source": "/products/200",
+      "destination": "/products/top-negro-mango-sin-uso-a1974739-296f-4d1b-9611-b144afec3685",
+      "permanent": true
+    },
+    {
+      "source": "/products/199",
+      "destination": "/products/top-efecto-cuero-negro-5d5760c5-3942-47b0-bde6-9c311529b7b1",
+      "permanent": true
+    },
+    {
+      "source": "/products/198",
+      "destination": "/products/vestido-de-encaje-negro-al-cuerpo-311f8ba6-d813-4a88-b22b-7a7d0fdfcafa",
+      "permanent": true
+    },
+    {
+      "source": "/products/197",
+      "destination": "/products/vestido-largo-de-encaje-blanco-zara-4b51390e-bb44-4990-a61d-39207c192df6",
+      "permanent": true
+    },
+    {
+      "source": "/products/196",
+      "destination": "/products/top-negro-tipo-cinto-con-cierre-en-la-espalda-384dddf5-cc9a-4827-b8f5-bc2cb4d484d9",
+      "permanent": true
+    },
+    {
+      "source": "/products/195",
+      "destination": "/products/sweter-hm-color-beige-bd6875c8-fba0-44ae-9245-d8f59da3e1bb",
+      "permanent": true
+    },
+    {
+      "source": "/products/194",
+      "destination": "/products/top-negro-volado-zara-espaa-importado-fde9fca4-88fd-449e-9bd9-c02ecd3199da",
+      "permanent": true
+    },
+    {
+      "source": "/products/193",
+      "destination": "/products/body-de-sastrera-df1dcbc1-4d02-4207-bd42-ddbc888e0a5d",
+      "permanent": true
+    },
+    {
+      "source": "/products/192",
+      "destination": "/products/top-blanco-con-efecto-rosa-d5fe5b84-f4da-4c9c-bbe7-909a241d82f6",
+      "permanent": true
+    },
+    {
+      "source": "/products/191",
+      "destination": "/products/conjunto-pollera-y-top-de-encaje-blanco-4a224528-cfce-4c98-af74-7c2be496e3bb",
+      "permanent": true
+    },
+    {
+      "source": "/products/190",
+      "destination": "/products/camisa-azul-hombre-zara-espaa-importada-40f2acfe-e71f-461f-a945-a45bd0513129",
+      "permanent": true
+    },
+    {
+      "source": "/products/189",
+      "destination": "/products/sweater-ovs-talle-89-d61a2222-a919-4d42-bd16-71eb2490be8e",
+      "permanent": true
+    },
+    {
+      "source": "/products/188",
+      "destination": "/products/remera-tipo-top-corta-898a9ac1-045a-4cd0-ad2b-03398dc8fe50",
+      "permanent": true
+    },
+    {
+      "source": "/products/187",
+      "destination": "/products/top-verde-militar-de-cuerina-con-cierre-atrs-bacb742e-6ee3-4056-948a-94be685e43ce",
+      "permanent": true
+    },
+    {
+      "source": "/products/186",
+      "destination": "/products/top-con-bolados-color-celeste-medio-gris-5753d4df-ab3b-4c28-888c-9913d28197cf",
+      "permanent": true
+    },
+    {
+      "source": "/products/185",
+      "destination": "/products/top-zara-espaa-importado-4d3d0490-213f-4193-b328-739a89c953f0",
+      "permanent": true
+    },
+    {
+      "source": "/products/184",
+      "destination": "/products/vestido-blanco-con-bolados-16f3e7e6-3d5c-4f4d-91b0-64e519277822",
+      "permanent": true
+    },
+    {
+      "source": "/products/183",
+      "destination": "/products/vestido-blanco-con-bordado-de-flores-c130aaf8-a20f-4617-bb6b-453247ede804",
+      "permanent": true
+    },
+    {
+      "source": "/products/182",
+      "destination": "/products/sweater-mango-b7a75ecb-c854-4f36-bb74-20898defaec6",
+      "permanent": true
+    },
+    {
+      "source": "/products/181",
+      "destination": "/products/camisa-elasticidad-ab87dfb8-33b8-41ae-bc1b-fd5642e1ec4a",
+      "permanent": true
+    },
+    {
+      "source": "/products/180",
+      "destination": "/products/sweater-pioppa-88429a62-f42f-4b3a-8bac-70195490786d",
+      "permanent": true
+    },
+    {
+      "source": "/products/179",
+      "destination": "/products/sweater-zara-b7d442b1-4b9c-4604-bc3d-87ea49118dca",
+      "permanent": true
+    },
+    {
+      "source": "/products/178",
+      "destination": "/products/short-lovely-denim-28790fbc-fa29-43bf-b31d-0c538041f309",
+      "permanent": true
+    },
+    {
+      "source": "/products/176",
+      "destination": "/products/levis-512-b3d931ad-80b3-4316-90f2-159f53cc76fd",
+      "permanent": true
+    },
+    {
+      "source": "/products/175",
+      "destination": "/products/jean-levis-550-92-aec78415-821f-40c3-8c75-4effb0b071f9",
+      "permanent": true
+    },
+    {
+      "source": "/products/172",
+      "destination": "/products/vestido-de-fiesta-soya-un-uso-0ce0ce77-a586-44f6-98d9-65b6a7ac276d",
+      "permanent": true
+    },
+    {
+      "source": "/products/171",
+      "destination": "/products/short-jeans-0f777621-3f42-4ac3-893a-28d3e3209406",
+      "permanent": true
+    },
+    {
+      "source": "/products/170",
+      "destination": "/products/short-levis-f6071e48-72a7-42e2-a030-75b3730232e8",
+      "permanent": true
+    },
+    {
+      "source": "/products/169",
+      "destination": "/products/pollera-eco-cuero-c11d4194-e555-4ed4-a2e3-c0c7419aa52e",
+      "permanent": true
+    },
+    {
+      "source": "/products/168",
+      "destination": "/products/pollera-da356764-40ad-4d77-af6d-f720d79ea3c9",
+      "permanent": true
+    },
+    {
+      "source": "/products/167",
+      "destination": "/products/pollera-b380135c-db84-49b9-898b-2c57867fa8b9",
+      "permanent": true
+    },
+    {
+      "source": "/products/166",
+      "destination": "/products/pollera-lentejuelas-doradas-c398f6a3-b176-4623-aada-df3da264b1a3",
+      "permanent": true
+    },
+    {
+      "source": "/products/165",
+      "destination": "/products/short-sastrero-5c82605b-6ecd-41ba-aa27-92e402dc58a0",
+      "permanent": true
+    },
+    {
+      "source": "/products/164",
+      "destination": "/products/short-rip-curl-af5c4e7a-4041-46f5-9c18-f27d70a517f8",
+      "permanent": true
+    },
+    {
+      "source": "/products/163",
+      "destination": "/products/calza-con-tajo-abajo-aafb12aa-0646-459e-841e-41424aec5f0f",
+      "permanent": true
+    },
+    {
+      "source": "/products/162",
+      "destination": "/products/body-cuesta-blanca-nuevo-a7822826-6f6d-4b8e-b4fe-d75398d76585",
+      "permanent": true
+    },
+    {
+      "source": "/products/161",
+      "destination": "/products/pantaln-eco-cuero-elastizado-cuesta-blanca-726dc984-721f-46fe-83e5-af7249946d68",
+      "permanent": true
+    },
+    {
+      "source": "/products/160",
+      "destination": "/products/pantaln-gabardina-615add10-9c57-404e-be9d-2a81b581b293",
+      "permanent": true
+    },
+    {
+      "source": "/products/159",
+      "destination": "/products/pollera-elastizada-e928dab5-ef9f-4b48-8138-f5a2003b7a20",
+      "permanent": true
+    },
+    {
+      "source": "/products/158",
+      "destination": "/products/jeans-cuesta-blanca-8be6498f-af43-4e89-9e7d-25a78dff5b89",
+      "permanent": true
+    },
+    {
+      "source": "/products/157",
+      "destination": "/products/pantaln-blanca-elastizado-51dc590d-a3e4-46cd-bd8f-688607a57ca0",
+      "permanent": true
+    },
+    {
+      "source": "/products/156",
+      "destination": "/products/pollera-cuesta-blanca-df15749d-cc52-43fc-917b-02c53b0c2d19",
+      "permanent": true
+    },
+    {
+      "source": "/products/155",
+      "destination": "/products/short-elastizado-1a5dc3fa-98ba-4ece-8b5c-6d2100994064",
+      "permanent": true
+    },
+    {
+      "source": "/products/154",
+      "destination": "/products/short-jeans-cuesta-blanca-tiro-bajo-8a16eab2-6e17-42c2-aa03-0916fbbce9a5",
+      "permanent": true
+    },
+    {
+      "source": "/products/153",
+      "destination": "/products/chaleco-de-lentejuelas-cuesta-blanca-15389fba-8bee-4b1e-b16e-7e74edfce452",
+      "permanent": true
+    },
+    {
+      "source": "/products/152",
+      "destination": "/products/pollera-larga-de-lentejuelas-cuesta-blanca-nueva-a7363835-293a-43d6-ab76-70e20b4c4a67",
+      "permanent": true
+    },
+    {
+      "source": "/products/151",
+      "destination": "/products/pollera-cuesta-blanca-rojo-con-brillos-224eea4f-1bb0-4a0e-b77b-b9a683af9bc8",
+      "permanent": true
+    },
+    {
+      "source": "/products/150",
+      "destination": "/products/vestido-negro-con-brillos-cuesta-blanca-607cceb9-146a-48e6-9773-3f8928219003",
+      "permanent": true
+    },
+    {
+      "source": "/products/149",
+      "destination": "/products/vestido-de-fiesta-con-bordado-y-push-up-07f8e880-1e07-4fe8-a4c8-4665963b17dd",
+      "permanent": true
+    },
+    {
+      "source": "/products/148",
+      "destination": "/products/vestido-de-fiesta-5549f699-48df-4c06-814a-4bd291a22b24",
+      "permanent": true
+    },
+    {
+      "source": "/products/147",
+      "destination": "/products/vestido-solerito-rip-curl-f9070601-22cd-446b-8dfc-1ef894d909ac",
+      "permanent": true
+    },
+    {
+      "source": "/products/146",
+      "destination": "/products/vestido-solerito-cuesta-blanca-f3b0b553-9539-445e-bed3-557a3ae2a187",
+      "permanent": true
+    },
+    {
+      "source": "/products/145",
+      "destination": "/products/vestido-de-fiesta-corto-34a6a4b0-62f2-4d06-8070-92f9a56c8320",
+      "permanent": true
+    },
+    {
+      "source": "/products/144",
+      "destination": "/products/short-nike-original-649cddd9-4f61-46b9-b137-67fb4a12001f",
+      "permanent": true
+    },
+    {
+      "source": "/products/143",
+      "destination": "/products/short-nike-original-de6cd687-1866-4b47-8262-3981a2b8791a",
+      "permanent": true
+    },
+    {
+      "source": "/products/142",
+      "destination": "/products/jean-mirta-armesto-print-en-tonos-grises-impecable-61f5b0a9-5fab-4b6f-8c45-9caba8f4557a",
+      "permanent": true
+    },
+    {
+      "source": "/products/141",
+      "destination": "/products/jean-mirta-armesto-un-uso-la-estampa-de-hojas-tiene-brillo-lo-que-le-da-un-toque-canchero-09057f6d-c4c5-4549-90f4-2026fdec7bd1",
+      "permanent": true
+    },
+    {
+      "source": "/products/140",
+      "destination": "/products/jean-vitamina-oxford-impecable-tiro-alto-excelente-calce-4038c6e5-7fde-4478-a0db-63e15046ca30",
+      "permanent": true
+    },
+    {
+      "source": "/products/136",
+      "destination": "/products/blazer-entallado-negro-rayado-en-el-interior-con-cinturn-para-ceir-la-cintura-excelente-calce-54091183-2121-4623-9825-e94ed9221ff9",
+      "permanent": true
+    },
+    {
+      "source": "/products/135",
+      "destination": "/products/remera-mirta-armesto-la-parte-estampada-es-es-como-raso-y-lo-blanco-espalda-modal-0ce56cfe-c5cd-4414-baa9-2b3535b26b65",
+      "permanent": true
+    },
+    {
+      "source": "/products/134",
+      "destination": "/products/vestido-camisero-blusa-sin-mangas-de-la-marca-inedita-super-fresco-56cfab91-e422-4fcb-97b8-28b7a78f795e",
+      "permanent": true
+    },
+    {
+      "source": "/products/133",
+      "destination": "/products/top-de-la-marca-julien-algodon-lino-e6323b81-e492-4eba-872c-c60b6ceea5d1",
+      "permanent": true
+    },
+    {
+      "source": "/products/132",
+      "destination": "/products/camisa-de-broderie-algodon-de-la-marca-sweet-4327243a-c2b6-4805-907c-781d193d5130",
+      "permanent": true
+    },
+    {
+      "source": "/products/131",
+      "destination": "/products/camisa-gasa-de-mirta-armesto-e689423c-2fa5-4919-828d-68ea3560f68e",
+      "permanent": true
+    },
+    {
+      "source": "/products/130",
+      "destination": "/products/bikini-rapsodia-19044b0e-37aa-4b9e-aea6-cf3d04fae704",
+      "permanent": true
+    },
+    {
+      "source": "/products/129",
+      "destination": "/products/remera-tipo-sweater-tela-abrigada-para-media-estacin-portsaid-a2ec3b58-84e3-4f81-963e-a84f0dd2327d",
+      "permanent": true
+    },
+    {
+      "source": "/products/128",
+      "destination": "/products/remera-mirta-armesto-a311e8bd-1fa5-49ad-9118-e5fc3301e473",
+      "permanent": true
+    },
+    {
+      "source": "/products/127",
+      "destination": "/products/kimono-4c2bf8ea-7e10-4497-aed8-1c98708985ea",
+      "permanent": true
+    },
+    {
+      "source": "/products/126",
+      "destination": "/products/blusa-de-algodn-estancias-chiripa-974bb5e4-d6cc-482f-84d5-5821b9dba6fc",
+      "permanent": true
+    },
+    {
+      "source": "/products/125",
+      "destination": "/products/camisa-mirta-armesto-muy-fresca-suelta-y-canchera-9942efaf-0f2b-4e5b-8ca1-b2df8e9a7e94",
+      "permanent": true
+    },
+    {
+      "source": "/products/124",
+      "destination": "/products/sandalias-paruolo-cuero-vacuno-altura-de-taco-55-un-uso-10a89d68-a994-473a-86a1-1cb93e903d59",
+      "permanent": true
+    },
+    {
+      "source": "/products/123",
+      "destination": "/products/sandalias-paruolo-un-uso-cuero-ee2af6f8-a2e9-48e5-b2a3-d385f013eac0",
+      "permanent": true
+    },
+    {
+      "source": "/products/122",
+      "destination": "/products/camisa-extralarge-de-lino-de-la-marca-mirta-armesto-puede-funcionar-como-vestido-camisero-tiene-bolsillos-laterales-un-uso-878faedc-588d-4b1f-b11c-92f6e56c5e37",
+      "permanent": true
+    },
+    {
+      "source": "/products/121",
+      "destination": "/products/campera-de-denin-100-algodon-impecable-4f1f4e17-df3c-407f-916b-26271cbf5598",
+      "permanent": true
+    },
+    {
+      "source": "/products/120",
+      "destination": "/products/vestido-de-la-marca-ver-apasionadas-100-algodn-estado-impecable-super-fresco-b2c121dc-e2ce-4da2-aa7b-baa4fa0c14aa",
+      "permanent": true
+    },
+    {
+      "source": "/products/119",
+      "destination": "/products/campera-de-cuero-ovino-de-la-marca-boken-sin-uso-b3056daa-34ab-45ff-9057-5deeb7bb1454",
+      "permanent": true
+    },
+    {
+      "source": "/products/118",
+      "destination": "/products/blusa-portsaid-092f7755-1825-425d-b5a4-bfe8aa339e3e",
+      "permanent": true
+    },
+    {
+      "source": "/products/117",
+      "destination": "/products/blazer-importado-con-un-uso-82a487ea-63b3-47f2-b841-a184b8c390da",
+      "permanent": true
+    },
+    {
+      "source": "/products/116",
+      "destination": "/products/pollera-corta-de-denim-100-algodon-de-la-marca-system-basic-aa3a002d-b75f-4b7c-bbdc-83a6ac68d296",
+      "permanent": true
+    },
+    {
+      "source": "/products/115",
+      "destination": "/products/traje-de-bao-maria-cher-impecable-e37dca01-a431-45dd-b154-727f7649c6b3",
+      "permanent": true
+    },
+    {
+      "source": "/products/114",
+      "destination": "/products/campera-puma-muy-buen-estado-general-solo-unas-maquinas-del-gato-que-se-ven-en-la-foto-11496846-2e74-4d2c-95bd-1a61c4244e27",
+      "permanent": true
+    },
+    {
+      "source": "/products/113",
+      "destination": "/products/sweater-rapsodia-como-nuevo-50-acrlico-25-mohair-25-poliamida-0badc205-673b-4ae5-9055-b65ca81102a2",
+      "permanent": true
+    },
+    {
+      "source": "/products/104",
+      "destination": "/products/vestido-con-encaje-de-47-street-842b9bb9-baec-4ed6-b618-e358ed84c17b",
+      "permanent": true
+    },
+    {
+      "source": "/products/103",
+      "destination": "/products/gorra-bord-bordada-con-abrojo-para-regular-68350591-96ac-41dc-b266-17910884596c",
+      "permanent": true
+    },
+    {
+      "source": "/products/102",
+      "destination": "/products/mini-de-jean-elastizada-en-muy-buen-estado-98c8e718-658a-4db9-be29-0d8103605ddf",
+      "permanent": true
+    },
+    {
+      "source": "/products/101",
+      "destination": "/products/calza-trmica-rosa-viejo-en-muy-buen-estado-b5201682-bb7d-4f11-bba5-f53cc1e58a5a",
+      "permanent": true
+    },
+    {
+      "source": "/products/100",
+      "destination": "/products/jogger-roxy-en-muy-buen-estado-48af3efe-11a3-450c-9db3-76541d0ac366",
+      "permanent": true
+    },
+    {
+      "source": "/products/99",
+      "destination": "/products/saco-negro-forever-21-83c82aa2-1cd8-4325-90f9-a2c95c676b60",
+      "permanent": true
+    },
+    {
+      "source": "/products/98",
+      "destination": "/products/hoodie-mostaza-con-bolsillo-canguro-y-estampa-en-la-espalda-de-frisa-9ba63bc3-42fd-4804-a20b-7c8e135475c6",
+      "permanent": true
+    },
+    {
+      "source": "/products/97",
+      "destination": "/products/remera-corset-con-jabot-de-tul-en-muy-buen-estado-ebdfdb76-4a69-42f8-9097-aafeaba049f1",
+      "permanent": true
+    },
+    {
+      "source": "/products/96",
+      "destination": "/products/body-magenta-ideal-media-estacin-en-muy-buen-estado-2b8af4ba-30d2-4842-9cbd-4ccc26f7cd02",
+      "permanent": true
+    },
+    {
+      "source": "/products/95",
+      "destination": "/products/poulover-tricolor-tejido-de-lana-calentito-18dca4c9-a4fa-4dc1-991c-fa7b08848c5f",
+      "permanent": true
+    },
+    {
+      "source": "/products/94",
+      "destination": "/products/campera-gris-rompeviento-en-muy-buen-estado-f3ff7794-9860-49e5-8d18-a13f72c73b30",
+      "permanent": true
+    },
+    {
+      "source": "/products/93",
+      "destination": "/products/saquito-abierto-de-lanilla-bord-en-muy-buen-estado-17ee6393-681f-417f-8a04-3335cb382eb6",
+      "permanent": true
+    },
+    {
+      "source": "/products/92",
+      "destination": "/products/suter-violeta-cuello-volcado-suave-y-cmodo-ideal-para-entretiempo-en-muy-buen-estado-a50cdd67-b853-47c3-b3d8-d3916cf95457",
+      "permanent": true
+    },
+    {
+      "source": "/products/91",
+      "destination": "/products/camisa-mickey-3a911bd2-34d8-4b41-9241-89951d5cb9b3",
+      "permanent": true
+    },
+    {
+      "source": "/products/90",
+      "destination": "/products/camisa-zara-d7ad82c5-90ab-4ba5-822e-8d53fa9d1f0f",
+      "permanent": true
+    },
+    {
+      "source": "/products/89",
+      "destination": "/products/camisa-prototype-edcaae87-6e83-4ee9-ab9f-a768c5a9b958",
+      "permanent": true
+    },
+    {
+      "source": "/products/88",
+      "destination": "/products/camisa-kevingston-71cb4be3-b88b-4408-858d-b650825fad24",
+      "permanent": true
+    },
+    {
+      "source": "/products/87",
+      "destination": "/products/camisa-zara-64861c4a-aa5d-48e5-a809-c585ea8f9f44",
+      "permanent": true
+    },
+    {
+      "source": "/products/86",
+      "destination": "/products/camisa-zara-1a8baec4-99df-4172-a7eb-d9214fd3393a",
+      "permanent": true
+    },
+    {
+      "source": "/products/84",
+      "destination": "/products/campera-zara-db6c3ca7-9a5d-4336-9eff-d59ac841be97",
+      "permanent": true
+    },
+    {
+      "source": "/products/83",
+      "destination": "/products/blusa-estampa-naranja-y-blanco-0d609751-9793-4399-b7d8-b8402e29f8bd",
+      "permanent": true
+    },
+    {
+      "source": "/products/82",
+      "destination": "/products/short-deportivo-secado-rpido-580395c9-bba1-42e1-ab82-114dd51827d1",
+      "permanent": true
+    },
+    {
+      "source": "/products/81",
+      "destination": "/products/chomba-gris-melange-marca-el-burgus-33c42dc3-5330-4017-b023-d6c5984db254",
+      "permanent": true
+    },
+    {
+      "source": "/products/80",
+      "destination": "/products/bikini-con-bolsita-marca-sweet-victorian-6aa098d7-fbc5-4a51-b5c1-3db5045adf57",
+      "permanent": true
+    },
+    {
+      "source": "/products/79",
+      "destination": "/products/short-de-jean-de-pantaln-b9e470ec-aec1-4a0a-866c-4d5f34bf87a8",
+      "permanent": true
+    },
+    {
+      "source": "/products/78",
+      "destination": "/products/vestido-comunin-de-nios-770b3dcb-63bb-4db8-8853-572ceea7aa5c",
+      "permanent": true
+    },
+    {
+      "source": "/products/77",
+      "destination": "/products/vestido-de-fiesta-color-naranja-talle-con-forro-dentro-y-bolsillos-escondidos-92a110fa-d9b8-4599-a510-cd048da9f5a6",
+      "permanent": true
+    },
+    {
+      "source": "/products/76",
+      "destination": "/products/vestido-negro-de-algodn-se-elastiza-y-ajusta-al-cuerpo-fdcce036-ef9e-4dfd-b391-af3c1f22743f",
+      "permanent": true
+    },
+    {
+      "source": "/products/75",
+      "destination": "/products/camisa-la-martina-slim-fit-e80182a8-d13c-4944-a050-873fe5bb9f7d",
+      "permanent": true
+    },
+    {
+      "source": "/products/74",
+      "destination": "/products/remera-hombre-marca-habano-black-2652aceb-67c3-45e6-848b-04da4e126cec",
+      "permanent": true
+    },
+    {
+      "source": "/products/73",
+      "destination": "/products/zapatillas-nike-b44c0fcc-8126-4dc8-9cc1-7f8e6eac0f61",
+      "permanent": true
+    },
+    {
+      "source": "/products/72",
+      "destination": "/products/mochila-5efe3027-4de5-4ec5-a66b-f0df0f65a28f",
+      "permanent": true
+    },
+    {
+      "source": "/products/71",
+      "destination": "/products/chomba-lacoste-original-7f5f0017-162e-43e9-80ec-0bc946a36046",
+      "permanent": true
+    },
+    {
+      "source": "/products/70",
+      "destination": "/products/camisa-hombre-impecable-estado-y-calidad-7a3fad2b-573d-4c08-b02d-df46a34c9f82",
+      "permanent": true
+    },
+    {
+      "source": "/products/69",
+      "destination": "/products/campera-militar-vintage-cuero-original-8cd7f0cc-c71b-4ce3-bfdd-c66984bdef2c",
+      "permanent": true
+    },
+    {
+      "source": "/products/66",
+      "destination": "/products/jeans-marca-47-street-corte-wide-leg-073c25a9-751a-4c4e-9f8e-8e7a7b96a822",
+      "permanent": true
+    },
+    {
+      "source": "/products/65",
+      "destination": "/products/saco-de-pao-con-botones-de-besos-y-bolados-en-hombros-y-mangas-marca-millie-a973ac92-255d-4623-9440-2792cf7485fe",
+      "permanent": true
+    },
+    {
+      "source": "/products/64",
+      "destination": "/products/vestido-de-algodn-marca-mara-cher-829b64f3-5434-4a5a-b506-e5d4cfb5c7ad",
+      "permanent": true
+    },
+    {
+      "source": "/products/63",
+      "destination": "/products/campera-47-street-b609aaec-40d7-4c84-a27b-5c62ce0419e1",
+      "permanent": true
+    },
+    {
+      "source": "/products/62",
+      "destination": "/products/pantaln-de-cuero-en-la-parte-delantera-y-tela-elastizada-en-la-parte-de-atrs-68498149-c921-46e9-b48c-d6118abd71a4",
+      "permanent": true
+    },
+    {
+      "source": "/products/61",
+      "destination": "/products/billetera-de-cuero-cloetas-ca808b2f-4da8-4472-a1c0-44248b644f28",
+      "permanent": true
+    },
+    {
+      "source": "/products/60",
+      "destination": "/products/billetera-de-cuero-cloetas-5aacea71-92e1-4a05-b9a7-8c4d2df83122",
+      "permanent": true
+    },
+    {
+      "source": "/products/59",
+      "destination": "/products/trench-de-gabardina-marca-ayres-ac3913ae-042a-4095-a436-705b2aa48372",
+      "permanent": true
+    },
+    {
+      "source": "/products/58",
+      "destination": "/products/pantaln-zara-de-vestir-c9bedf5c-d305-425f-8194-5161fc00378e",
+      "permanent": true
+    },
+    {
+      "source": "/products/57",
+      "destination": "/products/saco-de-lana-60-port-said-27114a77-3786-4571-846a-786578e31728",
+      "permanent": true
+    },
+    {
+      "source": "/products/56",
+      "destination": "/products/saco-de-pao-con-capucha-desmontable-marca-blaque-3afefb21-457d-41e8-8b4b-1d4f2bd7eda3",
+      "permanent": true
+    },
+    {
+      "source": "/products/53",
+      "destination": "/products/jean-negro-gastado-marca-las-pepas-db87fcd3-edc8-48c8-82b2-86bdb6f3e18a",
+      "permanent": true
+    },
+    {
+      "source": "/products/51",
+      "destination": "/products/vestido-corto-negro-con-lazo-frontal-es-todo-nuevo-con-etiqueta-marca-las-pepas-a927830d-8bab-4286-aab1-3840eac46175",
+      "permanent": true
+    },
+    {
+      "source": "/products/50",
+      "destination": "/products/tapado-smil-corderito-nuevo-sin-etiqueta-486227cc-b440-4783-86c0-1639ca5cefc9",
+      "permanent": true
+    },
+    {
+      "source": "/products/49",
+      "destination": "/products/campera-100-cuero-con-inertes-metlicos-marca-naima-95fe01cd-3c0b-4a20-98cb-a4ef2c6a2692",
+      "permanent": true
+    },
+    {
+      "source": "/products/48",
+      "destination": "/products/saco-de-cuero-100-marca-mng-c5256f2d-f1e2-4d05-8e95-a9bf0deae185",
+      "permanent": true
+    },
+    {
+      "source": "/products/44",
+      "destination": "/products/vestido-de-tela-smil-gamuza-zara-8e83b0af-b236-4b1b-84d5-0431c9c88275",
+      "permanent": true
+    },
+    {
+      "source": "/products/43",
+      "destination": "/products/trench-azul-marino-kevingston-91a27283-c924-4adc-b894-b058b60cb9a6",
+      "permanent": true
+    },
+    {
+      "source": "/products/42",
+      "destination": "/products/suter-i47-f787a99f-7c05-4a76-966a-059bb76ac162",
+      "permanent": true
+    },
+    {
+      "source": "/products/41",
+      "destination": "/products/trench-de-gabardina-zara-42df16e3-8cad-468f-9377-a72b6768b359",
+      "permanent": true
+    },
+    {
+      "source": "/products/40",
+      "destination": "/products/bucaneras-jazmin-chebar-de-gamuza-con-cierre-interno-forradas-en-cuero-e27d0f52-b55a-4b7b-8e2b-9088fa344d74",
+      "permanent": true
+    },
+    {
+      "source": "/products/39",
+      "destination": "/products/botas-de-cuero-mara-cher-poco-uso-1e8729ff-de2f-4db9-8855-c2b99c0f73d4",
+      "permanent": true
+    },
+    {
+      "source": "/products/38",
+      "destination": "/products/bolso-de-cuero-blaque-35-por-35-cm-1bf70a0a-6f8a-4e73-b9a9-35ef01981aea",
+      "permanent": true
+    },
+    {
+      "source": "/products/37",
+      "destination": "/products/cartera-de-cuero-y-tachas-marca-ayres-correa-corta-y-larga-d76e23ef-dfd2-42cb-ab6e-9127cee45f89",
+      "permanent": true
+    },
+    {
+      "source": "/products/36",
+      "destination": "/products/zapas-de-cuero-tipo-botitas-pepe-jeans-d4c4293b-fd73-4a9c-95ba-c7a0bb8d49a4",
+      "permanent": true
+    },
+    {
+      "source": "/products/35",
+      "destination": "/products/botas-de-cuero-marca-ayres-70931435-f43b-41e8-a95d-152102401b89",
+      "permanent": true
+    },
+    {
+      "source": "/products/34",
+      "destination": "/products/zapatos-de-cuero-tipo-nuticos-marca-natacha-ee8c9727-8013-412e-b0a5-1adcf355dc22",
+      "permanent": true
+    },
+    {
+      "source": "/products/33",
+      "destination": "/products/zapatos-de-cuero-nuevos-a8ed3545-6652-4d3e-a6ab-927764cfaca6",
+      "permanent": true
+    },
+    {
+      "source": "/products/32",
+      "destination": "/products/sandalias-de-gamuza-con-tachas-akiabara-4781694f-b7ee-467f-b817-4a204513b9e5",
+      "permanent": true
+    },
+    {
+      "source": "/products/31",
+      "destination": "/products/zapas-nike-4ab92095-512b-4256-87e0-13761a040085",
+      "permanent": true
+    },
+    {
+      "source": "/products/30",
+      "destination": "/products/botitas-de-cuero-con-piel-en-el-interior-1d7e88d3-5bd1-4621-b3e0-1f309d29cacc",
+      "permanent": true
+    },
+    {
+      "source": "/products/29",
+      "destination": "/products/zapatos-de-cuero-marca-rapsodia-ad70b4bd-c4a2-4800-a398-65ddf80bff26",
+      "permanent": true
+    },
+    {
+      "source": "/products/28",
+      "destination": "/products/campera-zara-de-media-estacin-azul-talle-m-669ad2cc-65b6-40e2-8e54-9fadb3ba80c3",
+      "permanent": true
+    },
+    {
+      "source": "/products/27",
+      "destination": "/products/campera-tommy-hilfiger-de-media-estacin-negra-talle-m-f573de90-002f-44b6-be0b-16de6103e1ad",
+      "permanent": true
+    },
+    {
+      "source": "/products/26",
+      "destination": "/products/buzo-billabong-con-capucha-12-aos-usado-39fe9e0d-967f-4625-add8-8ce8263071d6",
+      "permanent": true
+    },
+    {
+      "source": "/products/25",
+      "destination": "/products/short-como-quieres-gris-topo-talle-34-usado-1834ed9f-19ba-4a1e-9d8e-27c71154be5e",
+      "permanent": true
+    },
+    {
+      "source": "/products/24",
+      "destination": "/products/remera-como-quieres-nueva-con-etiqueta-talle-34-e7892029-5d73-4d96-8601-f833f3de8520",
+      "permanent": true
+    },
+    {
+      "source": "/products/20",
+      "destination": "/products/buzo-con-capucha-hoodie-billabong-nena-14-aos-usado-1455ffc4-aab1-4b77-a7fd-2c1116c2ec06",
+      "permanent": true
+    }
+  ]
+}
