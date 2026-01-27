@@ -49,9 +49,15 @@ export async function generateMetadata({
       : (process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'http://localhost:3000');
   const canonicalUrl = `${baseUrl}/products/${slug}`;
 
-  // Use our OG image proxy so WhatsApp/Facebook crawlers hit our domain instead of Supabase
-  // (avoids Supabase timeout; we stream the image from our API)
-  const ogImageUrl = `/api/og?slug=${encodeURIComponent(slug)}`;
+  // Get the first image URL directly from Supabase Storage
+  // These are publicly accessible and served via Cloudflare CDN
+  const firstImage =
+    product.Images && product.Images.length > 0 ? product.Images[0] : null;
+  const ogImageUrl = firstImage
+    ? typeof firstImage === 'string'
+      ? firstImage
+      : firstImage.url
+    : `${baseUrl}/icon.png`; // fallback to site icon
 
   return {
     title,
