@@ -1,6 +1,272 @@
 {
   "data": [
     {
+      "id": "473",
+      "slug": "vestido-blanco-talle-7-8-1fdbc505-d5e1-4784-929c-1379057555e5",
+      "SKU": "SKU-000473",
+      "Product Name": "Vestido blanco talle 7/8",
+      "Price": 17000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "white",
+      "Size": "7/8",
+      "description": "Vestido blanco talle 7/8 con detalles de encaje.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1fdbc505-d5e1-4784-929c-1379057555e5-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1fdbc505-d5e1-4784-929c-1379057555e5-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1fdbc505-d5e1-4784-929c-1379057555e5-3.jpg"
+      ]
+    },
+    {
+      "id": "471",
+      "slug": "saquito-polo-ralph-lauren-3625b9d9-b707-49b7-9dc0-687343e6907f",
+      "SKU": "SKU-000471",
+      "Product Name": "Saquito Polo Ralph Lauren",
+      "Price": 30000,
+      "category": "sweaters and knitwear",
+      "stock": 1,
+      "color": "white",
+      "Size": "6",
+      "description": "Saquito Polo Ralph Lauren talle 6, estilo clásico y cómodo.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3625b9d9-b707-49b7-9dc0-687343e6907f-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3625b9d9-b707-49b7-9dc0-687343e6907f-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3625b9d9-b707-49b7-9dc0-687343e6907f-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3625b9d9-b707-49b7-9dc0-687343e6907f-4.jpg"
+      ]
+    },
+    {
+      "id": "467",
+      "slug": "buzo-ovs-talle-8-9-azul-con-coraz-n-de-lentejuelas-d6f7e52d-4946-4edd-b6f6-77a55138c768",
+      "SKU": "SKU-000467",
+      "Product Name": "Buzo OVS talle 8/9 azul con corazón de lentejuelas",
+      "Price": 20000,
+      "category": "hoodies and sweatshirts",
+      "stock": 1,
+      "color": "navy",
+      "Size": "8/9",
+      "description": "Buzo OVS talle 8/9 en buen estado.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d6f7e52d-4946-4edd-b6f6-77a55138c768-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d6f7e52d-4946-4edd-b6f6-77a55138c768-2.jpg"
+      ]
+    },
+    {
+      "id": "465",
+      "slug": "sweater-ovs-talle-8-9-d61a2222-a919-4d42-bd16-71eb2490be8e",
+      "SKU": "SKU-000465",
+      "Product Name": "Sweater OVS talle 8/9",
+      "Price": 20000,
+      "category": "hoodies and sweatshirts",
+      "stock": 1,
+      "color": "navy",
+      "Size": "8/9",
+      "description": "Sweater OVS talle 8/9 en color navy con estampado brillante. Ideal para el estilo diario de los más chicos. ¡Comodidad y moda en uno!",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d61a2222-a919-4d42-bd16-71eb2490be8e-1.jpg"
+      ]
+    },
+    {
+      "id": "463",
+      "slug": "vestido-pepe-jeans-talle-4-f0c2ef3b-0cc2-4db0-a247-e36872b10e28",
+      "SKU": "SKU-000463",
+      "Product Name": "Vestido Pepe Jeans talle 4",
+      "Price": 40000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "white",
+      "Size": "4",
+      "description": "Vestido Pepe Jeans talle 4 en excelente estado.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f0c2ef3b-0cc2-4db0-a247-e36872b10e28-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f0c2ef3b-0cc2-4db0-a247-e36872b10e28-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f0c2ef3b-0cc2-4db0-a247-e36872b10e28-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f0c2ef3b-0cc2-4db0-a247-e36872b10e28-4.jpg"
+      ]
+    },
+    {
+      "id": "461",
+      "slug": "vestido-gap-talle-6-7-d7d4bb78-a354-4d6e-a7bc-871374550e08",
+      "SKU": "SKU-000461",
+      "Product Name": "Vestido Gap talle 6/7",
+      "Price": 25000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "white",
+      "Size": "6/7",
+      "description": "Vestido Gap para niñas, talle 6/7.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7d4bb78-a354-4d6e-a7bc-871374550e08-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7d4bb78-a354-4d6e-a7bc-871374550e08-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7d4bb78-a354-4d6e-a7bc-871374550e08-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7d4bb78-a354-4d6e-a7bc-871374550e08-4.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7d4bb78-a354-4d6e-a7bc-871374550e08-5.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7d4bb78-a354-4d6e-a7bc-871374550e08-6.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7d4bb78-a354-4d6e-a7bc-871374550e08-7.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7d4bb78-a354-4d6e-a7bc-871374550e08-8.jpg"
+      ]
+    },
+    {
+      "id": "459",
+      "slug": "campera-peugeot-a7fef33a-1c26-4f60-bce5-219132233cd9",
+      "SKU": "SKU-000459",
+      "Product Name": "Campera Peugeot",
+      "Price": 20000,
+      "category": "jackets and coats",
+      "stock": 1,
+      "color": "navy",
+      "Size": null,
+      "description": "Campera Peugeot en color navy, ideal para días frescos.",
+      "gender": [],
+      "User ID": [
+        "23"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a7fef33a-1c26-4f60-bce5-219132233cd9-1.jpg"
+      ]
+    },
+    {
+      "id": "457",
+      "slug": "camiseta-argentina-adidas-m-2f297437-48ba-4f59-b19c-3280c55af256",
+      "SKU": "SKU-000457",
+      "Product Name": "Camiseta Argentina Adidas M",
+      "Price": 20000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "blue",
+      "Size": "M",
+      "description": "Camiseta Argentina Adidas, talle M.",
+      "gender": [],
+      "User ID": [
+        "23"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2f297437-48ba-4f59-b19c-3280c55af256-1.jpg"
+      ]
+    },
+    {
+      "id": "455",
+      "slug": "camiseta-boca-juniors-xxl-14df3b8e-2e1b-4b54-94ab-23497f9e59dd",
+      "SKU": "SKU-000455",
+      "Product Name": "Camiseta Boca Juniors XXL",
+      "Price": 30000,
+      "category": "activewear / sportswear",
+      "stock": 1,
+      "color": "yellow",
+      "Size": "XXL",
+      "description": "Camiseta de Boca Juniors en color amarillo, talla XXL.",
+      "gender": [],
+      "User ID": [
+        "23"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/14df3b8e-2e1b-4b54-94ab-23497f9e59dd-1.jpg"
+      ]
+    },
+    {
+      "id": "453",
+      "slug": "perfume-rabe-lataffa-eua-e5ab63fb-6216-4cda-a511-bd6fcfb00846",
+      "SKU": "SKU-000453",
+      "Product Name": "Perfume árabe Lataffa Eua",
+      "Price": 24000,
+      "category": "accessories (belts, hats, scarves)",
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "description": "Perfume árabe Lataffa Eua, nuevo sin etiqueta.",
+      "gender": [],
+      "User ID": [
+        "22"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e5ab63fb-6216-4cda-a511-bd6fcfb00846-1.jpg"
+      ]
+    },
+    {
+      "id": "451",
+      "slug": "zapatillas-converse-all-stars-edici-n-limitada-41b9e516-12b7-4063-8abc-222599416829",
+      "SKU": "SKU-000451",
+      "Product Name": "Zapatillas Converse All Stars edición limitada",
+      "Price": 45000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "blue",
+      "Size": "34/35",
+      "description": "Zapatillas Converse All Stars edición limitada, talle 34/35.",
+      "gender": [],
+      "User ID": [
+        "17"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/41b9e516-12b7-4063-8abc-222599416829-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/41b9e516-12b7-4063-8abc-222599416829-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/41b9e516-12b7-4063-8abc-222599416829-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/41b9e516-12b7-4063-8abc-222599416829-4.jpg"
+      ]
+    },
+    {
+      "id": "449",
+      "slug": "sandalias-de-plataforma-talle-39-f73e83d2-33e3-49e0-93c8-5c34039fc14c",
+      "SKU": "SKU-000449",
+      "Product Name": "Sandalias de plataforma talle 39",
+      "Price": 14000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "olive",
+      "Size": "39",
+      "description": "Sandalias de plataforma elegantes y cómodas, ideales para el verano.",
+      "gender": [],
+      "User ID": [
+        "4"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f73e83d2-33e3-49e0-93c8-5c34039fc14c-1.jpg"
+      ]
+    },
+    {
+      "id": "447",
+      "slug": "buzo-puma-original-3e7a536f-bd14-42cf-8126-88b6e1f0d66c",
+      "SKU": "SKU-000447",
+      "Product Name": "Buzo Puma original",
+      "Price": 14500,
+      "category": "hoodies and sweatshirts",
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Buzo Puma original en color negro y blanco, talle S.",
+      "gender": [],
+      "User ID": [
+        "21"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3e7a536f-bd14-42cf-8126-88b6e1f0d66c-1.jpg"
+      ]
+    },
+    {
       "id": "445",
       "slug": "vestido-de-flores-negro-fd384c8d-f118-45ee-9fbf-a2dcedd83369",
       "SKU": "SKU-000445",
@@ -86,7 +352,7 @@
       "slug": "crocs-originales-edici-n-limitada-con-glitter-talle-c12-a90e784e-d29c-469a-a913-9e5c82530f25",
       "SKU": "SKU-000437",
       "Product Name": "Crocs originales edición limitada con glitter talle C12",
-      "Price": 45000,
+      "Price": 25000,
       "category": "footwear (sneakers, boots, sandals)",
       "stock": 1,
       "color": "silver",
@@ -4414,7 +4680,7 @@
         "unisex"
       ],
       "User ID": [
-        "4"
+        "1"
       ],
       "Images": [
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/629a11bc-66ab-476a-8ad2-6e0860546210-1.jpeg",
@@ -18516,5 +18782,5 @@
       ]
     }
   ],
-  "timestamp": 1768320323344
+  "timestamp": 1769094314269
 }
