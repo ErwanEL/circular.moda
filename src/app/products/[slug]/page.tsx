@@ -41,7 +41,12 @@ export async function generateMetadata({
     productDescription ||
     `Descubre ${productName} en circular.moda. Moda circular y sostenible.`;
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://circular.moda';
+  // Get site URL dynamically (matches logic in layout.tsx)
+  // On preview deployments, use VERCEL_URL so OG images point to the preview URL
+  const baseUrl =
+    process.env.VERCEL_ENV !== 'production' && process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : (process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'http://localhost:3000');
   const canonicalUrl = `${baseUrl}/products/${slug}`;
 
   // Use our OG image proxy so WhatsApp/Facebook crawlers hit our domain instead of Supabase

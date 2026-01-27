@@ -20,7 +20,27 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://circular.moda';
+/**
+ * Get the site URL dynamically based on environment:
+ * - Production: Use NEXT_PUBLIC_SITE_URL or fallback to circular.moda
+ * - Preview/Dev on Vercel: Use VERCEL_URL for correct OG image URLs
+ * - Local dev: Use localhost
+ */
+function getSiteUrl(): string {
+  // On Vercel preview/dev deployments, use the deployment URL
+  // (so OG images point to the preview URL, not production)
+  if (process.env.VERCEL_ENV !== 'production' && process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  // Production: use configured URL (remove trailing slash if present)
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '');
+  }
+  // Fallback for local dev
+  return 'http://localhost:3000';
+}
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
