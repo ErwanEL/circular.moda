@@ -1,6 +1,8 @@
 import type { Product } from './types';
 import {
+  type ProductsPageCursor,
   getAllProductsFromSupabase,
+  getProductsPageFromSupabase,
   getProductBySlugFromSupabase,
 } from './supabase-products';
 
@@ -23,6 +25,22 @@ export async function getAllProducts(): Promise<Product[]> {
   cacheTimestamp = Date.now();
 
   return [...allProducts];
+}
+
+/** Page size and max for products list (keep in sync with API cap) */
+export const PRODUCTS_PAGE_SIZE = 20;
+export const PRODUCTS_PAGE_MAX = 50;
+
+/**
+ * Fetch a page of products (cursor-based). Use for infinite scroll.
+ * Returns { products, nextCursor }; nextCursor is null when no more pages.
+ */
+export async function getProductsPage(
+  limit: number,
+  cursor?: ProductsPageCursor
+): Promise<{ products: Product[]; nextCursor: ProductsPageCursor | null }> {
+  const safeLimit = Math.max(1, Math.min(limit, PRODUCTS_PAGE_MAX));
+  return getProductsPageFromSupabase(safeLimit, cursor);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {

@@ -112,6 +112,68 @@ function slugify(text: string): string {
     .replace(/(^-|-$)/g, '');
 }
 
+/** Cursor for pagination: (created_at, id) of the last item of the previous page */
+export type ProductsPageCursor = { created_at: string; id: string };
+
+/**
+ * Récupère une page de produits depuis Supabase (cursor-based pagination).
+ * Retourne { products, nextCursor }; nextCursor est non null s'il reste des pages.
+ */
+export async function getProductsPageFromSupabase(
+  limit: number,
+  cursor?: ProductsPageCursor
+): Promise<{ products: Product[]; nextCursor: ProductsPageCursor | null }> {
+  if (!isSupabaseConfigured()) {
+    return { products: [], nextCursor: null };
+  }
+
+  const pageSize = Math.max(1, Math.min(limit, 50));
+  const take = pageSize + 1; // fetch one extra to detect hasNext
+
+  try {
+    let query = supabase.from('products').select('*');
+
+    if (cursor) {
+      // Rows "before" cursor: created_at < cursor.created_at OR (created_at = cursor.created_at AND id < cursor.id)
+      query = query.or(
+        `created_at.lt.${cursor.created_at},and(created_at.eq.${cursor.created_at},id.lt.${cursor.id})`
+      );
+    }
+
+    const { data, error } = await query
+      .order('created_at', { ascending: false })
+      .order('id', { ascending: false })
+      .limit(take);
+
+    if (error) {
+      console.error('[Supabase] Error fetching products page:', error);
+      return { products: [], nextCursor: null };
+    }
+
+    if (!data || data.length === 0) {
+      return { products: [], nextCursor: null };
+    }
+
+    const hasMore = data.length > pageSize;
+    const rows = hasMore ? data.slice(0, pageSize) : data;
+    const products = rows.map(transformSupabaseToProduct);
+
+    let nextCursor: ProductsPageCursor | null = null;
+    if (hasMore && data[pageSize]) {
+      const last = data[pageSize] as { created_at: string; id: string };
+      nextCursor = {
+        created_at: String(last.created_at),
+        id: String(last.id),
+      };
+    }
+
+    return { products, nextCursor };
+  } catch (error) {
+    console.error('[Supabase] Failed to fetch products page:', error);
+    return { products: [], nextCursor: null };
+  }
+}
+
 /**
  * Récupère tous les produits depuis Supabase (nouveaux uniquement)
  * Retourne un tableau vide si Supabase n'est pas configuré
