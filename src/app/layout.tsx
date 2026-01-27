@@ -20,7 +20,10 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://circular.moda';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'Vende tu ropa usada en Buenos Aires fácil y rápido | circular.moda',
   description:
     'Vendé tu ropa usada fácil y rápido con circular.moda en Buenos Aires. Enviás fotos por WhatsApp y ganás dinero sin comisiones. Solo CABA y GBA.',

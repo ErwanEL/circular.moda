@@ -41,14 +41,12 @@ export async function generateMetadata({
     productDescription ||
     `Descubre ${productName} en circular.moda. Moda circular y sostenible.`;
 
-  // Get the first image if available
-  const firstImage =
-    product.Images && product.Images.length > 0 ? product.Images[0] : null;
-  const imageUrl = firstImage
-    ? typeof firstImage === 'string'
-      ? firstImage
-      : firstImage.url
-    : '/roommates-fashion-fun_simple_compose.png'; // fallback image
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://circular.moda';
+  const canonicalUrl = `${baseUrl}/products/${slug}`;
+
+  // Use our OG image proxy so WhatsApp/Facebook crawlers hit our domain instead of Supabase
+  // (avoids Supabase timeout; we stream the image from our API)
+  const ogImageUrl = `/api/og?slug=${encodeURIComponent(slug)}`;
 
   return {
     title,
@@ -56,21 +54,22 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
+      url: canonicalUrl,
+      type: 'website',
       images: [
         {
-          url: imageUrl,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: productName,
         },
       ],
-      type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [imageUrl],
+      images: [ogImageUrl],
     },
   };
 }

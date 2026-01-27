@@ -1,6 +1,117 @@
 {
   "data": [
     {
+      "id": "673",
+      "slug": "vestido-rosa-de-alta-costura-claudio-cosano-e427bdad-aa69-4f21-908d-a49c2232687b",
+      "SKU": "SKU-000673",
+      "Product Name": "Vestido rosa de alta costura Claudio Cosano",
+      "Price": 590000,
+      "category": "dresses",
+      "stock": 1,
+      "color": "pink",
+      "Size": null,
+      "description": "Vestido rosa de alta costura de Claudio Cosano.",
+      "gender": [],
+      "User ID": [
+        "49"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e427bdad-aa69-4f21-908d-a49c2232687b-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e427bdad-aa69-4f21-908d-a49c2232687b-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e427bdad-aa69-4f21-908d-a49c2232687b-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e427bdad-aa69-4f21-908d-a49c2232687b-4.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e427bdad-aa69-4f21-908d-a49c2232687b-5.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e427bdad-aa69-4f21-908d-a49c2232687b-6.jpg"
+      ]
+    },
+    {
+      "id": "671",
+      "slug": "zapatillas-le-coq-sportif-talle-41-37292289-73d2-4c61-b67c-9431ab01d0dc",
+      "SKU": "SKU-000671",
+      "Product Name": "Zapatillas Le Coq Sportif talle 41",
+      "Price": 40000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": "white",
+      "Size": "41",
+      "description": "Zapatillas Le Coq Sportif nuevas, sin uso, talle 41.",
+      "gender": [],
+      "User ID": [
+        "48"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/37292289-73d2-4c61-b67c-9431ab01d0dc-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/37292289-73d2-4c61-b67c-9431ab01d0dc-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/37292289-73d2-4c61-b67c-9431ab01d0dc-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/37292289-73d2-4c61-b67c-9431ab01d0dc-4.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/37292289-73d2-4c61-b67c-9431ab01d0dc-5.jpg"
+      ]
+    },
+    {
+      "id": "479",
+      "slug": "sandalias-gacel-talle-37-1976b9bc-06f3-4eb3-9e29-77bd8379a39e",
+      "SKU": "SKU-000479",
+      "Product Name": "Sandalias Gacel talle 37",
+      "Price": 15000,
+      "category": "footwear (sneakers, boots, sandals)",
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "description": "Sandalias Gacel talle 37, nuevas y sin uso.",
+      "gender": [],
+      "User ID": [
+        "24"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1976b9bc-06f3-4eb3-9e29-77bd8379a39e-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1976b9bc-06f3-4eb3-9e29-77bd8379a39e-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1976b9bc-06f3-4eb3-9e29-77bd8379a39e-3.jpg"
+      ]
+    },
+    {
+      "id": "477",
+      "slug": "pantal-n-3-4-elastizado-negro-aae9e02a-1ff3-4bcf-9aeb-565bcf4f476c",
+      "SKU": "SKU-000477",
+      "Product Name": "Pantalón 3/4 elastizado negro",
+      "Price": 10000,
+      "category": "trousers and chinos",
+      "stock": 1,
+      "color": "black",
+      "Size": "77cm de largo",
+      "description": "Pantalón 3/4 elastizado casi nuevo.",
+      "gender": [],
+      "User ID": [
+        "24"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aae9e02a-1ff3-4bcf-9aeb-565bcf4f476c-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aae9e02a-1ff3-4bcf-9aeb-565bcf4f476c-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aae9e02a-1ff3-4bcf-9aeb-565bcf4f476c-3.jpg"
+      ]
+    },
+    {
+      "id": "475",
+      "slug": "pantal-n-r-gido-elle-curves-03795b39-9d04-462a-a173-644f1ee40d16",
+      "SKU": "SKU-000475",
+      "Product Name": "Pantalón rígido ELLE Curves",
+      "Price": 30000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "black",
+      "Size": "44",
+      "description": "Pantalón rígido ELLE Curves talle 44, nuevo y sin uso.",
+      "gender": [],
+      "User ID": [
+        "24"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/03795b39-9d04-462a-a173-644f1ee40d16-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/03795b39-9d04-462a-a173-644f1ee40d16-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/03795b39-9d04-462a-a173-644f1ee40d16-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/03795b39-9d04-462a-a173-644f1ee40d16-4.jpg"
+      ]
+    },
+    {
       "id": "473",
       "slug": "vestido-blanco-talle-7-8-1fdbc505-d5e1-4784-929c-1379057555e5",
       "SKU": "SKU-000473",
@@ -4692,6 +4803,3618 @@
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/629a11bc-66ab-476a-8ad2-6e0860546210-7.jpeg",
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/629a11bc-66ab-476a-8ad2-6e0860546210-8.jpeg",
         "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/629a11bc-66ab-476a-8ad2-6e0860546210-9.jpeg"
+      ]
+    },
+    {
+      "id": "528",
+      "slug": "short-de-jean-de-pantal-n-b9e470ec-aec1-4a0a-866c-4d5f34bf87a8",
+      "SKU": "SKU-000528",
+      "Product Name": "Short de jean de pantalón",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "44/46",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b9e470ec-aec1-4a0a-866c-4d5f34bf87a8-1.jpeg"
+      ]
+    },
+    {
+      "id": "530",
+      "slug": "chomba-gris-melange-marca-el-burgu-s-33c42dc3-5330-4017-b023-d6c5984db254",
+      "SKU": "SKU-000530",
+      "Product Name": "Chomba gris Melange Marca El Burgués",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/33c42dc3-5330-4017-b023-d6c5984db254-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/33c42dc3-5330-4017-b023-d6c5984db254-2.jpeg"
+      ]
+    },
+    {
+      "id": "532",
+      "slug": "blusa-estampa-naranja-y-blanco-0d609751-9793-4399-b7d8-b8402e29f8bd",
+      "SKU": "SKU-000532",
+      "Product Name": "Blusa estampa naranja y blanco",
+      "Price": 10000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L/XL",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0d609751-9793-4399-b7d8-b8402e29f8bd-1.jpeg"
+      ]
+    },
+    {
+      "id": "534",
+      "slug": "camisa-zara-d7ad82c5-90ab-4ba5-822e-8d53fa9d1f0f",
+      "SKU": "SKU-000534",
+      "Product Name": "Camisa Zara",
+      "Price": 19500,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "gender": [],
+      "User ID": [
+        "33"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d7ad82c5-90ab-4ba5-822e-8d53fa9d1f0f-1.jpeg"
+      ]
+    },
+    {
+      "id": "529",
+      "slug": "bikini-con-bolsita-marca-sweet-victorian-6aa098d7-fbc5-4a51-b5c1-3db5045adf57",
+      "SKU": "SKU-000529",
+      "Product Name": "Bikini con bolsita marca Sweet Victorian",
+      "Price": 40000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "95/100 de corpiño y bombacha talle 4",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6aa098d7-fbc5-4a51-b5c1-3db5045adf57-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6aa098d7-fbc5-4a51-b5c1-3db5045adf57-2.jpeg"
+      ]
+    },
+    {
+      "id": "531",
+      "slug": "short-deportivo-secado-r-pido-580395c9-bba1-42e1-ab82-114dd51827d1",
+      "SKU": "SKU-000531",
+      "Product Name": "Short deportivo Secado rápido",
+      "Price": 15000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/580395c9-bba1-42e1-ab82-114dd51827d1-1.jpeg"
+      ]
+    },
+    {
+      "id": "533",
+      "slug": "campera-zara-db6c3ca7-9a5d-4336-9eff-d59ac841be97",
+      "SKU": "SKU-000533",
+      "Product Name": "Campera Zara",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "33"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/db6c3ca7-9a5d-4336-9eff-d59ac841be97-1.jpg"
+      ]
+    },
+    {
+      "id": "536",
+      "slug": "camisa-kevingston-71cb4be3-b88b-4408-858d-b650825fad24",
+      "SKU": "SKU-000536",
+      "Product Name": "Camisa Kevingston",
+      "Price": 9500,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "33"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/71cb4be3-b88b-4408-858d-b650825fad24-1.jpeg"
+      ]
+    },
+    {
+      "id": "538",
+      "slug": "camisa-zara-64861c4a-aa5d-48e5-a809-c585ea8f9f44",
+      "SKU": "SKU-000538",
+      "Product Name": "Camisa Zara",
+      "Price": 9500,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "33"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/64861c4a-aa5d-48e5-a809-c585ea8f9f44-1.jpeg"
+      ]
+    },
+    {
+      "id": "540",
+      "slug": "su-ter-violeta-cuello-volcado-suave-y-c-modo-ideal-para-entretiempo-en-muy-buen-estado-a50cdd67-b853-47c3-b3d8-d3916cf95457",
+      "SKU": "SKU-000540",
+      "Product Name": "Suéter violeta cuello volcado, suave y cómodo. Ideal para entretiempo.  En muy buen estado.",
+      "Price": 5000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle M/L. Hombros 41cm, Largo 63cm, Mangas 58cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a50cdd67-b853-47c3-b3d8-d3916cf95457-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a50cdd67-b853-47c3-b3d8-d3916cf95457-2.jpeg"
+      ]
+    },
+    {
+      "id": "542",
+      "slug": "campera-gris-rompeviento-en-muy-buen-estado-f3ff7794-9860-49e5-8d18-a13f72c73b30",
+      "SKU": "SKU-000542",
+      "Product Name": "Campera gris rompeviento. En muy buen estado.",
+      "Price": 7000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S - Hombros 36cm, Largo 54cm, Mangas 62cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f3ff7794-9860-49e5-8d18-a13f72c73b30-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f3ff7794-9860-49e5-8d18-a13f72c73b30-2.jpeg"
+      ]
+    },
+    {
+      "id": "544",
+      "slug": "body-magenta-ideal-media-estaci-n-en-muy-buen-estado-2b8af4ba-30d2-4842-9cbd-4ccc26f7cd02",
+      "SKU": "SKU-000544",
+      "Product Name": "👚Body magenta. Ideal media estación. En muy buen estado.",
+      "Price": 6000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S/M - Hombros 31cm, Largo 67cm, Mangas 57cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2b8af4ba-30d2-4842-9cbd-4ccc26f7cd02-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2b8af4ba-30d2-4842-9cbd-4ccc26f7cd02-2.jpeg"
+      ]
+    },
+    {
+      "id": "546",
+      "slug": "hoodie-mostaza-con-bolsillo-canguro-y-estampa-en-la-espalda-de-frisa-9ba63bc3-42fd-4804-a20b-7c8e135475c6",
+      "SKU": "SKU-000546",
+      "Product Name": "Hoodie mostaza con bolsillo canguro y estampa en la espalda de frisa.",
+      "Price": 10000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M. Con detalle. Hombros 52cm, Largo 59cm, Mangas 58cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9ba63bc3-42fd-4804-a20b-7c8e135475c6-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9ba63bc3-42fd-4804-a20b-7c8e135475c6-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9ba63bc3-42fd-4804-a20b-7c8e135475c6-3.jpeg"
+      ]
+    },
+    {
+      "id": "548",
+      "slug": "jogger-roxy-en-muy-buen-estado-48af3efe-11a3-450c-9db3-76541d0ac366",
+      "SKU": "SKU-000548",
+      "Product Name": "Jogger Roxy - En muy buen estado.",
+      "Price": 12000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S - Cintura 32cm, Largo 96cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/48af3efe-11a3-450c-9db3-76541d0ac366-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/48af3efe-11a3-450c-9db3-76541d0ac366-2.jpeg"
+      ]
+    },
+    {
+      "id": "550",
+      "slug": "mini-de-jean-elastizada-en-muy-buen-estado-98c8e718-658a-4db9-be29-0d8103605ddf",
+      "SKU": "SKU-000550",
+      "Product Name": "👖Mini de jean elastizada - En muy buen estado.",
+      "Price": 6000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "38 - Cintura 33cm, Largo 40cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/98c8e718-658a-4db9-be29-0d8103605ddf-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/98c8e718-658a-4db9-be29-0d8103605ddf-2.jpeg"
+      ]
+    },
+    {
+      "id": "552",
+      "slug": "vestido-con-encaje-de-47-street-842b9bb9-baec-4ed6-b618-e358ed84c17b",
+      "SKU": "SKU-000552",
+      "Product Name": "Vestido con encaje de 47 street",
+      "Price": 7000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "35"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/842b9bb9-baec-4ed6-b618-e358ed84c17b-1.jpeg"
+      ]
+    },
+    {
+      "id": "554",
+      "slug": "campera-puma-muy-buen-estado-general-solo-unas-maquinas-del-gato-que-se-ven-en-la-foto-11496846-2e74-4d2c-95bd-1a61c4244e27",
+      "SKU": "SKU-000554",
+      "Product Name": "Campera Puma muy buen estado general,  solo unas maquinas del gato que se ven en la foto",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/11496846-2e74-4d2c-95bd-1a61c4244e27-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/11496846-2e74-4d2c-95bd-1a61c4244e27-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/11496846-2e74-4d2c-95bd-1a61c4244e27-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/11496846-2e74-4d2c-95bd-1a61c4244e27-4.jpeg"
+      ]
+    },
+    {
+      "id": "556",
+      "slug": "pollera-corta-de-denim-100-algodon-de-la-marca-system-basic-aa3a002d-b75f-4b7c-bbdc-83a6ac68d296",
+      "SKU": "SKU-000556",
+      "Product Name": "Pollera corta de denim, 100 algodon de la marca System Basic",
+      "Price": 8000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aa3a002d-b75f-4b7c-bbdc-83a6ac68d296-1.jpeg"
+      ]
+    },
+    {
+      "id": "558",
+      "slug": "blusa-portsaid-092f7755-1825-425d-b5a4-bfe8aa339e3e",
+      "SKU": "SKU-000558",
+      "Product Name": "Blusa Portsaid",
+      "Price": 15000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/092f7755-1825-425d-b5a4-bfe8aa339e3e-1.png"
+      ]
+    },
+    {
+      "id": "560",
+      "slug": "vestido-de-la-marca-ver-apasionadas-100-algod-n-estado-impecable-super-fresco-b2c121dc-e2ce-4da2-aa7b-baa4fa0c14aa",
+      "SKU": "SKU-000560",
+      "Product Name": "Vestido de la marca Ver apasionadas. 100 algodón, estado impecable. Super fresco",
+      "Price": 8000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b2c121dc-e2ce-4da2-aa7b-baa4fa0c14aa-1.png"
+      ]
+    },
+    {
+      "id": "562",
+      "slug": "camisa-extralarge-de-lino-de-la-marca-mirta-armesto-puede-funcionar-como-vestido-camisero-tiene-bolsillos-laterales-un-uso-878faedc-588d-4b1f-b11c-92f6e56c5e37",
+      "SKU": "SKU-000562",
+      "Product Name": "Camisa extralarge de lino de la marca Mirta Armesto, puede funcionar como vestido camisero, tiene bolsillos laterales. Un uso",
+      "Price": 60000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/878faedc-588d-4b1f-b11c-92f6e56c5e37-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/878faedc-588d-4b1f-b11c-92f6e56c5e37-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/878faedc-588d-4b1f-b11c-92f6e56c5e37-3.jpeg"
+      ]
+    },
+    {
+      "id": "564",
+      "slug": "sandalias-paruolo-cuero-vacuno-altura-de-taco-5-5-un-uso-10a89d68-a994-473a-86a1-1cb93e903d59",
+      "SKU": "SKU-000564",
+      "Product Name": "Sandalias Paruolo, cuero vacuno. Altura de taco 5.5. Un uso.",
+      "Price": 65000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "39",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/10a89d68-a994-473a-86a1-1cb93e903d59-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/10a89d68-a994-473a-86a1-1cb93e903d59-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/10a89d68-a994-473a-86a1-1cb93e903d59-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/10a89d68-a994-473a-86a1-1cb93e903d59-4.jpeg"
+      ]
+    },
+    {
+      "id": "566",
+      "slug": "blusa-de-algod-n-estancias-chiripa-974bb5e4-d6cc-482f-84d5-5821b9dba6fc",
+      "SKU": "SKU-000566",
+      "Product Name": "Blusa de algodón Estancias Chiripa",
+      "Price": 10000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/974bb5e4-d6cc-482f-84d5-5821b9dba6fc-1.png"
+      ]
+    },
+    {
+      "id": "568",
+      "slug": "remera-mirta-armesto-a311e8bd-1fa5-49ad-9118-e5fc3301e473",
+      "SKU": "SKU-000568",
+      "Product Name": "Remera Mirta Armesto",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "6",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a311e8bd-1fa5-49ad-9118-e5fc3301e473-1.png"
+      ]
+    },
+    {
+      "id": "570",
+      "slug": "bikini-rapsodia-19044b0e-37aa-4b9e-aea6-cf3d04fae704",
+      "SKU": "SKU-000570",
+      "Product Name": "Bikini Rapsodia",
+      "Price": 60000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/19044b0e-37aa-4b9e-aea6-cf3d04fae704-1.png"
+      ]
+    },
+    {
+      "id": "572",
+      "slug": "camisa-de-broderie-algodon-de-la-marca-sweet-4327243a-c2b6-4805-907c-781d193d5130",
+      "SKU": "SKU-000572",
+      "Product Name": "Camisa de broderie algodon de la marca Sweet",
+      "Price": 8000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4327243a-c2b6-4805-907c-781d193d5130-1.png"
+      ]
+    },
+    {
+      "id": "537",
+      "slug": "camisa-prototype-edcaae87-6e83-4ee9-ab9f-a768c5a9b958",
+      "SKU": "SKU-000537",
+      "Product Name": "Camisa prototype",
+      "Price": 8500,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "33"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/edcaae87-6e83-4ee9-ab9f-a768c5a9b958-1.jpeg"
+      ]
+    },
+    {
+      "id": "539",
+      "slug": "camisa-mickey-3a911bd2-34d8-4b41-9241-89951d5cb9b3",
+      "SKU": "SKU-000539",
+      "Product Name": "Camisa Mickey",
+      "Price": 9500,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "40",
+      "gender": [],
+      "User ID": [
+        "33"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3a911bd2-34d8-4b41-9241-89951d5cb9b3-1.jpeg"
+      ]
+    },
+    {
+      "id": "541",
+      "slug": "saquito-abierto-de-lanilla-bord-en-muy-buen-estado-17ee6393-681f-417f-8a04-3335cb382eb6",
+      "SKU": "SKU-000541",
+      "Product Name": "Saquito abierto de lanilla bordó. En muy buen estado.",
+      "Price": 7000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M/L - Hombros 41cm, Largo 65cm, Mangas 55cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/17ee6393-681f-417f-8a04-3335cb382eb6-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/17ee6393-681f-417f-8a04-3335cb382eb6-2.jpeg"
+      ]
+    },
+    {
+      "id": "543",
+      "slug": "poulover-tricolor-tejido-de-lana-calentito-18dca4c9-a4fa-4dc1-991c-fa7b08848c5f",
+      "SKU": "SKU-000543",
+      "Product Name": "👚Poulover tricolor tejido de lana calentito",
+      "Price": 6000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L - Hombros 51cm, Largo 78cm, Mangas 52cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/18dca4c9-a4fa-4dc1-991c-fa7b08848c5f-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/18dca4c9-a4fa-4dc1-991c-fa7b08848c5f-2.jpeg"
+      ]
+    },
+    {
+      "id": "545",
+      "slug": "remera-corset-con-jabot-de-tul-en-muy-buen-estado-ebdfdb76-4a69-42f8-9097-aafeaba049f1",
+      "SKU": "SKU-000545",
+      "Product Name": "Remera corset con jabot de tul. En muy buen estado.",
+      "Price": 8000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M - Hombros 36cm, Largo 52cm, Mangas 59cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ebdfdb76-4a69-42f8-9097-aafeaba049f1-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ebdfdb76-4a69-42f8-9097-aafeaba049f1-2.jpeg"
+      ]
+    },
+    {
+      "id": "547",
+      "slug": "saco-negro-forever-21-83c82aa2-1cd8-4325-90f9-a2c95c676b60",
+      "SKU": "SKU-000547",
+      "Product Name": "Saco negro Forever 21",
+      "Price": 12000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M - Le falta el cinto y el forro está descosido en algunas partes.",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83c82aa2-1cd8-4325-90f9-a2c95c676b60-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/83c82aa2-1cd8-4325-90f9-a2c95c676b60-2.jpeg"
+      ]
+    },
+    {
+      "id": "549",
+      "slug": "calza-t-rmica-rosa-viejo-en-muy-buen-estado-b5201682-bb7d-4f11-bba5-f53cc1e58a5a",
+      "SKU": "SKU-000549",
+      "Product Name": "Calza térmica rosa viejo - En muy buen estado.",
+      "Price": 8000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S - Cintura 31cm, Largo 87cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b5201682-bb7d-4f11-bba5-f53cc1e58a5a-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b5201682-bb7d-4f11-bba5-f53cc1e58a5a-2.jpeg"
+      ]
+    },
+    {
+      "id": "551",
+      "slug": "gorra-bord-bordada-con-abrojo-para-regular-68350591-96ac-41dc-b266-17910884596c",
+      "SKU": "SKU-000551",
+      "Product Name": "🧢 Gorra bordó bordada con abrojo para regular",
+      "Price": 3000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Diámetro 18cm",
+      "gender": [],
+      "User ID": [
+        "34"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/68350591-96ac-41dc-b266-17910884596c-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/68350591-96ac-41dc-b266-17910884596c-2.jpeg"
+      ]
+    },
+    {
+      "id": "553",
+      "slug": "sweater-rapsodia-como-nuevo-50-acr-lico-25-mohair-25-poliamida-0badc205-673b-4ae5-9055-b65ca81102a2",
+      "SKU": "SKU-000553",
+      "Product Name": "Sweater Rapsodia, como nuevo. 50 acrílico, 25 mohair, 25 poliamida",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0badc205-673b-4ae5-9055-b65ca81102a2-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0badc205-673b-4ae5-9055-b65ca81102a2-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0badc205-673b-4ae5-9055-b65ca81102a2-3.jpeg"
+      ]
+    },
+    {
+      "id": "555",
+      "slug": "traje-de-ba-o-maria-cher-impecable-e37dca01-a431-45dd-b154-727f7649c6b3",
+      "SKU": "SKU-000555",
+      "Product Name": "Traje de baño Maria Cher, impecable.",
+      "Price": 50000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e37dca01-a431-45dd-b154-727f7649c6b3-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e37dca01-a431-45dd-b154-727f7649c6b3-2.jpeg"
+      ]
+    },
+    {
+      "id": "557",
+      "slug": "blazer-importado-con-un-uso-82a487ea-63b3-47f2-b841-a184b8c390da",
+      "SKU": "SKU-000557",
+      "Product Name": "Blazer importado con un uso",
+      "Price": 40000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/82a487ea-63b3-47f2-b841-a184b8c390da-1.png"
+      ]
+    },
+    {
+      "id": "559",
+      "slug": "campera-de-cuero-ovino-de-la-marca-boken-sin-uso-b3056daa-34ab-45ff-9057-5deeb7bb1454",
+      "SKU": "SKU-000559",
+      "Product Name": "Campera de cuero ovino de la marca Boken. Sin uso",
+      "Price": 560000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b3056daa-34ab-45ff-9057-5deeb7bb1454-1.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b3056daa-34ab-45ff-9057-5deeb7bb1454-2.png"
+      ]
+    },
+    {
+      "id": "561",
+      "slug": "campera-de-denin-100-algodon-impecable-4f1f4e17-df3c-407f-916b-26271cbf5598",
+      "SKU": "SKU-000561",
+      "Product Name": "Campera de denin, 100 algodon, impecable",
+      "Price": 12000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S/M",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4f1f4e17-df3c-407f-916b-26271cbf5598-1.png"
+      ]
+    },
+    {
+      "id": "563",
+      "slug": "sandalias-paruolo-un-uso-cuero-ee2af6f8-a2e9-48e5-b2a3-d385f013eac0",
+      "SKU": "SKU-000563",
+      "Product Name": "Sandalias Paruolo, un uso. Cuero",
+      "Price": 65000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "39",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ee2af6f8-a2e9-48e5-b2a3-d385f013eac0-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ee2af6f8-a2e9-48e5-b2a3-d385f013eac0-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ee2af6f8-a2e9-48e5-b2a3-d385f013eac0-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ee2af6f8-a2e9-48e5-b2a3-d385f013eac0-4.jpeg"
+      ]
+    },
+    {
+      "id": "565",
+      "slug": "camisa-mirta-armesto-muy-fresca-suelta-y-canchera-9942efaf-0f2b-4e5b-8ca1-b2df8e9a7e94",
+      "SKU": "SKU-000565",
+      "Product Name": "Camisa Mirta Armesto, muy fresca,  suelta y canchera.",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9942efaf-0f2b-4e5b-8ca1-b2df8e9a7e94-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9942efaf-0f2b-4e5b-8ca1-b2df8e9a7e94-2.jpeg"
+      ]
+    },
+    {
+      "id": "567",
+      "slug": "kimono-4c2bf8ea-7e10-4497-aed8-1c98708985ea",
+      "SKU": "SKU-000567",
+      "Product Name": "Kimono",
+      "Price": 6000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4c2bf8ea-7e10-4497-aed8-1c98708985ea-1.png"
+      ]
+    },
+    {
+      "id": "569",
+      "slug": "remera-tipo-sweater-tela-abrigada-para-media-estaci-n-portsaid-a2ec3b58-84e3-4f81-963e-a84f0dd2327d",
+      "SKU": "SKU-000569",
+      "Product Name": "Remera tipo sweater (tela abrigada para media estación) Portsaid",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a2ec3b58-84e3-4f81-963e-a84f0dd2327d-1.png"
+      ]
+    },
+    {
+      "id": "571",
+      "slug": "camisa-gasa-de-mirta-armesto-e689423c-2fa5-4919-828d-68ea3560f68e",
+      "SKU": "SKU-000571",
+      "Product Name": "Camisa gasa de Mirta Armesto",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e689423c-2fa5-4919-828d-68ea3560f68e-1.png"
+      ]
+    },
+    {
+      "id": "573",
+      "slug": "top-de-la-marca-julien-algodon-lino-e6323b81-e492-4eba-872c-c60b6ceea5d1",
+      "SKU": "SKU-000573",
+      "Product Name": "Top de la marca Julien algodon lino",
+      "Price": 6000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e6323b81-e492-4eba-872c-c60b6ceea5d1-1.png"
+      ]
+    },
+    {
+      "id": "575",
+      "slug": "remera-mirta-armesto-la-parte-estampada-es-es-como-raso-y-lo-blanco-espalda-modal-0ce56cfe-c5cd-4414-baa9-2b3535b26b65",
+      "SKU": "SKU-000575",
+      "Product Name": "Remera Mirta Armesto. La parte estampada es es como raso y lo blanco (espalda) modal.",
+      "Price": 15000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0ce56cfe-c5cd-4414-baa9-2b3535b26b65-1.png"
+      ]
+    },
+    {
+      "id": "574",
+      "slug": "vestido-camisero-blusa-sin-mangas-de-la-marca-inedita-super-fresco-56cfab91-e422-4fcb-97b8-28b7a78f795e",
+      "SKU": "SKU-000574",
+      "Product Name": "Vestido camisero/ blusa sin mangas de la marca Inedita. Super fresco",
+      "Price": 4000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/56cfab91-e422-4fcb-97b8-28b7a78f795e-1.png"
+      ]
+    },
+    {
+      "id": "576",
+      "slug": "blazer-entallado-negro-rayado-en-el-interior-con-cintur-n-para-ce-ir-la-cintura-excelente-calce-54091183-2121-4623-9825-e94ed9221ff9",
+      "SKU": "SKU-000576",
+      "Product Name": "Blazer entallado negro , rayado en el interior con cinturón para ceñir la cintura. Excelente calce.",
+      "Price": 10000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/54091183-2121-4623-9825-e94ed9221ff9-1.png"
+      ]
+    },
+    {
+      "id": "578",
+      "slug": "jean-mirta-armesto-un-uso-la-estampa-de-hojas-tiene-brillo-lo-que-le-da-un-toque-canchero-09057f6d-c4c5-4549-90f4-2026fdec7bd1",
+      "SKU": "SKU-000578",
+      "Product Name": "Jean Mirta Armesto. Un uso. La estampa de hojas tiene brillo lo que le da un toque canchero.",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "38",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/09057f6d-c4c5-4549-90f4-2026fdec7bd1-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/09057f6d-c4c5-4549-90f4-2026fdec7bd1-2.jpeg"
+      ]
+    },
+    {
+      "id": "580",
+      "slug": "short-nike-original-649cddd9-4f61-46b9-b137-67fb4a12001f",
+      "SKU": "SKU-000580",
+      "Product Name": "Short Nike original",
+      "Price": 15000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/649cddd9-4f61-46b9-b137-67fb4a12001f-1.png"
+      ]
+    },
+    {
+      "id": "582",
+      "slug": "vestido-de-fiesta-corto-34a6a4b0-62f2-4d06-8070-92f9a56c8320",
+      "SKU": "SKU-000582",
+      "Product Name": "Vestido de fiesta corto",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/34a6a4b0-62f2-4d06-8070-92f9a56c8320-1.png"
+      ]
+    },
+    {
+      "id": "584",
+      "slug": "vestido-solerito-rip-curl-f9070601-22cd-446b-8dfc-1ef894d909ac",
+      "SKU": "SKU-000584",
+      "Product Name": "Vestido solerito, Rip Curl",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "40",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f9070601-22cd-446b-8dfc-1ef894d909ac-1.png"
+      ]
+    },
+    {
+      "id": "586",
+      "slug": "vestido-de-fiesta-con-bordado-y-push-up-07f8e880-1e07-4fe8-a4c8-4665963b17dd",
+      "SKU": "SKU-000586",
+      "Product Name": "Vestido de fiesta con bordado y push up",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/07f8e880-1e07-4fe8-a4c8-4665963b17dd-1.png"
+      ]
+    },
+    {
+      "id": "588",
+      "slug": "pollera-cuesta-blanca-rojo-con-brillos-224eea4f-1bb0-4a0e-b77b-b9a683af9bc8",
+      "SKU": "SKU-000588",
+      "Product Name": "Pollera Cuesta Blanca, rojo con brillos",
+      "Price": 15000,
+      "category": "skirts",
+      "stock": 1,
+      "color": null,
+      "Size": "40",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/224eea4f-1bb0-4a0e-b77b-b9a683af9bc8-1.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/224eea4f-1bb0-4a0e-b77b-b9a683af9bc8-2.png"
+      ]
+    },
+    {
+      "id": "590",
+      "slug": "chaleco-de-lentejuelas-cuesta-blanca-15389fba-8bee-4b1e-b16e-7e74edfce452",
+      "SKU": "SKU-000590",
+      "Product Name": "Chaleco de lentejuelas Cuesta Blanca",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "42",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/15389fba-8bee-4b1e-b16e-7e74edfce452-1.png"
+      ]
+    },
+    {
+      "id": "592",
+      "slug": "short-elastizado-1a5dc3fa-98ba-4ece-8b5c-6d2100994064",
+      "SKU": "SKU-000592",
+      "Product Name": "Short elastizado",
+      "Price": 10000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "40",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1a5dc3fa-98ba-4ece-8b5c-6d2100994064-1.png"
+      ]
+    },
+    {
+      "id": "594",
+      "slug": "pantal-n-blanca-elastizado-51dc590d-a3e4-46cd-bd8f-688607a57ca0",
+      "SKU": "SKU-000594",
+      "Product Name": "Pantalón blanca elastizado",
+      "Price": 15000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/51dc590d-a3e4-46cd-bd8f-688607a57ca0-1.png"
+      ]
+    },
+    {
+      "id": "596",
+      "slug": "pollera-elastizada-e928dab5-ef9f-4b48-8138-f5a2003b7a20",
+      "SKU": "SKU-000596",
+      "Product Name": "Pollera elastizada",
+      "Price": 15000,
+      "category": "skirts",
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e928dab5-ef9f-4b48-8138-f5a2003b7a20-1.png"
+      ]
+    },
+    {
+      "id": "598",
+      "slug": "pantal-n-eco-cuero-elastizado-cuesta-blanca-726dc984-721f-46fe-83e5-af7249946d68",
+      "SKU": "SKU-000598",
+      "Product Name": "Pantalón eco cuero elastizado Cuesta Blanca",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "38",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/726dc984-721f-46fe-83e5-af7249946d68-1.png"
+      ]
+    },
+    {
+      "id": "600",
+      "slug": "calza-con-tajo-abajo-aafb12aa-0646-459e-841e-41424aec5f0f",
+      "SKU": "SKU-000600",
+      "Product Name": "Calza con tajo abajo",
+      "Price": 15000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aafb12aa-0646-459e-841e-41424aec5f0f-1.png"
+      ]
+    },
+    {
+      "id": "602",
+      "slug": "short-sastrero-5c82605b-6ecd-41ba-aa27-92e402dc58a0",
+      "SKU": "SKU-000602",
+      "Product Name": "Short sastrero",
+      "Price": 10000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5c82605b-6ecd-41ba-aa27-92e402dc58a0-1.png"
+      ]
+    },
+    {
+      "id": "604",
+      "slug": "pollera-da356764-40ad-4d77-af6d-f720d79ea3c9",
+      "SKU": "SKU-000604",
+      "Product Name": "Pollera",
+      "Price": 10000,
+      "category": "skirts",
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/da356764-40ad-4d77-af6d-f720d79ea3c9-1.png"
+      ]
+    },
+    {
+      "id": "606",
+      "slug": "pollera-eco-cuero-c11d4194-e555-4ed4-a2e3-c0c7419aa52e",
+      "SKU": "SKU-000606",
+      "Product Name": "Pollera eco cuero",
+      "Price": 10000,
+      "category": "skirts",
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c11d4194-e555-4ed4-a2e3-c0c7419aa52e-1.png"
+      ]
+    },
+    {
+      "id": "608",
+      "slug": "short-jeans-0f777621-3f42-4ac3-893a-28d3e3209406",
+      "SKU": "SKU-000608",
+      "Product Name": "Short jeans",
+      "Price": 10000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "40",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0f777621-3f42-4ac3-893a-28d3e3209406-1.png"
+      ]
+    },
+    {
+      "id": "612",
+      "slug": "levi-s-512-b3d931ad-80b3-4316-90f2-159f53cc76fd",
+      "SKU": "SKU-000612",
+      "Product Name": "Levi's 512",
+      "Price": 30000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "blue",
+      "Size": "31",
+      "description": "Los Levi's 512 son unos jeans de ajuste Slim, diseñados para ofrecer comodidad y un estilo moderno. Confeccionados en 100% algodón, son ideales para usar en cualquier ocasión, brindando un look fresco y actual.",
+      "gender": [],
+      "User ID": [
+        "38"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b3d931ad-80b3-4316-90f2-159f53cc76fd-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b3d931ad-80b3-4316-90f2-159f53cc76fd-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b3d931ad-80b3-4316-90f2-159f53cc76fd-3.png"
+      ]
+    },
+    {
+      "id": "577",
+      "slug": "jean-vitamina-oxford-impecable-tiro-alto-excelente-calce-4038c6e5-7fde-4478-a0db-63e15046ca30",
+      "SKU": "SKU-000577",
+      "Product Name": "Jean Vitamina Oxford impecable, tiro alto, excelente calce",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "1",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4038c6e5-7fde-4478-a0db-63e15046ca30-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4038c6e5-7fde-4478-a0db-63e15046ca30-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4038c6e5-7fde-4478-a0db-63e15046ca30-3.jpeg"
+      ]
+    },
+    {
+      "id": "579",
+      "slug": "jean-mirta-armesto-print-en-tonos-grises-impecable-61f5b0a9-5fab-4b6f-8c45-9caba8f4557a",
+      "SKU": "SKU-000579",
+      "Product Name": "Jean Mirta Armesto print en tonos grises. Impecable.",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "38",
+      "gender": [],
+      "User ID": [
+        "36"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/61f5b0a9-5fab-4b6f-8c45-9caba8f4557a-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/61f5b0a9-5fab-4b6f-8c45-9caba8f4557a-2.jpeg"
+      ]
+    },
+    {
+      "id": "581",
+      "slug": "short-nike-original-de6cd687-1866-4b47-8262-3981a2b8791a",
+      "SKU": "SKU-000581",
+      "Product Name": "Short Nike original",
+      "Price": 15000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/de6cd687-1866-4b47-8262-3981a2b8791a-1.png"
+      ]
+    },
+    {
+      "id": "583",
+      "slug": "vestido-solerito-cuesta-blanca-f3b0b553-9539-445e-bed3-557a3ae2a187",
+      "SKU": "SKU-000583",
+      "Product Name": "Vestido solerito, Cuesta Blanca",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "40",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f3b0b553-9539-445e-bed3-557a3ae2a187-1.png"
+      ]
+    },
+    {
+      "id": "585",
+      "slug": "vestido-de-fiesta-5549f699-48df-4c06-814a-4bd291a22b24",
+      "SKU": "SKU-000585",
+      "Product Name": "Vestido de fiesta",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5549f699-48df-4c06-814a-4bd291a22b24-1.png"
+      ]
+    },
+    {
+      "id": "587",
+      "slug": "vestido-negro-con-brillos-cuesta-blanca-607cceb9-146a-48e6-9773-3f8928219003",
+      "SKU": "SKU-000587",
+      "Product Name": "Vestido negro con brillos, Cuesta Blanca",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/607cceb9-146a-48e6-9773-3f8928219003-1.png"
+      ]
+    },
+    {
+      "id": "589",
+      "slug": "pollera-larga-de-lentejuelas-cuesta-blanca-nueva-a7363835-293a-43d6-ab76-70e20b4c4a67",
+      "SKU": "SKU-000589",
+      "Product Name": "Pollera larga de lentejuelas, Cuesta Blanca, nueva",
+      "Price": 35000,
+      "category": "skirts",
+      "stock": 1,
+      "color": null,
+      "Size": "40",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a7363835-293a-43d6-ab76-70e20b4c4a67-1.png"
+      ]
+    },
+    {
+      "id": "591",
+      "slug": "short-jeans-cuesta-blanca-tiro-bajo-8a16eab2-6e17-42c2-aa03-0916fbbce9a5",
+      "SKU": "SKU-000591",
+      "Product Name": "Short jeans Cuesta Blanca tiro bajo",
+      "Price": 10000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8a16eab2-6e17-42c2-aa03-0916fbbce9a5-1.png"
+      ]
+    },
+    {
+      "id": "593",
+      "slug": "pollera-cuesta-blanca-df15749d-cc52-43fc-917b-02c53b0c2d19",
+      "SKU": "SKU-000593",
+      "Product Name": "Pollera Cuesta Blanca",
+      "Price": 10000,
+      "category": "skirts",
+      "stock": 1,
+      "color": null,
+      "Size": "40",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/df15749d-cc52-43fc-917b-02c53b0c2d19-1.png"
+      ]
+    },
+    {
+      "id": "595",
+      "slug": "jeans-cuesta-blanca-8be6498f-af43-4e89-9e7d-25a78dff5b89",
+      "SKU": "SKU-000595",
+      "Product Name": "Jeans Cuesta Blanca",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "42",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8be6498f-af43-4e89-9e7d-25a78dff5b89-1.png"
+      ]
+    },
+    {
+      "id": "597",
+      "slug": "pantal-n-gabardina-615add10-9c57-404e-be9d-2a81b581b293",
+      "SKU": "SKU-000597",
+      "Product Name": "Pantalón gabardina",
+      "Price": 15000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/615add10-9c57-404e-be9d-2a81b581b293-1.png"
+      ]
+    },
+    {
+      "id": "599",
+      "slug": "body-cuesta-blanca-nuevo-a7822826-6f6d-4b8e-b4fe-d75398d76585",
+      "SKU": "SKU-000599",
+      "Product Name": "Body Cuesta Blanca, nuevo",
+      "Price": 15000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a7822826-6f6d-4b8e-b4fe-d75398d76585-1.png"
+      ]
+    },
+    {
+      "id": "601",
+      "slug": "short-rip-curl-af5c4e7a-4041-46f5-9c18-f27d70a517f8",
+      "SKU": "SKU-000601",
+      "Product Name": "Short Rip Curl",
+      "Price": 10000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/af5c4e7a-4041-46f5-9c18-f27d70a517f8-1.png"
+      ]
+    },
+    {
+      "id": "603",
+      "slug": "pollera-lentejuelas-doradas-c398f6a3-b176-4623-aada-df3da264b1a3",
+      "SKU": "SKU-000603",
+      "Product Name": "Pollera lentejuelas doradas",
+      "Price": 10000,
+      "category": "skirts",
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c398f6a3-b176-4623-aada-df3da264b1a3-1.png"
+      ]
+    },
+    {
+      "id": "605",
+      "slug": "pollera-b380135c-db84-49b9-898b-2c57867fa8b9",
+      "SKU": "SKU-000605",
+      "Product Name": "Pollera",
+      "Price": 10000,
+      "category": "skirts",
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b380135c-db84-49b9-898b-2c57867fa8b9-1.png"
+      ]
+    },
+    {
+      "id": "607",
+      "slug": "short-levis-f6071e48-72a7-42e2-a030-75b3730232e8",
+      "SKU": "SKU-000607",
+      "Product Name": "Short Levis",
+      "Price": 10000,
+      "category": "shorts",
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f6071e48-72a7-42e2-a030-75b3730232e8-1.png"
+      ]
+    },
+    {
+      "id": "609",
+      "slug": "vestido-de-fiesta-soya-un-uso-0ce0ce77-a586-44f6-98d9-65b6a7ac276d",
+      "SKU": "SKU-000609",
+      "Product Name": "Vestido de fiesta Soya, un uso",
+      "Price": 120000,
+      "category": "skirts",
+      "stock": 1,
+      "color": null,
+      "Size": "1",
+      "gender": [],
+      "User ID": [
+        "37"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0ce0ce77-a586-44f6-98d9-65b6a7ac276d-1.jpeg"
+      ]
+    },
+    {
+      "id": "611",
+      "slug": "jean-levi-s-550-92-aec78415-821f-40c3-8c75-4effb0b071f9",
+      "SKU": "SKU-000611",
+      "Product Name": "Jean Levi's 550 '92",
+      "Price": 30000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "blue",
+      "Size": "31",
+      "description": "Estos jeans Levi's 550 '92 de color azul lavado son ideales para un look casual y cómodo. Con un ajuste perfecto en la cintura y pierna, son una prenda básica y atemporal en cualquier guardarropa. Perfectos para combinar con una camiseta o una sudadera.",
+      "gender": [],
+      "User ID": [
+        "38"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aec78415-821f-40c3-8c75-4effb0b071f9-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aec78415-821f-40c3-8c75-4effb0b071f9-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aec78415-821f-40c3-8c75-4effb0b071f9-3.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aec78415-821f-40c3-8c75-4effb0b071f9-4.png"
+      ]
+    },
+    {
+      "id": "613",
+      "slug": "short-lovely-denim-28790fbc-fa29-43bf-b31d-0c538041f309",
+      "SKU": "SKU-000613",
+      "Product Name": "Short lovely denim",
+      "Price": 30000,
+      "category": "shorts",
+      "stock": 1,
+      "color": "red",
+      "Size": null,
+      "description": "Un encantador short de mezclilla perfecto para un look casual y moderno. Ideal para el verano y para combinar con tus tops favoritos.",
+      "gender": [],
+      "User ID": [
+        "39"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/28790fbc-fa29-43bf-b31d-0c538041f309-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/28790fbc-fa29-43bf-b31d-0c538041f309-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/28790fbc-fa29-43bf-b31d-0c538041f309-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/28790fbc-fa29-43bf-b31d-0c538041f309-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/28790fbc-fa29-43bf-b31d-0c538041f309-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/28790fbc-fa29-43bf-b31d-0c538041f309-6.jpeg"
+      ]
+    },
+    {
+      "id": "615",
+      "slug": "sweater-pioppa-88429a62-f42f-4b3a-8bac-70195490786d",
+      "SKU": "SKU-000615",
+      "Product Name": "Sweater Pioppa",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": "red",
+      "Size": "S",
+      "description": "Este es un sweater de la marca Pioppa. Es ideal para mantenerte cálido en climas fríos, combinando estilo y confort en un solo producto.",
+      "gender": [],
+      "User ID": [
+        "39"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/88429a62-f42f-4b3a-8bac-70195490786d-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/88429a62-f42f-4b3a-8bac-70195490786d-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/88429a62-f42f-4b3a-8bac-70195490786d-3.jpeg"
+      ]
+    },
+    {
+      "id": "614",
+      "slug": "sweater-zara-b7d442b1-4b9c-4604-bc3d-87ea49118dca",
+      "SKU": "SKU-000614",
+      "Product Name": "Sweater Zara",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": "red",
+      "Size": "S",
+      "description": "Este es un sweater elegante de alta calidad de la marca Zara. Perfecto para mantener el calor durante los meses más fríos con un diseño moderno y sofisticado. Ideal para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "39"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b7d442b1-4b9c-4604-bc3d-87ea49118dca-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b7d442b1-4b9c-4604-bc3d-87ea49118dca-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b7d442b1-4b9c-4604-bc3d-87ea49118dca-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b7d442b1-4b9c-4604-bc3d-87ea49118dca-4.jpeg"
+      ]
+    },
+    {
+      "id": "616",
+      "slug": "camisa-elasticidad-ab87dfb8-33b8-41ae-bc1b-fd5642e1ec4a",
+      "SKU": "SKU-000616",
+      "Product Name": "Camisa elasticidad",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": "red",
+      "Size": "32",
+      "description": "Camisa de H&M con elasticidad, cómoda y versátil para cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "39"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ab87dfb8-33b8-41ae-bc1b-fd5642e1ec4a-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ab87dfb8-33b8-41ae-bc1b-fd5642e1ec4a-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ab87dfb8-33b8-41ae-bc1b-fd5642e1ec4a-3.jpeg"
+      ]
+    },
+    {
+      "id": "618",
+      "slug": "vestido-blanco-con-bordado-de-flores-c130aaf8-a20f-4617-bb6b-453247ede804",
+      "SKU": "SKU-000618",
+      "Product Name": "Vestido blanco con bordado de flores",
+      "Price": 39900,
+      "category": null,
+      "stock": 1,
+      "color": "white",
+      "Size": "M",
+      "description": "Este hermoso vestido blanco con bordado de flores es perfecto para ocasiones especiales o para un look veraniego. Solo ha sido usado una vez y está prácticamente nuevo. Importado de Zara España, este vestido combina comodidad y estilo.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c130aaf8-a20f-4617-bb6b-453247ede804-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c130aaf8-a20f-4617-bb6b-453247ede804-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c130aaf8-a20f-4617-bb6b-453247ede804-3.png"
+      ]
+    },
+    {
+      "id": "620",
+      "slug": "top-zara-espa-a-importado-4d3d0490-213f-4193-b328-739a89c953f0",
+      "SKU": "SKU-000620",
+      "Product Name": "Top Zara España importado",
+      "Price": 19000,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Blusa de Zara España con hermosos detalles de moños, frunces y brillitos. Perfecta para ocasiones especiales o para un look casual y chic.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4d3d0490-213f-4193-b328-739a89c953f0-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4d3d0490-213f-4193-b328-739a89c953f0-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4d3d0490-213f-4193-b328-739a89c953f0-3.png"
+      ]
+    },
+    {
+      "id": "622",
+      "slug": "top-verde-militar-de-cuerina-con-cierre-atr-s-bacb742e-6ee3-4056-948a-94be685e43ce",
+      "SKU": "SKU-000622",
+      "Product Name": "Top verde militar de cuerina con cierre atrás",
+      "Price": 34900,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "description": "Este top verde militar de cuerina cuenta con un moderno cierre en la parte de atrás. Es una prenda ideal para combinar con jeans o faldas, perfecta para un look casual y elegante al mismo tiempo. La calidad de la tela ofrece comodidad y durabilidad, haciéndolo un aliado perfecto en tu armario.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bacb742e-6ee3-4056-948a-94be685e43ce-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bacb742e-6ee3-4056-948a-94be685e43ce-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bacb742e-6ee3-4056-948a-94be685e43ce-3.png"
+      ]
+    },
+    {
+      "id": "626",
+      "slug": "conjunto-pollera-y-top-de-encaje-blanco-4a224528-cfce-4c98-af74-7c2be496e3bb",
+      "SKU": "SKU-000626",
+      "Product Name": "Conjunto pollera y top de encaje blanco",
+      "Price": 19950,
+      "category": "skirts",
+      "stock": 1,
+      "color": "white",
+      "Size": "S",
+      "description": "Un hermoso conjunto de pollera y top de encaje en color blanco, ideal para ocasiones especiales o eventos de verano. Este conjunto, de talla S, está sin uso y ofrece un toque elegante y fresco a tu guardarropa. Perfecto para combinar con accesorios coloridos y calzado ligero.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4a224528-cfce-4c98-af74-7c2be496e3bb-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4a224528-cfce-4c98-af74-7c2be496e3bb-2.png"
+      ]
+    },
+    {
+      "id": "628",
+      "slug": "body-de-sastrer-a-df1dcbc1-4d02-4207-bd42-ddbc888e0a5d",
+      "SKU": "SKU-000628",
+      "Product Name": "Body de Sastrería",
+      "Price": 54900,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "XS",
+      "description": "Este elegante body negro tipo sastrería de Zara España es perfecto para cualquier ocasión. Su diseño sofisticado y ajustado resalta la figura mientras que el material de alta calidad asegura comodidad a lo largo del día. Ideal para combinar con faldas o pantalones, este body es un imprescindible en el armario de cualquier mujer que busca estilo y elegancia.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/df1dcbc1-4d02-4207-bd42-ddbc888e0a5d-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/df1dcbc1-4d02-4207-bd42-ddbc888e0a5d-2.png"
+      ]
+    },
+    {
+      "id": "617",
+      "slug": "sweater-mango-b7a75ecb-c854-4f36-bb74-20898defaec6",
+      "SKU": "SKU-000617",
+      "Product Name": "Sweater mango",
+      "Price": 15000,
+      "category": null,
+      "stock": 1,
+      "color": "red",
+      "Size": "S",
+      "description": "Un elegante suéter de la marca Mango, perfecto para mantener el calor en los días fríos. Hecho con materiales de alta calidad para asegurar comodidad y estilo. Ideal para combinar con unos jeans o pantalones casuales para un look relajado pero sofisticado. Aporta un toque de elegancia a tu guardarropa con este suéter versátil.",
+      "gender": [],
+      "User ID": [
+        "39"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b7a75ecb-c854-4f36-bb74-20898defaec6-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b7a75ecb-c854-4f36-bb74-20898defaec6-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b7a75ecb-c854-4f36-bb74-20898defaec6-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b7a75ecb-c854-4f36-bb74-20898defaec6-4.jpeg"
+      ]
+    },
+    {
+      "id": "619",
+      "slug": "vestido-blanco-con-bolados-16f3e7e6-3d5c-4f4d-91b0-64e519277822",
+      "SKU": "SKU-000619",
+      "Product Name": "Vestido blanco con bolados",
+      "Price": 39000,
+      "category": null,
+      "stock": 1,
+      "color": "white",
+      "Size": "XS",
+      "description": "Vestido blanco con bolados de Zara España, importado y en excelente estado. Solo ha sido utilizado una vez, por lo que está como nuevo. La talla XS es muy suelta, lo que significa que puede adaptarse bien a diferentes tallas. Perfecto para ocasiones casuales y eventos especiales, combinándolo con unos buenos accesorios. Una prenda imprescindible para tu guardarropa.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/16f3e7e6-3d5c-4f4d-91b0-64e519277822-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/16f3e7e6-3d5c-4f4d-91b0-64e519277822-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/16f3e7e6-3d5c-4f4d-91b0-64e519277822-3.png"
+      ]
+    },
+    {
+      "id": "621",
+      "slug": "top-con-bolados-color-celeste-medio-gris-5753d4df-ab3b-4c28-888c-9913d28197cf",
+      "SKU": "SKU-000621",
+      "Product Name": "Top con bolados color celeste medio gris",
+      "Price": 19900,
+      "category": null,
+      "stock": 1,
+      "color": "gray",
+      "Size": "M",
+      "description": "Top con bolados en un delicado color celeste medio gris, de la marca Zara, en estado como nuevo ya que solo ha tenido una vez de uso. Ideal para ocasiones casuales o semi-formales. Perfecto para acompañar con jeans o faldas.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5753d4df-ab3b-4c28-888c-9913d28197cf-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5753d4df-ab3b-4c28-888c-9913d28197cf-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5753d4df-ab3b-4c28-888c-9913d28197cf-3.png"
+      ]
+    },
+    {
+      "id": "623",
+      "slug": "remera-tipo-top-corta-898a9ac1-045a-4cd0-ad2b-03398dc8fe50",
+      "SKU": "SKU-000623",
+      "Product Name": "Remera tipo top corta",
+      "Price": 12900,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Esta remera tipo top corta es perfecta para los días calurosos. Su color negro combina con todo, y su diseño fresco la hace ideal para usar con jeans o faldas. Importada de Zara España, esta prenda es un must-have para el armario de cualquier mujer moderna.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/898a9ac1-045a-4cd0-ad2b-03398dc8fe50-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/898a9ac1-045a-4cd0-ad2b-03398dc8fe50-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/898a9ac1-045a-4cd0-ad2b-03398dc8fe50-3.png"
+      ]
+    },
+    {
+      "id": "625",
+      "slug": "camisa-azul-hombre-zara-espa-a-importada-40f2acfe-e71f-461f-a945-a45bd0513129",
+      "SKU": "SKU-000625",
+      "Product Name": "Camisa azul hombre Zara España importada",
+      "Price": 59000,
+      "category": null,
+      "stock": 1,
+      "color": "blue",
+      "Size": "S",
+      "description": "Esta es una elegante camisa azul de hombre de Zara, importada desde España. Nueva con etiqueta, ideal para ocasiones informales o para un look de oficina moderno. Perfecta para combinar con jeans o pantalones de vestir.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/40f2acfe-e71f-461f-a945-a45bd0513129-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/40f2acfe-e71f-461f-a945-a45bd0513129-2.png"
+      ]
+    },
+    {
+      "id": "627",
+      "slug": "top-blanco-con-efecto-rosa-d5fe5b84-f4da-4c9c-bbe7-909a241d82f6",
+      "SKU": "SKU-000627",
+      "Product Name": "Top blanco con efecto rosa",
+      "Price": 8900,
+      "category": null,
+      "stock": 1,
+      "color": "white",
+      "Size": "S",
+      "description": "Este elegante top blanco presenta un hermoso efecto rosa en una de las mangas, ideal para ocasiones especiales o un uso casual. Perfecto para combinar con tus jeans favoritos o una falda, este top de talla S es una pieza única que te hará destacar.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d5fe5b84-f4da-4c9c-bbe7-909a241d82f6-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d5fe5b84-f4da-4c9c-bbe7-909a241d82f6-2.png"
+      ]
+    },
+    {
+      "id": "629",
+      "slug": "top-negro-volado-zara-espa-a-importado-fde9fca4-88fd-449e-9bd9-c02ecd3199da",
+      "SKU": "SKU-000629",
+      "Product Name": "Top negro volado Zara España importado",
+      "Price": 39000,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Top negro volado de Zara importado desde España. Un diseño elegante y moderno, ideal para combinar con jeans o faldas. Perfecto para ocasiones informales o una salida nocturna. Nunca ha sido usado, está en perfecto estado.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fde9fca4-88fd-449e-9bd9-c02ecd3199da-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fde9fca4-88fd-449e-9bd9-c02ecd3199da-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fde9fca4-88fd-449e-9bd9-c02ecd3199da-3.png"
+      ]
+    },
+    {
+      "id": "631",
+      "slug": "top-negro-tipo-cinto-con-cierre-en-la-espalda-384dddf5-cc9a-4827-b8f5-bc2cb4d484d9",
+      "SKU": "SKU-000631",
+      "Product Name": "Top negro tipo cinto con cierre en la espalda",
+      "Price": 19900,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "S/M",
+      "description": "Este elegante top negro, diseñado específicamente para la comodidad y el estilo, cuenta con un cierre en la espalda que añade un toque moderno. Perfecto para ocasiones casuales o más elegantes, este top es nuevo y viene con etiqueta. Complementa tu guardarropa con esta prenda versátil.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/384dddf5-cc9a-4827-b8f5-bc2cb4d484d9-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/384dddf5-cc9a-4827-b8f5-bc2cb4d484d9-2.png"
+      ]
+    },
+    {
+      "id": "632",
+      "slug": "vestido-largo-de-encaje-blanco-zara-4b51390e-bb44-4990-a61d-39207c192df6",
+      "SKU": "SKU-000632",
+      "Product Name": "Vestido largo de encaje blanco Zara",
+      "Price": 42900,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "description": "Este elegante vestido largo de encaje blanco de Zara es perfecto para ocasiones especiales o eventos formales. Con su diseño delicado y femenino, resalta la silueta con un toque de sofisticación. Sin uso, está en perfectas condiciones, listo para hacerte lucir espectacular.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4b51390e-bb44-4990-a61d-39207c192df6-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4b51390e-bb44-4990-a61d-39207c192df6-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4b51390e-bb44-4990-a61d-39207c192df6-3.png"
+      ]
+    },
+    {
+      "id": "633",
+      "slug": "vestido-de-encaje-negro-al-cuerpo-311f8ba6-d813-4a88-b22b-7a7d0fdfcafa",
+      "SKU": "SKU-000633",
+      "Product Name": "Vestido de encaje negro al cuerpo",
+      "Price": 16900,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Un hermoso vestido de encaje negro que se ajusta perfectamente al cuerpo, ideal para ocasiones especiales. Este vestido no ha sido utilizado y es una excelente adición a tu guardarropa.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/311f8ba6-d813-4a88-b22b-7a7d0fdfcafa-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/311f8ba6-d813-4a88-b22b-7a7d0fdfcafa-2.png"
+      ]
+    },
+    {
+      "id": "634",
+      "slug": "top-efecto-cuero-negro-5d5760c5-3942-47b0-bde6-9c311529b7b1",
+      "SKU": "SKU-000634",
+      "Product Name": "Top efecto cuero negro",
+      "Price": 14900,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "S",
+      "description": "Este elegante top de efecto cuero negro cuenta con un práctico cierre en la parte de atrás. Perfecto para un look moderno y chic, ideal para combinar con una falda o unos pantalones ajustados.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5d5760c5-3942-47b0-bde6-9c311529b7b1-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5d5760c5-3942-47b0-bde6-9c311529b7b1-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5d5760c5-3942-47b0-bde6-9c311529b7b1-3.png"
+      ]
+    },
+    {
+      "id": "636",
+      "slug": "vestido-al-cuerpo-largo-estampado-cebra-24935b42-9370-4dbf-94ff-8bd0be83bdc0",
+      "SKU": "SKU-000636",
+      "Product Name": "Vestido al cuerpo largo estampado cebra",
+      "Price": 19900,
+      "category": null,
+      "stock": 1,
+      "color": "maroon",
+      "Size": "S",
+      "description": "Vestido al cuerpo largo con un hermoso estampado de cebra en tonos marones y beige. Presenta un diseño elegante con espalda y lazos cruzados, ideal para ocasiones especiales. Solo se ha usado una vez, está en excelente estado.",
+      "gender": [],
+      "User ID": [
+        "40"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/24935b42-9370-4dbf-94ff-8bd0be83bdc0-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/24935b42-9370-4dbf-94ff-8bd0be83bdc0-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/24935b42-9370-4dbf-94ff-8bd0be83bdc0-3.png"
+      ]
+    },
+    {
+      "id": "638",
+      "slug": "buzo-converse-f157dc6a-18f5-4a3c-8e93-19484920fbaa",
+      "SKU": "SKU-000638",
+      "Product Name": "Buzo Converse",
+      "Price": 24000,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "XL",
+      "description": "Buzo Converse de alta calidad en talla XL, ideal para mantener el estilo casual sin dejar de lado la comodidad. Fabricado con materiales duraderos que garantizan resistencia y suavidad al tacto. Perfecto para cualquier ocasión informal. ¡Eleva tu guardarropa con este buzo clásico y atemporal!",
+      "gender": [],
+      "User ID": [
+        "41"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f157dc6a-18f5-4a3c-8e93-19484920fbaa-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f157dc6a-18f5-4a3c-8e93-19484920fbaa-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f157dc6a-18f5-4a3c-8e93-19484920fbaa-3.jpeg"
+      ]
+    },
+    {
+      "id": "640",
+      "slug": "buzo-kimeika-eb6be8f5-bc55-479a-bf84-22475db757b0",
+      "SKU": "SKU-000640",
+      "Product Name": "Buzo Kimeika",
+      "Price": 32000,
+      "category": null,
+      "stock": 1,
+      "color": "red",
+      "Size": "M",
+      "description": "El buzo Kimeika en color terracota es una prenda esencial para cualquier guardarropa casual. Confeccionado con materiales de alta calidad, ofrece comodidad y estilo. Ideal para los días frescos, su diseño versátil se adapta a cualquier conjunto, agregando un toque moderno y vibrante. Perfecto para un look relajado y cómodo.",
+      "gender": [],
+      "User ID": [
+        "41"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/eb6be8f5-bc55-479a-bf84-22475db757b0-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/eb6be8f5-bc55-479a-bf84-22475db757b0-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/eb6be8f5-bc55-479a-bf84-22475db757b0-3.jpeg"
+      ]
+    },
+    {
+      "id": "642",
+      "slug": "buzo-tommy-hilfiger-1f78146b-667d-4269-829c-5865572f89f5",
+      "SKU": "SKU-000642",
+      "Product Name": "Buzo Tommy Hilfiger",
+      "Price": 45000,
+      "category": null,
+      "stock": 1,
+      "color": "pink",
+      "Size": "M",
+      "description": "Buzo de la reconocida marca Tommy Hilfiger. Hecho con materiales de alta calidad, ideal para mantener el calor en días fríos. Confección moderna y estilizada perfecta para ocasiones informales.",
+      "gender": [],
+      "User ID": [
+        "41"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1f78146b-667d-4269-829c-5865572f89f5-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1f78146b-667d-4269-829c-5865572f89f5-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1f78146b-667d-4269-829c-5865572f89f5-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1f78146b-667d-4269-829c-5865572f89f5-4.jpeg"
+      ]
+    },
+    {
+      "id": "644",
+      "slug": "mochila-pink-aea9eb79-8726-44fb-b031-7cfd30f98703",
+      "SKU": "SKU-000644",
+      "Product Name": "Mochila PINK",
+      "Price": 88000,
+      "category": null,
+      "stock": 1,
+      "color": "gray",
+      "Size": "",
+      "description": "Mochila color rosa, ideal para combinar con diferentes estilos. Perfecta para llevar tus cosas diarias con estilo y comodidad.",
+      "gender": [],
+      "User ID": [
+        "41"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aea9eb79-8726-44fb-b031-7cfd30f98703-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aea9eb79-8726-44fb-b031-7cfd30f98703-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aea9eb79-8726-44fb-b031-7cfd30f98703-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aea9eb79-8726-44fb-b031-7cfd30f98703-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aea9eb79-8726-44fb-b031-7cfd30f98703-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aea9eb79-8726-44fb-b031-7cfd30f98703-6.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aea9eb79-8726-44fb-b031-7cfd30f98703-7.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/aea9eb79-8726-44fb-b031-7cfd30f98703-8.jpeg"
+      ]
+    },
+    {
+      "id": "646",
+      "slug": "bermuda-tascani-4f235d25-00b5-468f-93c7-14cea122247d",
+      "SKU": "SKU-000646",
+      "Product Name": "Bermuda Tascani",
+      "Price": 70000,
+      "category": "shorts",
+      "stock": 1,
+      "color": "blue",
+      "Size": "33",
+      "description": "Bermuda marca Tascani en talla 33, perfecta para un look casual y relajado. Su diseño clásico es ideal para el verano, proporcionando comodidad y estilo.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4f235d25-00b5-468f-93c7-14cea122247d-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4f235d25-00b5-468f-93c7-14cea122247d-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4f235d25-00b5-468f-93c7-14cea122247d-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4f235d25-00b5-468f-93c7-14cea122247d-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4f235d25-00b5-468f-93c7-14cea122247d-5.jpeg"
+      ]
+    },
+    {
+      "id": "648",
+      "slug": "bermuda-tascani-8c2ad907-f39e-4122-8d12-23cc93ae07f6",
+      "SKU": "SKU-000648",
+      "Product Name": "Bermuda tascani",
+      "Price": 70000,
+      "category": "shorts",
+      "stock": 1,
+      "color": "blue",
+      "Size": "32",
+      "description": "Una bermuda elegante y cómoda de la marca Tascani, ideal para climas cálidos y para usar en salidas informales. Perfecta para combinar con camisetas o camisas ligeras. Su diseño clásico ofrece practicidad y estilo.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c2ad907-f39e-4122-8d12-23cc93ae07f6-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c2ad907-f39e-4122-8d12-23cc93ae07f6-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c2ad907-f39e-4122-8d12-23cc93ae07f6-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c2ad907-f39e-4122-8d12-23cc93ae07f6-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c2ad907-f39e-4122-8d12-23cc93ae07f6-5.jpeg"
+      ]
+    },
+    {
+      "id": "637",
+      "slug": "musculosa-nike-bfd94a4a-9136-413d-a3e1-288b878ad70d",
+      "SKU": "SKU-000637",
+      "Product Name": "Musculosa Nike",
+      "Price": 15000,
+      "category": null,
+      "stock": 1,
+      "color": "gray",
+      "Size": "2",
+      "description": "Musculosa marca Nike, ideal para actividades deportivas y uso casual. Su diseño garantiza comodidad y estilo en climas cálidos. Perfecta para combinar con otros atuendos deportivos.",
+      "gender": [],
+      "User ID": [
+        "41"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bfd94a4a-9136-413d-a3e1-288b878ad70d-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bfd94a4a-9136-413d-a3e1-288b878ad70d-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bfd94a4a-9136-413d-a3e1-288b878ad70d-3.jpeg"
+      ]
+    },
+    {
+      "id": "639",
+      "slug": "campera-basement-4114647b-4138-499e-9602-d6b399cdb5d8",
+      "SKU": "SKU-000639",
+      "Product Name": "Campera Basement",
+      "Price": 37000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "description": "Esta es una campera de la línea Basement, conocida por su estilo moderno y elegante. Ideal para usar durante el otoño e invierno, ofreciendo comodidad y calidez. Perfecta para combinar con diversos estilos de ropa.",
+      "gender": [],
+      "User ID": [
+        "41"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4114647b-4138-499e-9602-d6b399cdb5d8-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4114647b-4138-499e-9602-d6b399cdb5d8-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4114647b-4138-499e-9602-d6b399cdb5d8-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4114647b-4138-499e-9602-d6b399cdb5d8-4.jpeg"
+      ]
+    },
+    {
+      "id": "641",
+      "slug": "buzo-forever21-0afe5b5a-068c-4e8d-b772-f454776dc5f7",
+      "SKU": "SKU-000641",
+      "Product Name": "Buzo Forever21",
+      "Price": 29000,
+      "category": null,
+      "stock": 1,
+      "color": "white",
+      "Size": "S",
+      "description": "Un buzo moderno y cómodo de la marca Forever21. Diseñado para brindar calor y estilo, ideal para usar en días frescos. Fabricado con materiales de alta calidad para garantizar durabilidad y confort. Perfecto para combinar con jeans o pantalones casuales.",
+      "gender": [],
+      "User ID": [
+        "41"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0afe5b5a-068c-4e8d-b772-f454776dc5f7-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0afe5b5a-068c-4e8d-b772-f454776dc5f7-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0afe5b5a-068c-4e8d-b772-f454776dc5f7-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/0afe5b5a-068c-4e8d-b772-f454776dc5f7-4.jpeg"
+      ]
+    },
+    {
+      "id": "643",
+      "slug": "buzo-kimeika-blanco-fa745efb-0b21-4751-8600-84288bbaea54",
+      "SKU": "SKU-000643",
+      "Product Name": "Buzo Kimeika blanco",
+      "Price": 32000,
+      "category": null,
+      "stock": 1,
+      "color": "white",
+      "Size": "L",
+      "description": "Este es un buzo Kimeika de color blanco, ideal para un estilo casual y cómodo. Fabricado con materiales de alta calidad, es perfecto para mantenerse abrigado durante los días fríos. Su diseño unisex lo hace ideal para cualquier persona. Disponible en talla L. Una prenda versátil y esencial para cualquier guardarropa.",
+      "gender": [],
+      "User ID": [
+        "41"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fa745efb-0b21-4751-8600-84288bbaea54-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fa745efb-0b21-4751-8600-84288bbaea54-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fa745efb-0b21-4751-8600-84288bbaea54-3.jpeg"
+      ]
+    },
+    {
+      "id": "645",
+      "slug": "bermuda-tascani-5c482fd8-1aaf-4e55-92dc-b4377d75917d",
+      "SKU": "SKU-000645",
+      "Product Name": "Bermuda Tascani",
+      "Price": 70000,
+      "category": "shorts",
+      "stock": 1,
+      "color": "blue",
+      "Size": "33",
+      "description": "Esta bermuda de la marca Tascani es ideal para el verano. Hecha con materiales de alta calidad, ofrece comodidad y estilo. Perfecta para usar en actividades al aire libre o en un día casual. Disponible en talla 33.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5c482fd8-1aaf-4e55-92dc-b4377d75917d-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5c482fd8-1aaf-4e55-92dc-b4377d75917d-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5c482fd8-1aaf-4e55-92dc-b4377d75917d-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5c482fd8-1aaf-4e55-92dc-b4377d75917d-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5c482fd8-1aaf-4e55-92dc-b4377d75917d-5.jpeg"
+      ]
+    },
+    {
+      "id": "647",
+      "slug": "bermuda-tascani-8c5bedbe-50cf-4083-9fa1-b344f7007037",
+      "SKU": "SKU-000647",
+      "Product Name": "Bermuda Tascani",
+      "Price": 70000,
+      "category": "shorts",
+      "stock": 1,
+      "color": "blue",
+      "Size": "34",
+      "description": "Estas bermudas Tascani son una excelente opción para cualquier guardarropa. Fabricadas con materiales de alta calidad, ofrecen comodidad y estilo. El talle 34 asegura un excelente ajuste para quienes se sientan cómodos con esta talla. Perfectas para días cálidos y ocasiones casuales. Su precio es de $70,000.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c5bedbe-50cf-4083-9fa1-b344f7007037-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c5bedbe-50cf-4083-9fa1-b344f7007037-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c5bedbe-50cf-4083-9fa1-b344f7007037-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c5bedbe-50cf-4083-9fa1-b344f7007037-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8c5bedbe-50cf-4083-9fa1-b344f7007037-5.jpeg"
+      ]
+    },
+    {
+      "id": "649",
+      "slug": "jean-tascani-78858055-04ce-4046-abe8-f4c866b46a84",
+      "SKU": "SKU-000649",
+      "Product Name": "Jean Tascani",
+      "Price": 90000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "blue",
+      "Size": "32",
+      "description": "Un jean Tascani de talle 32, perfecto para el uso diario con estilo y comodidad. Ideal para combinar con una variedad de atuendos. Disponible en un color clásico y fácil de combinar. Elaborado con materiales de calidad para una durabilidad óptima.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/78858055-04ce-4046-abe8-f4c866b46a84-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/78858055-04ce-4046-abe8-f4c866b46a84-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/78858055-04ce-4046-abe8-f4c866b46a84-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/78858055-04ce-4046-abe8-f4c866b46a84-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/78858055-04ce-4046-abe8-f4c866b46a84-5.jpeg"
+      ]
+    },
+    {
+      "id": "650",
+      "slug": "jean-tascani-8e7c636d-73d5-4a82-8794-626b82972ef3",
+      "SKU": "SKU-000650",
+      "Product Name": "Jean Tascani",
+      "Price": 90000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "blue",
+      "Size": "32",
+      "description": "Jean de la marca Tascani en talla 32. Perfecto para un look casual y cómodo. Ideal para combinar con diferentes estilos y ocasiones.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8e7c636d-73d5-4a82-8794-626b82972ef3-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8e7c636d-73d5-4a82-8794-626b82972ef3-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8e7c636d-73d5-4a82-8794-626b82972ef3-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8e7c636d-73d5-4a82-8794-626b82972ef3-4.jpeg"
+      ]
+    },
+    {
+      "id": "652",
+      "slug": "malla-tascani-b9381ea0-b82f-49e6-8db4-8a624fa6d4c3",
+      "SKU": "SKU-000652",
+      "Product Name": "Malla tascani",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": "blue",
+      "Size": "",
+      "description": "Una malla diseñada para brindar soporte durante actividades deportivas, ideal para entrenamientos o uso casual.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b9381ea0-b82f-49e6-8db4-8a624fa6d4c3-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b9381ea0-b82f-49e6-8db4-8a624fa6d4c3-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b9381ea0-b82f-49e6-8db4-8a624fa6d4c3-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b9381ea0-b82f-49e6-8db4-8a624fa6d4c3-4.jpeg"
+      ]
+    },
+    {
+      "id": "654",
+      "slug": "camisa-m-tascani-cead794c-109c-406b-8da6-80b78b4cd76d",
+      "SKU": "SKU-000654",
+      "Product Name": "Camisa M Tascani",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": "green",
+      "Size": "M",
+      "description": "Una camisa de la marca Tascani, de talla M. Ideal para un look casual o semi-formal. Elaborada con materiales de calidad para ofrecer comodidad y estilo.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cead794c-109c-406b-8da6-80b78b4cd76d-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cead794c-109c-406b-8da6-80b78b4cd76d-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cead794c-109c-406b-8da6-80b78b4cd76d-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/cead794c-109c-406b-8da6-80b78b4cd76d-4.jpeg"
+      ]
+    },
+    {
+      "id": "656",
+      "slug": "campera-die-verruckt-heit-619067cf-5784-4c0c-aba9-004248f50978",
+      "SKU": "SKU-000656",
+      "Product Name": "Campera Die Verruckt Heit",
+      "Price": 500000,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "S/M",
+      "description": "Campera de la marca Die Verruckt Heit, absolutamente nueva y sin uso. Perfecta para cualquier ocasión y para mantenerte abrigado. Su diseño moderno y elegante la hacen una prenda imprescindible.",
+      "gender": [],
+      "User ID": [
+        "44"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/619067cf-5784-4c0c-aba9-004248f50978-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/619067cf-5784-4c0c-aba9-004248f50978-2.jpeg"
+      ]
+    },
+    {
+      "id": "658",
+      "slug": "blusa-transparente-47-street-297c2245-5e30-475c-a802-5c2eb7cf2714",
+      "SKU": "SKU-000658",
+      "Product Name": "Blusa Transparente 47 Street",
+      "Price": 4500,
+      "category": null,
+      "stock": 1,
+      "color": "purple",
+      "Size": "Talle L (etiqueta 3/42)",
+      "description": "Blusa transparente de 47 Street, en talle L. Está sin uso y es de color borgoña, con un estampado de calaveras y joyas que le da un toque original. Confeccionada en gasa muy liviana, similar a la seda sintética, es ideal para looks casuales o noche. Perfecta para resaltar en cualquier ocasión.",
+      "gender": [],
+      "User ID": [
+        "45"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/297c2245-5e30-475c-a802-5c2eb7cf2714-1.jpg"
+      ]
+    },
+    {
+      "id": "660",
+      "slug": "pollera-de-jean-denim-tiro-alto-marca-iniquita-jeans-casi-sin-uso-411100fc-9ed7-4b74-a445-6945e2b2d492",
+      "SKU": "SKU-000660",
+      "Product Name": "Pollera de jean denim tiro alto, Marca Iniquita Jeans, casi sin uso",
+      "Price": 6000,
+      "category": "skirts",
+      "stock": 1,
+      "color": "blue",
+      "Size": "38",
+      "description": "Pollera de mezclilla denim tiro alto de la marca INQUIETA JEANS en talle 38. Presenta un hermoso bordado floral blanco en la parte inferior izquierda. Estado: casi sin uso. Ideal para un look casual y moderno.",
+      "gender": [],
+      "User ID": [
+        "45"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/411100fc-9ed7-4b74-a445-6945e2b2d492-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/411100fc-9ed7-4b74-a445-6945e2b2d492-2.png"
+      ]
+    },
+    {
+      "id": "662",
+      "slug": "buzo-con-capucha-marca-champion-harvard-f30d8faf-07c4-45f7-90d8-9672f50011bc",
+      "SKU": "SKU-000662",
+      "Product Name": "Buzo con capucha marca Champion × Harvard",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": "red",
+      "Size": "L / XL",
+      "description": "Este buzo con capucha de la prestigiosa marca Champion en colaboración con Harvard es perfecto para quienes buscan comodidad y estilo. Ideal para climas frescos, mantiene el calor sin sacrificar movilidad ni comodidad. Su diseño permite usarlo tanto para actividades deportivas como para salir casualmente.",
+      "gender": [],
+      "User ID": [
+        "46"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f30d8faf-07c4-45f7-90d8-9672f50011bc-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f30d8faf-07c4-45f7-90d8-9672f50011bc-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f30d8faf-07c4-45f7-90d8-9672f50011bc-3.png"
+      ]
+    },
+    {
+      "id": "664",
+      "slug": "remera-levi-s-celeste-tipo-oversize-3d3abc08-3e7d-41e7-8d33-8fdcb9ce0c99",
+      "SKU": "SKU-000664",
+      "Product Name": "Remera Levi's celeste tipo oversize",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": "blue",
+      "Size": "XL",
+      "description": "Remera Levi's de color celeste y estilo oversize. Ideal para quienes buscan un estilo casual y cómodo. Disponible en talla XL.\n\nLa remera es de la reconocida marca Levi's, famosa por su calidad y durabilidad en el mundo de la moda. Perfecta para combinar con jeans o pantalones deportivos, ofreciendo un look desenfadado e informal, perfecto para el día a día.",
+      "gender": [],
+      "User ID": [
+        "46"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3d3abc08-3e7d-41e7-8d33-8fdcb9ce0c99-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3d3abc08-3e7d-41e7-8d33-8fdcb9ce0c99-2.png"
+      ]
+    },
+    {
+      "id": "666",
+      "slug": "chombas-ferouch-tipo-slimfit-ba145b60-9580-44df-8260-2655d461f0f9",
+      "SKU": "SKU-000666",
+      "Product Name": "Chombas Ferouch tipo SlimFit",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "description": "Chombas Ferouch de estilo SlimFit en colores fucsia y beige claro, ideales para un look moderno y casual. Disponible en talle M. Cada chomba tiene un precio individual de $30,000, o puedes adquirir ambas por un precio especial de $50,000.",
+      "gender": [],
+      "User ID": [
+        "46"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ba145b60-9580-44df-8260-2655d461f0f9-1.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ba145b60-9580-44df-8260-2655d461f0f9-2.png"
+      ]
+    },
+    {
+      "id": "668",
+      "slug": "buzo-uniqlo-bac5f2ad-ddd6-4df5-9afe-d0291fa3282b",
+      "SKU": "SKU-000668",
+      "Product Name": "Buzo UNIQLO",
+      "Price": 40000,
+      "category": null,
+      "stock": 1,
+      "color": "black",
+      "Size": "M",
+      "description": "Buzo UNIQLO de talla M con interior de polar grueso. Ideal para mantener el calor durante las temporadas frías. Un diseño cómodo y acogedor que combina estilo y funcionalidad, perfecto para ocasiones informales o días relajados.",
+      "gender": [],
+      "User ID": [
+        "46"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bac5f2ad-ddd6-4df5-9afe-d0291fa3282b-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bac5f2ad-ddd6-4df5-9afe-d0291fa3282b-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/bac5f2ad-ddd6-4df5-9afe-d0291fa3282b-3.jpeg"
+      ]
+    },
+    {
+      "id": "651",
+      "slug": "jean-blanco-tascani-585ad350-280f-44bc-b79e-2397f89f42c6",
+      "SKU": "SKU-000651",
+      "Product Name": "Jean blanco Tascani",
+      "Price": 65000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "blue",
+      "Size": "31",
+      "description": "Jean blanco de la marca Tascani, talla 31. Perfecto para un look casual y moderno, este jean ofrece comodidad y estilo. Ideal para combinar con cualquier prenda de tu guardarropa. Producto de alta calidad que asegura durabilidad y diseño atemporal.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/585ad350-280f-44bc-b79e-2397f89f42c6-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/585ad350-280f-44bc-b79e-2397f89f42c6-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/585ad350-280f-44bc-b79e-2397f89f42c6-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/585ad350-280f-44bc-b79e-2397f89f42c6-4.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/585ad350-280f-44bc-b79e-2397f89f42c6-5.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/585ad350-280f-44bc-b79e-2397f89f42c6-6.jpeg"
+      ]
+    },
+    {
+      "id": "653",
+      "slug": "camisa-g-tico-b3bd93fa-c2ae-43e6-a935-aaacb9cbf05c",
+      "SKU": "SKU-000653",
+      "Product Name": "Camisa gótico",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": "yellow",
+      "Size": "M",
+      "description": "Camisa estilo gótico en talla M, perfecta para quienes buscan un look alternativo y moderno.",
+      "gender": [],
+      "User ID": [
+        "42"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b3bd93fa-c2ae-43e6-a935-aaacb9cbf05c-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b3bd93fa-c2ae-43e6-a935-aaacb9cbf05c-2.jpeg"
+      ]
+    },
+    {
+      "id": "657",
+      "slug": "top-de-verano-47-street-sin-uso-9e41a858-88d1-4d54-8f76-54a13a28a19f",
+      "SKU": "SKU-000657",
+      "Product Name": "Top de Verano 47 Street SIN USO",
+      "Price": 5000,
+      "category": null,
+      "stock": 1,
+      "color": "pink",
+      "Size": "L (etiqueta 3/42)",
+      "description": "Top de Verano de la marca 47 Street en talle L (etiqueta 3/42). Este top nunca ha sido usado y cuenta con un estampado vibrante en tonos fucsia y morado. El diseño es elastizado con tirantes ajustables, perfecto para ajustarse cómodamente a tu cuerpo. Está confeccionado en un tejido liviano y con caída, semejante a crepé o seda sintética, que no se arruga fácilmente, además, incluye un forro interno de algodón que proporciona comodidad y frescura. Ideal para los días de verano.",
+      "gender": [],
+      "User ID": [
+        "45"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/9e41a858-88d1-4d54-8f76-54a13a28a19f-1.jpg"
+      ]
+    },
+    {
+      "id": "659",
+      "slug": "vestido-corto-de-encaje-sin-uso-marca-te-lo-juro-a54be8da-6c9d-4a6e-baa3-a3cb3bceaca4",
+      "SKU": "SKU-000659",
+      "Product Name": "Vestido Corto de Encaje SIN USO Marca Te Lo Juro",
+      "Price": 6000,
+      "category": null,
+      "stock": 1,
+      "color": "white",
+      "Size": "M",
+      "description": "Vestido corto de encaje de la marca 'Te Lo Juro'. Este vestido nunca ha sido usado y presenta un tejido exterior de encaje con un forro interno tipo satén, suave y con caída elegante. Ideal para una salida nocturna o un evento formal, combina con tus accesorios favoritos para un look deslumbrante. Talle M.",
+      "gender": [],
+      "User ID": [
+        "45"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a54be8da-6c9d-4a6e-baa3-a3cb3bceaca4-1.jpg"
+      ]
+    },
+    {
+      "id": "661",
+      "slug": "musculosa-marca-chilena-a01f5fb3-bc93-4efe-9e55-b681b258e166",
+      "SKU": "SKU-000661",
+      "Product Name": "Musculosa marca chilena",
+      "Price": 10000,
+      "category": null,
+      "stock": 1,
+      "color": "gray",
+      "Size": "XL",
+      "description": "Musculosa de talla XL de una reconocida marca chilena, ideal para climas cálidos y actividades al aire libre. Hecha con materiales de alta calidad que garantizan comodidad y durabilidad.",
+      "gender": [],
+      "User ID": [
+        "46"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a01f5fb3-bc93-4efe-9e55-b681b258e166-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a01f5fb3-bc93-4efe-9e55-b681b258e166-2.png"
+      ]
+    },
+    {
+      "id": "663",
+      "slug": "remera-marca-sioux-6e8abfb2-8276-46ff-8001-9f8d4661834a",
+      "SKU": "SKU-000663",
+      "Product Name": "Remera marca Sioux",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "XL",
+      "description": "Remera tipo oversize de la marca Sioux. Ideal para el uso diario y obtener un look relajado y moderno. Esta prenda ofrece comodidad y estilo con su diseño de corte amplio y tejido suave al tacto.",
+      "gender": [],
+      "User ID": [
+        "46"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6e8abfb2-8276-46ff-8001-9f8d4661834a-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6e8abfb2-8276-46ff-8001-9f8d4661834a-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/6e8abfb2-8276-46ff-8001-9f8d4661834a-3.png"
+      ]
+    },
+    {
+      "id": "665",
+      "slug": "chombas-ferouch-tipo-slimfit-86335e05-5c15-4fb8-8110-60795b2cf06e",
+      "SKU": "SKU-000665",
+      "Product Name": "Chombas Ferouch tipo SlimFit",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": "pink",
+      "Size": "M",
+      "description": "Chombas Ferouch de estilo SlimFit en colores fucsia y beige claro, ideales para un look moderno y casual. Disponible en talle M. Cada chomba tiene un precio individual de $30,000, o puedes adquirir ambas por un precio especial de $50,000.",
+      "gender": [],
+      "User ID": [
+        "46"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/86335e05-5c15-4fb8-8110-60795b2cf06e-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/86335e05-5c15-4fb8-8110-60795b2cf06e-2.png",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/86335e05-5c15-4fb8-8110-60795b2cf06e-3.png"
+      ]
+    },
+    {
+      "id": "667",
+      "slug": "remera-lippi-82bfed5a-106c-4da7-9f8c-1260579502e6",
+      "SKU": "SKU-000667",
+      "Product Name": "Remera Lippi",
+      "Price": 50000,
+      "category": null,
+      "stock": 1,
+      "color": "white",
+      "Size": "M/L",
+      "description": "Remera Lippi nueva, disponible en talle M/L a un precio de $50,000. Ideal para cualquier ocasión, esta prenda combina comodidad y estilo. Perfecta para aquellos que buscan añadir una pieza versátil y moderna a su guardarropa.",
+      "gender": [],
+      "User ID": [
+        "46"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/82bfed5a-106c-4da7-9f8c-1260579502e6-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/82bfed5a-106c-4da7-9f8c-1260579502e6-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/82bfed5a-106c-4da7-9f8c-1260579502e6-3.jpeg"
+      ]
+    },
+    {
+      "id": "669",
+      "slug": "jeans-zara-hombre-4d54f23a-eb12-47f1-825b-526c21e5df4f",
+      "SKU": "SKU-000669",
+      "Product Name": "Jeans Zara (Hombre)",
+      "Price": 50000,
+      "category": "jeans",
+      "stock": 1,
+      "color": "white",
+      "Size": "42/44 anchos",
+      "description": "Jeans anchos de Zara para hombre, disponibles en talla 42/44, ideales para quienes buscan comodidad y estilo. Estos jeans ofrecen un ajuste holgado perfecto para looks casuales y relajados.",
+      "gender": [],
+      "User ID": [
+        "46"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4d54f23a-eb12-47f1-825b-526c21e5df4f-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4d54f23a-eb12-47f1-825b-526c21e5df4f-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4d54f23a-eb12-47f1-825b-526c21e5df4f-3.jpeg"
+      ]
+    },
+    {
+      "id": "513",
+      "slug": "pantal-n-de-cuero-en-la-parte-delantera-y-tela-elastizada-en-la-parte-de-atr-s-68498149-c921-46e9-b48c-d6118abd71a4",
+      "SKU": "SKU-000513",
+      "Product Name": "Pantalón de cuero en la parte delantera y tela elastizada en la parte de atrás",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle L pero va para un M",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/68498149-c921-46e9-b48c-d6118abd71a4-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/68498149-c921-46e9-b48c-d6118abd71a4-2.jpeg"
+      ]
+    },
+    {
+      "id": "525",
+      "slug": "vestido-negro-de-algod-n-se-elastiza-y-ajusta-al-cuerpo-fdcce036-ef9e-4dfd-b391-af3c1f22743f",
+      "SKU": "SKU-000525",
+      "Product Name": "Vestido negro de algodón, se elastiza y ajusta al cuerpo",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S/M",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/fdcce036-ef9e-4dfd-b391-af3c1f22743f-1.jpeg"
+      ]
+    },
+    {
+      "id": "511",
+      "slug": "billetera-de-cuero-cloetas-ca808b2f-4da8-4472-a1c0-44248b644f28",
+      "SKU": "SKU-000511",
+      "Product Name": "Billetera de cuero CLOETAS",
+      "Price": 29000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ca808b2f-4da8-4472-a1c0-44248b644f28-1.jpeg"
+      ]
+    },
+    {
+      "id": "487",
+      "slug": "botitas-de-cuero-con-piel-en-el-interior-1d7e88d3-5bd1-4621-b3e0-1f309d29cacc",
+      "SKU": "SKU-000487",
+      "Product Name": "Botitas de cuero con piel en el interior",
+      "Price": 40000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1d7e88d3-5bd1-4621-b3e0-1f309d29cacc-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1d7e88d3-5bd1-4621-b3e0-1f309d29cacc-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1d7e88d3-5bd1-4621-b3e0-1f309d29cacc-3.jpeg"
+      ]
+    },
+    {
+      "id": "523",
+      "slug": "remera-hombre-marca-habano-black-2652aceb-67c3-45e6-848b-04da4e126cec",
+      "SKU": "SKU-000523",
+      "Product Name": "Remera hombre marca Habano Black",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2652aceb-67c3-45e6-848b-04da4e126cec-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/2652aceb-67c3-45e6-848b-04da4e126cec-2.jpeg"
+      ]
+    },
+    {
+      "id": "527",
+      "slug": "vestido-comuni-n-de-ni-os-770b3dcb-63bb-4db8-8853-572ceea7aa5c",
+      "SKU": "SKU-000527",
+      "Product Name": "Vestido comunión de niños",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "10",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/770b3dcb-63bb-4db8-8853-572ceea7aa5c-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/770b3dcb-63bb-4db8-8853-572ceea7aa5c-2.jpeg"
+      ]
+    },
+    {
+      "id": "521",
+      "slug": "mochila-5efe3027-4de5-4ec5-a66b-f0df0f65a28f",
+      "SKU": "SKU-000521",
+      "Product Name": "Mochila",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "31"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5efe3027-4de5-4ec5-a66b-f0df0f65a28f-1.jpeg"
+      ]
+    },
+    {
+      "id": "519",
+      "slug": "camisa-hombre-impecable-estado-y-calidad-7a3fad2b-573d-4c08-b02d-df46a34c9f82",
+      "SKU": "SKU-000519",
+      "Product Name": "Camisa hombre, impecable estado y calidad.",
+      "Price": 9990,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "gender": [],
+      "User ID": [
+        "31"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7a3fad2b-573d-4c08-b02d-df46a34c9f82-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7a3fad2b-573d-4c08-b02d-df46a34c9f82-2.jpeg"
+      ]
+    },
+    {
+      "id": "489",
+      "slug": "sandalias-de-gamuza-con-tachas-akiabara-4781694f-b7ee-467f-b817-4a204513b9e5",
+      "SKU": "SKU-000489",
+      "Product Name": "Sandalias de gamuza con tachas akiabara",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4781694f-b7ee-467f-b817-4a204513b9e5-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4781694f-b7ee-467f-b817-4a204513b9e5-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4781694f-b7ee-467f-b817-4a204513b9e5-3.jpeg"
+      ]
+    },
+    {
+      "id": "535",
+      "slug": "camisa-zara-1a8baec4-99df-4172-a7eb-d9214fd3393a",
+      "SKU": "SKU-000535",
+      "Product Name": "Camisa zara",
+      "Price": 19500,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "S",
+      "gender": [],
+      "User ID": [
+        "33"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1a8baec4-99df-4172-a7eb-d9214fd3393a-1.jpeg"
+      ]
+    },
+    {
+      "id": "491",
+      "slug": "zapatos-de-cuero-tipo-n-uticos-marca-natacha-ee8c9727-8013-412e-b0a5-1adcf355dc22",
+      "SKU": "SKU-000491",
+      "Product Name": "Zapatos de cuero tipo náuticos marca Natacha",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ee8c9727-8013-412e-b0a5-1adcf355dc22-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ee8c9727-8013-412e-b0a5-1adcf355dc22-2.jpeg"
+      ]
+    },
+    {
+      "id": "493",
+      "slug": "zapas-de-cuero-tipo-botitas-pepe-jeans-d4c4293b-fd73-4a9c-95ba-c7a0bb8d49a4",
+      "SKU": "SKU-000493",
+      "Product Name": "zapas de cuero tipo botitas Pepe jeans",
+      "Price": 40000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d4c4293b-fd73-4a9c-95ba-c7a0bb8d49a4-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d4c4293b-fd73-4a9c-95ba-c7a0bb8d49a4-2.jpeg"
+      ]
+    },
+    {
+      "id": "495",
+      "slug": "bolso-de-cuero-blaque-35-por-35-cm-1bf70a0a-6f8a-4e73-b9a9-35ef01981aea",
+      "SKU": "SKU-000495",
+      "Product Name": "Bolso de cuero blaque 35 por 35 cm",
+      "Price": 49000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1bf70a0a-6f8a-4e73-b9a9-35ef01981aea-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1bf70a0a-6f8a-4e73-b9a9-35ef01981aea-2.jpeg"
+      ]
+    },
+    {
+      "id": "497",
+      "slug": "bucaneras-jazmin-chebar-de-gamuza-con-cierre-interno-forradas-en-cuero-e27d0f52-b55a-4b7b-8e2b-9088fa344d74",
+      "SKU": "SKU-000497",
+      "Product Name": "Bucaneras jazmin chebar de gamuza con cierre interno, forradas en cuero",
+      "Price": 40000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e27d0f52-b55a-4b7b-8e2b-9088fa344d74-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e27d0f52-b55a-4b7b-8e2b-9088fa344d74-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e27d0f52-b55a-4b7b-8e2b-9088fa344d74-3.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e27d0f52-b55a-4b7b-8e2b-9088fa344d74-4.jpeg"
+      ]
+    },
+    {
+      "id": "499",
+      "slug": "su-ter-i-47-f787a99f-7c05-4a76-966a-059bb76ac162",
+      "SKU": "SKU-000499",
+      "Product Name": "Suéter I💙47",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "42 M",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f787a99f-7c05-4a76-966a-059bb76ac162-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f787a99f-7c05-4a76-966a-059bb76ac162-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f787a99f-7c05-4a76-966a-059bb76ac162-3.jpeg"
+      ]
+    },
+    {
+      "id": "501",
+      "slug": "vestido-de-tela-s-mil-gamuza-zara-8e83b0af-b236-4b1b-84d5-0431c9c88275",
+      "SKU": "SKU-000501",
+      "Product Name": "Vestido de tela símil gamuza Zara",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle M",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8e83b0af-b236-4b1b-84d5-0431c9c88275-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8e83b0af-b236-4b1b-84d5-0431c9c88275-2.jpeg"
+      ]
+    },
+    {
+      "id": "503",
+      "slug": "campera-100-cuero-con-inertes-met-licos-marca-naima-95fe01cd-3c0b-4a20-98cb-a4ef2c6a2692",
+      "SKU": "SKU-000503",
+      "Product Name": "Campera 100 % cuero con. Inertes metálicos. Marca NAIMA",
+      "Price": 90000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle S",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/95fe01cd-3c0b-4a20-98cb-a4ef2c6a2692-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/95fe01cd-3c0b-4a20-98cb-a4ef2c6a2692-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/95fe01cd-3c0b-4a20-98cb-a4ef2c6a2692-3.jpeg"
+      ]
+    },
+    {
+      "id": "485",
+      "slug": "campera-zara-de-media-estaci-n-azul-talle-m-669ad2cc-65b6-40e2-8e54-9fadb3ba80c3",
+      "SKU": "SKU-000485",
+      "Product Name": "Campera Zara de media estación, azul, talle M",
+      "Price": 70000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "talle M",
+      "gender": [],
+      "User ID": [
+        "26"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/669ad2cc-65b6-40e2-8e54-9fadb3ba80c3-1.jpg"
+      ]
+    },
+    {
+      "id": "483",
+      "slug": "buzo-billabong-con-capucha-12-a-os-usado-39fe9e0d-967f-4625-add8-8ce8263071d6",
+      "SKU": "SKU-000483",
+      "Product Name": "Buzo Billabong Con Capucha 12 Años (Usado)",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "12 Años",
+      "gender": [],
+      "User ID": [
+        "25"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/39fe9e0d-967f-4625-add8-8ce8263071d6-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/39fe9e0d-967f-4625-add8-8ce8263071d6-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/39fe9e0d-967f-4625-add8-8ce8263071d6-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/39fe9e0d-967f-4625-add8-8ce8263071d6-4.jpg"
+      ]
+    },
+    {
+      "id": "481",
+      "slug": "remera-como-quieres-nueva-con-etiqueta-talle-34-e7892029-5d73-4d96-8601-f833f3de8520",
+      "SKU": "SKU-000481",
+      "Product Name": "Remera Como Quieres Nueva Con Etiqueta. TALLE 34",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "TALLE 34",
+      "gender": [],
+      "User ID": [
+        "25"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e7892029-5d73-4d96-8601-f833f3de8520-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e7892029-5d73-4d96-8601-f833f3de8520-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e7892029-5d73-4d96-8601-f833f3de8520-3.jpg"
+      ]
+    },
+    {
+      "id": "498",
+      "slug": "trench-de-gabardina-zara-42df16e3-8cad-468f-9377-a72b6768b359",
+      "SKU": "SKU-000498",
+      "Product Name": "Trench de gabardina Zara",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle s",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/42df16e3-8cad-468f-9377-a72b6768b359-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/42df16e3-8cad-468f-9377-a72b6768b359-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/42df16e3-8cad-468f-9377-a72b6768b359-3.jpeg"
+      ]
+    },
+    {
+      "id": "500",
+      "slug": "trench-azul-marino-kevingston-91a27283-c924-4adc-b894-b058b60cb9a6",
+      "SKU": "SKU-000500",
+      "Product Name": "Trench azul marino Kevingston",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle M",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/91a27283-c924-4adc-b894-b058b60cb9a6-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/91a27283-c924-4adc-b894-b058b60cb9a6-2.jpeg"
+      ]
+    },
+    {
+      "id": "502",
+      "slug": "saco-de-cuero-100-marca-mng-c5256f2d-f1e2-4d05-8e95-a9bf0deae185",
+      "SKU": "SKU-000502",
+      "Product Name": "Saco de cuero 100% marca MNG",
+      "Price": 98000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle S",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c5256f2d-f1e2-4d05-8e95-a9bf0deae185-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c5256f2d-f1e2-4d05-8e95-a9bf0deae185-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c5256f2d-f1e2-4d05-8e95-a9bf0deae185-3.jpeg"
+      ]
+    },
+    {
+      "id": "504",
+      "slug": "tapado-s-mil-corderito-nuevo-sin-etiqueta-486227cc-b440-4783-86c0-1639ca5cefc9",
+      "SKU": "SKU-000504",
+      "Product Name": "Tapado símil corderito. Nuevo, sin etiqueta",
+      "Price": 58000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle L",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/486227cc-b440-4783-86c0-1639ca5cefc9-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/486227cc-b440-4783-86c0-1639ca5cefc9-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/486227cc-b440-4783-86c0-1639ca5cefc9-3.jpeg"
+      ]
+    },
+    {
+      "id": "505",
+      "slug": "vestido-corto-negro-con-lazo-frontal-es-todo-nuevo-con-etiqueta-marca-las-pepas-a927830d-8bab-4286-aab1-3840eac46175",
+      "SKU": "SKU-000505",
+      "Product Name": "Vestido corto negro con lazo frontal. Es todo nuevo con etiqueta marca LAS PEPAS",
+      "Price": 39000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle m",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a927830d-8bab-4286-aab1-3840eac46175-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a927830d-8bab-4286-aab1-3840eac46175-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a927830d-8bab-4286-aab1-3840eac46175-3.jpeg"
+      ]
+    },
+    {
+      "id": "506",
+      "slug": "jean-negro-gastado-marca-las-pepas-db87fcd3-edc8-48c8-82b2-86bdb6f3e18a",
+      "SKU": "SKU-000506",
+      "Product Name": "Jean negro gastado marca las pepas",
+      "Price": 23000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle 38",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/db87fcd3-edc8-48c8-82b2-86bdb6f3e18a-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/db87fcd3-edc8-48c8-82b2-86bdb6f3e18a-2.jpeg"
+      ]
+    },
+    {
+      "id": "507",
+      "slug": "saco-de-pa-o-con-capucha-desmontable-marca-blaque-3afefb21-457d-41e8-8b4b-1d4f2bd7eda3",
+      "SKU": "SKU-000507",
+      "Product Name": "Saco de paño con capucha desmontable. Marca Blaque",
+      "Price": 40000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle S",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3afefb21-457d-41e8-8b4b-1d4f2bd7eda3-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/3afefb21-457d-41e8-8b4b-1d4f2bd7eda3-2.jpeg"
+      ]
+    },
+    {
+      "id": "509",
+      "slug": "pantal-n-zara-de-vestir-c9bedf5c-d305-425f-8194-5161fc00378e",
+      "SKU": "SKU-000509",
+      "Product Name": "Pantalón Zara de vestir",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c9bedf5c-d305-425f-8194-5161fc00378e-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/c9bedf5c-d305-425f-8194-5161fc00378e-2.jpeg"
+      ]
+    },
+    {
+      "id": "517",
+      "slug": "jeans-marca-47-street-corte-wide-leg-073c25a9-751a-4c4e-9f8e-8e7a7b96a822",
+      "SKU": "SKU-000517",
+      "Product Name": "Jeans marca 47 street corte wide leg",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle 38",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/073c25a9-751a-4c4e-9f8e-8e7a7b96a822-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/073c25a9-751a-4c4e-9f8e-8e7a7b96a822-2.jpeg"
+      ]
+    },
+    {
+      "id": "515",
+      "slug": "vestido-de-algod-n-marca-mar-a-cher-829b64f3-5434-4a5a-b506-e5d4cfb5c7ad",
+      "SKU": "SKU-000515",
+      "Product Name": "Vestido de algodón marca MARÍA CHER",
+      "Price": 40000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle M",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/829b64f3-5434-4a5a-b506-e5d4cfb5c7ad-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/829b64f3-5434-4a5a-b506-e5d4cfb5c7ad-2.jpeg"
+      ]
+    },
+    {
+      "id": "480",
+      "slug": "buzo-con-capucha-hoodie-billabong-nena-14-a-os-usado-1455ffc4-aab1-4b77-a7fd-2c1116c2ec06",
+      "SKU": "SKU-000480",
+      "Product Name": "Buzo Con Capucha Hoodie Billabong Nena 14 Años (Usado)",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "14 Años",
+      "gender": [],
+      "User ID": [
+        "25"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1455ffc4-aab1-4b77-a7fd-2c1116c2ec06-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1455ffc4-aab1-4b77-a7fd-2c1116c2ec06-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1455ffc4-aab1-4b77-a7fd-2c1116c2ec06-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1455ffc4-aab1-4b77-a7fd-2c1116c2ec06-4.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1455ffc4-aab1-4b77-a7fd-2c1116c2ec06-5.jpg"
+      ]
+    },
+    {
+      "id": "482",
+      "slug": "short-como-quieres-gris-topo-talle-34-usado-1834ed9f-19ba-4a1e-9d8e-27c71154be5e",
+      "SKU": "SKU-000482",
+      "Product Name": "Short Como Quieres Gris Topo Talle 34 (Usado)",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "TALLE 34",
+      "gender": [],
+      "User ID": [
+        "25"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1834ed9f-19ba-4a1e-9d8e-27c71154be5e-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1834ed9f-19ba-4a1e-9d8e-27c71154be5e-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1834ed9f-19ba-4a1e-9d8e-27c71154be5e-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1834ed9f-19ba-4a1e-9d8e-27c71154be5e-4.jpg"
+      ]
+    },
+    {
+      "id": "484",
+      "slug": "campera-tommy-hilfiger-de-media-estaci-n-negra-talle-m-f573de90-002f-44b6-be0b-16de6103e1ad",
+      "SKU": "SKU-000484",
+      "Product Name": "Campera Tommy Hilfiger de media estación, negra, talle M",
+      "Price": 70000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "talle M",
+      "gender": [],
+      "User ID": [
+        "26"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/f573de90-002f-44b6-be0b-16de6103e1ad-1.jpg"
+      ]
+    },
+    {
+      "id": "486",
+      "slug": "zapatos-de-cuero-marca-rapsodia-ad70b4bd-c4a2-4800-a398-65ddf80bff26",
+      "SKU": "SKU-000486",
+      "Product Name": "Zapatos de cuero marca Rapsodia",
+      "Price": 45000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ad70b4bd-c4a2-4800-a398-65ddf80bff26-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ad70b4bd-c4a2-4800-a398-65ddf80bff26-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ad70b4bd-c4a2-4800-a398-65ddf80bff26-3.jpeg"
+      ]
+    },
+    {
+      "id": "488",
+      "slug": "zapas-nike-4ab92095-512b-4256-87e0-13761a040085",
+      "SKU": "SKU-000488",
+      "Product Name": "Zapas Nike",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "36",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4ab92095-512b-4256-87e0-13761a040085-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4ab92095-512b-4256-87e0-13761a040085-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/4ab92095-512b-4256-87e0-13761a040085-3.jpeg"
+      ]
+    },
+    {
+      "id": "490",
+      "slug": "zapatos-de-cuero-nuevos-a8ed3545-6652-4d3e-a6ab-927764cfaca6",
+      "SKU": "SKU-000490",
+      "Product Name": "Zapatos de cuero nuevos",
+      "Price": 25000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a8ed3545-6652-4d3e-a6ab-927764cfaca6-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a8ed3545-6652-4d3e-a6ab-927764cfaca6-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a8ed3545-6652-4d3e-a6ab-927764cfaca6-3.jpeg"
+      ]
+    },
+    {
+      "id": "492",
+      "slug": "botas-de-cuero-marca-ayres-70931435-f43b-41e8-a95d-152102401b89",
+      "SKU": "SKU-000492",
+      "Product Name": "Botas de cuero marca AYRES",
+      "Price": 20000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/70931435-f43b-41e8-a95d-152102401b89-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/70931435-f43b-41e8-a95d-152102401b89-2.jpeg"
+      ]
+    },
+    {
+      "id": "494",
+      "slug": "cartera-de-cuero-y-tachas-marca-ayres-correa-corta-y-larga-d76e23ef-dfd2-42cb-ab6e-9127cee45f89",
+      "SKU": "SKU-000494",
+      "Product Name": "Cartera de cuero y tachas marca AYRES correa corta y larga",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d76e23ef-dfd2-42cb-ab6e-9127cee45f89-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d76e23ef-dfd2-42cb-ab6e-9127cee45f89-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/d76e23ef-dfd2-42cb-ab6e-9127cee45f89-3.jpeg"
+      ]
+    },
+    {
+      "id": "496",
+      "slug": "botas-de-cuero-mar-a-cher-poco-uso-1e8729ff-de2f-4db9-8855-c2b99c0f73d4",
+      "SKU": "SKU-000496",
+      "Product Name": "Botas de cuero María cher poco uso",
+      "Price": 50000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "37",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1e8729ff-de2f-4db9-8855-c2b99c0f73d4-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1e8729ff-de2f-4db9-8855-c2b99c0f73d4-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/1e8729ff-de2f-4db9-8855-c2b99c0f73d4-3.jpeg"
+      ]
+    },
+    {
+      "id": "508",
+      "slug": "saco-de-lana-60-port-said-27114a77-3786-4571-846a-786578e31728",
+      "SKU": "SKU-000508",
+      "Product Name": "Saco de lana 60%  PORT SAID",
+      "Price": 45000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle M",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/27114a77-3786-4571-846a-786578e31728-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/27114a77-3786-4571-846a-786578e31728-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/27114a77-3786-4571-846a-786578e31728-3.jpeg"
+      ]
+    },
+    {
+      "id": "510",
+      "slug": "trench-de-gabardina-marca-ayres-ac3913ae-042a-4095-a436-705b2aa48372",
+      "SKU": "SKU-000510",
+      "Product Name": "Trench de gabardina marca AYRES",
+      "Price": 30000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle m",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ac3913ae-042a-4095-a436-705b2aa48372-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ac3913ae-042a-4095-a436-705b2aa48372-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/ac3913ae-042a-4095-a436-705b2aa48372-3.jpeg"
+      ]
+    },
+    {
+      "id": "512",
+      "slug": "billetera-de-cuero-cloetas-5aacea71-92e1-4a05-b9a7-8c4d2df83122",
+      "SKU": "SKU-000512",
+      "Product Name": "Billetera de cuero CLOETAS",
+      "Price": 29000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": null,
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/5aacea71-92e1-4a05-b9a7-8c4d2df83122-1.jpeg"
+      ]
+    },
+    {
+      "id": "514",
+      "slug": "campera-47-street-b609aaec-40d7-4c84-a27b-5c62ce0419e1",
+      "SKU": "SKU-000514",
+      "Product Name": "Campera 47 street",
+      "Price": 39000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle M",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b609aaec-40d7-4c84-a27b-5c62ce0419e1-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b609aaec-40d7-4c84-a27b-5c62ce0419e1-2.jpeg"
+      ]
+    },
+    {
+      "id": "516",
+      "slug": "saco-de-pa-o-con-botones-de-besos-y-bolados-en-hombros-y-mangas-marca-millie-a973ac92-255d-4623-9440-2792cf7485fe",
+      "SKU": "SKU-000516",
+      "Product Name": "Saco de paño con botones de besos y bolados en hombros y mangas marca MILLIE",
+      "Price": 48000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "Talle S",
+      "gender": [],
+      "User ID": [
+        "27"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a973ac92-255d-4623-9440-2792cf7485fe-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/a973ac92-255d-4623-9440-2792cf7485fe-2.jpeg"
+      ]
+    },
+    {
+      "id": "518",
+      "slug": "campera-militar-vintage-cuero-original-8cd7f0cc-c71b-4ce3-bfdd-c66984bdef2c",
+      "SKU": "SKU-000518",
+      "Product Name": "Campera militar vintage Cuero Original",
+      "Price": 100000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "M",
+      "gender": [],
+      "User ID": [
+        "30"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8cd7f0cc-c71b-4ce3-bfdd-c66984bdef2c-1.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8cd7f0cc-c71b-4ce3-bfdd-c66984bdef2c-2.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8cd7f0cc-c71b-4ce3-bfdd-c66984bdef2c-3.jpg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/8cd7f0cc-c71b-4ce3-bfdd-c66984bdef2c-4.jpg"
+      ]
+    },
+    {
+      "id": "520",
+      "slug": "chomba-lacoste-original-7f5f0017-162e-43e9-80ec-0bc946a36046",
+      "SKU": "SKU-000520",
+      "Product Name": "Chomba lacoste original",
+      "Price": 9990,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "gender": [],
+      "User ID": [
+        "31"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7f5f0017-162e-43e9-80ec-0bc946a36046-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7f5f0017-162e-43e9-80ec-0bc946a36046-2.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/7f5f0017-162e-43e9-80ec-0bc946a36046-3.jpeg"
+      ]
+    },
+    {
+      "id": "522",
+      "slug": "zapatillas-nike-b44c0fcc-8126-4dc8-9cc1-7f8e6eac0f61",
+      "SKU": "SKU-000522",
+      "Product Name": "Zapatillas Nike",
+      "Price": 35000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "39",
+      "gender": [],
+      "User ID": [
+        "31"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b44c0fcc-8126-4dc8-9cc1-7f8e6eac0f61-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/b44c0fcc-8126-4dc8-9cc1-7f8e6eac0f61-2.jpeg"
+      ]
+    },
+    {
+      "id": "524",
+      "slug": "camisa-la-martina-slim-fit-e80182a8-d13c-4944-a050-873fe5bb9f7d",
+      "SKU": "SKU-000524",
+      "Product Name": "Camisa la Martina slim fit",
+      "Price": 45000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e80182a8-d13c-4944-a050-873fe5bb9f7d-1.jpeg",
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/e80182a8-d13c-4944-a050-873fe5bb9f7d-2.jpeg"
+      ]
+    },
+    {
+      "id": "526",
+      "slug": "vestido-de-fiesta-color-naranja-talle-con-forro-dentro-y-bolsillos-escondidos-92a110fa-d9b8-4599-a510-cd048da9f5a6",
+      "SKU": "SKU-000526",
+      "Product Name": "Vestido de fiesta color naranja talle con forro dentro, y bolsillos escondidos.",
+      "Price": 40000,
+      "category": null,
+      "stock": 1,
+      "color": null,
+      "Size": "L/XL",
+      "gender": [],
+      "User ID": [
+        "32"
+      ],
+      "Images": [
+        "https://mygfywownbtwjjosadvd.supabase.co/storage/v1/object/public/storage/products/92a110fa-d9b8-4599-a510-cd048da9f5a6-1.jpeg"
       ]
     },
     {
@@ -18782,5 +22505,5 @@
       ]
     }
   ],
-  "timestamp": 1769094314269
+  "timestamp": 1769521904724
 }
