@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 type CardProps = {
   image: {
@@ -18,20 +19,23 @@ type CardProps = {
   href?: string;
 };
 
-export default function Card({ image, title, size, sku, price, href }: CardProps) {
+export default function Card({
+  image,
+  title,
+  size,
+  sku,
+  price,
+  href,
+}: CardProps) {
   const CardContent = () => (
     <div className="flex h-full flex-col bg-transparent">
-      <div className="h-[23rem] w-full bg-transparent">
-        <img
-          className="h-full w-full rounded-md object-cover dark:hidden"
+      <div className="relative h-[23rem] w-full bg-transparent">
+        <Image
+          className="h-full w-full rounded-md object-cover"
           src={image.light}
           alt={image.alt}
-          loading="lazy"
-        />
-        <img
-          className="hidden h-full w-full rounded-md object-cover dark:block"
-          src={image.dark}
-          alt={image.alt}
+          fill
+          sizes="30vw"
           loading="lazy"
         />
       </div>
@@ -74,7 +78,7 @@ export default function Card({ image, title, size, sku, price, href }: CardProps
           </p> */}
         </div>
         <div className="mt-auto flex items-center justify-between gap-4">
-          <p className="text-2xl leading-tight font-extrabold text-primary-800 dark:text-primary-300">
+          <p className="text-primary-800 dark:text-primary-300 text-2xl leading-tight font-extrabold">
             {price}
           </p>
           {/* <Button
