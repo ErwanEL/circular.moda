@@ -1,5 +1,12 @@
 import type { Product } from './types';
 
+/** Width for catalog card images (proxy resize) */
+export const CARD_IMAGE_WIDTH = 400;
+/** Max height for product detail main image (proxy resize) */
+export const DETAIL_MAIN_MAX_HEIGHT = 800;
+/** Width/height for gallery thumbnails (proxy resize) */
+export const THUMB_SIZE = 80;
+
 /**
  * Builds the image proxy URL for a Supabase Storage image.
  * Use this to reduce Supabase egress (proxy fetches once, caches, serves).
@@ -110,9 +117,11 @@ export function processProductImages(product: Product): ProcessedImage[] {
   return uniqueImages.map((image) => {
     const imageUrl = typeof image === 'string' ? image : image.url;
 
-    // Pour les produits Supabase: utiliser le proxy API pour réduire l'egress
+    // Pour les produits Supabase: utiliser le proxy API avec hauteur détail
     if (isSupabase) {
-      const proxyUrl = getImageProxyUrl(imageUrl);
+      const proxyUrl = getImageProxyUrl(imageUrl, {
+        h: DETAIL_MAIN_MAX_HEIGHT,
+      });
       return {
         url: proxyUrl,
         originalUrl: imageUrl,

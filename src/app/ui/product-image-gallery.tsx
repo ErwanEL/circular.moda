@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useCallback, useEffect } from 'react';
+import { getImageProxyUrl, THUMB_SIZE } from '../lib/product-images';
 import { ExternalImage } from './external-image';
 
 type ProcessedImage = {
@@ -211,6 +212,14 @@ export function ProductImageGallery({
             {validImages.map((image, index) => {
               // Use a more stable key combining index and filename/url
               const imageKey = image.filename || image.url || `image-${index}`;
+              const thumbSrc = image.originalUrl?.includes(
+                'supabase.co/storage'
+              )
+                ? getImageProxyUrl(image.originalUrl, {
+                    w: THUMB_SIZE,
+                    h: THUMB_SIZE,
+                  })
+                : image.url;
               return (
                 <button
                   key={`${index}-${imageKey}`}
@@ -225,7 +234,7 @@ export function ProductImageGallery({
                   aria-label={`Ver imagen ${index + 1} de ${validImages.length}`}
                 >
                   <ExternalImage
-                    src={image.url}
+                    src={thumbSrc}
                     alt={`${productSku} - Vista ${index + 1}`}
                     fallbackSrc={image.fallbackUrl}
                     width={80}

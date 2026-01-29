@@ -72,8 +72,10 @@ export async function GET(request: NextRequest) {
   const w = wParam ? parseInt(wParam, 10) : undefined;
   const h = hParam ? parseInt(hParam, 10) : undefined;
   const cacheKey = getCacheKey(sourceUrl, w, h);
+  const isDev = process.env.NODE_ENV === 'development';
 
-  const cached = memoryCache.get(cacheKey);
+  // Skip in-memory cache in dev so orientation/processing changes take effect immediately
+  const cached = !isDev ? memoryCache.get(cacheKey) : undefined;
   if (cached) {
     return new NextResponse(cached.body, {
       headers: {
@@ -110,6 +112,7 @@ export async function GET(request: NextRequest) {
     if ((w !== undefined && w > 0) || (h !== undefined && h > 0)) {
       try {
         const sharp = (await import('sharp')).default;
+        // Resize only; do not apply EXIF orientation so output matches source orientation
         let pipeline = sharp(buffer);
         const width = w && w > 0 ? w : undefined;
         const height = h && h > 0 ? h : undefined;
@@ -133,12 +136,14 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  pruneCache();
-  memoryCache.set(cacheKey, {
-    body: buffer,
-    contentType,
-    timestamp: Date.now(),
-  });
+  if (!isDev) {
+    pruneCache();
+    memoryCache.set(cacheKey, {
+      body: buffer,
+      contentType,
+      timestamp: Date.now(),
+    });
+  }
 
   return new NextResponse(buffer, {
     headers: {
