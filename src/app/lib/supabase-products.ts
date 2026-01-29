@@ -15,12 +15,12 @@ function transformSupabaseToProduct(row: any): Product {
   const stock = row.stock || row['Stock Levels'] || 1;
   const color = row.Color || row.color;
   const description = row.description || row.Description;
-  const gender = Array.isArray(row.gender) 
-    ? row.gender 
-    : row.gender 
-    ? [row.gender] 
-    : [];
-  
+  const gender = Array.isArray(row.gender)
+    ? row.gender
+    : row.gender
+      ? [row.gender]
+      : [];
+
   // Gérer les images (peut être JSONB, array de strings/objets, ou string)
   // Supabase stocke souvent les images comme array de strings (URLs)
   // Airtable stocke comme array d'objets avec url, filename, etc.
@@ -56,7 +56,7 @@ function transformSupabaseToProduct(row: any): Product {
       images = [row.images];
     }
   }
-  
+
   // Normaliser: garder les strings telles quelles pour Supabase
   // processProductImages gère les deux formats (strings et objets)
   // On garde les strings pour que isSupabaseProduct() puisse les détecter
@@ -85,7 +85,11 @@ function transformSupabaseToProduct(row: any): Product {
     slug = row.slug;
   } else {
     // Dernier fallback: générer depuis SKU ou name
-    slug = sku ? slugify(String(sku)) : productName ? slugify(productName) : slugify(String(row.id || ''));
+    slug = sku
+      ? slugify(String(sku))
+      : productName
+        ? slugify(productName)
+        : slugify(String(row.id || ''));
   }
 
   return {
@@ -214,7 +218,8 @@ export async function getAllProductsFromSupabase(): Promise<Product[]> {
 function extractPublicIdFromSlug(slug: string): string | null {
   // UUID format: 8-4-4-4-12 (avec tirets)
   // Chercher le dernier segment qui correspond à un UUID
-  const uuidPattern = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i;
+  const uuidPattern =
+    /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i;
   const match = slug.match(uuidPattern);
   return match ? match[1] : null;
 }
@@ -233,7 +238,7 @@ export async function getProductBySlugFromSupabase(
   try {
     // Extraire le public_id du slug (format: name-public_id)
     const publicId = extractPublicIdFromSlug(slug);
-    
+
     // Chercher par public_id en priorité (si on peut l'extraire)
     let { data, error } = publicId
       ? await supabase
@@ -241,7 +246,7 @@ export async function getProductBySlugFromSupabase(
           .select('*')
           .eq('public_id', publicId)
           .maybeSingle()
-      : { data: null, error: { code: 'NO_PUBLIC_ID' } };
+      : { data: null, error: { code: 'NO_PUBLIC_ID' } as { code: string } };
 
     // Si la colonne public_id n'existe pas ou pas de résultat, essayer par slug direct
     if ((error && error.code === '42703') || !data) {
@@ -257,37 +262,8 @@ export async function getProductBySlugFromSupabase(
       }
     }
 
-    // Si toujours pas trouvé, chercher tous les produits et filtrer par slug généré
-    if (!data || (error && error.code !== 'PGRST116' && error.code !== 'NO_PUBLIC_ID')) {
-      const { data: allData, error: allError } = await supabase
-        .from('products')
-        .select('*');
-
-      if (allError) {
-        console.error('[Supabase] Error fetching all products:', allError);
-        return null;
-      }
-
-      if (!allData || allData.length === 0) {
-        return null;
-      }
-
-      // Transformer et chercher par slug généré
-      const transformed = allData.map(transformSupabaseToProduct);
-      const found = transformed.find(p => p.slug === slug);
-      
-      if (found) {
-        // Retrouver les données originales
-        const originalData = allData.find(d => {
-          const t = transformSupabaseToProduct(d);
-          return t.slug === slug;
-        });
-        
-        if (originalData) {
-          return transformSupabaseToProduct(originalData);
-        }
-      }
-      
+    // Pas de fallback full-table: si pas trouvé par public_id ou slug, retourner null
+    if (!data) {
       return null;
     }
 
@@ -314,4 +290,3 @@ export async function getProductBySlugFromSupabase(
     return null;
   }
 }
-

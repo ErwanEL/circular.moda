@@ -1,5 +1,21 @@
 import type { Product } from './types';
 
+/**
+ * Builds the image proxy URL for a Supabase Storage image.
+ * Use this to reduce Supabase egress (proxy fetches once, caches, serves).
+ * Optional w/h trigger server-side resize via sharp (fewer bytes).
+ */
+export function getImageProxyUrl(
+  supabaseImageUrl: string,
+  options?: { w?: number; h?: number }
+): string {
+  const params = new URLSearchParams();
+  params.set('url', supabaseImageUrl);
+  if (options?.w != null && options.w > 0) params.set('w', String(options.w));
+  if (options?.h != null && options.h > 0) params.set('h', String(options.h));
+  return `/api/image?${params.toString()}`;
+}
+
 export type ProcessedImage = {
   url: string;
   originalUrl: string;
@@ -24,22 +40,26 @@ function buildLocalImagePath(productId: string, filename: string): string {
 function isSupabaseProduct(product: Product): boolean {
   // Les produits Airtable ont des IDs qui commencent par "rec"
   const hasAirtableId = product.id?.startsWith('rec') || product.airtable_id;
-  
+
   // Si les images sont des strings simples (URLs Supabase Storage), c'est Supabase
   if (product.Images && product.Images.length > 0) {
     const firstImage = product.Images[0];
-    
+
     // Si c'est une string, c'est Supabase
     if (typeof firstImage === 'string') {
       return true;
     }
-    
+
     // Si c'est un objet avec une URL Supabase Storage, c'est aussi Supabase
-    if (typeof firstImage === 'object' && firstImage.url && firstImage.url.includes('supabase.co/storage')) {
+    if (
+      typeof firstImage === 'object' &&
+      firstImage.url &&
+      firstImage.url.includes('supabase.co/storage')
+    ) {
       return true;
     }
   }
-  
+
   // Si pas d'ID Airtable et pas d'images string, on assume que c'est Supabase si l'ID est numérique
   return !hasAirtableId && !!product.id && !isNaN(Number(product.id));
 }
@@ -90,10 +110,11 @@ export function processProductImages(product: Product): ProcessedImage[] {
   return uniqueImages.map((image) => {
     const imageUrl = typeof image === 'string' ? image : image.url;
 
-    // Pour les produits Supabase: utiliser directement l'URL Supabase Storage
+    // Pour les produits Supabase: utiliser le proxy API pour réduire l'egress
     if (isSupabase) {
+      const proxyUrl = getImageProxyUrl(imageUrl);
       return {
-        url: imageUrl,
+        url: proxyUrl,
         originalUrl: imageUrl,
         fallbackUrl: imageUrl,
         filename: image.filename || imageUrl.split('/').pop() || '',
