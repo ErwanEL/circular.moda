@@ -42,20 +42,6 @@ export default async function ProductsPage() {
             pageSize={PRODUCTS_PAGE_SIZE}
           />
         </section>
-
-        {/* Call to Action */}
-        <Cta
-          variant="centered"
-          content={{
-            heading: '¿No encontrás lo que buscás?',
-            description:
-              'Contactanos y te ayudamos a encontrar el producto ideal para vos.',
-            button: {
-              text: 'Contactanos',
-              href: 'https://wa.me/5491125115030?text=Hola%20Circular.moda',
-            },
-          }}
-        />
       </>
     );
   } catch (err: unknown) {
