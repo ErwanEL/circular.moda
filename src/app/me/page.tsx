@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-// TODO: Uncomment when Supabase client is available on this branch
-// import { createClient } from '../lib/supabase/client';
+import { createClient } from '../lib/supabase/client';
 import { Card, Alert, Spinner } from 'flowbite-react';
 import Button from '../ui/button';
 import Link from 'next/link';
@@ -42,77 +41,47 @@ export default function MePage() {
   const router = useRouter();
 
   useEffect(() => {
-    // TODO: Uncomment when Supabase client is available on this branch
     // Handle auth callback code exchange
-    // const handleAuthCallback = async () => {
-    //   const supabase = createClient();
-    //   const { data, error } = await supabase.auth.getSession();
-    //   if (error) {
-    //     console.error('Auth error:', error);
-    //   }
-    // };
-    // handleAuthCallback();
+    const handleAuthCallback = async () => {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error('Auth error:', error);
+      }
+    };
+    handleAuthCallback();
     loadData();
   }, []);
 
   const loadData = async () => {
     try {
-      // TODO: Uncomment when Supabase client is available on this branch
-      // const supabase = createClient();
-      // const {
-      //   data: { user },
-      // } = await supabase.auth.getUser();
-      //
-      // if (!user?.email) {
-      //   router.push('/login');
-      //   return;
-      // }
-      //
-      // setEmail(user.email);
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-      // Mock data for layout preview - remove when Supabase is available
-      setEmail('user@example.com');
-
-      // Try to fetch from API (will work if API doesn't require Supabase)
-      try {
-        const response = await fetch('/api/me');
-        if (!response.ok) {
-          if (response.status === 401) {
-            router.push('/login');
-            return;
-          }
-          throw new Error('Error loading profile');
-        }
-
-        const data = await response.json();
-        setUserProfile(data.user);
-        setProducts(data.products || []);
-        setName(data.user?.name || '');
-        setPhone(data.user?.phone || '');
-      } catch (apiError) {
-        // Fallback to mock data if API is not available
-        console.warn('API not available, using mock data:', apiError);
-        setUserProfile({
-          id: 1,
-          name: 'Usuario de Prueba',
-          phone: '+5491125115030',
-          email: 'user@example.com',
-        });
-        setProducts([
-          {
-            id: 1,
-            name: 'Prenda de Ejemplo',
-            public_id: 'abc123',
-            images: [],
-            price: 5000,
-            category: 'Ropa',
-            size: 'M',
-            created_at: new Date().toISOString(),
-          },
-        ]);
-        setName('Usuario de Prueba');
-        setPhone('+5491125115030');
+      if (!user?.email) {
+        router.push('/login');
+        return;
       }
+
+      setEmail(user.email);
+
+      // Try to fetch from API
+      const response = await fetch('/api/me');
+      if (!response.ok) {
+        if (response.status === 401) {
+          router.push('/login');
+          return;
+        }
+        throw new Error('Error loading profile');
+      }
+
+      const data = await response.json();
+      setUserProfile(data.user);
+      setProducts(data.products || []);
+      setName(data.user?.name || '');
+      setPhone(data.user?.phone || '');
     } catch (error) {
       console.error('Error:', error);
       setMessage({
