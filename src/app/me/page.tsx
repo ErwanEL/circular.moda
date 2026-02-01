@@ -7,6 +7,7 @@ import Button from '../ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import ProfileForm from './ui/profile-form';
 
 interface UserProfile {
   id: number;
@@ -180,60 +181,15 @@ export default function MePage() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-1">
-            <Card className="mb-6">
-              <h2 className="mb-4 text-xl font-semibold">Mi Perfil</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={email || ''}
-                    disabled
-                    className="w-full rounded-md border border-gray-300 bg-gray-100 px-4 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    Nombre *
-                  </label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="w-full rounded-md border border-gray-300 px-4 py-2"
-                    placeholder="Tu nombre"
-                  />
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    WhatsApp *
-                  </label>
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                    className="w-full rounded-md border border-gray-300 px-4 py-2"
-                    placeholder="+5491125115030"
-                  />
-                  <p className="mt-1 text-xs text-gray-500">
-                    Necesitamos tu WhatsApp para contactarte
-                  </p>
-                </div>
-                <Button
-                  type="submit"
-                  disabled={saving}
-                  variant="primary"
-                  solid
-                  className="w-full"
-                >
-                  {saving ? 'Guardando...' : 'Guardar'}
-                </Button>
-              </form>
-            </Card>
+            <ProfileForm
+              email={email}
+              name={name}
+              phone={phone}
+              saving={saving}
+              onSubmit={handleSubmit}
+              setName={setName}
+              setPhone={setPhone}
+            />
 
             <Card>
               <h3 className="mb-4 text-lg font-semibold">
