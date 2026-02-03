@@ -1,7 +1,7 @@
 import type { Product } from './types';
 
-/** Width for catalog card images (proxy resize) */
-export const CARD_IMAGE_WIDTH = 400;
+/** Width for catalog card images (proxy resize) - 300 reduces egress vs 400 */
+export const CARD_IMAGE_WIDTH = 300;
 /** Max height for product detail main image (proxy resize) */
 export const DETAIL_MAIN_MAX_HEIGHT = 800;
 /** Width/height for gallery thumbnails (proxy resize) */

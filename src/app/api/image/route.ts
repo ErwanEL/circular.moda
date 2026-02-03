@@ -1,12 +1,20 @@
+import { unstable_cache } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 const CACHE_MAX_ENTRIES = 200;
 const CACHE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds for Cache-Control
+const DATA_CACHE_REVALIDATE = 86400 * 7; // 7 days for unstable_cache (shared across instances)
 
 type CacheEntry = {
   body: Buffer;
   contentType: string;
   timestamp: number;
+};
+
+/** Serializable shape for unstable_cache (Buffer is not JSON-serializable) */
+type CachedImagePayload = {
+  bodyBase64: string;
+  contentType: string;
 };
 
 const memoryCache = new Map<string, CacheEntry>();
@@ -37,6 +45,55 @@ function isAllowedSupabaseUrl(url: string): boolean {
   } catch {
     return false;
   }
+}
+
+/** Fetches from Supabase and optionally resizes; returns serializable payload for unstable_cache */
+async function fetchAndProcessImage(
+  sourceUrl: string,
+  w?: number,
+  h?: number
+): Promise<CachedImagePayload> {
+  const res = await fetch(sourceUrl, {
+    headers: { 'User-Agent': 'ModaCircular-ImageProxy/1.0' },
+    next: { revalidate: false },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Upstream returned ${res.status}`);
+  }
+
+  let contentType = 'image/jpeg';
+  const contentTypeHeader = res.headers.get('content-type');
+  if (contentTypeHeader?.startsWith('image/')) {
+    contentType = contentTypeHeader.split(';')[0].trim();
+  }
+
+  const arrayBuffer = await res.arrayBuffer();
+  let buffer = Buffer.from(arrayBuffer);
+
+  if ((w !== undefined && w > 0) || (h !== undefined && h > 0)) {
+    try {
+      const sharp = (await import('sharp')).default;
+      let pipeline = sharp(buffer);
+      const width = w && w > 0 ? w : undefined;
+      const height = h && h > 0 ? h : undefined;
+      if (width ?? height) {
+        pipeline = pipeline.resize(width, height, {
+          fit: 'inside',
+          withoutEnlargement: true,
+        });
+      }
+      buffer = await pipeline.webp({ quality: 85 }).toBuffer();
+      contentType = 'image/webp';
+    } catch {
+      // Keep original buffer and contentType if sharp fails
+    }
+  }
+
+  return {
+    bodyBase64: buffer.toString('base64'),
+    contentType,
+  };
 }
 
 export async function GET(request: NextRequest) {
@@ -74,60 +131,27 @@ export async function GET(request: NextRequest) {
   const cacheKey = getCacheKey(sourceUrl, w, h);
   const isDev = process.env.NODE_ENV === 'development';
 
-  // Skip in-memory cache in dev so orientation/processing changes take effect immediately
-  const cached = !isDev ? memoryCache.get(cacheKey) : undefined;
-  if (cached) {
-    return new NextResponse(cached.body, {
+  // 1. In-memory cache (fast, per-instance)
+  const memCached = !isDev ? memoryCache.get(cacheKey) : undefined;
+  if (memCached) {
+    return new NextResponse(memCached.body, {
       headers: {
-        'Content-Type': cached.contentType,
+        'Content-Type': memCached.contentType,
         'Cache-Control': `public, max-age=${CACHE_MAX_AGE}, s-maxage=${CACHE_MAX_AGE}, stale-while-revalidate=86400`,
       },
     });
   }
 
-  let buffer: Buffer;
-  let contentType = 'image/jpeg';
+  // 2. Data cache (shared across serverless instances, reduces Supabase egress)
+  const getCachedImage = unstable_cache(
+    () => fetchAndProcessImage(sourceUrl, w, h),
+    ['image', cacheKey],
+    { revalidate: DATA_CACHE_REVALIDATE }
+  );
 
+  let payload: CachedImagePayload;
   try {
-    const res = await fetch(sourceUrl, {
-      headers: { 'User-Agent': 'ModaCircular-ImageProxy/1.0' },
-      next: { revalidate: false },
-    });
-
-    if (!res.ok) {
-      return NextResponse.json(
-        { error: `Upstream returned ${res.status}` },
-        { status: res.status === 404 ? 404 : 502 }
-      );
-    }
-
-    const contentTypeHeader = res.headers.get('content-type');
-    if (contentTypeHeader?.startsWith('image/')) {
-      contentType = contentTypeHeader.split(';')[0].trim();
-    }
-
-    const arrayBuffer = await res.arrayBuffer();
-    buffer = Buffer.from(arrayBuffer);
-
-    if ((w !== undefined && w > 0) || (h !== undefined && h > 0)) {
-      try {
-        const sharp = (await import('sharp')).default;
-        // Resize only; do not apply EXIF orientation so output matches source orientation
-        let pipeline = sharp(buffer);
-        const width = w && w > 0 ? w : undefined;
-        const height = h && h > 0 ? h : undefined;
-        if (width ?? height) {
-          pipeline = pipeline.resize(width, height, {
-            fit: 'inside',
-            withoutEnlargement: true,
-          });
-        }
-        buffer = await pipeline.webp({ quality: 85 }).toBuffer();
-        contentType = 'image/webp';
-      } catch {
-        // Keep original buffer and contentType if sharp fails
-      }
-    }
+    payload = await getCachedImage();
   } catch (err) {
     console.error('[image proxy] fetch error:', err);
     return NextResponse.json(
@@ -136,18 +160,20 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  const buffer = Buffer.from(payload.bodyBase64, 'base64');
+
   if (!isDev) {
     pruneCache();
     memoryCache.set(cacheKey, {
       body: buffer,
-      contentType,
+      contentType: payload.contentType,
       timestamp: Date.now(),
     });
   }
 
   return new NextResponse(buffer, {
     headers: {
-      'Content-Type': contentType,
+      'Content-Type': payload.contentType,
       'Cache-Control': `public, max-age=${CACHE_MAX_AGE}, s-maxage=${CACHE_MAX_AGE}, stale-while-revalidate=86400`,
     },
   });

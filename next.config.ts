@@ -4,19 +4,26 @@ import createMDX from '@next/mdx';
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true,
+    unoptimized: false,
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'v5.airtableusercontent.com',
-        port: '',
-        pathname: '/**',
-      },
       {
         protocol: 'https',
         hostname: '*.supabase.co',
         port: '',
         pathname: '/storage/v1/object/public/**',
+      },
+      // Same-origin proxy (so Next Image Optimization can fetch /api/image)
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.vercel.app',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
