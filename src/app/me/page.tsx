@@ -82,7 +82,7 @@ export default function MePage() {
       setUserProfile(data.user);
       setProducts(data.products || []);
       setName(data.user?.name || '');
-      setPhone(data.user?.phone || '');
+      setPhone(phoneFromDb(data.user?.phone || ''));
     } catch (error) {
       console.error('Error:', error);
       setMessage({
@@ -96,6 +96,14 @@ export default function MePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const fullPhone = phoneForDb(phone);
+    if (!fullPhone) {
+      setMessage({
+        type: 'error',
+        text: 'Ingresa tu número de WhatsApp (solo números después de +54)',
+      });
+      return;
+    }
     setSaving(true);
     setMessage(null);
 
@@ -103,7 +111,7 @@ export default function MePage() {
       const response = await fetch('/api/me', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), phone: phone.trim() }),
+        body: JSON.stringify({ name: name.trim(), phone: fullPhone }),
       });
 
       const data = await response.json();
@@ -122,6 +130,23 @@ export default function MePage() {
       setSaving(false);
     }
   };
+
+  /** Strip Argentina country code for display in the local-number input */
+  function phoneFromDb(dbPhone: string): string {
+    if (!dbPhone) return '';
+    const trimmed = dbPhone.trim();
+    if (trimmed.startsWith('+54'))
+      return trimmed.slice(3).replace(/\s/g, ' ').trim();
+    if (trimmed.startsWith('54') && /^\d{2,}/.test(trimmed.slice(2)))
+      return trimmed.slice(2).replace(/\s/g, ' ').trim();
+    return trimmed;
+  }
+
+  /** Build full E.164-style number for DB (Argentina +54 + digits) */
+  function phoneForDb(localPart: string): string {
+    const digits = localPart.replace(/\D/g, '');
+    return digits ? '+54' + digits : '';
+  }
 
   const getProductSlug = (product: Product) => {
     const nameSlug = product.name
