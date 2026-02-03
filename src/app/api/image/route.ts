@@ -69,7 +69,7 @@ async function fetchAndProcessImage(
   }
 
   const arrayBuffer = await res.arrayBuffer();
-  let buffer = Buffer.from(arrayBuffer);
+  let buffer: Buffer = Buffer.from(arrayBuffer);
 
   if ((w !== undefined && w > 0) || (h !== undefined && h > 0)) {
     try {
