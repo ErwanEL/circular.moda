@@ -5,6 +5,7 @@ import createMDX from '@next/mdx';
 const nextConfig: NextConfig = {
   images: {
     unoptimized: false,
+    localPatterns: [{ pathname: '/**' }],
     remotePatterns: [
       {
         protocol: 'https',
