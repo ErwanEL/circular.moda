@@ -259,49 +259,57 @@ export default function MePage() {
                         : null;
 
                     return (
-                      <Link
-                        key={product.id}
-                        href={`/products/${slug}`}
-                        className="group block"
-                      >
+                      <div key={product.id} className="group block">
                         <Card className="h-full transition-shadow hover:shadow-lg">
-                          <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-gray-200">
-                            {firstImage ? (
-                              <Image
-                                src={firstImage}
-                                alt={product.name}
-                                fill
-                                className="object-cover transition-transform group-hover:scale-105"
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                              />
-                            ) : (
-                              <div className="flex h-full items-center justify-center text-gray-400">
-                                Sin imagen
-                              </div>
-                            )}
-                          </div>
-                          <div className="p-4">
-                            <h3 className="mb-2 line-clamp-2 text-lg font-semibold">
-                              {product.name}
-                            </h3>
-                            {product.category && (
-                              <p className="mb-2 text-sm text-gray-600">
-                                {product.category}
-                              </p>
-                            )}
-                            <div className="flex items-center justify-between">
-                              <p className="text-xl font-bold">
-                                {formatPrice(product.price)}
-                              </p>
-                              {product.size && (
-                                <span className="rounded bg-gray-100 px-2 py-1 text-xs">
-                                  Talle: {product.size}
-                                </span>
+                          <Link href={`/products/${slug}`}>
+                            <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-gray-200">
+                              {firstImage ? (
+                                <Image
+                                  src={firstImage}
+                                  alt={product.name}
+                                  fill
+                                  className="object-cover transition-transform group-hover:scale-105"
+                                  sizes="(max-width: 768px) 100vw, 50vw"
+                                />
+                              ) : (
+                                <div className="flex h-full items-center justify-center text-gray-400">
+                                  Sin imagen
+                                </div>
                               )}
                             </div>
+                            <div className="p-4">
+                              <h3 className="mb-2 line-clamp-2 text-lg font-semibold">
+                                {product.name}
+                              </h3>
+                              {product.category && (
+                                <p className="mb-2 text-sm text-gray-600">
+                                  {product.category}
+                                </p>
+                              )}
+                              <div className="flex items-center justify-between">
+                                <p className="text-xl font-bold">
+                                  {formatPrice(product.price)}
+                                </p>
+                                {product.size && (
+                                  <span className="rounded bg-gray-100 px-2 py-1 text-xs">
+                                    Talle: {product.size}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </Link>
+                          <div className="border-t border-gray-200 p-3">
+                            <Button
+                              href={`/me/product/${product.id}/edit`}
+                              variant="secondary"
+                              size="sm"
+                              className="w-full"
+                            >
+                              Editar
+                            </Button>
                           </div>
                         </Card>
-                      </Link>
+                      </div>
                     );
                   })}
                 </div>
