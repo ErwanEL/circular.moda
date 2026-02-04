@@ -338,3 +338,71 @@ export async function PUT(
     );
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const userId = await getCurrentUserId();
+    if (userId == null) {
+      return NextResponse.json(
+        { error: 'Debes iniciar sesión' },
+        { status: 401 }
+      );
+    }
+
+    const { id } = await params;
+    const productId = parseInt(id, 10);
+    if (Number.isNaN(productId)) {
+      return NextResponse.json({ error: 'ID inválido' }, { status: 400 });
+    }
+
+    const { data: existing, error: fetchError } = await supabase
+      .from('products')
+      .select('id')
+      .eq('id', productId)
+      .eq('owner', userId)
+      .maybeSingle();
+
+    if (fetchError) {
+      console.error('Error fetching product for delete:', fetchError);
+      return NextResponse.json(
+        { error: 'Error al eliminar la prenda' },
+        { status: 500 }
+      );
+    }
+
+    if (!existing) {
+      return NextResponse.json(
+        { error: 'No encontrado o no tenés permiso para eliminarlo' },
+        { status: 404 }
+      );
+    }
+
+    const { error: deleteError } = await supabase
+      .from('products')
+      .delete()
+      .eq('id', productId)
+      .eq('owner', userId);
+
+    if (deleteError) {
+      console.error('[Me Delete] Error:', deleteError);
+      return NextResponse.json(
+        { error: `Error al eliminar: ${deleteError.message}` },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Prenda eliminada correctamente',
+    });
+  } catch (error) {
+    console.error('Unexpected error:', error);
+    return NextResponse.json(
+      { error: 'Ha ocurrido un error inesperado' },
+      { status: 500 }
+    );
+  }
+}

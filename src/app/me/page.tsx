@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '../lib/supabase/client';
-import { Card, Alert, Spinner } from 'flowbite-react';
+import {
+  Card,
+  Alert,
+  Spinner,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from 'flowbite-react';
 import Button from '../ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -39,6 +47,8 @@ export default function MePage() {
   } | null>(null);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -163,6 +173,29 @@ export default function MePage() {
       currency: 'ARS',
       minimumFractionDigits: 0,
     }).format(price);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!productToDelete) return;
+    setDeleting(true);
+    setMessage(null);
+    try {
+      const res = await fetch(`/api/me/products/${productToDelete.id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Error al eliminar');
+      setProducts((prev) => prev.filter((p) => p.id !== productToDelete.id));
+      setProductToDelete(null);
+      setMessage({ type: 'success', text: 'Prenda eliminada correctamente.' });
+    } catch (error) {
+      setMessage({
+        type: 'error',
+        text: error instanceof Error ? error.message : 'Error al eliminar',
+      });
+    } finally {
+      setDeleting(false);
+    }
   };
 
   if (loading) {
@@ -298,15 +331,25 @@ export default function MePage() {
                               </div>
                             </div>
                           </Link>
-                          <div className="border-t border-gray-200 p-3">
+                          <div className="flex gap-2 border-t border-gray-200 p-3">
                             <Button
                               href={`/me/product/${product.id}/edit`}
                               variant="secondary"
                               size="sm"
-                              className="w-full"
+                              className="flex-1"
                             >
                               Editar
                             </Button>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setProductToDelete(product);
+                              }}
+                              className="flex-1 rounded-full border border-red-300 bg-white px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none"
+                            >
+                              Eliminar
+                            </button>
                           </div>
                         </Card>
                       </div>
@@ -318,6 +361,41 @@ export default function MePage() {
           </div>
         </div>
       </div>
+
+      <Modal
+        show={!!productToDelete}
+        onClose={() => !deleting && setProductToDelete(null)}
+        size="md"
+      >
+        <ModalHeader>Eliminar prenda</ModalHeader>
+        <ModalBody>
+          <p className="text-gray-600 dark:text-gray-400">
+            ¿Estás seguro de que querés eliminar
+            {productToDelete ? (
+              <span className="font-semibold"> «{productToDelete.name}»</span>
+            ) : null}
+            ? Esta acción no se puede deshacer.
+          </p>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setProductToDelete(null)}
+            disabled={deleting}
+          >
+            Cancelar
+          </Button>
+          <button
+            type="button"
+            onClick={handleConfirmDelete}
+            disabled={deleting}
+            className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {deleting ? 'Eliminando...' : 'Eliminar'}
+          </button>
+        </ModalFooter>
+      </Modal>
     </main>
   );
 }
