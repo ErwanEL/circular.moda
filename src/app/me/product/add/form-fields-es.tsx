@@ -1,5 +1,11 @@
 'use client';
 
+import {
+  getColorLabel,
+  getCategoryLabel,
+  getGenderLabel,
+} from './labels-es';
+
 interface FormFieldsEsProps {
   name: string;
   price: string;
@@ -134,7 +140,7 @@ export function FormFieldsEs({
             <option value="">-- Elegí un color --</option>
             {colors.map((c) => (
               <option key={c} value={c}>
-                {c.charAt(0).toUpperCase() + c.slice(1)}
+                {getColorLabel(c)}
               </option>
             ))}
           </select>
@@ -166,9 +172,7 @@ export function FormFieldsEs({
             <option value="">-- Elegí una categoría --</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>
-                {cat
-                  .replace(/_/g, ' ')
-                  .replace(/\b\w/g, (l) => l.toUpperCase())}
+                {getCategoryLabel(cat)}
               </option>
             ))}
           </select>
@@ -201,7 +205,7 @@ export function FormFieldsEs({
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
                   }`}
                 >
-                  {g.charAt(0).toUpperCase() + g.slice(1)}
+                  {getGenderLabel(g)}
                   {gender.includes(g) && ' ✓'}
                 </button>
               ))}
