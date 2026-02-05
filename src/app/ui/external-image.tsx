@@ -72,13 +72,15 @@ export const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
         />
       );
     }
+    const w = width ?? 800;
+    const h = height ?? 600;
     return (
       <Image
         ref={ref}
         src={currentSrc}
         alt={alt}
-        width={width}
-        height={height}
+        width={w}
+        height={h}
         className={className}
         onError={handleError}
         loading={loading}

@@ -4,14 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "echo 'Skipping Airtable fetch (set FETCH_AIRTABLE_AT_BUILD=true to enable)'",
+    "prebuild": "echo 'Building without Airtable fetch (Supabase only)'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "flowbite-react patch",
-    "update-products": "node scripts/update-products.mjs",
-    "fetch-dev": "node scripts/fetch-dev.mjs",
-    "check-api": "node scripts/check-api-usage.mjs"
+    "postinstall": "flowbite-react patch"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -22,7 +19,6 @@
     "@tailwindcss/cli": "^4.1.11",
     "@types/mdx": "^2.0.13",
     "@types/uuid": "^10.0.0",
-    "airtable": "^0.12.2",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.0",
     "flowbite": "^3.1.2",
@@ -36,6 +32,7 @@
     "react-dom": "^19.2.1",
     "react-dropzone": "^14.3.8",
     "react-icons": "^5.5.0",
+    "sharp": "^0.34.5",
     "slugify": "^1.6.6",
     "uuid": "^13.0.0"
   },
