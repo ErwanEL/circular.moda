@@ -23,7 +23,7 @@ interface Product {
   size: string | null;
   color: string | null;
   category: string | null;
-  gender: string[] | null;
+  gender?: string | string[] | null;
   description: string | null;
   owner: number;
 }
@@ -85,7 +85,12 @@ export default function MeEditProductPage() {
         updateField('size', p.size ?? '');
         updateField('color', p.color ?? '');
         updateField('category', p.category ?? '');
-        updateField('gender', Array.isArray(p.gender) ? p.gender : []);
+        const genderArr = Array.isArray(p.gender)
+          ? p.gender
+          : typeof p.gender === 'string' && p.gender.trim()
+            ? [p.gender.trim()]
+            : [];
+        updateField('gender', genderArr);
         updateField('description', p.description ?? '');
       } catch {
         setMessage({
@@ -103,15 +108,11 @@ export default function MeEditProductPage() {
     setExistingImages((prev) => prev.filter((_, i) => i !== index));
   }, []);
 
-  const handleGenderToggle = useCallback(
-    (g: string) => {
-      const currentGender = formData.gender;
-      const newGender = currentGender.includes(g)
-        ? currentGender.filter((item) => item !== g)
-        : [...currentGender, g];
-      updateField('gender', newGender);
+  const handleGenderChange = useCallback(
+    (value: string) => {
+      updateField('gender', value ? [value] : []);
     },
-    [formData.gender, updateField]
+    [updateField]
   );
 
   const handleSubmit = useCallback(
@@ -151,14 +152,16 @@ export default function MeEditProductPage() {
           formDataToSend.append('color', validation.validatedData.color);
         if (validation.validatedData.category)
           formDataToSend.append('category', validation.validatedData.category);
-        if (
+        const genderToSend =
           validation.validatedData.gender &&
           validation.validatedData.gender.length > 0
-        )
-          formDataToSend.append(
-            'gender',
-            JSON.stringify(validation.validatedData.gender)
-          );
+            ? validation.validatedData.gender
+            : formData.gender?.length > 0
+              ? formData.gender
+              : null;
+        if (genderToSend && genderToSend.length > 0) {
+          formDataToSend.append('gender', JSON.stringify(genderToSend));
+        }
         if (validation.validatedData.description)
           formDataToSend.append(
             'description',
@@ -277,7 +280,7 @@ export default function MeEditProductPage() {
               onSizeChange={(value) => updateField('size', value)}
               onColorChange={(value) => updateField('color', value)}
               onCategoryChange={(value) => updateField('category', value)}
-              onGenderToggle={handleGenderToggle}
+              onGenderChange={handleGenderChange}
               onDescriptionChange={(value) => updateField('description', value)}
             />
 

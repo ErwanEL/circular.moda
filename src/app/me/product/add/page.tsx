@@ -68,15 +68,11 @@ export default function MeAddProductPage() {
     if (ownerId) updateField('ownerId', ownerId);
   }, [ownerId, updateField]);
 
-  const handleGenderToggle = useCallback(
-    (g: string) => {
-      const currentGender = formData.gender;
-      const newGender = currentGender.includes(g)
-        ? currentGender.filter((item) => item !== g)
-        : [...currentGender, g];
-      updateField('gender', newGender);
+  const handleGenderChange = useCallback(
+    (value: string) => {
+      updateField('gender', value ? [value] : []);
     },
-    [formData.gender, updateField]
+    [updateField]
   );
 
   const handleSubmit = useCallback(
@@ -122,14 +118,16 @@ export default function MeAddProductPage() {
           formDataToSend.append('color', validation.validatedData.color);
         if (validation.validatedData.category)
           formDataToSend.append('category', validation.validatedData.category);
-        if (
+        const genderToSend =
           validation.validatedData.gender &&
           validation.validatedData.gender.length > 0
-        )
-          formDataToSend.append(
-            'gender',
-            JSON.stringify(validation.validatedData.gender)
-          );
+            ? validation.validatedData.gender
+            : formData.gender?.length > 0
+              ? formData.gender
+              : null;
+        if (genderToSend && genderToSend.length > 0) {
+          formDataToSend.append('gender', JSON.stringify(genderToSend));
+        }
         if (validation.validatedData.description)
           formDataToSend.append(
             'description',
@@ -240,7 +238,7 @@ export default function MeAddProductPage() {
               onSizeChange={(value) => updateField('size', value)}
               onColorChange={(value) => updateField('color', value)}
               onCategoryChange={(value) => updateField('category', value)}
-              onGenderToggle={handleGenderToggle}
+              onGenderChange={handleGenderChange}
               onDescriptionChange={(value) => updateField('description', value)}
             />
 

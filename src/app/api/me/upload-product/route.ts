@@ -194,7 +194,7 @@ export async function POST(request: NextRequest) {
         validGenderValues.includes(g)
       );
       if (validatedGenders.length > 0) {
-        insertData.gender = validatedGenders;
+        insertData.gender = validatedGenders[0];
       }
     }
     if (description && description.trim() !== '') {

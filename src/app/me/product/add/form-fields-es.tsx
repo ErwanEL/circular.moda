@@ -30,7 +30,7 @@ interface FormFieldsEsProps {
   onSizeChange: (value: string) => void;
   onColorChange: (value: string) => void;
   onCategoryChange: (value: string) => void;
-  onGenderToggle: (value: string) => void;
+  onGenderChange: (value: string) => void;
   onDescriptionChange: (value: string) => void;
 }
 
@@ -56,7 +56,7 @@ export function FormFieldsEs({
   onSizeChange,
   onColorChange,
   onCategoryChange,
-  onGenderToggle,
+  onGenderChange,
   onDescriptionChange,
 }: FormFieldsEsProps) {
   return (
@@ -192,24 +192,19 @@ export function FormFieldsEs({
             {gendersError}
           </div>
         ) : (
-          <div className="flex flex-wrap gap-2">
-            {gendersList &&
-              gendersList.map((g) => (
-                <button
-                  key={g}
-                  type="button"
-                  onClick={() => onGenderToggle(g)}
-                  className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                    gender.includes(g)
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
-                  }`}
-                >
-                  {getGenderLabel(g)}
-                  {gender.includes(g) && ' ✓'}
-                </button>
-              ))}
-          </div>
+          <select
+            id="gender"
+            value={gender?.[0] ?? ''}
+            onChange={(e) => onGenderChange(e.target.value)}
+            className="focus:ring-primary-500 focus:border-primary-500 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          >
+            <option value="">-- Elegí un género --</option>
+            {gendersList?.map((g) => (
+              <option key={g} value={g}>
+                {getGenderLabel(g)}
+              </option>
+            ))}
+          </select>
         )}
       </div>
 

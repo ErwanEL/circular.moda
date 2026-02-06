@@ -270,7 +270,7 @@ export async function PUT(
       const validatedGenders = gender.filter((g: string) =>
         validGenderValues.includes(g)
       );
-      updateData.gender = validatedGenders.length > 0 ? validatedGenders : null;
+      updateData.gender = validatedGenders.length > 0 ? validatedGenders[0] : null;
     } else {
       updateData.gender = null;
     }
