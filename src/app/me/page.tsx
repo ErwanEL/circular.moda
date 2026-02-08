@@ -1,13 +1,21 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-// TODO: Uncomment when Supabase client is available on this branch
-// import { createClient } from '../lib/supabase/client';
-import { Card, Alert, Spinner } from 'flowbite-react';
+import { createClient } from '../lib/supabase/client';
+import {
+  Card,
+  Alert,
+  Spinner,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from 'flowbite-react';
 import Button from '../ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import ProfileForm from './ui/profile-form';
 
 interface UserProfile {
   id: number;
@@ -39,80 +47,52 @@ export default function MePage() {
   } | null>(null);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    // TODO: Uncomment when Supabase client is available on this branch
     // Handle auth callback code exchange
-    // const handleAuthCallback = async () => {
-    //   const supabase = createClient();
-    //   const { data, error } = await supabase.auth.getSession();
-    //   if (error) {
-    //     console.error('Auth error:', error);
-    //   }
-    // };
-    // handleAuthCallback();
+    const handleAuthCallback = async () => {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error('Auth error:', error);
+      }
+    };
+    handleAuthCallback();
     loadData();
   }, []);
 
   const loadData = async () => {
     try {
-      // TODO: Uncomment when Supabase client is available on this branch
-      // const supabase = createClient();
-      // const {
-      //   data: { user },
-      // } = await supabase.auth.getUser();
-      //
-      // if (!user?.email) {
-      //   router.push('/login');
-      //   return;
-      // }
-      //
-      // setEmail(user.email);
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-      // Mock data for layout preview - remove when Supabase is available
-      setEmail('user@example.com');
-
-      // Try to fetch from API (will work if API doesn't require Supabase)
-      try {
-        const response = await fetch('/api/me');
-        if (!response.ok) {
-          if (response.status === 401) {
-            router.push('/login');
-            return;
-          }
-          throw new Error('Error loading profile');
-        }
-
-        const data = await response.json();
-        setUserProfile(data.user);
-        setProducts(data.products || []);
-        setName(data.user?.name || '');
-        setPhone(data.user?.phone || '');
-      } catch (apiError) {
-        // Fallback to mock data if API is not available
-        console.warn('API not available, using mock data:', apiError);
-        setUserProfile({
-          id: 1,
-          name: 'Usuario de Prueba',
-          phone: '+5491125115030',
-          email: 'user@example.com',
-        });
-        setProducts([
-          {
-            id: 1,
-            name: 'Prenda de Ejemplo',
-            public_id: 'abc123',
-            images: [],
-            price: 5000,
-            category: 'Ropa',
-            size: 'M',
-            created_at: new Date().toISOString(),
-          },
-        ]);
-        setName('Usuario de Prueba');
-        setPhone('+5491125115030');
+      if (!user?.email) {
+        router.push('/login');
+        return;
       }
+
+      setEmail(user.email);
+
+      // Try to fetch from API
+      const response = await fetch('/api/me');
+      if (!response.ok) {
+        if (response.status === 401) {
+          router.push('/login');
+          return;
+        }
+        throw new Error('Error loading profile');
+      }
+
+      const data = await response.json();
+      setUserProfile(data.user);
+      setProducts(data.products || []);
+      setName(data.user?.name || '');
+      setPhone(phoneFromDb(data.user?.phone || ''));
     } catch (error) {
       console.error('Error:', error);
       setMessage({
@@ -126,6 +106,14 @@ export default function MePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const fullPhone = phoneForDb(phone);
+    if (!fullPhone) {
+      setMessage({
+        type: 'error',
+        text: 'Ingresa tu número de WhatsApp (solo números después de +54)',
+      });
+      return;
+    }
     setSaving(true);
     setMessage(null);
 
@@ -133,7 +121,7 @@ export default function MePage() {
       const response = await fetch('/api/me', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), phone: phone.trim() }),
+        body: JSON.stringify({ name: name.trim(), phone: fullPhone }),
       });
 
       const data = await response.json();
@@ -153,6 +141,23 @@ export default function MePage() {
     }
   };
 
+  /** Strip Argentina country code for display in the local-number input */
+  function phoneFromDb(dbPhone: string): string {
+    if (!dbPhone) return '';
+    const trimmed = dbPhone.trim();
+    if (trimmed.startsWith('+54'))
+      return trimmed.slice(3).replace(/\s/g, ' ').trim();
+    if (trimmed.startsWith('54') && /^\d{2,}/.test(trimmed.slice(2)))
+      return trimmed.slice(2).replace(/\s/g, ' ').trim();
+    return trimmed;
+  }
+
+  /** Build full E.164-style number for DB (Argentina +54 + digits) */
+  function phoneForDb(localPart: string): string {
+    const digits = localPart.replace(/\D/g, '');
+    return digits ? '+54' + digits : '';
+  }
+
   const getProductSlug = (product: Product) => {
     const nameSlug = product.name
       .toLowerCase()
@@ -168,6 +173,29 @@ export default function MePage() {
       currency: 'ARS',
       minimumFractionDigits: 0,
     }).format(price);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!productToDelete) return;
+    setDeleting(true);
+    setMessage(null);
+    try {
+      const res = await fetch(`/api/me/products/${productToDelete.id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Error al eliminar');
+      setProducts((prev) => prev.filter((p) => p.id !== productToDelete.id));
+      setProductToDelete(null);
+      setMessage({ type: 'success', text: 'Prenda eliminada correctamente.' });
+    } catch (error) {
+      setMessage({
+        type: 'error',
+        text: error instanceof Error ? error.message : 'Error al eliminar',
+      });
+    } finally {
+      setDeleting(false);
+    }
   };
 
   if (loading) {
@@ -211,60 +239,15 @@ export default function MePage() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-1">
-            <Card className="mb-6">
-              <h2 className="mb-4 text-xl font-semibold">Mi Perfil</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={email || ''}
-                    disabled
-                    className="w-full rounded-md border border-gray-300 bg-gray-100 px-4 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    Nombre *
-                  </label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="w-full rounded-md border border-gray-300 px-4 py-2"
-                    placeholder="Tu nombre"
-                  />
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    WhatsApp *
-                  </label>
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                    className="w-full rounded-md border border-gray-300 px-4 py-2"
-                    placeholder="+5491125115030"
-                  />
-                  <p className="mt-1 text-xs text-gray-500">
-                    Necesitamos tu WhatsApp para contactarte
-                  </p>
-                </div>
-                <Button
-                  type="submit"
-                  disabled={saving}
-                  variant="primary"
-                  solid
-                  className="w-full"
-                >
-                  {saving ? 'Guardando...' : 'Guardar'}
-                </Button>
-              </form>
-            </Card>
+            <ProfileForm
+              email={email}
+              name={name}
+              phone={phone}
+              saving={saving}
+              onSubmit={handleSubmit}
+              setName={setName}
+              setPhone={setPhone}
+            />
 
             <Card>
               <h3 className="mb-4 text-lg font-semibold">
@@ -309,49 +292,67 @@ export default function MePage() {
                         : null;
 
                     return (
-                      <Link
-                        key={product.id}
-                        href={`/products/${slug}`}
-                        className="group block"
-                      >
+                      <div key={product.id} className="group block">
                         <Card className="h-full transition-shadow hover:shadow-lg">
-                          <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-gray-200">
-                            {firstImage ? (
-                              <Image
-                                src={firstImage}
-                                alt={product.name}
-                                fill
-                                className="object-cover transition-transform group-hover:scale-105"
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                              />
-                            ) : (
-                              <div className="flex h-full items-center justify-center text-gray-400">
-                                Sin imagen
-                              </div>
-                            )}
-                          </div>
-                          <div className="p-4">
-                            <h3 className="mb-2 line-clamp-2 text-lg font-semibold">
-                              {product.name}
-                            </h3>
-                            {product.category && (
-                              <p className="mb-2 text-sm text-gray-600">
-                                {product.category}
-                              </p>
-                            )}
-                            <div className="flex items-center justify-between">
-                              <p className="text-xl font-bold">
-                                {formatPrice(product.price)}
-                              </p>
-                              {product.size && (
-                                <span className="rounded bg-gray-100 px-2 py-1 text-xs">
-                                  Talle: {product.size}
-                                </span>
+                          <Link href={`/products/${slug}`}>
+                            <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-gray-200">
+                              {firstImage ? (
+                                <Image
+                                  src={firstImage}
+                                  alt={product.name}
+                                  fill
+                                  className="object-cover transition-transform group-hover:scale-105"
+                                  sizes="(max-width: 768px) 100vw, 50vw"
+                                />
+                              ) : (
+                                <div className="flex h-full items-center justify-center text-gray-400">
+                                  Sin imagen
+                                </div>
                               )}
                             </div>
+                            <div className="p-4">
+                              <h3 className="mb-2 line-clamp-2 text-lg font-semibold">
+                                {product.name}
+                              </h3>
+                              {product.category && (
+                                <p className="mb-2 text-sm text-gray-600">
+                                  {product.category}
+                                </p>
+                              )}
+                              <div className="flex items-center justify-between">
+                                <p className="text-xl font-bold">
+                                  {formatPrice(product.price)}
+                                </p>
+                                {product.size && (
+                                  <span className="rounded bg-gray-100 px-2 py-1 text-xs">
+                                    Talle: {product.size}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </Link>
+                          <div className="flex gap-2 border-t border-gray-200 p-3">
+                            <Button
+                              href={`/me/product/${product.id}/edit`}
+                              variant="secondary"
+                              size="sm"
+                              className="flex-1"
+                            >
+                              Editar
+                            </Button>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setProductToDelete(product);
+                              }}
+                              className="flex-1 rounded-full border border-red-300 bg-white px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none"
+                            >
+                              Eliminar
+                            </button>
                           </div>
                         </Card>
-                      </Link>
+                      </div>
                     );
                   })}
                 </div>
@@ -360,6 +361,41 @@ export default function MePage() {
           </div>
         </div>
       </div>
+
+      <Modal
+        show={!!productToDelete}
+        onClose={() => !deleting && setProductToDelete(null)}
+        size="md"
+      >
+        <ModalHeader>Eliminar prenda</ModalHeader>
+        <ModalBody>
+          <p className="text-gray-600 dark:text-gray-400">
+            ¿Estás seguro de que querés eliminar
+            {productToDelete ? (
+              <span className="font-semibold"> «{productToDelete.name}»</span>
+            ) : null}
+            ? Esta acción no se puede deshacer.
+          </p>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setProductToDelete(null)}
+            disabled={deleting}
+          >
+            Cancelar
+          </Button>
+          <button
+            type="button"
+            onClick={handleConfirmDelete}
+            disabled={deleting}
+            className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {deleting ? 'Eliminando...' : 'Eliminar'}
+          </button>
+        </ModalFooter>
+      </Modal>
     </main>
   );
 }
