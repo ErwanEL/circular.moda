@@ -295,13 +295,13 @@ export default function MePage() {
                       <div key={product.id} className="group block">
                         <Card className="h-full transition-shadow hover:shadow-lg">
                           <Link href={`/products/${slug}`}>
-                            <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-gray-200">
+                            <div className="relative h-48 w-full overflow-hidden rounded-t-lg bg-gray-100 flex items-center justify-center">
                               {firstImage ? (
                                 <Image
                                   src={firstImage}
                                   alt={product.name}
                                   fill
-                                  className="object-cover transition-transform group-hover:scale-105"
+                                  className="object-contain transition-transform group-hover:scale-105"
                                   sizes="(max-width: 768px) 100vw, 50vw"
                                 />
                               ) : (
