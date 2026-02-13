@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '../../lib/supabase/server';
 
-// Handle GET for magic link confirmation
+export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const hash = url.searchParams.get('token_hash');
   if (!hash) {
