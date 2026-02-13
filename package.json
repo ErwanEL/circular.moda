@@ -30,7 +30,7 @@
     "flowbite-react": "^0.11.8",
     "gray-matter": "^4.0.3",
     "next": "^16.0.7",
-    "next-mdx-remote": "^5.0.0",
+    "next-mdx-remote": "^6.0.0",
     "node-fetch": "^3.3.2",
     "openai": "^6.10.0",
     "react": "^19.2.1",
