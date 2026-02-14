@@ -1,8 +1,25 @@
+'use client';
+
 import LoginForm from '../ui/login-form';
 import Link from 'next/link';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '../lib/supabase/client';
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (data?.user) {
+        router.replace('/me');
+      }
+    };
+    checkAuth();
+  }, [router]);
+
   return (
     <main className="flex items-center justify-center bg-gray-50 py-32">
       <div className="w-full max-w-md rounded bg-white p-8 shadow">

@@ -36,6 +36,12 @@ interface Product {
 }
 
 export default function MePage() {
+  // Sign out handler
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push('/login');
+  };
   const [email, setEmail] = useState<string | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
@@ -89,6 +95,11 @@ export default function MePage() {
       }
 
       const data = await response.json();
+
+      if (!data?.user?.name || !data?.user?.phone) {
+        router.push('/welcome');
+        return;
+      }
       setUserProfile(data.user);
       setProducts(data.products || []);
       setName(data.user?.name || '');
@@ -212,9 +223,14 @@ export default function MePage() {
   return (
     <main className="min-h-screen bg-gray-50 py-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h1 className="mb-8 text-3xl font-bold text-gray-900 dark:text-white">
-          ¡Bienvenido{userProfile?.name ? `, ${userProfile.name}` : ''}!
-        </h1>
+        <div className="space-between mb-8 flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            ¡Bienvenido{userProfile?.name ? `, ${userProfile.name}` : ''}!
+          </h1>
+          <Button onClick={handleSignOut} variant="secondary">
+            Cerrar sesión
+          </Button>
+        </div>
 
         {message && (
           <Alert

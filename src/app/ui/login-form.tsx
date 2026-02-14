@@ -42,7 +42,7 @@ export default function LoginForm({ description }: LoginFormProps) {
       email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/welcome`,
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/login`,
       },
     });
     if (error) {
