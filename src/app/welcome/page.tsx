@@ -43,7 +43,7 @@ export default function WelcomePage() {
         if (data.user) {
           setName(data.user.name || '');
           setPhone(data.user.phone || '');
-          
+
           // Redirect if profile is already complete
           if (data.user.name && data.user.phone) {
             router.push('/me');
@@ -105,7 +105,7 @@ export default function WelcomePage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gray-50 py-12 px-4">
+    <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-gray-900">¡Bienvenido!</h1>
@@ -136,7 +136,7 @@ export default function WelcomePage() {
         <div className="mt-4 text-center">
           <button
             onClick={handleLogout}
-            className="text-sm text-gray-500 hover:text-gray-700 underline"
+            className="text-sm text-gray-500 underline hover:text-gray-700"
           >
             Cerrar sesión
           </button>
