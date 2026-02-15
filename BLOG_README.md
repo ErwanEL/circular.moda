@@ -44,39 +44,40 @@ src/app/
     ├── related-articles.tsx  # Related articles section
     └── blog-tags.tsx         # Tag filtering component
 
-data/
-└── blog-articles.json        # Article data (JSON format)
+content/
+└── blog/                     # Article source (MDX files)
+    └── *.mdx                 # One file per article; slug = filename without .mdx
 ```
 
 ## Data Structure
 
-Articles are stored in `data/blog-articles.json` with the following structure:
+Articles are loaded from MDX files in `content/blog/`. Each `.mdx` file is one article. The **slug** is the filename without the `.mdx` extension (e.g. `my-article.mdx` → `/blog/my-article`).
 
-```typescript
-interface BlogArticle {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: string;
-  author: string;
-  publishedAt: string;
-  updatedAt?: string;
-  tags: string[];
-  featuredImage?: string;
-  readTime: number; // in minutes
-  published: boolean;
-}
+Use YAML frontmatter for metadata:
+
+```yaml
+---
+title: "Article title"
+excerpt: "Short description"
+author: "Author name"
+publishedAt: "2025-01-15"
+updatedAt: "2025-01-20"   # optional
+featuredImage: "/path/to/image"  # optional
+readTime: 5                 # optional; auto-calculated from body if omitted
+published: true
+---
 ```
+
+Body content supports markdown. The `BlogArticle` type in `src/app/lib/types.ts` matches the parsed shape (id = slug, content = body, etc.).
 
 ## Usage
 
 ### Adding New Articles
 
-1. Add a new article object to `data/blog-articles.json`
-2. Ensure the `slug` is unique and URL-friendly
-3. Set `published: true` to make it visible
-4. The site will automatically pick up the new article
+1. Add a new `.mdx` file in `content/blog/` (e.g. `my-new-post.mdx`).
+2. Use a URL-friendly filename; it becomes the slug (e.g. `my-new-post` → `/blog/my-new-post`).
+3. Set `published: true` in the frontmatter to make it visible.
+4. The site will automatically pick up the new article on the next load or build.
 
 ### Content Formatting
 
@@ -119,7 +120,7 @@ The blog is accessible via:
 
 ### Content Management
 
-For now, articles are managed by editing the JSON file directly. Consider implementing:
+Articles are managed by adding or editing MDX files in `content/blog/`. Consider implementing:
 
 - Admin interface for content management
 - Integration with a headless CMS

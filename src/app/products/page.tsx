@@ -1,16 +1,23 @@
-import { getAllProducts } from '../lib/products';
+import {
+  getProductsPage,
+  PRODUCTS_PAGE_SIZE,
+} from '../lib/products';
 import { transformProductsToCards } from '../lib/helpers';
-import Card from '../ui/card';
 import Cta from '../ui/cta';
+import ProductsGridInfinite from './components/products-grid-infinite';
 
-// Fully static, no revalidate
+function encodeNextCursor(
+  cursor: { created_at: string; id: string } | null
+): string | null {
+  if (!cursor) return null;
+  return Buffer.from(JSON.stringify(cursor), 'utf8').toString('base64');
+}
 
 export default async function ProductsPage() {
   try {
-    const products = await getAllProducts(); // runs at build time, then every 60 s
-
-    // Transform products to match Card component interface using helper function
-    const productCards = transformProductsToCards(products);
+    const { products, nextCursor } = await getProductsPage(PRODUCTS_PAGE_SIZE);
+    const initialCards = transformProductsToCards(products);
+    const initialNextCursor = encodeNextCursor(nextCursor);
 
     return (
       <>
@@ -27,37 +34,14 @@ export default async function ProductsPage() {
           </div>
         </section>
 
-        {/* Products Grid */}
+        {/* Products Grid (infinite scroll) */}
         <section className="py-8 antialiased md:py-12">
-          <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-            <div className="mb-4 grid items-stretch gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-              {productCards.map((cardData, index) => (
-                <Card key={index} {...cardData} />
-              ))}
-            </div>
-            {productCards.length === 0 && (
-              <div className="py-12 text-center">
-                <p className="text-gray-500 dark:text-gray-400">
-                  No hay productos disponibles en este momento.
-                </p>
-              </div>
-            )}
-          </div>
+          <ProductsGridInfinite
+            initialCards={initialCards}
+            initialNextCursor={initialNextCursor}
+            pageSize={PRODUCTS_PAGE_SIZE}
+          />
         </section>
-
-        {/* Call to Action */}
-        <Cta
-          variant="centered"
-          content={{
-            heading: '¿No encontrás lo que buscás?',
-            description:
-              'Contactanos y te ayudamos a encontrar el producto ideal para vos.',
-            button: {
-              text: 'Contactanos',
-              href: 'https://wa.me/5491125115030?text=Hola%20Circular.moda',
-            },
-          }}
-        />
       </>
     );
   } catch (err: unknown) {

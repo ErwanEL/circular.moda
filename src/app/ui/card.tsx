@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 type CardProps = {
   image: {
@@ -8,6 +9,7 @@ type CardProps = {
   };
   badge: string;
   title: string;
+  size?: string;
   sku: string;
   rating: {
     value: number;
@@ -17,31 +19,36 @@ type CardProps = {
   href?: string;
 };
 
-export default function Card({ image, title, sku, price, href }: CardProps) {
+export default function Card({
+  image,
+  title,
+  size,
+  sku,
+  price,
+  href,
+}: CardProps) {
   const CardContent = () => (
-    <div className="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-      <div className="h-56 w-full">
-        <div className="relative h-full">
-          <img
-            className="mx-auto h-full w-full object-contain dark:hidden"
-            src={image.light}
-            alt={image.alt}
-          />
-          <img
-            className="mx-auto hidden h-full w-full object-contain dark:block"
-            src={image.dark}
-            alt={image.alt}
-          />
-        </div>
+    <div className="flex h-full flex-col bg-transparent">
+      <div className="relative h-[23rem] w-full bg-transparent">
+        <Image
+          className="h-full w-full rounded-md object-cover"
+          src={image.light}
+          alt={image.alt}
+          fill
+          sizes="30vw"
+          loading="lazy"
+        />
       </div>
-      <div className="flex flex-1 flex-col pt-6">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          {/* <span className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-300 me-2 rounded px-2.5 py-0.5 text-xs font-medium">
-            {badge}
-          </span> */}
-        </div>
-        <div className="flex-1 text-lg leading-tight font-semibold text-gray-900 hover:underline dark:text-white">
+      <div className="flex flex-1 flex-col text-left">
+        <div className="mt-1 line-clamp-2 min-h-[2.9rem] text-lg leading-tight font-semibold text-gray-900 dark:text-white">
           {title}
+        </div>
+        <div className="mt-1">
+          <p
+            className={`text-xs text-gray-500 dark:text-gray-400 ${size ? '' : 'invisible'}`}
+          >
+            <span className="font-medium">Talle:</span> {size || '—'}
+          </p>
         </div>
         <div className="mt-1">
           <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -70,8 +77,8 @@ export default function Card({ image, title, sku, price, href }: CardProps) {
             ({rating.count})
           </p> */}
         </div>
-        <div className="mt-4 flex items-center justify-between gap-4">
-          <p className="text-2xl leading-tight font-extrabold text-gray-900 dark:text-white">
+        <div className="mt-auto flex items-center justify-between gap-4">
+          <p className="text-primary-800 dark:text-primary-300 text-2xl leading-tight font-extrabold">
             {price}
           </p>
           {/* <Button
@@ -90,7 +97,7 @@ export default function Card({ image, title, sku, price, href }: CardProps) {
     return (
       <Link
         href={href}
-        className="block transition-transform duration-200 hover:scale-102"
+        className="block h-full transition-transform duration-200 hover:scale-102"
       >
         <CardContent />
       </Link>

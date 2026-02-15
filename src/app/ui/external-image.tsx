@@ -1,6 +1,7 @@
 'use client';
 
 import { forwardRef, useCallback, useState, useEffect } from 'react';
+import Image from 'next/image';
 
 type ExternalImageProps = {
   src: string;
@@ -17,7 +18,18 @@ type ExternalImageProps = {
 
 export const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
   (
-    { src, alt, fill, width, height, className, loading, onError, draggable, fallbackSrc },
+    {
+      src,
+      alt,
+      fill,
+      width,
+      height,
+      className,
+      loading,
+      onError,
+      draggable,
+      fallbackSrc,
+    },
     ref
   ) => {
     const [currentSrc, setCurrentSrc] = useState(src);
@@ -46,38 +58,35 @@ export const ExternalImage = forwardRef<HTMLImageElement, ExternalImageProps>(
     // This ensures images always load reliably, especially for single-image products
     if (fill) {
       return (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <Image
           ref={ref}
           src={currentSrc}
           alt={alt}
+          fill
           className={className}
           onError={handleError}
           loading={loading}
           draggable={draggable}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
+          sizes="50vw"
+          style={{ objectFit: 'cover' }}
         />
       );
     }
+    const w = width ?? 800;
+    const h = height ?? 600;
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
+      <Image
         ref={ref}
         src={currentSrc}
         alt={alt}
-        width={width}
-        height={height}
+        width={w}
+        height={h}
         className={className}
         onError={handleError}
         loading={loading}
         draggable={draggable}
+        sizes="50vw"
+        style={{ height: 'auto' }}
       />
     );
   }

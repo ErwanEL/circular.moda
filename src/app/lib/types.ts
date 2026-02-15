@@ -1,3 +1,10 @@
+/** Paginated products API response */
+export interface ProductsPageResponse {
+  products: Product[];
+  nextCursor: string | null;
+  hasMore: boolean;
+}
+
 export interface Product {
   id: string;
   SKU: string;

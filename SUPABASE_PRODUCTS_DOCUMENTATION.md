@@ -15,18 +15,16 @@
 
 ## Overview
 
-This application uses a **hybrid approach** to manage products:
+This application uses **Supabase** as the single source for products and users:
 
-- **Legacy products**: Stored in `data/products.json` (from Airtable)
-- **New products**: Stored in Supabase PostgreSQL database
+- **Products**: Stored in the Supabase PostgreSQL `products` table
 - **Users**: Stored in Supabase, with product counts computed on-the-fly
 
-The system automatically:
+The system:
 
-- Fetches products from both sources
-- Deduplicates products (Supabase takes priority)
-- Fetches user information with product counts
-- Allows uploading new products to Supabase
+- Fetches all products from Supabase
+- Fetches user information with product counts from Supabase
+- Allows uploading new products via the admin form
 
 ---
 
@@ -36,16 +34,10 @@ The system automatically:
 
 ```text
 ┌─────────────────┐
-│  products.json  │  (Legacy - Airtable exports)
-└────────┬────────┘
-         │
-         │ Combined & Deduplicated
-         ▼
-┌─────────────────┐
 │   Application   │
 └────────┬────────┘
          │
-         │ New Products
+         │ Products & Users
          ▼
 ┌─────────────────┐
 │    Supabase     │  (PostgreSQL + Storage)
@@ -71,49 +63,28 @@ The system automatically:
 
 ### How Products Are Loaded
 
-The system uses a **multi-source approach** with caching:
+The system loads products from Supabase with in-memory caching:
 
 #### 1. Cache Strategy
 
 ```typescript
 // In-memory cache (5 minutes TTL)
-// Disk cache (persists between restarts)
-// Falls back to fetching from sources
+// All products from getAllProductsFromSupabase()
 ```
 
-#### 2. Product Sources
+#### 2. Product Source
 
-**Source 1: JSON File** (`data/products.json`)
+**Supabase** (`products` table)
 
-- Legacy products from Airtable
-- Loaded via `loadProductsFromFile()`
-- Format: Airtable record structure
-
-**Source 2: Supabase** (`products` table)
-
-- New products uploaded via form
+- All products are stored in Supabase
 - Loaded via `getAllProductsFromSupabase()`
-- Format: Transformed to match Product interface
+- Transformed to match the Product interface
 
-#### 3. Deduplication Logic
-
-```typescript
-// Supabase products take priority
-// Products are deduplicated by:
-// - SKU
-// - slug
-// - id
-
-// If a product exists in both sources,
-// the Supabase version is used
-```
-
-#### 4. Product Lookup by Slug
+#### 3. Product Lookup by Slug
 
 ```typescript
-// 1. Try Supabase first (by public_id or slug)
-// 2. Fallback to JSON file
-// 3. Return null if not found
+// 1. Query Supabase by public_id or slug
+// 2. Return null if not found
 ```
 
 ### Code Flow
@@ -121,13 +92,10 @@ The system uses a **multi-source approach** with caching:
 ```text
 getAllProducts()
   ├─> Check in-memory cache
-  ├─> Check disk cache
-  └─> Load from sources:
-      ├─> loadProductsFromFile() (JSON)
+  └─> Load from Supabase:
       └─> getAllProductsFromSupabase()
-          └─> Deduplicate
           └─> Update cache
-          └─> Return combined list
+          └─> Return list
 ```
 
 ---
@@ -136,10 +104,9 @@ getAllProducts()
 
 ### User-Product Relationship
 
-In Supabase, the relationship is **reversed** compared to Airtable:
+Products reference their owner via a foreign key:
 
-- **Airtable**: Users have a `Products` field (array of product IDs)
-- **Supabase**: Products have an `owner` field (foreign key to users)
+- **Supabase**: Products have an `owner` field (foreign key to `users.id`)
 
 ```
 ┌─────────┐         ┌──────────┐
@@ -183,27 +150,13 @@ GROUP BY u.id, u.name
 ```typescript
 // In products/[slug]/page.tsx
 if (product['User ID']) {
-  // Detect Supabase vs Airtable IDs
-  const hasSupabaseIds = userIds.some(
-    (id) => !id.startsWith('rec') && !isNaN(parseInt(id, 10))
-  );
-
-  if (hasSupabaseIds) {
-    // Fetch from Supabase
-    user = await getUsersByIdsFromSupabase(userIds);
-  } else {
-    // Fetch from Airtable (legacy)
-    user = await getUsersByIds(userIds);
-  }
+  user = await getUsersByIdsFromSupabase(userIds);
 }
 ```
 
-### User ID Formats
+### User ID Format
 
-- **Supabase**: Numeric IDs (e.g., `1`, `4`, `123`)
-- **Airtable**: String IDs starting with `rec` (e.g., `recABC123`)
-
-The system automatically detects which format to use.
+- **Supabase**: Numeric user IDs (e.g., `1`, `4`, `123`) stored in `products.owner`
 
 ---
 
@@ -314,19 +267,17 @@ User visits /products/[slug]
   ▼
 generateStaticParams()
   └─> getAllProducts()
-      └─> Returns all products (JSON + Supabase)
+      └─> Returns all products (Supabase)
   └─> Generate static paths
   │
   ▼
 ProductPage component
   ├─> getProductBySlug(slug)
-  │   ├─> Try Supabase first
-  │   └─> Fallback to JSON
+  │   └─> Supabase lookup by public_id or slug
   │
   ├─> Fetch user data
   │   ├─> Check if User ID exists
-  │   ├─> Detect Supabase vs Airtable ID
-  │   ├─> Fetch user with product count
+  │   ├─> Fetch user with product count from Supabase
   │   └─> Handle errors gracefully
   │
   └─> Render ProductDetail
@@ -437,18 +388,16 @@ users (1) ──< (many) products
 - **Location**: `src/app/lib/products.ts`
 - **Returns**: `Promise<Product[]>`
 - **What it does**:
-  - Checks cache first
-  - Loads from JSON + Supabase
-  - Deduplicates (Supabase priority)
-  - Updates cache
+  - Checks in-memory cache first (5 min TTL)
+  - Loads from Supabase via `getAllProductsFromSupabase()`
+  - Updates cache and returns list
 
 #### `getProductBySlug(slug: string)`
 
 - **Location**: `src/app/lib/products.ts`
 - **Returns**: `Promise<Product | null>`
 - **What it does**:
-  - Tries Supabase first (by `public_id` or `slug`)
-  - Falls back to JSON file
+  - Looks up product in Supabase by `public_id` or `slug`
   - Returns null if not found
 
 #### `getAllProductsFromSupabase()`
@@ -471,15 +420,6 @@ users (1) ──< (many) products
   - Fetches product counts in batch (1 query)
   - Combines results with `productCount` field
   - **Performance**: 2 queries total
-
-#### `getUsersByIds(userIds: string[])`
-
-- **Location**: `src/app/lib/users.ts`
-- **Returns**: `Promise<User[]>`
-- **What it does**:
-  - Fetches users from Airtable (legacy)
-  - Returns users with `Products` array field
-  - Used for old products with Airtable user IDs
 
 ---
 
@@ -607,22 +547,18 @@ slug = slugify(productName) + '-' + public_id;
    ```
 
 2. **Check cache**:
-   - Clear in-memory cache (restart server)
-   - Clear disk cache (delete `.next/cache` if exists)
+   - Clear in-memory cache (restart dev server)
 
 3. **Check product format**:
-   - Supabase products need `public_id` and `name`
-   - JSON products need `slug` or `SKU`
+   - Products need `public_id` and `name` in Supabase
 
 ### User Info Not Displaying
 
 1. **Check User ID format**:
-   - Supabase: numeric (`"4"`, `"1"`)
-   - Airtable: string starting with `rec` (`"recABC123"`)
+   - User IDs are numeric (`"4"`, `"1"`) from `products.owner`
 
 2. **Check user exists**:
-   - For Supabase: Check `users` table
-   - For Airtable: Check Airtable API access
+   - Check `users` table in Supabase for the given `owner` id
 
 3. **Check product count**:
    - Verify `products.owner` references `users.id`
@@ -645,11 +581,7 @@ slug = slugify(productName) + '-' + public_id;
 
 ### Build Failures
 
-1. **User fetching timeout**:
-   - Airtable API calls have 5-second timeout
-   - Products without users will still render
-
-2. **Missing User ID**:
+1. **Missing User ID**:
    - Products can render without user info
    - User info is optional in UI
 
@@ -659,26 +591,22 @@ slug = slugify(productName) + '-' + public_id;
 
 ### 1. Product IDs
 
-- **Supabase products**: Use `public_id` (UUID) for slugs
-- **Legacy products**: Use existing `slug` or `SKU`
+- Use `public_id` (UUID) for slugs and stable product identity
 
 ### 2. User Selection
 
 - Always validate `ownerId` before submission
 - Sync component state to form data
-- Handle both Supabase and Airtable user IDs
 
 ### 3. Image Management
 
-- Use Supabase Storage for new products
-- Keep legacy images in `/public` folder
+- Use Supabase Storage for product images
 - Generate unique filenames: `{public_id}-{index}.{ext}`
 
 ### 4. Performance
 
 - Use batch queries for multiple users
-- Cache product lists (5-minute TTL)
-- Use disk cache for faster restarts
+- Cache product lists (5-minute in-memory TTL)
 
 ### 5. Error Handling
 
@@ -688,49 +616,22 @@ slug = slugify(productName) + '-' + public_id;
 
 ---
 
-## Migration Notes
-
-### From Airtable to Supabase
-
-1. **Products**:
-   - Old products remain in JSON
-   - New products go to Supabase
-   - System handles both automatically
-
-2. **Users**:
-   - Airtable users: IDs start with `rec`
-   - Supabase users: Numeric IDs
-   - System detects format automatically
-
-3. **Images**:
-   - Legacy: `/public/airtable/` folder
-   - New: Supabase Storage `products/` bucket
-
----
-
 ## Environment Variables
 
 ```bash
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-
-# Airtable (legacy - optional)
-AIRTABLE_TOKEN=your-token
-AIRTABLE_BASE_ID=your-base-id
-AIRTABLE_USERS_TABLE_NAME=Users
 ```
 
 ---
 
 ## Summary
 
-The system provides a **seamless hybrid approach**:
+The system uses **Supabase** as the single source for products and users:
 
-✅ **Backward compatible**: Old products from JSON still work  
-✅ **Forward compatible**: New products in Supabase  
-✅ **Optimized**: Batch queries, caching, deduplication  
+✅ **Products**: Loaded from Supabase with in-memory caching  
+✅ **Users**: Fetched with product counts from Supabase  
+✅ **Optimized**: Batch queries, 5-minute cache TTL  
 ✅ **User-friendly**: Automatic user fetching with product counts  
-✅ **Robust**: Error handling, timeouts, fallbacks
-
-The architecture allows for a **gradual migration** from Airtable to Supabase without breaking existing functionality.
+✅ **Robust**: Error handling and optional user info on product pages
