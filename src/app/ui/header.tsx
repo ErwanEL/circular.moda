@@ -26,7 +26,7 @@ export default function Header() {
             </span>
           </NavbarBrand>
           <div className="flex md:order-2">
-            <div className="border-default rounded-base bg-neutral-secondary-soft md:bg-neutral-primary mt-4 hidden list-none flex-col items-center gap-4 border p-4 text-sm font-medium md:mt-0 md:flex md:flex-row md:space-x-8 md:border-0 md:px-4 md:py-0 rtl:space-x-reverse">
+            {/* <div className="border-default rounded-base bg-neutral-secondary-soft md:bg-neutral-primary mt-4 hidden list-none flex-col items-center gap-4 border p-4 text-sm font-medium md:mt-0 md:flex md:flex-row md:space-x-8 md:border-0 md:px-4 md:py-0 rtl:space-x-reverse">
               <div className="m-0 p-0">
                 <NavbarLink href="/signup" active={pathname === '/signup'}>
                   Inscribirse
@@ -37,7 +37,7 @@ export default function Header() {
                   Iniciar sesión
                 </NavbarLink>
               </div>
-            </div>
+            </div> */}
             <Button
               solid
               bold
@@ -83,14 +83,14 @@ export default function Header() {
             >
               Contact
             </NavbarLink>
-            <div className="mt-6 flex justify-center border-t-[1px] border-solid border-gray-200 p-0 pt-4 md:hidden">
+            {/* <div className="mt-6 flex justify-center border-t-[1px] border-solid border-gray-200 p-0 pt-4 md:hidden">
               <NavbarLink href="/signup" active={pathname === '/signup'}>
                 Inscribirse
               </NavbarLink>
               <NavbarLink href="/login" active={pathname === '/login'}>
                 Iniciar sesión
               </NavbarLink>
-            </div>
+            </div> */}
           </NavbarCollapse>
         </Navbar>
       </div>
