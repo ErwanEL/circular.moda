@@ -71,6 +71,11 @@
       "permanent": true
     },
     {
+      "source": "/products/233",
+      "destination": "/products/gazelle-indoor-adidas-2a921d39-3600-4bc2-8146-8358ef73d2d5",
+      "permanent": true
+    },
+    {
       "source": "/products/232",
       "destination": "/products/camisa-m-tascani-cead794c-109c-406b-8da6-80b78b4cd76d",
       "permanent": true
@@ -167,7 +172,7 @@
     },
     {
       "source": "/products/200",
-      "destination": "/products/top-negro-mango-sin-uso-a1974739-296f-4d1b-9611-b144afec3685",
+      "destination": "/products/conjunto-de-playa-elenzaga-negro-43811c04-6e89-4c88-b022-493fb41e722e",
       "permanent": true
     },
     {
@@ -192,7 +197,7 @@
     },
     {
       "source": "/products/195",
-      "destination": "/products/sweter-hm-color-beige-bd6875c8-fba0-44ae-9245-d8f59da3e1bb",
+      "destination": "/products/gorra-beige-cl-sica-caabfcb7-0d16-4bcb-865b-026eff52fc4c",
       "permanent": true
     },
     {
@@ -222,7 +227,7 @@
     },
     {
       "source": "/products/189",
-      "destination": "/products/sweater-ovs-talle-89-d61a2222-a919-4d42-bd16-71eb2490be8e",
+      "destination": "/products/blusa-de-rayas-blanca-cc8908c3-5688-4ead-94dc-156072cd4599",
       "permanent": true
     },
     {
@@ -288,6 +293,11 @@
     {
       "source": "/products/175",
       "destination": "/products/jean-levis-550-92-aec78415-821f-40c3-8c75-4effb0b071f9",
+      "permanent": true
+    },
+    {
+      "source": "/products/174",
+      "destination": "/products/zapatos-air-jordan-3-cardinal-red-09d67f98-efe6-4254-bfb1-1b4e1ae5f850",
       "permanent": true
     },
     {

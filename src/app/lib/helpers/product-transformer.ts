@@ -1,4 +1,5 @@
 import type { Product } from '../types';
+import { getImageProxyUrl, CARD_IMAGE_WIDTH } from '../product-images';
 
 export interface ProductCard {
   image: {
@@ -33,7 +34,8 @@ function buildLocalImagePath(productId: string, filename: string): string {
 
 /**
  * Extrait l'URL de la première image d'un produit
- * Gère les formats Supabase (string) et Airtable (objet avec url)
+ * Gère les formats Supabase (string) et Airtable (objet avec url).
+ * Pour Supabase, utilise le proxy avec w=CARD_IMAGE_WIDTH pour réduire la taille.
  */
 function getProductImageUrl(product: Product): string | undefined {
   if (!product.Images || product.Images.length === 0) {
@@ -42,13 +44,16 @@ function getProductImageUrl(product: Product): string | undefined {
 
   const firstImage = product.Images[0];
 
-  // Si c'est une string (Supabase), l'utiliser directement
+  // Si c'est une string (Supabase), utiliser le proxy avec largeur carte
   if (typeof firstImage === 'string') {
-    return firstImage;
+    return getImageProxyUrl(firstImage, { w: CARD_IMAGE_WIDTH });
   }
 
-  // Si c'est un objet avec url (Airtable)
+  // Si c'est un objet avec url (Airtable ou Supabase)
   if (typeof firstImage === 'object' && firstImage.url) {
+    if (firstImage.url.includes('supabase.co/storage')) {
+      return getImageProxyUrl(firstImage.url, { w: CARD_IMAGE_WIDTH });
+    }
     // Pour les produits Airtable, essayer d'abord le fichier local
     if (firstImage.filename && product.id && product.id.startsWith('rec')) {
       const localPath = buildLocalImagePath(product.id, firstImage.filename);
@@ -65,8 +70,10 @@ export function transformProductsToCards(products: Product[]): ProductCard[] {
   return products.map((product) => {
     // Obtenir l'URL de l'image (gère Supabase et Airtable)
     const imageUrl = getProductImageUrl(product);
-    const fallbackImage = 'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg';
-    const fallbackImageDark = 'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg';
+    const fallbackImage =
+      'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg';
+    const fallbackImageDark =
+      'https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg';
 
     return {
       image: {

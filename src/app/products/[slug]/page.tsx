@@ -3,8 +3,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllProducts, getProductBySlug } from '../../lib/products';
 import { getSuggestedProducts } from '../../lib/helpers';
-import { getUsersByIds, getUsersByIdsFromSupabase } from '../../lib/users';
-import type { User } from '../../lib/types';
+import { getUsersByIdsFromSupabase } from '../../lib/users';
 import ProductDetail from '../../ui/product-detail';
 
 /** Fully static – no ISR */
@@ -89,8 +88,8 @@ export default async function ProductPage({
   const product = await getProductBySlug(slug);
   if (!product) notFound(); // built-in 404
 
-  // Fetch user data - try Supabase first, fallback to Airtable
-  // Make this non-blocking: if user fetch fails, page still renders without user info
+  // Fetch user data from Supabase only.
+  // Make this non-blocking: if user fetch fails, page still renders without user info.
   let user = null;
 
   // Safely extract and validate User ID
@@ -121,30 +120,8 @@ export default async function ProductPage({
     // Only attempt fetch if we have valid user IDs
     if (userIds.length > 0) {
       try {
-        // Try Supabase first (for numeric IDs or Supabase products)
-        // Check if any ID looks like a Supabase ID (numeric) vs Airtable ID (starts with 'rec')
-        const hasSupabaseIds = userIds.some((id) => {
-          if (typeof id === 'string') {
-            // If it's numeric or can be parsed as number, it's likely Supabase
-            return !id.startsWith('rec') && !isNaN(parseInt(id, 10));
-          }
-          return typeof id === 'number';
-        });
-
-        if (hasSupabaseIds) {
-          const users = await getUsersByIdsFromSupabase(userIds);
-          user = users.length > 0 ? users[0] : null;
-        } else {
-          // Fallback to Airtable for Airtable IDs
-          // Add timeout protection: don't wait too long during build
-          const users = await Promise.race([
-            getUsersByIds(userIds as string[]),
-            new Promise<User[]>(
-              (resolve) => setTimeout(() => resolve([]), 5000) // 5 second timeout
-            ),
-          ]);
-          user = users.length > 0 ? users[0] : null;
-        }
+        const users = await getUsersByIdsFromSupabase(userIds);
+        user = users.length > 0 ? users[0] : null;
       } catch (error) {
         // Don't block page rendering if user fetch fails
         // Silently continue - user info is optional
