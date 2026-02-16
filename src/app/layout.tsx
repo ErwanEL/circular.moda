@@ -43,7 +43,7 @@ export default function RootLayout({
         <Header />
         {children}
         <WhatsappFloat />
-        <Popup />
+        {/* <Popup /> */}
         <Footer />
         <Script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></Script>
         {process.env.NODE_ENV === 'production' && (

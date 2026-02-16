@@ -358,8 +358,7 @@ CREATE TABLE users (
   created_at TIMESTAMPTZ DEFAULT NOW(),
   name TEXT NOT NULL,
   phone TEXT,
-  email TEXT,
-  address TEXT
+  user_id UUID -- Link to auth.users.id
 );
 
 -- Indexes
