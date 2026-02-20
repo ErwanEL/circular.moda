@@ -38,11 +38,16 @@ export default function LoginForm({ description }: LoginFormProps) {
     setLoading(true);
     setMessage('');
     setMessageType('');
+    const baseUrl =
+      typeof window !== 'undefined'
+        ? window.location.origin
+        : process.env.NEXT_PUBLIC_SITE_URL || '';
+    const redirectTo = baseUrl ? `${baseUrl}/auth/confirm` : undefined;
     const { data, error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/login`,
+        emailRedirectTo: redirectTo,
       },
     });
     if (error) {
