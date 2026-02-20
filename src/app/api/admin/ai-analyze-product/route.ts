@@ -91,19 +91,13 @@ export async function POST(request: NextRequest) {
   "color": "Color principal" o null (DEBE ser EXACTAMENTE una de estas opciones: ${colorsList}),
   "category": "Categoría" o null (DEBE ser EXACTAMENTE una de estas opciones: ${categoriesList}),
   "gender": ["Género"] o [] (DEBE ser uno o varios de estos valores EXACTOS: ${gendersList}),
-  "description": "Descripción amigable y optimizada para SEO (máximo 155 caracteres, ideal para meta description)",
+  "description": "Solo describir el producto usando ÚNICAMENTE los datos del texto e imágenes proporcionados. Máximo 155 caracteres. Sin frase de cierre.",
   "featured": false
 }
 
 Reglas CRÍTICAS:
 - El nombre y la descripción DEBEN estar en español argentino (ar-es)
-- La descripción debe ser:
-  * De longitud media (máximo 155 caracteres, idealmente entre 120-155 caracteres)
-  * Amigable y atractiva para el usuario
-  * Optimizada para SEO (incluir palabras clave relevantes, llamativa)
-  * Ideal para usar como meta description de la página
-  * Incluir detalles relevantes del producto (marca, estilo, características principales)
-  * Ejemplo: "Jeans Zara hombre talle 42/44 anchos, corte recto. Moda circular y sostenible en Buenos Aires. Perfecto para el día a día."
+- La descripción: SOLO el producto, usando ÚNICAMENTE la información del texto e imágenes de entrada. Máximo 155 caracteres. Sin frase de cierre, sin añadir nada que no esté en el input.
 - Si el precio no está mencionado en la descripción, usa null
 - Si el talle no es visible en las imágenes o mencionado, usa null
 - Analiza cuidadosamente las imágenes para determinar el color y la categoría
@@ -115,11 +109,11 @@ Reglas CRÍTICAS:
 
     const userPrompt = `Descripción proporcionada: "${textDescription}"
 
-Analiza las imágenes y la descripción para extraer toda la información del producto. Recuerda que el nombre y la descripción deben estar en español argentino (ar-es), y la descripción debe ser de longitud media (máximo 155 caracteres, idealmente entre 120-155 caracteres), amigable y optimizada para SEO. Incluye detalles relevantes del producto como marca, estilo y características principales.`;
+Analiza las imágenes y la descripción para extraer toda la información del producto. Para el campo description: solo describir el producto con los datos del input (texto e imágenes), máximo 155 caracteres, en español argentino. Nada más: sin frase de cierre ni texto añadido.`;
 
-    // Appeler OpenAI GPT-4 Vision
+    // Appeler OpenAI GPT-4o mini (Vision)
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini', // Utiliser gpt-4o-mini comme demandé
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
