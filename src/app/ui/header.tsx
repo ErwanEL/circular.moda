@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import {
   Navbar,
   NavbarBrand,
@@ -10,9 +11,41 @@ import {
 } from 'flowbite-react';
 import Button from './button'; // Import your custom Button component
 import { usePathname } from 'next/navigation';
+import { createClient } from '../lib/supabase/client';
 
 export default function Header() {
   const pathname = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+    let isMounted = true;
+
+    const loadUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (isMounted) {
+        setIsLoggedIn(!!user);
+      }
+    };
+
+    loadUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (isMounted) {
+        setIsLoggedIn(!!session?.user);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
   return (
     <header
       className="sticky top-0 z-50 px-4 pt-0 md:px-6"
@@ -50,6 +83,26 @@ export default function Header() {
             >
               Vender ahora
             </Button>
+            {isLoggedIn && (
+              <Button variant="secondary" size="md" href="/me" className="ml-2">
+                <svg
+                  className="mr-1.5 h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 7a3 3 0 11-6 0 3 3 0 016 0zm-9 13a6 6 0 1112 0H6z"
+                  />
+                </svg>
+                Perfil
+              </Button>
+            )}
             <NavbarToggle />
           </div>
           <NavbarCollapse>
