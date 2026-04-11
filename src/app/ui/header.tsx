@@ -132,7 +132,7 @@ export default function Header() {
                   variant="secondary"
                   size="md"
                   href="/login"
-                  className="ml-2"
+                  className="ml-2 min-h-[40px]"
                   aria-label="Iniciar sesion"
                 >
                   <svg
@@ -240,6 +240,7 @@ export default function Header() {
                     variant="secondary"
                     size="md"
                     href="/login"
+                    className="min-h-[40px]"
                     aria-label="Iniciar sesion"
                   >
                     <svg
