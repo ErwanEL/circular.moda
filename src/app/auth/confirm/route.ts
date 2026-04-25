@@ -7,13 +7,14 @@ export async function GET(req: NextRequest) {
   const code = url.searchParams.get('code');
   const typeParam = url.searchParams.get('type') || 'email';
 
+  const redirect = (pathnameWithQuery: string) =>
+    NextResponse.redirect(new URL(pathnameWithQuery, url));
+
   const supabase = await createClient();
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (error) {
-      return NextResponse.redirect(
-        `/login?error=${encodeURIComponent(error.message)}`
-      );
+      return redirect(`/login?error=${encodeURIComponent(error.message)}`);
     }
   } else if (hash) {
     const { error } = await supabase.auth.verifyOtp({
@@ -27,12 +28,10 @@ export async function GET(req: NextRequest) {
         | 'email',
     });
     if (error) {
-      return NextResponse.redirect(
-        `/login?error=${encodeURIComponent(error.message)}`
-      );
+      return redirect(`/login?error=${encodeURIComponent(error.message)}`);
     }
   } else {
-    return NextResponse.redirect(
+    return redirect(
       `/login?error=${encodeURIComponent(
         'Missing login token. Please request a new link.'
       )}`
@@ -40,7 +39,7 @@ export async function GET(req: NextRequest) {
   }
 
   // After session is set, redirect into the app.
-  return NextResponse.redirect('/me');
+  return redirect('/me');
 }
 
 // Keep POST for API/manual confirmation if needed
