@@ -1,4 +1,30 @@
+# MODACIRCULAR
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Supabase magic-link login (mobile/iOS)
+
+If magic-link login works on desktop but fails on iPhone (e.g. you click the email link and end up on `/` not logged in), the most common causes are:
+
+- **Email click-tracking rewrites the link** (Brevo/Sendinblue, etc.), which can drop Supabase parameters or consume the one-time token during redirects.
+- **Redirect URL allow-list mismatch** (e.g. `www.` vs non-`www`, preview domain, etc.).
+
+### Required settings
+
+- **Disable click-tracking for transactional/auth emails** in your email provider (Brevo/Sendinblue).
+  - The final URL you open should be your site (e.g. `https://circular.moda/auth/confirm?...`), not a tracking domain (e.g. `sendibt3.com`).
+- **Supabase Dashboard → Authentication → URL Configuration**
+  - **Site URL**: choose a single canonical domain (with or without `www`) and use it consistently.
+  - **Redirect URLs**: include every variant you might send users to, at minimum:
+    - `https://circular.moda/auth/confirm`
+    - `https://www.circular.moda/auth/confirm`
+
+### Repo behavior
+
+- Login email links are generated in `src/app/ui/login-form.tsx` via `supabase.auth.signInWithOtp({ options: { emailRedirectTo } })`.
+- Magic-link confirmation is handled by `src/app/auth/confirm/route.ts` and supports both:
+  - `token_hash` (+ `type`) via `verifyOtp`
+  - `code` via `exchangeCodeForSession`
 
 ## Getting Started
 

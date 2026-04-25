@@ -4,23 +4,42 @@ import { createClient } from '../../lib/supabase/server';
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const hash = url.searchParams.get('token_hash');
-  if (!hash) {
-    return NextResponse.json({ error: 'Missing token_hash' }, { status: 400 });
-  }
+  const code = url.searchParams.get('code');
+  const typeParam = url.searchParams.get('type') || 'email';
 
-  // Use enhanced server-side Supabase client with cookie/session support
   const supabase = await createClient();
-  const { error } = await supabase.auth.verifyOtp({
-    token_hash: hash,
-    type: 'email',
-  });
-
-  if (error) {
+  if (code) {
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (error) {
+      return NextResponse.redirect(
+        `/login?error=${encodeURIComponent(error.message)}`
+      );
+    }
+  } else if (hash) {
+    const { error } = await supabase.auth.verifyOtp({
+      token_hash: hash,
+      type: typeParam as
+        | 'signup'
+        | 'invite'
+        | 'magiclink'
+        | 'recovery'
+        | 'email_change'
+        | 'email',
+    });
+    if (error) {
+      return NextResponse.redirect(
+        `/login?error=${encodeURIComponent(error.message)}`
+      );
+    }
+  } else {
     return NextResponse.redirect(
-      `/login?error=${encodeURIComponent(error.message)}`
+      `/login?error=${encodeURIComponent(
+        'Missing login token. Please request a new link.'
+      )}`
     );
   }
 
+  // After session is set, redirect into the app.
   return NextResponse.redirect('/me');
 }
 

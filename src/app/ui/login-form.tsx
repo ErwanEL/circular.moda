@@ -38,11 +38,18 @@ export default function LoginForm({ description }: LoginFormProps) {
     setLoading(true);
     setMessage('');
     setMessageType('');
+    // Prefer a single canonical site URL for email redirects.
+    // On mobile, the origin can vary (www vs non-www, preview domains),
+    // and Supabase requires the redirect URL to match its allow-list exactly.
+    const baseUrl =
+      (process.env.NEXT_PUBLIC_SITE_URL || '').trim() ||
+      (typeof window !== 'undefined' ? window.location.origin : '');
+    const redirectTo = baseUrl ? `${baseUrl}/auth/confirm` : undefined;
     const { data, error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}welcome`,
+        emailRedirectTo: redirectTo,
       },
     });
     if (error) {
