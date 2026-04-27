@@ -12,7 +12,7 @@ export default function LoginPage() {
   useEffect(() => {
     const checkAuth = async () => {
       const supabase = createClient();
-      const { data, error } = await supabase.auth.getUser();
+      const { data } = await supabase.auth.getUser();
       if (data?.user) {
         router.replace('/me');
       }
