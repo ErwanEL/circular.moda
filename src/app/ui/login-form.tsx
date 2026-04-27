@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { createClient } from '../lib/supabase/client';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Button from './button';
 
 type LoginFormProps = {
@@ -15,22 +15,24 @@ export default function LoginForm({ description }: LoginFormProps) {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   // Extract error from URL params
   const error = searchParams.get('error');
-  const errorCode = searchParams.get('error_code');
   const errorDescription = searchParams.get('error_description');
 
   let externalError = '';
   if (
     error === 'access_denied' &&
-    errorCode === 'otp_expired' &&
     errorDescription === 'Email link is invalid or has expired'
   ) {
     externalError =
       'El enlace de acceso ha expirado o no es válido. Por favor, solicita un nuevo enlace para continuar.';
+  } else if (errorDescription) {
+    externalError =
+      'No se pudo iniciar sesión con el enlace de acceso. Solicita uno nuevo e inténtalo otra vez.';
+  } else if (error) {
+    externalError = 'No se pudo iniciar sesión. Solicita un nuevo enlace.';
   }
 
   async function handleLogin(e: React.FormEvent) {
@@ -38,11 +40,16 @@ export default function LoginForm({ description }: LoginFormProps) {
     setLoading(true);
     setMessage('');
     setMessageType('');
-    const { data, error } = await supabase.auth.signInWithOtp({
+
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+    const confirmUrl = new URL('/auth/confirm', siteUrl);
+    confirmUrl.searchParams.set('next', '/me');
+
+    const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}welcome`,
+        emailRedirectTo: confirmUrl.toString(),
       },
     });
     if (error) {
