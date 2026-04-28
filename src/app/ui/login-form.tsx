@@ -45,6 +45,7 @@ export default function LoginForm({ mode, description }: LoginFormProps) {
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const copy = FORM_COPY[mode];
+  const next = searchParams.get('next') ?? '/me';
 
   // Extract error from URL params
   const error = searchParams.get('error');
@@ -72,7 +73,7 @@ export default function LoginForm({ mode, description }: LoginFormProps) {
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
     const confirmUrl = new URL('/auth/confirm', siteUrl);
-    confirmUrl.searchParams.set('next', '/me');
+    confirmUrl.searchParams.set('next', next);
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
@@ -141,13 +142,14 @@ export default function LoginForm({ mode, description }: LoginFormProps) {
         size="md"
         className="min-h-[56px] w-full justify-center px-5 text-center text-base leading-tight sm:text-lg"
         disabled={loading}
-      >
-        {loading
-          ? copy.loadingLabel
-          : messageType === 'success'
-            ? 'Reenviar enlace'
-            : copy.buttonLabel}
-      </Button>
+        text={
+          loading
+            ? copy.loadingLabel
+            : messageType === 'success'
+              ? 'Reenviar enlace'
+              : copy.buttonLabel
+        }
+      />
       {message && (
         <div
           className={`rounded-2xl border px-4 py-3 text-sm ${

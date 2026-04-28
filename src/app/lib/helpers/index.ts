@@ -16,3 +16,13 @@ export function translateColorToSpanish(color: string): string {
   };
   return map[color.trim().toLowerCase()] ?? color;
 }
+
+export function signupUrl(nextPath: string = '/me'): string {
+  const safeNext = nextPath.startsWith('/') ? nextPath : '/me';
+  return `/signup?next=${encodeURIComponent(safeNext)}`;
+}
+
+export function loginUrl(nextPath: string = '/me'): string {
+  const safeNext = nextPath.startsWith('/') ? nextPath : '/me';
+  return `/login?next=${encodeURIComponent(safeNext)}`;
+}

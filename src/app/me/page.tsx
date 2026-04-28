@@ -227,9 +227,11 @@ export default function MePage() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
             ¡Bienvenido{userProfile?.name ? `, ${userProfile.name}` : ''}!
           </h1>
-          <Button onClick={handleSignOut} variant="secondary">
-            Cerrar sesión
-          </Button>
+          <Button
+            onClick={handleSignOut}
+            variant="secondary"
+            text="Cerrar sesión"
+          />
         </div>
 
         {message && (
@@ -270,13 +272,12 @@ export default function MePage() {
                 Publicar nueva prenda
               </h3>
               <Button
-                href="/me/product/add"
+                link="/me/product/add"
+                text="Agregar prenda"
                 variant="primary"
                 solid
                 className="w-full"
-              >
-                Agregar prenda
-              </Button>
+              />
             </Card>
           </div>
 
@@ -294,9 +295,12 @@ export default function MePage() {
                   <p className="mb-4 text-gray-500">
                     Aún no has publicado ninguna prenda
                   </p>
-                  <Button href="/me/product/add" variant="primary" solid>
-                    Publicar mi primera prenda
-                  </Button>
+                  <Button
+                    link="/me/product/add"
+                    text="Publicar mi primera prenda"
+                    variant="primary"
+                    solid
+                  />
                 </div>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -349,13 +353,12 @@ export default function MePage() {
                           </Link>
                           <div className="flex gap-2 border-t border-gray-200 p-3">
                             <Button
-                              href={`/me/product/${product.id}/edit`}
+                              link={`/me/product/${product.id}/edit`}
+                              text="Editar"
                               variant="secondary"
                               size="sm"
                               className="flex-1"
-                            >
-                              Editar
-                            </Button>
+                            />
                             <button
                               type="button"
                               onClick={(e) => {
@@ -399,9 +402,8 @@ export default function MePage() {
             size="sm"
             onClick={() => setProductToDelete(null)}
             disabled={deleting}
-          >
-            Cancelar
-          </Button>
+            text="Cancelar"
+          />
           <button
             type="button"
             onClick={handleConfirmDelete}

@@ -14,7 +14,9 @@ export default function SignupPage() {
       const supabase = createClient();
       const { data } = await supabase.auth.getUser();
       if (data?.user) {
-        router.replace('/me');
+        const next =
+          new URLSearchParams(window.location.search).get('next') ?? '/me';
+        router.replace(next.startsWith('/') ? next : '/me');
       }
     };
     checkAuth();
