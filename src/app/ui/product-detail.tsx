@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Button from './button';
-import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { FaShieldAlt } from 'react-icons/fa';
 import type { Product } from '../lib/types';
@@ -90,17 +89,16 @@ export default function ProductDetail({
             <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
               <Button
                 size="xl"
-                href={`https://wa.me/5491125115030?text=Hola%20me%20interesa%20esa%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
+                link={`https://wa.me/5491125115030?text=Hola%20me%20interesa%20esa%20prenda%20talla:%20${product.Size},%20color:%20${productColor},%20SKU:%20${product.SKU}`}
+                text="Hacer una oferta al vendedor"
                 variant="primary"
                 solid
                 bold
                 className="w-full text-white sm:w-auto dark:text-gray-900"
                 target="_blank"
                 rel="noopener noreferrer"
-              >
-                Hacer una oferta al vendedor
-                <FaWhatsapp className="ml-2 h-6 w-6" />
-              </Button>
+                endIcon={<FaWhatsapp className="ml-2 h-6 w-6" />}
+              />
             </div>
 
             {/* Trust Badge */}

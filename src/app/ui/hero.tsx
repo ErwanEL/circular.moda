@@ -1,7 +1,7 @@
 import HeroImage from '../../../public/woman-in-red.png';
-import Button from './button'; // Import your custom Button component
-import Link from 'next/link';
+import Button from './button';
 import Image from 'next/image';
+import { signupUrl } from '../lib/helpers';
 
 interface HeroProps {
   heading?: string;
@@ -17,11 +17,11 @@ export default function Hero({
     description,
     primaryButton: {
       text: 'Vender ya',
-      href: `https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda`,
+      link: signupUrl('/me/product/add'),
     },
     secondaryButton: {
       text: 'Cómo funciona',
-      href: '/como-funciona',
+      link: '/como-funciona',
     },
     image: {
       src: HeroImage,
@@ -54,27 +54,26 @@ export default function Hero({
           <div className="flex flex-col gap-4 sm:flex-row">
             <Button
               size="xl"
-              href={content.primaryButton.href}
+              link={content.primaryButton.link}
+              text={content.primaryButton.text}
               variant="primary"
-              target="_blank"
-              rel="noopener noreferrer"
               solid
               bold
-            >
-              {content.primaryButton.text}
-              <svg
-                className="-mr-1 ml-2 h-5 w-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </Button>
+              endIcon={
+                <svg
+                  className="-mr-1 ml-2 h-5 w-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              }
+            />
           </div>
           {/* 0 Comisión Badge - After Button */}
           <div className="mt-4 flex justify-center gap-2 sm:justify-start">
