@@ -1,6 +1,7 @@
 import Hero from '../ui/hero';
 import Cta from '../ui/cta';
 import VenderFacil from '../ui/vender-facil';
+import { signupUrl } from '../lib/helpers';
 
 export default function ComoFuncionaPage() {
   return (
@@ -14,7 +15,7 @@ export default function ComoFuncionaPage() {
       <VenderFacil
         cta={{
           text: 'Empieza a vender',
-          href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
+          link: signupUrl('/me/product/add'),
         }}
       />
       <Cta
@@ -25,7 +26,7 @@ export default function ComoFuncionaPage() {
             'Manda tus fotos y cobra sin comisiones, sin complicaciones.',
           button: {
             text: 'Empieza a vender',
-            href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
+            link: signupUrl('/me/product/add'),
           },
         }}
       />

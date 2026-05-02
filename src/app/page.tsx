@@ -6,6 +6,7 @@ import { getAllProducts } from './lib/products';
 import ResponsiveCards from './ui/ResponsiveCards';
 import SocialShare from './ui/social-share';
 import LeadMagnet from './ui/lead-magnet';
+import { signupUrl } from './lib/helpers';
 
 export default async function Home() {
   const products = await getAllProducts();
@@ -16,7 +17,7 @@ export default async function Home() {
       <VenderFacil
         cta={{
           text: 'Empieza a vender',
-          href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
+          link: signupUrl('/me/product/add'),
         }}
       />
       <Features />
@@ -31,7 +32,7 @@ export default async function Home() {
             'Mandá tus fotos, deshacete de lo que no usás y hacé lugar para ropa nueva',
           button: {
             text: 'Vacío mi armario',
-            href: 'https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda',
+            link: signupUrl('/me/product/add'),
           },
         }}
       />

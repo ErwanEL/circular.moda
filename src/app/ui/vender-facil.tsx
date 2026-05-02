@@ -11,7 +11,7 @@ export type VenderFacilStep = {
 export type VenderFacilProps = {
   cta?: {
     text: string;
-    href: string;
+    link: string;
   };
 };
 
@@ -65,9 +65,14 @@ export default function VenderFacil({ cta }: VenderFacilProps) {
         </div>
         {cta && (
           <div className="flex justify-center">
-            <Button href={cta.href} variant="primary" size="xl" solid bold>
-              {cta.text}
-            </Button>
+            <Button
+              link={cta.link}
+              text={cta.text}
+              variant="primary"
+              size="xl"
+              solid
+              bold
+            />
           </div>
         )}
       </div>

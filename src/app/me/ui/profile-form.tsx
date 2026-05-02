@@ -90,9 +90,8 @@ export default function ProfileForm({
           variant="primary"
           solid
           className="w-full"
-        >
-          {saving ? 'Guardando...' : 'Guardar'}
-        </Button>
+          text={saving ? 'Guardando...' : 'Guardar'}
+        />
       </form>
     </Card>
   );

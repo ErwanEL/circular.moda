@@ -1,97 +1,99 @@
 'use client';
 
-import { Button as FlowbiteButton } from 'flowbite-react';
-import clsx from 'clsx';
 import Link from 'next/link';
+import type { AnchorHTMLAttributes } from 'react';
+import { getButtonClasses } from './button-classes';
+import type { ButtonStyleProps } from './button-classes';
 
-type ButtonProps = {
-  variant?: 'primary' | 'secondary';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  children: React.ReactNode;
-  className?: string;
-  as?: React.ElementType;
-  href?: string;
+export type ButtonProps = {
+  text: React.ReactNode;
+  link?: string;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
   target?: string;
-  bold?: boolean;
-  solid?: boolean;
-} & React.ComponentPropsWithoutRef<'button'>;
+  rel?: string;
+} & ButtonStyleProps &
+  Omit<React.ComponentPropsWithoutRef<'button'>, 'children'>;
 
 export default function Button({
+  text,
+  link,
+  startIcon,
+  endIcon,
   variant = 'primary',
   size = 'md',
-  children,
-  className = '',
-  as,
-  href,
-  bold = false,
   solid = false,
-  ...props
+  bold = false,
+  className = '',
+  target,
+  rel,
+  type = 'button',
+  ...rest
 }: ButtonProps) {
-  // Check if as is a function component (like Link) - Next.js 16 doesn't allow this
-  const isComponent = typeof as === 'function';
-  
-  // Determine if href is internal (starts with /) or external
-  const isInternalLink = href && href.startsWith('/');
-  
-  const buttonClasses = clsx(
-    'inline-flex items-center justify-center font-medium rounded-full dark:text-gray-900',
-    {
-      'px-2 py-1 text-xs': size === 'xs',
-      'px-3 py-2 text-sm': size === 'sm',
-      'text-md px-4 py-2': size === 'md',
-      'px-6 py-3 text-lg': size === 'lg',
-      'px-8 py-4 text-xl': size === 'xl',
-      'font-bold': bold,
-      'bg-primary-800 text-white': solid,
-    },
-    !solid && variant === 'primary'
-      ? 'from-primary via-primary to-secondary hover:via-secondary focus:ring-primary-300 dark:focus:ring-primary-800 bg-red-500 bg-gradient-to-r text-white transition duration-300 ease-in-out focus:ring-4 focus:outline-none'
-      : !solid && variant === 'secondary'
-        ? 'bg-light focus:ring-primary-300 dark:focus:ring-primary-800 border border-gray-300 text-gray-600 transition-all duration-300 ease-in-out hover:border-gray-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none'
-        : '',
-    className // Allow additional custom classes
+  const classes = getButtonClasses({
+    variant,
+    size,
+    solid,
+    bold,
+    className,
+  });
+
+  const content = (
+    <>
+      {startIcon}
+      {text}
+      {endIcon}
+    </>
   );
 
-  // If as is a function component (like Link), use Link directly for internal links
-  // or render the component for external links
-  if (isComponent && as) {
-    const Component = as;
-    // For Link component, use it directly
-    if (Component === Link && href) {
+  const {
+    disabled: _d,
+    form: _form,
+    formAction: _fa,
+    formEncType: _fe,
+    formMethod: _fm,
+    formNoValidate: _fn,
+    formTarget: _ft,
+    name: _n,
+    value: _v,
+    type: _t,
+    ...linkableRest
+  } = rest as Record<string, unknown>;
+
+  if (link) {
+    if (link.startsWith('/')) {
       return (
-        <Link href={href} className={buttonClasses} {...(props as any)}>
-          {children}
+        <Link href={link} className={classes} {...(linkableRest as object)}>
+          {content}
         </Link>
       );
     }
-    // For other components, render them
+
+    const isHttp = /^https?:\/\//i.test(link);
+    const defaultTarget =
+      target ?? (isHttp ? ('_blank' as const) : undefined);
+    const defaultRel =
+      rel ?? (isHttp ? 'noopener noreferrer' : undefined);
+
     return (
-      <Component href={href} className={buttonClasses} {...(props as any)}>
-        {children}
-      </Component>
+      <a
+        href={link}
+        className={classes}
+        target={defaultTarget}
+        rel={defaultRel}
+        {...(linkableRest as Omit<
+          AnchorHTMLAttributes<HTMLAnchorElement>,
+          'href' | 'className' | 'children'
+        >)}
+      >
+        {content}
+      </a>
     );
   }
 
-  // If href is provided and it's internal, use Link automatically
-  if (href && isInternalLink && !as) {
-    return (
-      <Link href={href} className={buttonClasses} {...(props as any)}>
-        {children}
-      </Link>
-    );
-  }
-
-  // Otherwise, use FlowbiteButton (which handles string 'as' props and external hrefs)
   return (
-    <FlowbiteButton
-      pill
-      size={size}
-      className={buttonClasses}
-      as={as}
-      href={href}
-      {...props}
-    >
-      {children}
-    </FlowbiteButton>
+    <button type={type} className={classes} {...rest}>
+      {content}
+    </button>
   );
 }

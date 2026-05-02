@@ -193,9 +193,12 @@ export default function MeAddProductPage() {
             prendas.
           </Alert>
           <div className="mt-6">
-            <Button href="/me" variant="primary" solid>
-              Ir a Mi Perfil
-            </Button>
+            <Button
+              link="/me"
+              variant="primary"
+              solid
+              text="Ir a Mi Perfil"
+            />
           </div>
         </div>
       </main>
@@ -206,9 +209,7 @@ export default function MeAddProductPage() {
     <main className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <div className="mb-6 flex items-center gap-4">
-          <Button href="/me" variant="secondary">
-            ← Volver al dashboard
-          </Button>
+          <Button link="/me" variant="secondary" text="← Volver al dashboard" />
         </div>
         <div className="rounded-lg bg-white p-6 shadow sm:p-8 dark:bg-gray-800">
           <h1 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
