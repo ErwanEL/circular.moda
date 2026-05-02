@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getProductSlugFromUnknown } from '@/app/lib/product-slug';
+import { revalidateProductContent } from '@/app/lib/product-revalidation';
 import { createClient } from '@/app/lib/supabase/server';
 import { supabase } from '@/app/lib/supabase';
 
@@ -14,6 +16,17 @@ async function getCurrentUserId() {
     .eq('user_id', authUser.id)
     .maybeSingle();
   return userData?.id ?? null;
+}
+
+function refreshProduct(product: unknown, oldProduct?: unknown) {
+  try {
+    revalidateProductContent({
+      slug: getProductSlugFromUnknown(product),
+      oldSlug: getProductSlugFromUnknown(oldProduct),
+    });
+  } catch (error) {
+    console.error('[Me Products] Product revalidation failed:', error);
+  }
 }
 
 export async function GET(
@@ -88,7 +101,7 @@ export async function PUT(
 
     const { data: existing } = await supabase
       .from('products')
-      .select('id, public_id')
+      .select('id, name, public_id')
       .eq('id', productId)
       .eq('owner', userId)
       .maybeSingle();
@@ -313,6 +326,7 @@ export async function PUT(
             { status: 500 }
           );
         }
+        refreshProduct(retry, existing);
         return NextResponse.json({
           success: true,
           product: retry,
@@ -325,6 +339,7 @@ export async function PUT(
       );
     }
 
+    refreshProduct(product, existing);
     return NextResponse.json({
       success: true,
       product,
@@ -360,7 +375,7 @@ export async function DELETE(
 
     const { data: existing, error: fetchError } = await supabase
       .from('products')
-      .select('id')
+      .select('id, name, public_id')
       .eq('id', productId)
       .eq('owner', userId)
       .maybeSingle();
@@ -394,6 +409,7 @@ export async function DELETE(
       );
     }
 
+    refreshProduct(undefined, existing);
     return NextResponse.json({
       success: true,
       message: 'Prenda eliminada correctamente',
