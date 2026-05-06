@@ -6,6 +6,9 @@ import { transformProductsToCards } from '../lib/helpers';
 import Cta from '../ui/cta';
 import ProductsGridInfinite from './components/products-grid-infinite';
 
+/** Fallback ISR if the webhook misses an update. */
+export const revalidate = 300;
+
 function encodeNextCursor(
   cursor: { created_at: string; id: string } | null
 ): string | null {

@@ -6,10 +6,13 @@ import { getSuggestedProducts } from '../../lib/helpers';
 import { getUsersByIdsFromSupabase } from '../../lib/users';
 import ProductDetail from '../../ui/product-detail';
 
-/** Fully static – no ISR */
-export const revalidate = false;
+/** Fallback ISR if the webhook misses an update. */
+export const revalidate = 300;
 
-/** Build-time generation of every slug */
+/** Allow new slugs to render on-demand after publication. */
+export const dynamicParams = true;
+
+/** Pre-render known slugs; new ones are generated on first request. */
 export async function generateStaticParams() {
   const products = await getAllProducts();
   return products.map((p: { slug: string }) => ({ slug: p.slug }));
