@@ -1,4 +1,5 @@
 import { supabase, isSupabaseConfigured } from './supabase';
+import { buildProductSlug } from './product-slug';
 import type { Product } from './types';
 
 /**
@@ -72,25 +73,7 @@ function transformSupabaseToProduct(row: any): Product {
 
   // Générer le slug au format: {name-slugified}-{public_id}
   // Exemple: "vestido-lino-verde-f1f881a3-a813-4633-951a-70cc2bdf559f"
-  let slug: string;
-  if (row.public_id && productName) {
-    // Combiner le nom slugifié avec le public_id
-    const nameSlug = slugify(productName);
-    slug = `${nameSlug}-${row.public_id}`;
-  } else if (row.public_id) {
-    // Si pas de nom, utiliser juste le public_id
-    slug = row.public_id;
-  } else if (row.slug) {
-    // Fallback vers slug existant
-    slug = row.slug;
-  } else {
-    // Dernier fallback: générer depuis SKU ou name
-    slug = sku
-      ? slugify(String(sku))
-      : productName
-        ? slugify(productName)
-        : slugify(String(row.id || ''));
-  }
+  const slug = buildProductSlug(row) ?? '';
 
   return {
     id: row.id?.toString() || '',
@@ -107,13 +90,6 @@ function transformSupabaseToProduct(row: any): Product {
     'User ID': userId,
     Images: images,
   };
-}
-
-function slugify(text: string): string {
-  return String(text)
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
 }
 
 /** Cursor for pagination: (created_at, id) of the last item of the previous page */

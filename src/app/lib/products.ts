@@ -1,4 +1,10 @@
+import { unstable_cache } from 'next/cache';
 import type { Product } from './types';
+import {
+  getProductTag,
+  PRODUCTS_ISR_SECONDS,
+  PRODUCTS_TAG,
+} from './product-cache';
 import {
   type ProductsPageCursor,
   getAllProductsFromSupabase,
@@ -6,25 +12,15 @@ import {
   getProductBySlugFromSupabase,
 } from './supabase-products';
 
-// In-memory cache with TTL
-let cache: Product[] = [];
-let cacheTimestamp = 0;
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
-
 export async function getAllProducts(): Promise<Product[]> {
-  // Check in-memory cache first
-  if (cache.length > 0 && Date.now() - cacheTimestamp < CACHE_TTL) {
-    return [...cache];
-  }
-
-  // Load exclusively from Supabase
-  const allProducts = await getAllProductsFromSupabase();
-
-  // Update cache
-  cache = allProducts;
-  cacheTimestamp = Date.now();
-
-  return [...allProducts];
+  return unstable_cache(
+    async () => getAllProductsFromSupabase(),
+    ['products', 'all'],
+    {
+      revalidate: PRODUCTS_ISR_SECONDS,
+      tags: [PRODUCTS_TAG],
+    }
+  )();
 }
 
 /** Page size and max for products list (keep in sync with API cap) */
@@ -40,14 +36,35 @@ export async function getProductsPage(
   cursor?: ProductsPageCursor
 ): Promise<{ products: Product[]; nextCursor: ProductsPageCursor | null }> {
   const safeLimit = Math.max(1, Math.min(limit, PRODUCTS_PAGE_MAX));
-  return getProductsPageFromSupabase(safeLimit, cursor);
+  const cursorKey = cursor
+    ? `${cursor.created_at}:${cursor.id}`
+    : 'first-page';
+
+  return unstable_cache(
+    async () => getProductsPageFromSupabase(safeLimit, cursor),
+    ['products', 'page', String(safeLimit), cursorKey],
+    {
+      revalidate: PRODUCTS_ISR_SECONDS,
+      tags: [PRODUCTS_TAG],
+    }
+  )();
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
+  const normalizedSlug = slug.trim();
+  if (normalizedSlug === '') {
+    return null;
+  }
+
   try {
-    // Look up product in Supabase only
-    const supabaseProduct = await getProductBySlugFromSupabase(slug);
-    return supabaseProduct;
+    return await unstable_cache(
+      async () => getProductBySlugFromSupabase(normalizedSlug),
+      ['products', 'slug', normalizedSlug],
+      {
+        revalidate: PRODUCTS_ISR_SECONDS,
+        tags: [PRODUCTS_TAG, getProductTag(normalizedSlug)],
+      }
+    )();
   } catch (error) {
     console.error('Failed to get product by slug:', error);
     return null;

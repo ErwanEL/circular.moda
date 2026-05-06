@@ -1,7 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getProductSlugFromUnknown } from '@/app/lib/product-slug';
+import { revalidateProductContent } from '@/app/lib/product-revalidation';
 import { createClient } from '@/app/lib/supabase/server';
 import { supabase } from '@/app/lib/supabase';
 import { randomUUID } from 'crypto';
+
+function refreshPublishedProduct(product: unknown) {
+  try {
+    revalidateProductContent({
+      slug: getProductSlugFromUnknown(product),
+    });
+  } catch (error) {
+    console.error('[Me Upload] Product revalidation failed:', error);
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -229,6 +241,7 @@ export async function POST(request: NextRequest) {
             { status: 500 }
           );
         }
+        refreshPublishedProduct(productDataRetry);
         return NextResponse.json({
           success: true,
           product: productDataRetry,
@@ -243,6 +256,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    refreshPublishedProduct(productData);
     return NextResponse.json({
       success: true,
       product: productData,

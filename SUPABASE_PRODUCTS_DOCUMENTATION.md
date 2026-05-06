@@ -5,11 +5,12 @@
 1. [Overview](#overview)
 2. [Architecture](#architecture)
 3. [Product Fetching](#product-fetching)
-4. [User Management](#user-management)
-5. [Product Upload Form](#product-upload-form)
-6. [Data Flow](#data-flow)
-7. [Database Schema](#database-schema)
-8. [Troubleshooting](#troubleshooting)
+4. [ISR and Revalidation](#isr-and-revalidation)
+5. [User Management](#user-management)
+6. [Product Upload Form](#product-upload-form)
+7. [Data Flow](#data-flow)
+8. [Database Schema](#database-schema)
+9. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -23,6 +24,8 @@ This application uses **Supabase** as the single source for products and users:
 The system:
 
 - Fetches all products from Supabase
+- Caches product reads with Next.js data cache tags (`products`, `product:{slug}`)
+- Revalidates product pages on demand after product mutations
 - Fetches user information with product counts from Supabase
 - Allows uploading new products via the admin form
 
@@ -53,6 +56,8 @@ The system:
 
 - **Product Fetching**: `src/app/lib/products.ts`
 - **Supabase Products**: `src/app/lib/supabase-products.ts`
+- **Product Revalidation**: `src/app/lib/product-revalidation.ts`
+- **Revalidation Webhook**: `src/app/api/revalidate/route.ts`
 - **User Management**: `src/app/lib/users.ts`
 - **Upload Form**: `src/app/admin/upload-product/page.tsx`
 - **Upload API**: `src/app/api/admin/upload-product/route.ts`
@@ -63,13 +68,15 @@ The system:
 
 ### How Products Are Loaded
 
-The system loads products from Supabase with in-memory caching:
+The system loads products from Supabase with Next.js server-side caching:
 
 #### 1. Cache Strategy
 
 ```typescript
-// In-memory cache (5 minutes TTL)
-// All products from getAllProductsFromSupabase()
+// Next data cache with 5-minute fallback ISR
+// Tags:
+// - products
+// - product:{slug}
 ```
 
 #### 2. Product Source
@@ -91,12 +98,99 @@ The system loads products from Supabase with in-memory caching:
 
 ```text
 getAllProducts()
-  ├─> Check in-memory cache
+  ├─> Check Next.js data cache
   └─> Load from Supabase:
       └─> getAllProductsFromSupabase()
-          └─> Update cache
+          └─> Update tagged cache
           └─> Return list
 ```
+
+---
+
+## ISR and Revalidation
+
+### Pages Covered
+
+- `/products`
+- `/products/[slug]`
+
+Both routes use a 5-minute ISR fallback (`revalidate = 300`) and keep `dynamicParams` enabled for new slugs.
+
+### On-Demand Revalidation Flow
+
+```text
+Supabase insert/update/delete
+  ├─> Directly from this Next.js app
+  │   └─> Route Handler calls revalidateProductContent()
+  └─> Outside this app (dashboard, SQL, import, etc.)
+      └─> Supabase trigger / Edge Function calls POST /api/revalidate
+          └─> Next.js invalidates:
+              ├─> tag: products
+              ├─> tag: product:{slug}
+              ├─> path: /products
+              └─> path: /products/{slug}
+```
+
+### Endpoint
+
+Use the App Router endpoint:
+
+- `src/app/api/revalidate/route.ts`
+
+This replaces the older `pages/api/revalidate.ts` pattern.
+
+Required env var:
+
+```bash
+REVALIDATE_SECRET=your-shared-secret
+```
+
+Accepted payload example:
+
+```json
+{
+  "slug": "vestido-lino-verde-f1f881a3-a813-4633-951a-70cc2bdf559f",
+  "oldSlug": "ancien-slug-si-renommage",
+  "event": "UPDATE"
+}
+```
+
+Or forward Supabase-style records:
+
+```json
+{
+  "event": "INSERT",
+  "record": {
+    "name": "Vestido lino verde",
+    "public_id": "f1f881a3-a813-4633-951a-70cc2bdf559f"
+  }
+}
+```
+
+### Supabase Integration
+
+Recommended pattern:
+
+1. Add a Postgres trigger on `products`.
+2. Trigger a Supabase Edge Function.
+3. The Edge Function calls `POST https://your-domain.com/api/revalidate`.
+4. Send `x-revalidate-secret: <REVALIDATE_SECRET>`.
+
+Minimal Edge Function request body:
+
+```json
+{
+  "event": "UPDATE",
+  "record": { "...": "NEW row" },
+  "old_record": { "...": "OLD row" }
+}
+```
+
+### Important Behavior
+
+- Revalidation invalidates caches immediately.
+- Actual HTML/RSC regeneration happens on the next request to the page.
+- If you need proactive regeneration, add a warm-up request after revalidation.
 
 ---
 
