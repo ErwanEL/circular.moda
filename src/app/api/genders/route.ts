@@ -1,26 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/app/lib/supabase';
+import { NextResponse } from 'next/server';
+import { PRODUCTS_ISR_SECONDS } from '@/app/lib/product-cache';
+import { getProductGenders } from '@/app/lib/products';
 
-export async function GET(request: NextRequest) {
+const CACHE_HEADERS = {
+  'Cache-Control': `s-maxage=${PRODUCTS_ISR_SECONDS}, stale-while-revalidate=${PRODUCTS_ISR_SECONDS}`,
+};
+
+export async function GET() {
   try {
-    const { data, error } = await supabase
-      .from('genders')
-      .select('gender')
-      .order('gender', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching genders:', error);
-      return NextResponse.json(
-        {
-          genders: [],
-          error: `Erreur lors de la récupération des genres: ${error.message}`,
-        },
-        { status: 500 }
-      );
-    }
-
     return NextResponse.json({
-      genders: data ? data.map((row: { gender: string }) => row.gender) : [],
+      genders: await getProductGenders(),
+    }, {
+      headers: CACHE_HEADERS,
     });
   } catch (error) {
     console.error('Unexpected error:', error);

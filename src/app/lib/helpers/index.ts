@@ -1,20 +1,8 @@
 export * from './product-transformer';
+import { getColorLabel } from '../product-option-labels';
 
 export function translateColorToSpanish(color: string): string {
-  const map: Record<string, string> = {
-    red: 'Rojo',
-    blue: 'Azul',
-    green: 'Verde',
-    yellow: 'Amarillo',
-    black: 'Negro',
-    white: 'Blanco',
-    purple: 'Morado',
-    pink: 'Rosa',
-    orange: 'Naranja',
-    gray: 'Gris',
-    brown: 'Marrón',
-  };
-  return map[color.trim().toLowerCase()] ?? color;
+  return getColorLabel(color);
 }
 
 export function signupUrl(nextPath: string = '/me'): string {
