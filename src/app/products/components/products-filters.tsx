@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
-  countActiveProductFilters,
+  countActiveProductFacetFilters,
   normalizeProductFiltersInput,
   type ProductFilters,
   writeProductFiltersToSearchParams,
@@ -31,6 +31,7 @@ export default function ProductsFilters({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
+  const [searchValue, setSearchValue] = useState(activeFilters.query ?? '');
   const [draftCategory, setDraftCategory] = useState(
     activeFilters.category ?? ''
   );
@@ -44,9 +45,9 @@ export default function ProductsFilters({
     activeFilters.priceMax !== undefined ? String(activeFilters.priceMax) : ''
   );
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
-  const activeFilterCount = countActiveProductFilters(activeFilters);
+  const activeFilterCount = countActiveProductFacetFilters(activeFilters);
 
-  function syncDraftWithActiveFilters(filters: ProductFilters) {
+  function syncDraftFacetFilters(filters: ProductFilters) {
     setDraftCategory(filters.category ?? '');
     setDraftColor(filters.color ?? '');
     setDraftGender(filters.gender ?? '');
@@ -59,7 +60,7 @@ export default function ProductsFilters({
     );
   }
 
-  function clearDraftFilters() {
+  function clearDraftFacetFilters() {
     setDraftCategory('');
     setDraftColor('');
     setDraftGender('');
@@ -69,7 +70,11 @@ export default function ProductsFilters({
   }
 
   useEffect(() => {
-    syncDraftWithActiveFilters(activeFilters);
+    setSearchValue(activeFilters.query ?? '');
+  }, [activeFilters.query]);
+
+  useEffect(() => {
+    syncDraftFacetFilters(activeFilters);
   }, [
     activeFilters.category,
     activeFilters.color,
@@ -103,7 +108,7 @@ export default function ProductsFilters({
     });
   }
 
-  function buildDraftFilters(): ProductFilters {
+  function buildDraftFacetFilters(): ProductFilters {
     return normalizeProductFiltersInput({
       category: draftCategory,
       color: draftColor,
@@ -114,29 +119,58 @@ export default function ProductsFilters({
     });
   }
 
+  function buildFiltersWithSearch(): ProductFilters {
+    const normalizedSearch = normalizeProductFiltersInput({
+      q: searchValue,
+    });
+
+    return {
+      query: normalizedSearch.query,
+      category: activeFilters.category,
+      color: activeFilters.color,
+      gender: activeFilters.gender,
+      size: activeFilters.size,
+      priceMin: activeFilters.priceMin,
+      priceMax: activeFilters.priceMax,
+    };
+  }
+
+  function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    navigateWithFilters(buildFiltersWithSearch());
+  }
+
   function handleApplyFilters(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    navigateWithFilters(buildDraftFilters());
+    navigateWithFilters({
+      query: activeFilters.query,
+      ...buildDraftFacetFilters(),
+    });
   }
 
   function handleOpenMobileModal() {
-    syncDraftWithActiveFilters(activeFilters);
+    syncDraftFacetFilters(activeFilters);
     setIsMobileModalOpen(true);
   }
 
   function handleCloseMobileModal() {
-    syncDraftWithActiveFilters(activeFilters);
+    syncDraftFacetFilters(activeFilters);
     setIsMobileModalOpen(false);
   }
 
   function handleApplyMobileFilters() {
     setIsMobileModalOpen(false);
-    navigateWithFilters(buildDraftFilters());
+    navigateWithFilters({
+      query: activeFilters.query,
+      ...buildDraftFacetFilters(),
+    });
   }
 
   function handleResetFilters() {
-    clearDraftFilters();
-    navigateWithFilters({});
+    clearDraftFacetFilters();
+    navigateWithFilters(
+      activeFilters.query ? { query: activeFilters.query } : {}
+    );
     setIsMobileModalOpen(false);
   }
 
@@ -245,17 +279,15 @@ export default function ProductsFilters({
 
   return (
     <>
-      <div className="md:rounded-3xl md:border md:border-gray-200 md:bg-white md:p-5 md:shadow-sm md:dark:border-gray-800 md:dark:bg-gray-950">
-        <div className="flex justify-end md:hidden">
-          <button
-            type="button"
-            onClick={handleOpenMobileModal}
-            aria-haspopup="dialog"
-            aria-expanded={isMobileModalOpen}
-            className="inline-flex items-center gap-3 rounded-full border-2 border-teal-600 bg-white px-5 py-3 text-base font-medium text-gray-900 transition hover:border-teal-700 hover:text-teal-700 dark:border-teal-500 dark:bg-gray-950 dark:text-white dark:hover:border-teal-400 dark:hover:text-teal-300"
-          >
+      <div className="space-y-4">
+        <form
+          onSubmit={handleSearchSubmit}
+          className="flex flex-col gap-3 sm:flex-row"
+        >
+          <label className="relative block flex-1">
+            <span className="sr-only">Buscar productos</span>
             <svg
-              className="h-6 w-6"
+              className="pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-400"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -264,42 +296,83 @@ export default function ProductsFilters({
               strokeLinejoin="round"
               aria-hidden
             >
-              <line x1="4" y1="7" x2="20" y2="7" />
-              <line x1="4" y1="17" x2="20" y2="17" />
-              <circle cx="9" cy="7" r="2" />
-              <circle cx="15" cy="17" r="2" />
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            <span>
-              Filtros
-              {activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
-            </span>
+            <input
+              type="search"
+              value={searchValue}
+              onChange={(event) => setSearchValue(event.target.value)}
+              placeholder="Buscar en el catalogo"
+              className="w-full rounded-full border border-gray-200 bg-white py-3.5 pr-4 pl-12 text-sm text-gray-900 outline-none transition focus:border-gray-400 dark:border-gray-700 dark:bg-gray-950 dark:text-white"
+            />
+          </label>
+
+          <button
+            type="submit"
+            disabled={isPending}
+            className="rounded-full bg-gray-900 px-5 py-3.5 text-sm font-medium text-white transition hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
+          >
+            {isPending ? 'Buscando...' : 'Buscar'}
           </button>
-        </div>
+        </form>
 
-        <form
-          className="hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[minmax(0,2fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(0,0.95fr)_minmax(0,0.9fr)_minmax(0,0.9fr)_auto]"
-          onSubmit={handleApplyFilters}
-        >
-          {renderFilterFields()}
-
-          <div className="flex flex-wrap items-end gap-3 xl:justify-end">
-            <button
-              type="submit"
-              disabled={isPending}
-              className="rounded-full bg-gray-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
-            >
-              {isPending ? 'Actualizando...' : 'Aplicar filtros'}
-            </button>
+        <div className="md:rounded-3xl md:border md:border-gray-200 md:bg-white md:p-5 md:shadow-sm md:dark:border-gray-800 md:dark:bg-gray-950">
+          <div className="flex justify-end md:hidden">
             <button
               type="button"
-              onClick={handleResetFilters}
-              disabled={isPending || activeFilterCount === 0}
-              className="rounded-full border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-900"
+              onClick={handleOpenMobileModal}
+              aria-haspopup="dialog"
+              aria-expanded={isMobileModalOpen}
+              className="inline-flex items-center gap-3 rounded-full border-2 border-teal-600 bg-white px-5 py-3 text-base font-medium text-gray-900 transition hover:border-teal-700 hover:text-teal-700 dark:border-teal-500 dark:bg-gray-950 dark:text-white dark:hover:border-teal-400 dark:hover:text-teal-300"
             >
-              Limpiar
+              <svg
+                className="h-6 w-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <line x1="4" y1="7" x2="20" y2="7" />
+                <line x1="4" y1="17" x2="20" y2="17" />
+                <circle cx="9" cy="7" r="2" />
+                <circle cx="15" cy="17" r="2" />
+              </svg>
+              <span>
+                Filtros
+                {activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
+              </span>
             </button>
           </div>
-        </form>
+
+          <form
+            className="hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[minmax(0,2fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(0,0.95fr)_minmax(0,0.9fr)_minmax(0,0.9fr)_auto]"
+            onSubmit={handleApplyFilters}
+          >
+            {renderFilterFields()}
+
+            <div className="flex flex-wrap items-end gap-3 xl:justify-end">
+              <button
+                type="submit"
+                disabled={isPending}
+                className="rounded-full bg-gray-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
+              >
+                {isPending ? 'Actualizando...' : 'Aplicar filtros'}
+              </button>
+              <button
+                type="button"
+                onClick={handleResetFilters}
+                disabled={isPending || activeFilterCount === 0}
+                className="rounded-full border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-900"
+              >
+                Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       {isMobileModalOpen && (
@@ -337,7 +410,7 @@ export default function ProductsFilters({
 
             <button
               type="button"
-              onClick={clearDraftFilters}
+              onClick={clearDraftFacetFilters}
               className="text-base font-medium text-gray-900 transition hover:text-teal-700 dark:text-white dark:hover:text-teal-300"
             >
               Borrar todos

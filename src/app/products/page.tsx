@@ -32,6 +32,7 @@ export default async function ProductsPage({
   try {
     const resolvedSearchParams = await searchParams;
     const rawFilters = normalizeProductFiltersInput({
+      q: resolvedSearchParams.q,
       category: resolvedSearchParams.category,
       color: resolvedSearchParams.color,
       gender: resolvedSearchParams.gender,
