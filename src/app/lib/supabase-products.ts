@@ -1,4 +1,5 @@
 import { supabase, isSupabaseConfigured } from './supabase';
+import type { ProductFilters } from './product-filters';
 import { buildProductSlug } from './product-slug';
 import type { Product } from './types';
 
@@ -101,6 +102,7 @@ export type ProductsPageCursor = { created_at: string; id: string };
  */
 export async function getProductsPageFromSupabase(
   limit: number,
+  filters: ProductFilters = {},
   cursor?: ProductsPageCursor
 ): Promise<{ products: Product[]; nextCursor: ProductsPageCursor | null }> {
   if (!isSupabaseConfigured()) {
@@ -112,6 +114,30 @@ export async function getProductsPageFromSupabase(
 
   try {
     let query = supabase.from('products').select('*');
+
+    if (filters.category) {
+      query = query.eq('category', filters.category);
+    }
+
+    if (filters.color) {
+      query = query.eq('color', filters.color);
+    }
+
+    if (filters.gender) {
+      query = query.eq('gender', filters.gender);
+    }
+
+    if (filters.size) {
+      query = query.ilike('size', filters.size);
+    }
+
+    if (filters.priceMin !== undefined) {
+      query = query.gte('price', filters.priceMin);
+    }
+
+    if (filters.priceMax !== undefined) {
+      query = query.lte('price', filters.priceMax);
+    }
 
     if (cursor) {
       // Rows "before" cursor: created_at < cursor.created_at OR (created_at = cursor.created_at AND id < cursor.id)
@@ -139,8 +165,11 @@ export async function getProductsPageFromSupabase(
     const products = rows.map(transformSupabaseToProduct);
 
     let nextCursor: ProductsPageCursor | null = null;
-    if (hasMore && data[pageSize]) {
-      const last = data[pageSize] as { created_at: string; id: string };
+    if (hasMore && rows[rows.length - 1]) {
+      const last = rows[rows.length - 1] as {
+        created_at: string;
+        id: string;
+      };
       nextCursor = {
         created_at: String(last.created_at),
         id: String(last.id),

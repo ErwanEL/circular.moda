@@ -1,26 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/app/lib/supabase';
+import { NextResponse } from 'next/server';
+import { PRODUCTS_ISR_SECONDS } from '@/app/lib/product-cache';
+import { getProductColors } from '@/app/lib/products';
 
-export async function GET(request: NextRequest) {
+const CACHE_HEADERS = {
+  'Cache-Control': `s-maxage=${PRODUCTS_ISR_SECONDS}, stale-while-revalidate=${PRODUCTS_ISR_SECONDS}`,
+};
+
+export async function GET() {
   try {
-    const { data, error } = await supabase
-      .from('colors')
-      .select('color')
-      .order('color', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching colors:', error);
-      return NextResponse.json(
-        {
-          colors: [],
-          error: `Erreur lors de la récupération des couleurs: ${error.message}`,
-        },
-        { status: 500 }
-      );
-    }
-
     return NextResponse.json({
-      colors: data ? data.map((row: { color: string }) => row.color) : [],
+      colors: await getProductColors(),
+    }, {
+      headers: CACHE_HEADERS,
     });
   } catch (error) {
     console.error('Unexpected error:', error);

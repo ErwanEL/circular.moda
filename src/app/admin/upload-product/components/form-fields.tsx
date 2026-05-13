@@ -1,5 +1,11 @@
 'use client';
 
+import {
+  getCategoryLabel,
+  getColorLabel,
+  getGenderLabel,
+} from '../../../lib/product-option-labels';
+
 interface FormFieldsProps {
   // Form values
   name: string;
@@ -142,10 +148,10 @@ export function FormFields({
             onChange={(e) => onColorChange(e.target.value)}
             className="focus:ring-primary-500 focus:border-primary-500 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">-- Sélectionner une couleur --</option>
+            <option value="">-- Elegi un color --</option>
             {colors.map((c) => (
               <option key={c} value={c}>
-                {c.charAt(0).toUpperCase() + c.slice(1)}
+                {getColorLabel(c)}
               </option>
             ))}
           </select>
@@ -175,12 +181,10 @@ export function FormFields({
             onChange={(e) => onCategoryChange(e.target.value)}
             className="focus:ring-primary-500 focus:border-primary-500 w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">-- Sélectionner une catégorie --</option>
+            <option value="">-- Elegi una categoria --</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>
-                {cat
-                  .replace(/_/g, ' ')
-                  .replace(/\b\w/g, (l) => l.toUpperCase())}
+                {getCategoryLabel(cat)}
               </option>
             ))}
           </select>
@@ -214,7 +218,7 @@ export function FormFields({
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
                   }`}
                 >
-                  {g.charAt(0).toUpperCase() + g.slice(1)}
+                  {getGenderLabel(g)}
                   {gender.includes(g) && ' ✓'}
                 </button>
               ))}

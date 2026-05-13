@@ -1,10 +1,22 @@
 // Route Handlers use the Web Fetch API
 import { type NextRequest, NextResponse } from 'next/server';
-import { getAllProducts, getProductsPage, PRODUCTS_PAGE_MAX } from '../../lib/products';
+import {
+  getAllProducts,
+  getProductsPage,
+  PRODUCTS_PAGE_MAX,
+  resolveProductFilters,
+} from '../../lib/products';
+import { PRODUCTS_ISR_SECONDS } from '../../lib/product-cache';
+import {
+  hasActiveProductFilters,
+  normalizeProductFiltersInput,
+} from '../../lib/product-filters';
 import type { Product, ProductsPageResponse } from '../../lib/types';
 import type { ProductsPageCursor } from '../../lib/supabase-products';
 
-const CACHE_HEADERS = { 'Cache-Control': 's-maxage=60, stale-while-revalidate' };
+const CACHE_HEADERS = {
+  'Cache-Control': `s-maxage=${PRODUCTS_ISR_SECONDS}, stale-while-revalidate=${PRODUCTS_ISR_SECONDS}`,
+};
 
 function parseCursor(encoded: string | null): ProductsPageCursor | undefined {
   if (!encoded || encoded === '') return undefined;
@@ -29,15 +41,31 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const limitParam = searchParams.get('limit');
     const cursorParam = searchParams.get('cursor');
+    const rawFilters = normalizeProductFiltersInput({
+      category: searchParams.get('category'),
+      color: searchParams.get('color'),
+      gender: searchParams.get('gender'),
+      size: searchParams.get('size'),
+      priceMin: searchParams.get('priceMin'),
+      priceMax: searchParams.get('priceMax'),
+    });
 
-    const usePagination = limitParam != null || cursorParam != null;
+    const usePagination =
+      limitParam != null ||
+      cursorParam != null ||
+      hasActiveProductFilters(rawFilters);
     if (usePagination) {
+      const filters = await resolveProductFilters(rawFilters);
       const limit = Math.min(
         parseInt(limitParam ?? '20', 10) || 20,
         PRODUCTS_PAGE_MAX
       );
       const cursor = parseCursor(cursorParam ?? null);
-      const { products, nextCursor } = await getProductsPage(limit, cursor);
+      const { products, nextCursor } = await getProductsPage({
+        limit,
+        cursor,
+        ...filters,
+      });
       const body: ProductsPageResponse = {
         products,
         nextCursor: nextCursor ? encodeCursor(nextCursor) : null,

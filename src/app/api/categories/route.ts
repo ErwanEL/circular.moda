@@ -1,28 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/app/lib/supabase';
+import { NextResponse } from 'next/server';
+import { PRODUCTS_ISR_SECONDS } from '@/app/lib/product-cache';
+import { getProductCategories } from '@/app/lib/products';
 
-export async function GET(request: NextRequest) {
+const CACHE_HEADERS = {
+  'Cache-Control': `s-maxage=${PRODUCTS_ISR_SECONDS}, stale-while-revalidate=${PRODUCTS_ISR_SECONDS}`,
+};
+
+export async function GET() {
   try {
-    const { data, error } = await supabase
-      .from('categories')
-      .select('category')
-      .order('category', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching categories:', error);
-      return NextResponse.json(
-        {
-          categories: [],
-          error: `Erreur lors de la récupération des catégories: ${error.message}`,
-        },
-        { status: 500 }
-      );
-    }
-
     return NextResponse.json({
-      categories: data
-        ? data.map((row: { category: string }) => row.category)
-        : [],
+      categories: await getProductCategories(),
+    }, {
+      headers: CACHE_HEADERS,
     });
   } catch (error) {
     console.error('Unexpected error:', error);
