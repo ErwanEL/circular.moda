@@ -51,6 +51,23 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Catalog search: borderless input inside a pill; remove WebKit/mobile focus chrome */
+.catalog-search-input {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  border-radius: 0;
+}
+
+.catalog-search-input:focus,
+.catalog-search-input:focus-visible,
+.catalog-search-input:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Blog utilities */
 .line-clamp-2 {
   display: -webkit-box;

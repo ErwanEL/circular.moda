@@ -140,6 +140,18 @@ export default function ProductsFilters({
     navigateWithFilters(buildFiltersWithSearch());
   }
 
+  function handleClearSearch() {
+    setSearchValue('');
+    navigateWithFilters({
+      category: activeFilters.category,
+      color: activeFilters.color,
+      gender: activeFilters.gender,
+      size: activeFilters.size,
+      priceMin: activeFilters.priceMin,
+      priceMax: activeFilters.priceMax,
+    });
+  }
+
   function handleApplyFilters(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     navigateWithFilters({
@@ -284,28 +296,69 @@ export default function ProductsFilters({
           onSubmit={handleSearchSubmit}
           className="flex flex-col gap-3 sm:flex-row"
         >
-          <label className="relative block flex-1">
+          <label
+            htmlFor="products-catalog-search"
+            className="block min-w-0 flex-1 cursor-text"
+          >
             <span className="sr-only">Buscar productos</span>
-            <svg
-              className="pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-400"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
+            <div
+              dir="ltr"
+              className="flex min-w-0 items-center gap-2 rounded-full border border-gray-200 bg-white py-3.5 pr-2 pl-3 sm:pl-4 dark:border-gray-700 dark:bg-gray-950"
             >
-              <circle cx="11" cy="11" r="7" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <input
-              type="search"
-              value={searchValue}
-              onChange={(event) => setSearchValue(event.target.value)}
-              placeholder="Buscar en el catalogo"
-              className="w-full rounded-full border border-gray-200 bg-white py-3.5 pr-4 pl-12 text-sm text-gray-900 outline-none transition focus:border-gray-400 dark:border-gray-700 dark:bg-gray-950 dark:text-white"
-            />
+              <svg
+                className="pointer-events-none h-5 w-5 shrink-0 self-center text-gray-400"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <circle cx="11" cy="11" r="7" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                id="products-catalog-search"
+                type="text"
+                inputMode="search"
+                enterKeyHint="search"
+                autoComplete="off"
+                role="searchbox"
+                value={searchValue}
+                onChange={(event) => setSearchValue(event.target.value)}
+                placeholder="Buscar en el catalogo"
+                className="catalog-search-input min-h-0 min-w-0 flex-1 appearance-none self-center border-0 bg-transparent py-0 text-sm leading-5 text-gray-900 shadow-none outline-none ring-0 focus:border-0 focus:shadow-none focus:outline-none focus:ring-0 focus-visible:border-0 focus-visible:shadow-none focus-visible:outline-none focus-visible:ring-0 dark:text-white"
+              />
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center self-center">
+                {searchValue.trim() !== '' ? (
+                  <button
+                    type="button"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleClearSearch();
+                    }}
+                    disabled={isPending}
+                    className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-gray-500 transition hover:bg-gray-100 hover:text-gray-800 disabled:cursor-not-allowed disabled:opacity-60 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    aria-label="Limpiar búsqueda"
+                  >
+                    <svg
+                      className="h-4 w-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden
+                    >
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
+                ) : null}
+              </div>
+            </div>
           </label>
 
           <button
