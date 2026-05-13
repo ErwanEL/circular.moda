@@ -2,6 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  type ProductFilters,
+  writeProductFiltersToSearchParams,
+} from '../../lib/product-filters';
+import {
   transformProductsToCards,
   type ProductCard,
 } from '../../lib/helpers';
@@ -18,12 +22,14 @@ type Props = {
   initialCards: ProductCard[];
   initialNextCursor: string | null;
   pageSize: number;
+  activeFilters: ProductFilters;
 };
 
 export default function ProductsGridInfinite({
   initialCards,
   initialNextCursor,
   pageSize,
+  activeFilters,
 }: Props) {
   const [cards, setCards] = useState<ProductCard[]>(initialCards);
   const [nextCursor, setNextCursor] = useState<string | null>(initialNextCursor);
@@ -31,12 +37,24 @@ export default function ProductsGridInfinite({
   const [error, setError] = useState<string | null>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setCards(initialCards);
+    setNextCursor(initialNextCursor);
+    setLoading(false);
+    setError(null);
+  }, [initialCards, initialNextCursor]);
+
   const loadMore = useCallback(async () => {
     if (!nextCursor || loading) return;
     setLoading(true);
     setError(null);
     try {
-      const url = `/api/products?limit=${pageSize}&cursor=${encodeURIComponent(nextCursor)}`;
+      const params = new URLSearchParams({
+        limit: String(pageSize),
+        cursor: nextCursor,
+      });
+      writeProductFiltersToSearchParams(params, activeFilters);
+      const url = `/api/products?${params.toString()}`;
       const res = await fetch(url);
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
@@ -53,7 +71,7 @@ export default function ProductsGridInfinite({
     } finally {
       setLoading(false);
     }
-  }, [nextCursor, loading, pageSize]);
+  }, [activeFilters, nextCursor, loading, pageSize]);
 
   useEffect(() => {
     const el = sentinelRef.current;
@@ -77,22 +95,30 @@ export default function ProductsGridInfinite({
   }, [nextCursor, loading, error, loadMore]);
 
   return (
-    <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-      <div className="mb-4 grid items-stretch gap-x-4 gap-y-8 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+    <>
+      <div className="mb-4 grid items-stretch gap-x-4 gap-y-8 sm:grid-cols-2 md:mb-8 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {cards.map((cardData) => (
           <Card key={cardData.href} {...cardData} />
         ))}
       </div>
       {cards.length === 0 && !loading && (
-        <div className="py-12 text-center">
+        <div className="rounded-3xl border border-dashed border-gray-300 py-12 text-center dark:border-gray-700">
           <p className="text-gray-500 dark:text-gray-400">
-            No hay productos disponibles en este momento.
+            No encontramos productos con esos filtros.
           </p>
         </div>
       )}
-      <div ref={sentinelRef} className="min-h-[120px] flex items-center justify-center" aria-hidden>
+      <div
+        ref={sentinelRef}
+        className="flex min-h-[120px] items-center justify-center"
+        aria-hidden
+      >
         {loading && (
-          <div className="py-8 flex justify-center" role="status" aria-label="Cargando más productos">
+          <div
+            className="flex justify-center py-8"
+            role="status"
+            aria-label="Cargando más productos"
+          >
             <svg
               className="h-8 w-8 animate-spin text-gray-400"
               xmlns="http://www.w3.org/2000/svg"
@@ -132,6 +158,6 @@ export default function ProductsGridInfinite({
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }
