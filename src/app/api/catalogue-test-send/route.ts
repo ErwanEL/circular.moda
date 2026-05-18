@@ -30,6 +30,30 @@ type TestSendRequestBody = {
 const PRODUCT_SELECT =
   'id, name, slug, public_id, price, size, images, created_at';
 
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (typeof error === 'object' && error !== null) {
+    if ('message' in error && typeof error.message === 'string') {
+      return error.message;
+    }
+
+    try {
+      return JSON.stringify(error);
+    } catch {
+      return 'Unknown test send error.';
+    }
+  }
+
+  if (typeof error === 'string' && error.trim() !== '') {
+    return error;
+  }
+
+  return 'Unknown test send error.';
+}
+
 function getTestSecret(): string {
   const secret =
     process.env.NEWSLETTER_TEST_SECRET ?? process.env.CRON_SECRET ?? '';
@@ -136,10 +160,7 @@ export async function GET(request: Request) {
     return NextResponse.json(
       {
         ok: false,
-        message:
-          error instanceof Error
-            ? error.message
-            : 'Unknown test send error.',
+        message: getErrorMessage(error),
       },
       { status: 500 }
     );
@@ -178,10 +199,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         ok: false,
-        message:
-          error instanceof Error
-            ? error.message
-            : 'Unknown test send error.',
+        message: getErrorMessage(error),
       },
       { status: 500 }
     );
