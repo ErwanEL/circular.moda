@@ -28,7 +28,7 @@ type TestSendRequestBody = {
 };
 
 const PRODUCT_SELECT =
-  'id, name, slug, public_id, price, size, images, created_at';
+  'id, name, public_id, price, size, images, created_at';
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {

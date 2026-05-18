@@ -60,6 +60,10 @@ export type NewsletterProduct = {
 
 type ProductRow = {
   id: string | number;
+  sku?: string | null;
+  SKU?: string | null;
+  product_name?: string | null;
+  'Product Name'?: string | null;
   name?: string | null;
   slug?: string | null;
   public_id?: string | null;
@@ -71,8 +75,12 @@ type ProductRow = {
 
 type ProductSlugSource = {
   id?: unknown;
+  sku?: unknown;
+  SKU?: unknown;
   slug?: unknown;
   name?: unknown;
+  product_name?: unknown;
+  'Product Name'?: unknown;
   public_id?: unknown;
 };
 
@@ -191,12 +199,16 @@ function slugifyText(value: string): string {
 }
 
 function buildNewsletterProductSlug(source: ProductSlugSource): string | null {
-  const title = toTrimmedString(source.name);
+  const productName =
+    toTrimmedString(source['Product Name']) ??
+    toTrimmedString(source.product_name) ??
+    toTrimmedString(source.name);
   const publicId = toTrimmedString(source.public_id);
   const explicitSlug = toTrimmedString(source.slug);
+  const sku = toTrimmedString(source.SKU) ?? toTrimmedString(source.sku);
 
-  if (publicId && title) {
-    return `${slugifyText(title)}-${publicId}`;
+  if (publicId && productName) {
+    return `${slugifyText(productName)}-${publicId}`;
   }
 
   if (publicId) {
@@ -205,6 +217,16 @@ function buildNewsletterProductSlug(source: ProductSlugSource): string | null {
 
   if (explicitSlug) {
     return explicitSlug;
+  }
+
+  if (sku) {
+    const slug = slugifyText(sku);
+    return slug === '' ? null : slug;
+  }
+
+  if (productName) {
+    const slug = slugifyText(productName);
+    return slug === '' ? null : slug;
   }
 
   const id = toTrimmedString(source.id);
@@ -359,7 +381,11 @@ export function mapProductRowToNewsletterProduct(
     row.slug?.trim() ||
     buildNewsletterProductSlug({
       id: row.id,
+      sku: row.sku,
+      SKU: row.SKU,
+      'Product Name': row['Product Name'],
       name: row.name,
+      product_name: row.product_name,
       public_id: row.public_id,
       slug: row.slug,
     });

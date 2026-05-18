@@ -28,7 +28,7 @@ type ProductQueryRow = {
 export const dynamic = 'force-dynamic';
 
 const PROCESSING_STALE_AFTER_HOURS = 6;
-const PRODUCT_SELECT = 'id, name, slug, public_id, price, size, images, created_at';
+const PRODUCT_SELECT = 'id, name, public_id, price, size, images, created_at';
 
 function isAuthorized(request: Request): boolean {
   return (
