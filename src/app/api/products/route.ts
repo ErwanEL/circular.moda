@@ -42,6 +42,7 @@ export async function GET(request: NextRequest) {
     const limitParam = searchParams.get('limit');
     const cursorParam = searchParams.get('cursor');
     const rawFilters = normalizeProductFiltersInput({
+      q: searchParams.get('q'),
       category: searchParams.get('category'),
       color: searchParams.get('color'),
       gender: searchParams.get('gender'),

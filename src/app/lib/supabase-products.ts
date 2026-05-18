@@ -96,6 +96,30 @@ function transformSupabaseToProduct(row: any): Product {
 /** Cursor for pagination: (created_at, id) of the last item of the previous page */
 export type ProductsPageCursor = { created_at: string; id: string };
 
+function escapeLikeValue(value: string): string {
+  return value
+    .replace(/\\/g, '\\\\')
+    .replace(/%/g, '\\%')
+    .replace(/_/g, '\\_')
+    .replace(/"/g, '\\"');
+}
+
+function buildSearchClause(value: string): string {
+  const pattern = `"%${escapeLikeValue(value)}%"`;
+  return [
+    `name.ilike.${pattern}`,
+    `sku.ilike.${pattern}`,
+    `description.ilike.${pattern}`,
+  ].join(',');
+}
+
+function buildCursorClause(cursor: ProductsPageCursor): string {
+  return [
+    `created_at.lt.${cursor.created_at}`,
+    `and(created_at.eq.${cursor.created_at},id.lt.${cursor.id})`,
+  ].join(',');
+}
+
 /**
  * Récupère une page de produits depuis Supabase (cursor-based pagination).
  * Retourne { products, nextCursor }; nextCursor est non null s'il reste des pages.
@@ -114,6 +138,11 @@ export async function getProductsPageFromSupabase(
 
   try {
     let query = supabase.from('products').select('*');
+    const logicalOrGroups: string[] = [];
+
+    if (filters.query) {
+      logicalOrGroups.push(`or(${buildSearchClause(filters.query)})`);
+    }
 
     if (filters.category) {
       query = query.eq('category', filters.category);
@@ -141,9 +170,14 @@ export async function getProductsPageFromSupabase(
 
     if (cursor) {
       // Rows "before" cursor: created_at < cursor.created_at OR (created_at = cursor.created_at AND id < cursor.id)
-      query = query.or(
-        `created_at.lt.${cursor.created_at},and(created_at.eq.${cursor.created_at},id.lt.${cursor.id})`
-      );
+      logicalOrGroups.push(`or(${buildCursorClause(cursor)})`);
+    }
+
+    if (logicalOrGroups.length === 1) {
+      query = query.or(logicalOrGroups[0].slice(3, -1));
+    } else if (logicalOrGroups.length > 1) {
+      const queryUrl = (query as unknown as { url: URL }).url;
+      queryUrl.searchParams.set('and', `(${logicalOrGroups.join(',')})`);
     }
 
     const { data, error } = await query

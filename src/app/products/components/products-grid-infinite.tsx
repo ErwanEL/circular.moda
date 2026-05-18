@@ -104,7 +104,7 @@ export default function ProductsGridInfinite({
       {cards.length === 0 && !loading && (
         <div className="rounded-3xl border border-dashed border-gray-300 py-12 text-center dark:border-gray-700">
           <p className="text-gray-500 dark:text-gray-400">
-            No encontramos productos con esos filtros.
+            No encontramos productos con los criterios seleccionados.
           </p>
         </div>
       )}

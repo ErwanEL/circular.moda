@@ -151,6 +151,7 @@ export async function getProductsPage(
     ? `${options.cursor.created_at}:${options.cursor.id}`
     : 'first-page';
   const filters: ProductFilters = {
+    query: options.query,
     category: options.category,
     color: options.color,
     gender: options.gender,

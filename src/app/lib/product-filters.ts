@@ -1,4 +1,5 @@
 export type ProductFilters = {
+  query?: string;
   category?: string;
   color?: string;
   gender?: string;
@@ -16,6 +17,7 @@ export type ProductFilterOptions = {
 type SearchParamValue = string | string[] | null | undefined;
 
 export const PRODUCT_FILTER_PARAM_KEYS = [
+  'q',
   'category',
   'color',
   'gender',
@@ -76,6 +78,7 @@ function resolveOptionValue(
 }
 
 export function normalizeProductFiltersInput(input: {
+  q?: SearchParamValue;
   category?: SearchParamValue;
   color?: SearchParamValue;
   gender?: SearchParamValue;
@@ -92,6 +95,7 @@ export function normalizeProductFiltersInput(input: {
     priceMin > priceMax
   ) {
     return {
+      query: normalizeTextFilter(input.q),
       category: normalizeTextFilter(input.category),
       color: normalizeTextFilter(input.color),
       gender: normalizeTextFilter(input.gender),
@@ -102,6 +106,7 @@ export function normalizeProductFiltersInput(input: {
   }
 
   return {
+    query: normalizeTextFilter(input.q),
     category: normalizeTextFilter(input.category),
     color: normalizeTextFilter(input.color),
     gender: normalizeTextFilter(input.gender),
@@ -116,6 +121,7 @@ export function resolveProductFiltersAgainstOptions(
   options: ProductFilterOptions
 ): ProductFilters {
   return {
+    query: filters.query,
     category: resolveOptionValue(filters.category, options.categories),
     color: resolveOptionValue(filters.color, options.colors),
     gender: resolveOptionValue(filters.gender, options.genders),
@@ -127,6 +133,7 @@ export function resolveProductFiltersAgainstOptions(
 
 export function hasActiveProductFilters(filters: ProductFilters): boolean {
   return (
+    filters.query !== undefined ||
     filters.category !== undefined ||
     filters.color !== undefined ||
     filters.gender !== undefined ||
@@ -136,7 +143,7 @@ export function hasActiveProductFilters(filters: ProductFilters): boolean {
   );
 }
 
-export function countActiveProductFilters(filters: ProductFilters): number {
+export function countActiveProductFacetFilters(filters: ProductFilters): number {
   return [
     filters.category,
     filters.color,
@@ -153,6 +160,10 @@ export function writeProductFiltersToSearchParams(
 ): URLSearchParams {
   for (const key of PRODUCT_FILTER_PARAM_KEYS) {
     params.delete(key);
+  }
+
+  if (filters.query) {
+    params.set('q', filters.query);
   }
 
   if (filters.category) {
@@ -184,6 +195,7 @@ export function writeProductFiltersToSearchParams(
 
 export function serializeProductFilters(filters: ProductFilters): string {
   return JSON.stringify({
+    query: filters.query ?? null,
     category: filters.category ?? null,
     color: filters.color ?? null,
     gender: filters.gender ?? null,
