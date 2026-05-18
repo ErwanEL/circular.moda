@@ -9,6 +9,8 @@ export const BREVO_DAILY_SEND_CAP = Number(
 export const BUENOS_AIRES_TIME_ZONE = 'America/Argentina/Buenos_Aires';
 export const BUENOS_AIRES_SEND_HOUR_UTC = 13;
 export const NEWSLETTER_PRODUCT_LIMIT = 8;
+export const PUBLIC_CATALOGUE_PRODUCTS_URL =
+  'https://www.circular.moda/products';
 
 export type CatalogueSubscriptionStatus =
   | 'active'
@@ -432,6 +434,7 @@ export function renderCatalogueEmail({
   catalogueUrl,
   unsubscribeUrl,
 }: RenderCatalogueEmailInput): string {
+  const catalogueProductsUrl = PUBLIC_CATALOGUE_PRODUCTS_URL;
   const productCardsMarkup = products.map((product) => {
       const productUrl = `${catalogueUrl.replace(/\/$/, '')}/products/${product.slug}`;
       const formattedPrice = formatNewsletterCurrency(product.price);
@@ -501,7 +504,7 @@ export function renderCatalogueEmail({
                 </tr>
                 <tr>
                   <td style="padding:8px 28px 32px;">
-                    <a href="${escapeHtml(catalogueUrl)}" style="display:inline-block;padding:14px 22px;border-radius:999px;background:#6e9d3d;color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;">Ver todo el catálogo</a>
+                    <a href="${escapeHtml(catalogueProductsUrl)}" style="display:inline-block;padding:14px 22px;border-radius:999px;background:#6e9d3d;color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;">Ver todo el catálogo</a>
                   </td>
                 </tr>
                 <tr>
