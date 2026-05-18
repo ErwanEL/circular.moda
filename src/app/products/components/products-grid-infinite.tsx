@@ -1,16 +1,23 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import {
   type ProductFilters,
   writeProductFiltersToSearchParams,
 } from '../../lib/product-filters';
+import useIsMobile from '../../lib/helpers/useIsMobile';
 import {
   transformProductsToCards,
   type ProductCard,
 } from '../../lib/helpers';
 import type { Product } from '../../lib/types';
 import Card from '../../ui/card';
+import CatalogueNewsletterCard from '../../ui/catalogue-newsletter-card';
+
+const DESKTOP_LEAD_MAGNET_START = 6;
+const DESKTOP_LEAD_MAGNET_STEP = 12;
+const MOBILE_LEAD_MAGNET_START = 8;
+const MOBILE_LEAD_MAGNET_STEP = 16;
 
 type ProductsPagePayload = {
   products: Product[];
@@ -31,6 +38,7 @@ export default function ProductsGridInfinite({
   pageSize,
   activeFilters,
 }: Props) {
+  const isMobile = useIsMobile();
   const [cards, setCards] = useState<ProductCard[]>(initialCards);
   const [nextCursor, setNextCursor] = useState<string | null>(initialNextCursor);
   const [loading, setLoading] = useState(false);
@@ -94,11 +102,25 @@ export default function ProductsGridInfinite({
     return () => observer.disconnect();
   }, [nextCursor, loading, error, loadMore]);
 
+  function shouldRenderLeadMagnetBeforeIndex(index: number): boolean {
+    const start = isMobile
+      ? MOBILE_LEAD_MAGNET_START
+      : DESKTOP_LEAD_MAGNET_START;
+    const step = isMobile ? MOBILE_LEAD_MAGNET_STEP : DESKTOP_LEAD_MAGNET_STEP;
+
+    return index >= start && (index - start) % step === 0;
+  }
+
   return (
     <>
       <div className="mb-4 grid items-stretch gap-x-4 gap-y-8 sm:grid-cols-2 md:mb-8 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-        {cards.map((cardData) => (
-          <Card key={cardData.href} {...cardData} />
+        {cards.map((cardData, index) => (
+          <Fragment key={cardData.href}>
+            {shouldRenderLeadMagnetBeforeIndex(index) && (
+              <CatalogueNewsletterCard />
+            )}
+            <Card {...cardData} />
+          </Fragment>
         ))}
       </div>
       {cards.length === 0 && !loading && (
