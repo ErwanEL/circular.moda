@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { FormEvent, useState } from 'react';
+import { FormEvent, KeyboardEvent, useState } from 'react';
 
 type SubmitState = 'idle' | 'success' | 'error';
 
@@ -70,9 +70,23 @@ export default function CatalogueNewsletterCard() {
     setIsModalOpen(true);
   }
 
+  function handleCardKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openModal();
+    }
+  }
+
   return (
     <>
-      <div className="relative flex h-full cursor-pointer flex-col overflow-hidden rounded-md border border-[#dfe7ce] bg-[radial-gradient(circle_at_top_left,_rgba(229,241,204,0.95),_rgba(255,253,246,1)_55%)] shadow-[0_18px_40px_rgba(169,189,131,0.16)]">
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={openModal}
+        onKeyDown={handleCardKeyDown}
+        aria-label="Abrir suscripción a novedades del catálogo"
+        className="relative flex h-full cursor-pointer flex-col overflow-hidden rounded-md border border-[#dfe7ce] bg-[radial-gradient(circle_at_top_left,_rgba(229,241,204,0.95),_rgba(255,253,246,1)_55%)] shadow-[0_18px_40px_rgba(169,189,131,0.16)] outline-none transition hover:shadow-[0_24px_48px_rgba(169,189,131,0.2)] focus-visible:ring-4 focus-visible:ring-[#dce9c3]"
+      >
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c9ddb0] to-transparent" />
         <div className="relative h-[12.5rem] w-full overflow-hidden bg-[linear-gradient(135deg,_rgba(245,249,233,0.9),_rgba(232,241,210,0.55))] sm:h-[13.5rem]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(210,229,176,0.35),_transparent_55%)]" />
@@ -105,7 +119,7 @@ export default function CatalogueNewsletterCard() {
           <button
             type="button"
             onClick={openModal}
-            className="mt-5 inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full bg-[#6f9f3b] px-5 text-base font-semibold text-white shadow-[0_14px_28px_rgba(111,159,59,0.28)] transition hover:bg-[#5f8c32]"
+            className="mt-5 inline-flex min-h-14 w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-[#6f9f3b] px-5 text-base font-semibold text-white shadow-[0_14px_28px_rgba(111,159,59,0.28)] transition hover:bg-[#5f8c32]"
           >
             <span>Quiero recibir novedades</span>
             <svg
