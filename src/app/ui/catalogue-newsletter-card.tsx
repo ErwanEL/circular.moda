@@ -1,7 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import {
+  FormEvent,
+  KeyboardEvent as ReactKeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 type SubmitState = 'idle' | 'success' | 'error';
 
@@ -34,7 +40,7 @@ export default function CatalogueNewsletterCard() {
       return;
     }
 
-    function handleEscape(event: KeyboardEvent) {
+    function handleEscape(event: globalThis.KeyboardEvent) {
       if (event.key === 'Escape' && !isSubmitting) {
         setIsModalOpen(false);
       }
@@ -94,7 +100,7 @@ export default function CatalogueNewsletterCard() {
     setIsModalOpen(true);
   }
 
-  function handleCardKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+  function handleCardKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       openModal();
