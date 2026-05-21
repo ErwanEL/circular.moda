@@ -42,6 +42,12 @@ node scripts/import-supabase-users-to-brevo.mjs --list-id=4
   - `SUPABASE_SERVICE_ROLE_KEY`
   - `BREVO_API_KEY`
 
+**Related app env:**
+
+- `BREVO_USERS_LIST_ID`
+  - used by the app runtime to auto-sync new signed-up users to Brevo
+  - the import script still takes the destination list from `--list-id`
+
 **What it does:**
 
 1. Fetches all Supabase Auth users with pagination
