@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '../lib/supabase/client';
+import { argentinaPhoneToLocalInput } from '../lib/argentina-phone';
 import { useRouter } from 'next/navigation';
 import ProfileForm from '../me/ui/profile-form';
 import { Alert, Spinner } from 'flowbite-react';
@@ -19,44 +20,44 @@ export default function WelcomePage() {
   const router = useRouter();
 
   useEffect(() => {
-    loadData();
-  }, []);
+    async function loadData() {
+      try {
+        const supabase = createClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
 
-  const loadData = async () => {
-    try {
-      const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+        if (!user?.email) {
+          router.push('/login');
+          return;
+        }
 
-      if (!user?.email) {
-        router.push('/login');
-        return;
-      }
+        setEmail(user.email);
 
-      setEmail(user.email);
+        // Try to fetch existing profile
+        const response = await fetch('/api/me');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.user) {
+            setName(data.user.name || '');
+            setPhone(argentinaPhoneToLocalInput(data.user.phone));
 
-      // Try to fetch existing profile
-      const response = await fetch('/api/me');
-      if (response.ok) {
-        const data = await response.json();
-        if (data.user) {
-          setName(data.user.name || '');
-          setPhone(data.user.phone || '');
-
-          // Redirect if profile is already complete
-          if (data.user.name && data.user.phone) {
-            router.push('/me');
-            return;
+            // Redirect if profile is already complete
+            if (data.user.name && data.user.phone) {
+              router.push('/me');
+              return;
+            }
           }
         }
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Error loading data:', error);
-    } finally {
-      setLoading(false);
     }
-  };
+
+    loadData();
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

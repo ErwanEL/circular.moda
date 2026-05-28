@@ -1,6 +1,7 @@
 import { type EmailOtpType } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '../../lib/supabase/server';
+import { upsertBrevoUserContact } from '@/app/lib/brevo-users';
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
@@ -8,6 +9,7 @@ export async function GET(req: NextRequest) {
   const hash = url.searchParams.get('token_hash');
   const type = url.searchParams.get('type') as EmailOtpType | null;
   const next = url.searchParams.get('next') ?? '/me';
+  const intent = url.searchParams.get('intent');
   const redirectTo = req.nextUrl.clone();
 
   redirectTo.pathname = next.startsWith('/') ? next : '/me';
@@ -15,6 +17,7 @@ export async function GET(req: NextRequest) {
   redirectTo.searchParams.delete('token_hash');
   redirectTo.searchParams.delete('type');
   redirectTo.searchParams.delete('next');
+  redirectTo.searchParams.delete('intent');
 
   if (!code && (!hash || !type)) {
     const loginUrl = req.nextUrl.clone();
@@ -43,6 +46,20 @@ export async function GET(req: NextRequest) {
     loginUrl.searchParams.set('error', 'access_denied');
     loginUrl.searchParams.set('error_description', error.message);
     return NextResponse.redirect(loginUrl);
+  }
+
+  if (intent === 'signup') {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user?.email) {
+        await upsertBrevoUserContact({ email: user.email });
+      }
+    } catch (syncError) {
+      console.error('[brevo-user-sync] Signup confirm sync failed:', syncError);
+    }
   }
 
   return NextResponse.redirect(redirectTo);
