@@ -239,6 +239,43 @@ export default function MePage() {
           </Alert>
         )}
 
+        {userProfile?.id != null && (
+          <Card className="mb-6 border border-blue-100 bg-blue-50/50 dark:border-blue-900 dark:bg-blue-950/30">
+            <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
+              Tu vitrina pública
+            </h2>
+            <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+              Compartí este enlace para que vean todas tus prendas en una sola
+              página.
+            </p>
+            <div className="mb-4 break-all rounded-lg border border-gray-200 bg-white px-3 py-2 font-mono text-sm text-gray-800 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200">
+              /user/{userProfile.id}
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button
+                link={`/user/${userProfile.id}`}
+                text="Ver vitrina pública"
+                variant="primary"
+                solid
+                className="w-full sm:w-auto"
+              />
+              <Button
+                onClick={() => {
+                  const url = `${window.location.origin}/user/${userProfile.id}`;
+                  void navigator.clipboard.writeText(url);
+                  setMessage({
+                    type: 'success',
+                    text: 'Enlace copiado al portapapeles.',
+                  });
+                }}
+                text="Copiar enlace"
+                variant="secondary"
+                className="w-full sm:w-auto"
+              />
+            </div>
+          </Card>
+        )}
+
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-1">
             <ProfileForm

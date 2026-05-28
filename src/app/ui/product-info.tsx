@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { translateColorToSpanish } from '../lib/helpers';
 import type { Product, User } from '../lib/types';
 import { ProductStarRating } from './product-star-rating';
@@ -53,7 +54,16 @@ export function ProductInfo({ product, user, rating }: ProductInfoProps) {
         {/* User Info */}
         {firstName && (
           <div className="text-sm text-gray-600 dark:text-gray-400">
-            <span className="font-bold">{firstName}</span>
+            {user?.id ? (
+              <Link
+                href={`/user/${user.id}`}
+                className="font-bold text-gray-900 underline-offset-2 hover:underline dark:text-white"
+              >
+                {firstName}
+              </Link>
+            ) : (
+              <span className="font-bold">{firstName}</span>
+            )}
             {' – '}
             <span className="font-bold">CABA</span>
             {(() => {

@@ -1,5 +1,39 @@
-import type { User } from './types';
+import type { Product, User } from './types';
 import { supabase, isSupabaseConfigured } from './supabase';
+import {
+  getOwnerIdsWithProductsFromSupabase,
+  getProductsByOwnerFromSupabase,
+} from './supabase-products';
+
+/** Parse `/user/[id]` route param (numeric users.id only). */
+export function parseUserIdParam(param: string): number | null {
+  const trimmed = param.trim();
+  if (!/^\d+$/.test(trimmed)) {
+    return null;
+  }
+
+  const id = Number.parseInt(trimmed, 10);
+  if (!Number.isSafeInteger(id) || id <= 0) {
+    return null;
+  }
+
+  return id;
+}
+
+/** Public profile: id + name + product count (no phone/email). */
+export async function getPublicUserById(id: number): Promise<User | null> {
+  return getUserByIdFromSupabase(id);
+}
+
+/** All listings for a seller (`products.owner` = users.id). */
+export async function getProductsByOwnerId(ownerId: number): Promise<Product[]> {
+  return getProductsByOwnerFromSupabase(ownerId);
+}
+
+/** Distinct seller IDs that have at least one product (sitemap / SSG). */
+export async function getOwnerIdsWithProducts(): Promise<number[]> {
+  return getOwnerIdsWithProductsFromSupabase();
+}
 
 /**
  * Fetches user data from Supabase by user ID(s) with product count

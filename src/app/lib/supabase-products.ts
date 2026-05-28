@@ -218,6 +218,74 @@ export async function getProductsPageFromSupabase(
 }
 
 /**
+ * Récupère tous les produits d'un vendeur (owner) depuis Supabase.
+ */
+export async function getProductsByOwnerFromSupabase(
+  ownerId: number
+): Promise<Product[]> {
+  if (!isSupabaseConfigured()) {
+    return [];
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('owner', ownerId)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('[Supabase] Error fetching products by owner:', error);
+      return [];
+    }
+
+    if (!data || data.length === 0) {
+      return [];
+    }
+
+    return data.map(transformSupabaseToProduct);
+  } catch (error) {
+    console.error('[Supabase] Failed to fetch products by owner:', error);
+    return [];
+  }
+}
+
+/**
+ * Récupère les IDs de vendeurs ayant au moins un produit.
+ */
+export async function getOwnerIdsWithProductsFromSupabase(): Promise<number[]> {
+  if (!isSupabaseConfigured()) {
+    return [];
+  }
+
+  try {
+    const { data, error } = await supabase.from('products').select('owner');
+
+    if (error) {
+      console.error('[Supabase] Error fetching product owners:', error);
+      return [];
+    }
+
+    if (!data || data.length === 0) {
+      return [];
+    }
+
+    const ownerIds = new Set<number>();
+    for (const row of data) {
+      const owner = (row as { owner: number }).owner;
+      if (typeof owner === 'number') {
+        ownerIds.add(owner);
+      }
+    }
+
+    return [...ownerIds].sort((a, b) => a - b);
+  } catch (error) {
+    console.error('[Supabase] Failed to fetch product owners:', error);
+    return [];
+  }
+}
+
+/**
  * Récupère tous les produits depuis Supabase (nouveaux uniquement)
  * Retourne un tableau vide si Supabase n'est pas configuré
  */
