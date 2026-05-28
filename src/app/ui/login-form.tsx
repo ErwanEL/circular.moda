@@ -74,6 +74,7 @@ export default function LoginForm({ mode, description }: LoginFormProps) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
     const confirmUrl = new URL('/auth/confirm', siteUrl);
     confirmUrl.searchParams.set('next', next);
+    confirmUrl.searchParams.set('intent', mode);
 
     const { error } = await supabase.auth.signInWithOtp({
       email,

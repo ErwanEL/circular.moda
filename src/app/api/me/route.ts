@@ -1,7 +1,9 @@
 import { createClient } from '@/app/lib/supabase/server';
-import { NextRequest, NextResponse } from 'next/server';
+import { normalizeArgentinaPhone } from '@/app/lib/argentina-phone';
+import { upsertBrevoUserContact } from '@/app/lib/brevo-users';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const supabase = await createClient();
     const {
@@ -51,7 +53,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function PUT(request: NextRequest) {
+export async function PUT(request: Request) {
   try {
     const supabase = await createClient();
     const {
@@ -63,9 +65,10 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, phone } = body;
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
+    const normalizedPhone = normalizeArgentinaPhone(body.phone);
 
-    if (!name || !phone) {
+    if (!name || !normalizedPhone) {
       return NextResponse.json(
         { error: 'Name and phone are required' },
         { status: 400 }
@@ -92,7 +95,7 @@ export async function PUT(request: NextRequest) {
       // Update
       const { data, error } = await supabase
         .from('users')
-        .update({ name, phone })
+        .update({ name, phone: normalizedPhone })
         .eq('id', existingUser.id)
         .select('id, name, phone')
         .single();
@@ -107,7 +110,7 @@ export async function PUT(request: NextRequest) {
         .from('users')
         .insert({
           name,
-          phone,
+          phone: normalizedPhone,
           user_id: authUser.id,
         })
         .select('id, name, phone')
@@ -117,6 +120,18 @@ export async function PUT(request: NextRequest) {
         return NextResponse.json({ error: error.message }, { status: 500 });
       }
       resultUser = data;
+    }
+
+    if (authUser.email) {
+      try {
+        await upsertBrevoUserContact({
+          email: authUser.email,
+          name: resultUser.name,
+          phone: resultUser.phone,
+        });
+      } catch (syncError) {
+        console.error('[brevo-user-sync] Profile sync failed:', syncError);
+      }
     }
 
     return NextResponse.json({ user: resultUser });

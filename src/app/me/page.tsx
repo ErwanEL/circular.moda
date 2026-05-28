@@ -3,6 +3,10 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '../lib/supabase/client';
 import {
+  argentinaPhoneToLocalInput,
+  normalizeArgentinaPhone,
+} from '../lib/argentina-phone';
+import {
   Card,
   Alert,
   Spinner,
@@ -58,66 +62,63 @@ export default function MePage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Handle auth callback code exchange
-    const handleAuthCallback = async () => {
-      const supabase = createClient();
-      const { data, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error('Auth error:', error);
-      }
-    };
-    handleAuthCallback();
-    loadData();
-  }, []);
+    async function loadData() {
+      try {
+        // Handle auth callback code exchange
+        const supabase = createClient();
+        const { error: sessionError } = await supabase.auth.getSession();
+        if (sessionError) {
+          console.error('Auth error:', sessionError);
+        }
 
-  const loadData = async () => {
-    try {
-      const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
 
-      if (!user?.email) {
-        router.push('/login');
-        return;
-      }
-
-      setEmail(user.email);
-
-      // Try to fetch from API
-      const response = await fetch('/api/me');
-      if (!response.ok) {
-        if (response.status === 401) {
+        if (!user?.email) {
           router.push('/login');
           return;
         }
-        throw new Error('Error loading profile');
-      }
 
-      const data = await response.json();
+        setEmail(user.email);
 
-      if (!data?.user?.name || !data?.user?.phone) {
-        router.push('/welcome');
-        return;
+        // Try to fetch from API
+        const response = await fetch('/api/me');
+        if (!response.ok) {
+          if (response.status === 401) {
+            router.push('/login');
+            return;
+          }
+          throw new Error('Error loading profile');
+        }
+
+        const data = await response.json();
+
+        if (!data?.user?.name || !data?.user?.phone) {
+          router.push('/welcome');
+          return;
+        }
+        setUserProfile(data.user);
+        setProducts(data.products || []);
+        setName(data.user?.name || '');
+        setPhone(argentinaPhoneToLocalInput(data.user?.phone || ''));
+      } catch (error) {
+        console.error('Error:', error);
+        setMessage({
+          type: 'error',
+          text: 'Error al cargar los datos',
+        });
+      } finally {
+        setLoading(false);
       }
-      setUserProfile(data.user);
-      setProducts(data.products || []);
-      setName(data.user?.name || '');
-      setPhone(phoneFromDb(data.user?.phone || ''));
-    } catch (error) {
-      console.error('Error:', error);
-      setMessage({
-        type: 'error',
-        text: 'Error al cargar los datos',
-      });
-    } finally {
-      setLoading(false);
     }
-  };
+
+    loadData();
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const fullPhone = phoneForDb(phone);
+    const fullPhone = normalizeArgentinaPhone(phone);
     if (!fullPhone) {
       setMessage({
         type: 'error',
@@ -151,23 +152,6 @@ export default function MePage() {
       setSaving(false);
     }
   };
-
-  /** Strip Argentina country code for display in the local-number input */
-  function phoneFromDb(dbPhone: string): string {
-    if (!dbPhone) return '';
-    const trimmed = dbPhone.trim();
-    if (trimmed.startsWith('+54'))
-      return trimmed.slice(3).replace(/\s/g, ' ').trim();
-    if (trimmed.startsWith('54') && /^\d{2,}/.test(trimmed.slice(2)))
-      return trimmed.slice(2).replace(/\s/g, ' ').trim();
-    return trimmed;
-  }
-
-  /** Build full E.164-style number for DB (Argentina +54 + digits) */
-  function phoneForDb(localPart: string): string {
-    const digits = localPart.replace(/\D/g, '');
-    return digits ? '+54' + digits : '';
-  }
 
   const getProductSlug = (product: Product) => {
     const nameSlug = product.name

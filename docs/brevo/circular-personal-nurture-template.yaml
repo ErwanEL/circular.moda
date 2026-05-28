@@ -1,0 +1,413 @@
+author: Erwan
+brandUpdateTime: '2026-05-20T00:00:00Z'
+campaignType: template
+colors:
+  - '#fffdf6'
+  - '#faf6e9'
+  - '#a0c878'
+  - '#6f9f3b'
+  - '#264835'
+fields: {}
+fieldsHistory: []
+firstLoadSocialIcons: false
+font-fallback:
+  headings: Arial
+fonts: []
+id: 0d1aac88-b0c9-478d-bbbe-8835c0e85e63
+name: 'Nurture - Circular Personal'
+subject: 'No dejes pasar esa joyita'
+ui:
+  showDeleteOption: false
+user-hash: a3841bfb582f06d427eba892928c1f76
+version: 3.0.1
+body:
+  id: 768cc08e-b230-4329-b0b7-4240b3e6486a
+  type: body
+  layout:
+    320px:
+      width: 100%
+    default:
+      align: center
+      direction: ltr
+      wrapper-width: 600
+  content:
+    - content-type: wrapper
+      id: bb810341-a8bc-4990-b498-e69a883a884c
+      stylable: false
+      title: Wrapper
+      type: rows
+      layout:
+        320px:
+          width: 100%
+        default:
+          align: center
+          valign: top
+      content:
+        - align: top
+          dist: '12'
+          gutter: 0px
+          id: 07ae3d2f-5f69-4fbc-8a49-def4cb624190
+          moduleName: viewInBrowser
+          stylable: false
+          thumbnail: /assets/img/editor/grid_12.svg
+          title: view-in-browser
+          type: grid-row
+          layout:
+            320px:
+              display: rows
+              width: 100%
+            default:
+              align: center
+              background-color: transparent
+              display: rows
+              full-width: true
+              padding-bottom: 8px
+              padding-top: 8px
+              valign: top
+              width: 100%
+          content:
+            - id: 9e58718a-050e-4d01-bc2d-9eb9af5bd349
+              isEmpty: false
+              label: 'Drop content here'
+              stylable: false
+              title: 'column 1'
+              type: grid-column
+              layout:
+                320px: []
+                default:
+                  padding-left: 0px
+                  padding-right: 0px
+                  valign: top
+              content:
+                - id: 9c273205-087a-4179-a9ba-2ba5667536f7
+                  stylable: false
+                  title: Webversion
+                  type: text
+                  layout:
+                    320px:
+                      padding-left: 10px
+                      padding-right: 10px
+                      width: 100%
+                    default:
+                      align: center
+                      line-height: 16px
+                      padding-left: 30px
+                      padding-right: 30px
+                      text-align: center
+                      width: 100%
+                  content: |-
+                    <p style="margin:0;"><a href="{{mirror}}"><span style="font-family:arial,helvetica,sans-serif;color:#7b8572;font-size:12px;text-decoration:underline;">Ver en el navegador</span></a></p>
+        - align: top
+          dist: '12'
+          gutter: 0px
+          id: 6da3279f-558b-4431-9fec-ebf9672d14be
+          moduleName: header
+          stylable: false
+          thumbnail: /assets/img/editor/element-header.svg
+          title: Hero
+          type: grid-row
+          layout:
+            320px:
+              display: rows
+              padding-left: 16px
+              padding-right: 16px
+              width: 100%
+            default:
+              align: center
+              background-color: '#fffef8'
+              padding-bottom: 8px
+              padding-left: 40px
+              padding-right: 40px
+              padding-top: 34px
+              valign: top
+              width: 100%
+          content:
+            - id: 60720b46-06ab-47bc-a3c1-367138fb967b
+              isEmpty: false
+              label: 'Drop content here'
+              stylable: false
+              title: grid-column
+              type: grid-column
+              layout:
+                320px: []
+                default:
+                  padding-left: 0px
+                  padding-right: 0px
+                  valign: top
+              content:
+                - id: 46ccf30b-ad57-445e-9fea-64a07210f562
+                  stylable: false
+                  thumbnail: /assets/img/editor/element_text.svg
+                  title: Hero copy
+                  type: text
+                  layout:
+                    320px:
+                      width: 100%
+                    default:
+                      align: left
+                      text-align: left
+                      text-valign: top
+                      valign: top
+                      width: 100%
+                  content: |-
+                    <p style="margin:0 0 16px 0;"><span style="display:inline-block;padding:8px 15px;border:1px solid #d5e0bc;border-radius:999px;background:#ffffff;color:#5f8c32;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">Novedades circular.moda</span></p>
+                    <h1 class="default-heading1" style="margin:0 0 14px 0;font-size:34px;line-height:1.15;font-weight:700;color:#264835;"><strong>[TITULAR - 1 idea clara y concreta]</strong></h1>
+                    <p style="margin:0 0 14px 0;color:#55604f;font-size:16px;line-height:1.65;">[SUBTITULO - contexto corto para abrir el tema]</p>
+                    <p style="margin:0;"><span style="display:inline-block;margin:0 8px 8px 0;padding:7px 12px;border-radius:999px;background:#f3f7e7;border:1px solid #dce5c6;color:#5f6d64;font-size:13px;font-weight:700;">Sin comisiones</span><span style="display:inline-block;margin:0 8px 8px 0;padding:7px 12px;border-radius:999px;background:#f3f7e7;border:1px solid #dce5c6;color:#5f6d64;font-size:13px;font-weight:700;">Por WhatsApp</span><span style="display:inline-block;margin:0 0 8px 0;padding:7px 12px;border-radius:999px;background:#f3f7e7;border:1px solid #dce5c6;color:#5f6d64;font-size:13px;font-weight:700;">Solo CABA</span></p>
+        - align: top
+          dist: '12'
+          gutter: 0px
+          id: 419452bd-9482-4b68-8bac-34e79aba09a0
+          moduleName: content
+          stylable: false
+          thumbnail: /assets/img/editor/element-header.svg
+          title: Content
+          type: grid-row
+          layout:
+            320px:
+              display: rows
+              padding-left: 16px
+              padding-right: 16px
+              width: 100%
+            default:
+              align: center
+              background-color: '#fffef8'
+              padding-bottom: 20px
+              padding-left: 40px
+              padding-right: 40px
+              padding-top: 8px
+              valign: top
+              width: 100%
+          content:
+            - id: e00cd2f8-9a80-4b28-964a-833fc2468a27
+              isEmpty: false
+              label: 'Drop content here'
+              stylable: false
+              title: grid-column
+              type: grid-column
+              layout:
+                320px: []
+                default:
+                  padding-left: 0px
+                  padding-right: 0px
+                  valign: top
+              content:
+                - id: 704ecc72-7cfc-4b44-ac4d-44f7d9ef778e
+                  stylable: false
+                  thumbnail: /assets/img/editor/element_text.svg
+                  title: Greeting
+                  type: text
+                  layout:
+                    320px:
+                      width: 100%
+                    default:
+                      align: left
+                      text-align: left
+                      text-valign: top
+                      valign: top
+                      width: 100%
+                  content: |-
+                    <p style="margin:0 0 12px 0;">Hola {{contact.FIRSTNAME}},</p>
+                - id: bbd7b6f9-449c-4157-a775-ec28508c9d5d
+                  stylable: false
+                  thumbnail: /assets/img/editor/element_text.svg
+                  title: Body
+                  type: text
+                  layout:
+                    320px:
+                      width: 100%
+                    default:
+                      align: left
+                      padding-top: 6px
+                      text-align: left
+                      text-valign: top
+                      valign: top
+                      width: 100%
+                  content: |-
+                    <p style="margin:0 0 12px 0;">[PARRAFO_1 - mensaje principal en tono personal]</p>
+                    <p style="margin:0 0 12px 0;">[PARRAFO_2 - desarrollo corto, concreto y natural]</p>
+                - id: 554e9cec-abac-496f-8bb8-be1b26f7e17b
+                  stylable: false
+                  thumbnail: /assets/img/editor/element_text.svg
+                  title: Highlight box
+                  type: text
+                  layout:
+                    320px:
+                      width: 100%
+                    default:
+                      align: left
+                      padding-top: 8px
+                      text-align: left
+                      text-valign: top
+                      valign: top
+                      width: 100%
+                  content: |-
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf6e9;border:1px solid #e7e0ca;border-radius:18px;">
+                      <tr>
+                        <td style="padding:18px 18px 8px 18px;">
+                          <p style="margin:0 0 10px 0;color:#6a775f;font-size:14px;line-height:1.5;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;">[BLOQUE DESTACADO - ejemplo: Por que mirar esto hoy]</p>
+                          <ul style="margin:0 0 0 20px;padding:0;color:#53614d;">
+                            <li style="margin:0 0 10px 0;">[PUNTO_1]</li>
+                            <li style="margin:0 0 10px 0;">[PUNTO_2]</li>
+                            <li style="margin:0;">[PUNTO_3]</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </table>
+                - id: 6d84df28-7353-4724-82b7-c92e76674972
+                  stylable: false
+                  thumbnail: /assets/img/editor/element_text.svg
+                  title: CTA
+                  type: text
+                  layout:
+                    320px:
+                      width: 100%
+                    default:
+                      align: left
+                      padding-top: 14px
+                      text-align: left
+                      text-valign: top
+                      valign: top
+                      width: 100%
+                  content: |-
+                    <p style="margin:0 0 14px 0;">[TRANSICION - por que importa y que hacer ahora]</p>
+                    <p style="margin:0 0 14px 0;"><a href="[CTA_LINK]" style="display:inline-block;padding:16px 28px;border-radius:999px;background:#6f9f3b;color:#ffffff;text-decoration:none;font-size:16px;font-weight:700;">[CTA TEXT]</a></p>
+                    <p style="margin:0;color:#6d7867;font-size:13px;line-height:1.6;">Si el boton no abre, copiá este link: <a href="[CTA_LINK]" style="color:#5f8c32;text-decoration:underline;">[CTA_LINK]</a></p>
+                - id: 73aac3cd-a1fa-414f-ac09-d2a80ba82288
+                  stylable: false
+                  thumbnail: /assets/img/editor/element_text.svg
+                  title: Signature
+                  type: text
+                  layout:
+                    320px:
+                      width: 100%
+                    default:
+                      align: left
+                      padding-top: 18px
+                      text-align: left
+                      text-valign: top
+                      valign: top
+                      width: 100%
+                  content: |-
+                    <p style="margin:0 0 6px 0;">Abrazo,</p>
+                    <p style="margin:0 0 12px 0;"><strong>Erwan</strong><br><span style="color:#6b7565;font-size:14px;">circular.moda | Moda circular en Buenos Aires</span></p>
+                    <p style="margin:0;"><em>P.D.: [PS opcional - repetí el beneficio o reforzá la CTA]</em></p>
+        - align: top
+          dist: '12'
+          gutter: 0px
+          id: c88400dd-cfb1-414a-ac67-69d36b61b2e7
+          moduleName: footer
+          stylable: false
+          thumbnail: /assets/img/editor/element-header.svg
+          title: Footer
+          type: grid-row
+          layout:
+            320px:
+              display: rows
+              padding-left: 16px
+              padding-right: 16px
+              width: 100%
+            default:
+              align: center
+              background-color: '#fffef8'
+              padding-bottom: 34px
+              padding-left: 40px
+              padding-right: 40px
+              padding-top: 8px
+              valign: top
+              width: 100%
+          content:
+            - id: 5324e688-9c2f-4d72-a38f-f17c0b268e8e
+              isEmpty: false
+              label: 'Drop content here'
+              stylable: false
+              title: grid-column
+              type: grid-column
+              layout:
+                320px: []
+                default:
+                  padding-left: 0px
+                  padding-right: 0px
+                  valign: top
+              content:
+                - id: 1e216183-6a22-4f98-b173-f5f85646c8d4
+                  stylable: false
+                  thumbnail: /assets/img/editor/element_text.svg
+                  title: Footer copy
+                  type: text
+                  layout:
+                    320px:
+                      width: 100%
+                    default:
+                      align: left
+                      text-align: left
+                      text-valign: top
+                      valign: top
+                      width: 100%
+                  content: |-
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f7f3e7;border-radius:18px;">
+                      <tr>
+                        <td style="padding:18px 18px;text-align:center;">
+                          <p style="margin:0 0 10px 0;color:#717b6e;font-size:13px;line-height:1.5;">Recibís este email porque te suscribiste para recibir novedades de circular.moda.</p>
+                          <p style="margin:0 0 10px 0;font-size:13px;line-height:1.5;"><a href="https://www.circular.moda/products" style="color:#5f8c32;text-decoration:underline;">Ver catálogo</a> &nbsp;•&nbsp; <a href="https://www.circular.moda/como-funciona" style="color:#5f8c32;text-decoration:underline;">Cómo funciona</a> &nbsp;•&nbsp; <a href="https://wa.me/5491125115030?text=Hola%20quiero%20publicar%20una%20prenda%20en%20circular.moda" style="color:#5f8c32;text-decoration:underline;">WhatsApp</a></p>
+                          <p style="margin:0 0 6px 0;color:#858588;font-size:12px;line-height:1.35;">&copy; {{time_now|date:"2006"}} circular.moda</p>
+                          <p style="margin:0;color:#858588;font-size:12px;line-height:1.35;">Para dejar de recibir estos correos, hacé <a href="{{unsubscribe}}" style="color:#5f8c32;text-decoration:underline;">clic aquí</a>.</p>
+                        </td>
+                      </tr>
+                    </table>
+media:
+  320px:
+    max-width: 600
+    min-width: 0
+styles:
+  default:
+    properties:
+      color: '#4f5d48'
+      font-family: 'arial,helvetica,sans-serif'
+      font-size: 16px
+      line-height: '1.6'
+    title: Paragraph
+  default-button:
+    properties:
+      background-color: '#6f9f3b'
+      border-radius: 999px
+      border-width: 0px
+      color: '#ffffff'
+      font-family: 'arial,helvetica,sans-serif'
+      font-size: 16px
+      remove-vml-button: optional
+      width: 60%
+    title: Button
+  default-heading1:
+    properties:
+      color: '#264835'
+      font-family: 'arial,helvetica,sans-serif'
+      font-size: 34px
+      font-weight: '700'
+    title: 'Heading 1'
+  default-heading2:
+    properties:
+      color: '#264835'
+      font-family: 'arial,helvetica,sans-serif'
+      font-size: 28px
+      font-weight: '700'
+    title: 'Heading 2'
+  default-heading3:
+    properties:
+      color: '#264835'
+      font-family: 'arial,helvetica,sans-serif'
+      font-size: 22px
+      font-weight: '700'
+    title: 'Heading 3'
+  default-heading4:
+    properties:
+      color: '#264835'
+      font-family: 'arial,helvetica,sans-serif'
+      font-size: 18px
+      font-weight: '700'
+    title: 'Heading 4'
+  default-link:
+    properties:
+      color: '#5f8c32'
+      text-decoration: underline
+    title: Link
