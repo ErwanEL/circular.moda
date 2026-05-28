@@ -8,6 +8,7 @@ import {
   parseUserIdParam,
 } from '../../lib/users';
 import Cards from '../../ui/cards';
+import UserPageShare from './user-page-share';
 
 /** Fallback ISR if listings change without a targeted revalidation. */
 export const revalidate = 300;
@@ -107,6 +108,11 @@ export default async function UserPage({
           <p className="text-sm text-gray-400 dark:text-gray-500">
             CABA
           </p>
+          <UserPageShare
+            userId={userId}
+            firstName={firstName}
+            productCount={count}
+          />
         </div>
       </section>
 
