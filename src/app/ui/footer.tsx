@@ -1,6 +1,5 @@
 import Link from 'next/link';
-// import { FaFacebookF, FaInstagram } from 'react-icons/fa';
-// import { FaXTwitter, FaWhatsapp } from 'react-icons/fa6';
+import { FaInstagram } from 'react-icons/fa';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -12,16 +11,7 @@ const navLinks = [
   },
 ];
 
-// const socialLinks = [
-//   { href: 'https://facebook.com', icon: <FaFacebookF />, label: 'Facebook' },
-//   { href: 'https://x.com', icon: <FaXTwitter />, label: 'X (Twitter)' },
-//   { href: 'https://instagram.com', icon: <FaInstagram />, label: 'Instagram' },
-//   {
-//     href: 'https://wa.me/?text=¡Mirá%20esto%20en%20circular.moda!',
-//     icon: <FaWhatsapp />,
-//     label: 'WhatsApp',
-//   },
-// ];
+const instagramUrl = 'https://www.instagram.com/circular_punto_moda/';
 
 export default function Footer() {
   return (
@@ -35,7 +25,7 @@ export default function Footer() {
               </span>
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 sm:gap-6">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-8">
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                 Navegación
@@ -50,26 +40,21 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
-            {/* <div>
+            <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Social
+                Instagram
               </h2>
-              <ul className="flex space-x-6">
-                {socialLinks.map((social) => (
-                  <li key={social.label}>
-                    <a
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={social.label}
-                      className="hover:text-primary-700 text-xl text-gray-500 dark:hover:text-white"
-                    >
-                      {social.icon}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div> */}
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Seguinos en Instagram"
+                className="hover:text-primary-800 inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 dark:hover:text-white"
+              >
+                <FaInstagram className="h-5 w-5 text-[#E1306C]" />
+                <span>Seguinos</span>
+              </a>
+            </div>
           </div>
         </div>
         <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8 dark:border-gray-700" />
