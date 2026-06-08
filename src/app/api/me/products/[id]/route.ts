@@ -18,11 +18,16 @@ async function getCurrentUserId() {
   return userData?.id ?? null;
 }
 
-function refreshProduct(product: unknown, oldProduct?: unknown) {
+function refreshProduct(
+  product: unknown,
+  oldProduct?: unknown,
+  options: { expireImmediately?: boolean } = {}
+) {
   try {
     revalidateProductContent({
       slug: getProductSlugFromUnknown(product),
       oldSlug: getProductSlugFromUnknown(oldProduct),
+      expireImmediately: options.expireImmediately,
     });
   } catch (error) {
     console.error('[Me Products] Product revalidation failed:', error);
@@ -283,7 +288,8 @@ export async function PUT(
       const validatedGenders = gender.filter((g: string) =>
         validGenderValues.includes(g)
       );
-      updateData.gender = validatedGenders.length > 0 ? validatedGenders[0] : null;
+      updateData.gender =
+        validatedGenders.length > 0 ? validatedGenders[0] : null;
     } else {
       updateData.gender = null;
     }
@@ -409,7 +415,7 @@ export async function DELETE(
       );
     }
 
-    refreshProduct(undefined, existing);
+    refreshProduct(undefined, existing, { expireImmediately: true });
     return NextResponse.json({
       success: true,
       message: 'Prenda eliminada correctamente',

@@ -6,7 +6,6 @@ import {
   PRODUCTS_PAGE_MAX,
   resolveProductFilters,
 } from '../../lib/products';
-import { PRODUCTS_ISR_SECONDS } from '../../lib/product-cache';
 import {
   hasActiveProductFilters,
   normalizeProductFiltersInput,
@@ -15,7 +14,7 @@ import type { Product, ProductsPageResponse } from '../../lib/types';
 import type { ProductsPageCursor } from '../../lib/supabase-products';
 
 const CACHE_HEADERS = {
-  'Cache-Control': `s-maxage=${PRODUCTS_ISR_SECONDS}, stale-while-revalidate=${PRODUCTS_ISR_SECONDS}`,
+  'Cache-Control': 'no-store',
 };
 
 function parseCursor(encoded: string | null): ProductsPageCursor | undefined {
