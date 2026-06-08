@@ -25,9 +25,6 @@ export function ImageUploadSectionEs({
 }: ImageUploadSectionEsProps) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.webp', '.gif'],
-    },
     multiple: true,
   });
 
@@ -106,7 +103,7 @@ export function ImageUploadSectionEs({
                   la publicación.
                 </p>
                 <p className="rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-500 dark:bg-gray-900 dark:text-gray-400">
-                  PNG, JPG, WEBP hasta 10MB
+                  Cualquier formato de imagen
                 </p>
               </>
             )}

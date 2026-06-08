@@ -3,6 +3,7 @@ import { getProductSlugFromUnknown } from '@/app/lib/product-slug';
 import { revalidateProductContent } from '@/app/lib/product-revalidation';
 import { createClient } from '@/app/lib/supabase/server';
 import { supabase } from '@/app/lib/supabase';
+import { getUploadedImageMetadata } from '@/app/lib/uploaded-image-file';
 
 async function getCurrentUserId() {
   const serverSupabase = await createClient();
@@ -208,9 +209,18 @@ export async function PUT(
     if (newFiles?.length) {
       for (let i = 0; i < newFiles.length; i++) {
         const file = newFiles[i];
-        const fileExt = file.name.split('.').pop();
+        const imageMetadata = getUploadedImageMetadata(file);
+        if (!imageMetadata) {
+          return NextResponse.json(
+            {
+              error: `El archivo nuevo ${i + 1} no parece ser una imagen. Probá con otro archivo.`,
+            },
+            { status: 400 }
+          );
+        }
+
         const suffix = `${Date.now()}-${i + 1}`;
-        const fileName = `${publicId}-${suffix}.${fileExt}`;
+        const fileName = `${publicId}-${suffix}.${imageMetadata.extension}`;
         const filePath = `products/${fileName}`;
 
         const arrayBuffer = await file.arrayBuffer();
@@ -219,7 +229,7 @@ export async function PUT(
         const { error: uploadError } = await supabase.storage
           .from('storage')
           .upload(filePath, uint8Array, {
-            contentType: file.type,
+            contentType: imageMetadata.contentType,
             upsert: false,
           });
 

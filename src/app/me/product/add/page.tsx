@@ -195,8 +195,12 @@ export default function MeAddProductPage() {
           type: 'success',
           text: 'Prenda publicada correctamente.',
         });
-        resetForm();
-        clearAll();
+        try {
+          resetForm();
+          clearAll();
+        } catch (cleanupError) {
+          console.warn('[Me Upload] Preview cleanup failed:', cleanupError);
+        }
 
         setTimeout(() => {
           router.push('/me');
