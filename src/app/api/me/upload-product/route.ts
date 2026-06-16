@@ -3,6 +3,7 @@ import { getProductSlugFromUnknown } from '@/app/lib/product-slug';
 import { revalidateProductContent } from '@/app/lib/product-revalidation';
 import { createClient } from '@/app/lib/supabase/server';
 import { supabase } from '@/app/lib/supabase';
+import { getUploadedImageMetadata } from '@/app/lib/uploaded-image-file';
 import { randomUUID } from 'crypto';
 
 function refreshPublishedProduct(product: unknown) {
@@ -139,8 +140,17 @@ export async function POST(request: NextRequest) {
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${publicId}-${i + 1}.${fileExt}`;
+      const imageMetadata = getUploadedImageMetadata(file);
+      if (!imageMetadata) {
+        return NextResponse.json(
+          {
+            error: `El archivo ${i + 1} no parece ser una imagen. Probá con otro archivo.`,
+          },
+          { status: 400 }
+        );
+      }
+
+      const fileName = `${publicId}-${i + 1}.${imageMetadata.extension}`;
       const filePath = `products/${fileName}`;
 
       const arrayBuffer = await file.arrayBuffer();
@@ -149,7 +159,7 @@ export async function POST(request: NextRequest) {
       const { error: uploadError } = await supabase.storage
         .from('storage')
         .upload(filePath, uint8Array, {
-          contentType: file.type,
+          contentType: imageMetadata.contentType,
           upsert: false,
         });
 

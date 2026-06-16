@@ -1,5 +1,5 @@
 const content = {
-  heading: 'Por qué usar esta plataforma hoy?',
+  heading: 'Por qué usar esta plataforma hoy',
   description: '',
   features: [
     {

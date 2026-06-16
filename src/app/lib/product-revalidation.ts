@@ -5,6 +5,7 @@ type RevalidateProductContentOptions = {
   slug?: string | null;
   oldSlug?: string | null;
   paths?: string[];
+  expireImmediately?: boolean;
 };
 
 type RevalidationResult = {
@@ -39,6 +40,9 @@ export function revalidateProductContent(
 ): RevalidationResult {
   const paths = new Set<string>(['/products']);
   const tags = new Set<string>([PRODUCTS_TAG]);
+  const tagProfile = options.expireImmediately
+    ? ({ expire: 0 } as const)
+    : 'max';
 
   for (const slug of [options.oldSlug, options.slug]) {
     const normalizedSlug = normalizeSlug(slug);
@@ -58,7 +62,7 @@ export function revalidateProductContent(
   }
 
   for (const tag of tags) {
-    revalidateTag(tag, 'max');
+    revalidateTag(tag, tagProfile);
   }
 
   for (const path of paths) {

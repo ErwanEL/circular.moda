@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { useDropzone } from 'react-dropzone';
@@ -17,9 +18,6 @@ export function ImageUploadSection({
 }: ImageUploadSectionProps) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.webp', '.gif'],
-    },
     multiple: true,
   });
 
@@ -61,7 +59,7 @@ export function ImageUploadSection({
                 Glissez-déposez des images ici, ou cliquez pour sélectionner
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-500">
-                PNG, JPG, WEBP jusqu'à 10MB
+                Tous les formats image
               </p>
             </>
           )}
@@ -107,5 +105,3 @@ export function ImageUploadSection({
     </div>
   );
 }
-
-

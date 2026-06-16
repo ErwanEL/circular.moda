@@ -1,5 +1,47 @@
 # Scripts
 
+## `normalize-product-image-orientation.mjs`
+
+One-off backfill that fixes the orientation of product images already stored in
+Supabase Storage. Phone photos are saved with a sideways pixel grid plus an EXIF
+`Orientation` tag; this bakes that rotation into the pixels and strips the tag,
+in place, so the raw stored files look upright everywhere (including WhatsApp /
+social share previews that read the raw URL, not the `/api/image` proxy).
+
+**Usage:**
+
+```bash
+# Preview what would change (no writes)
+node scripts/normalize-product-image-orientation.mjs --dry-run
+
+# Apply to a few images first, as a safe test
+node scripts/normalize-product-image-orientation.mjs --limit=3
+
+# Apply to all product images
+node scripts/normalize-product-image-orientation.mjs
+```
+
+**Requirements:**
+
+- `.env.local` with:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `SUPABASE_SERVICE_ROLE_KEY` (or `NEXT_PUBLIC_SUPABASE_ANON_KEY`)
+
+**What it does:**
+
+1. Fetches all `products` rows and walks every Supabase Storage image URL
+2. Skips images already upright (no tag / `Orientation: 1`) and images with a
+   stale tag (portrait-stored or 180°) that should not be rotated
+3. Rotates the genuinely-sideways ones (landscape + 90°/270° tag) with sharp,
+   preserving the encoded format (high quality for JPEG/WebP) and skipping
+   anything that would change format (e.g. SVG)
+4. Overwrites the file in place (`upsert`); the DB `images` URLs are unchanged
+
+Idempotent — re-running reports 0 rotations. Run `--dry-run` first. To stay safe
+it only rotates landscape-stored photos with a 90°/270° EXIF tag (genuinely
+sideways phone photos); already-upright portrait images with a stale tag, and
+180°-tagged images, are left untouched — matching the `/api/image` proxy guard.
+
 ## `test-supabase.mjs`
 
 Script to verify the Supabase connection and product data.

@@ -4,6 +4,9 @@ import { NextRequest, NextResponse } from 'next/server';
 const CACHE_MAX_ENTRIES = 200;
 const CACHE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds for Cache-Control
 const DATA_CACHE_REVALIDATE = 86400 * 7; // 7 days for unstable_cache (shared across instances)
+// Bump when the processing pipeline changes output bytes (e.g. the EXIF
+// auto-orient rule) so stale cached entries are bypassed instead of served.
+const CACHE_VERSION = 'v3';
 
 type CacheEntry = {
   body: Buffer;
@@ -20,7 +23,7 @@ type CachedImagePayload = {
 const memoryCache = new Map<string, CacheEntry>();
 
 function getCacheKey(url: string, w?: number, h?: number): string {
-  return [url, w ?? '', h ?? ''].join('|');
+  return [CACHE_VERSION, url, w ?? '', h ?? ''].join('|');
 }
 
 function pruneCache(): void {
@@ -75,6 +78,24 @@ async function fetchAndProcessImage(
     try {
       const sharp = (await import('sharp')).default;
       let pipeline = sharp(buffer);
+      // Auto-orient only genuinely-sideways photos: a 90°/270° EXIF tag on a
+      // landscape-stored image. Portrait images carrying such a tag are already
+      // upright (stale tag) and must be left alone.
+      try {
+        const meta = await sharp(buffer).metadata();
+        const orientation = meta.orientation ?? 1;
+        const isQuarterTurn = orientation >= 5 && orientation <= 8;
+        if (
+          isQuarterTurn &&
+          typeof meta.width === 'number' &&
+          typeof meta.height === 'number' &&
+          meta.width > meta.height
+        ) {
+          pipeline = pipeline.rotate();
+        }
+      } catch {
+        // If metadata can't be read, leave orientation untouched.
+      }
       const width = w && w > 0 ? w : undefined;
       const height = h && h > 0 ? h : undefined;
       if (width ?? height) {
@@ -145,7 +166,7 @@ export async function GET(request: NextRequest) {
   // 2. Data cache (shared across serverless instances, reduces Supabase egress)
   const getCachedImage = unstable_cache(
     () => fetchAndProcessImage(sourceUrl, w, h),
-    ['image', cacheKey],
+    ['image', CACHE_VERSION, cacheKey],
     { revalidate: DATA_CACHE_REVALIDATE }
   );
 
