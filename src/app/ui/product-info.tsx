@@ -1,6 +1,32 @@
+import Link from 'next/link';
+import { HiChevronRight } from 'react-icons/hi2';
 import { translateColorToSpanish } from '../lib/helpers';
 import type { Product, User } from '../lib/types';
 import { ProductStarRating } from './product-star-rating';
+
+function getSellerProductCount(user: User | null | undefined): number | null {
+  if (user?.productCount !== undefined) {
+    return user.productCount;
+  }
+  if (user?.Products) {
+    return Array.isArray(user.Products)
+      ? user.Products.length
+      : typeof user.Products === 'string'
+        ? 1
+        : 0;
+  }
+  return null;
+}
+
+function getVitrineCtaLabel(firstName: string, count: number | null): string {
+  if (count === null || count === 0) {
+    return `Ver vitrina de ${firstName}`;
+  }
+  if (count === 1) {
+    return `Ver la prenda de ${firstName}`;
+  }
+  return `Ver las ${count} prendas de ${firstName}`;
+}
 
 type ProductInfoProps = {
   product: Product;
@@ -50,45 +76,56 @@ export function ProductInfo({ product, user, rating }: ProductInfoProps) {
           </p>
         </div>
 
-        {/* User Info */}
-        {firstName && (
-          <div className="text-sm text-gray-600 dark:text-gray-400">
-            <span className="font-bold">{firstName}</span>
-            {' – '}
-            <span className="font-bold">CABA</span>
-            {(() => {
-              // Support both Airtable (Products array) and Supabase (productCount) formats
-              let productCount: number | null = null;
-
-              if (user?.productCount !== undefined) {
-                // Supabase format: use productCount directly
-                productCount = user.productCount;
-              } else if (user?.Products) {
-                // Airtable format: count from Products array
-                productCount = Array.isArray(user.Products)
-                  ? user.Products.length
-                  : typeof user.Products === 'string'
-                    ? 1
-                    : 0;
-              }
-
-              if (productCount !== null && productCount > 0) {
-                return (
-                  <>
-                    {' · '}
-                    <span>
-                      {productCount}{' '}
-                      {productCount === 1
-                        ? 'prenda publicada'
-                        : 'prendas publicadas'}
-                    </span>
-                  </>
-                );
-              }
-              return null;
-            })()}
-          </div>
-        )}
+        {/* Seller vitrina */}
+        {firstName &&
+          (user?.id ? (
+            <Link
+              href={`/user/${user.id}`}
+              className="group mt-3 flex items-center gap-3 rounded-xl border border-primary-300/70 bg-light px-4 py-3 shadow-sm transition-colors hover:border-primary-400 hover:bg-primary-100 dark:border-primary-800/50 dark:bg-gray-900/40 dark:hover:bg-primary-900/25"
+            >
+              <div className="min-w-0 flex-1 text-left">
+                <p className="truncate text-sm font-semibold text-gray-900 dark:text-white">
+                  {firstName}
+                  <span className="font-normal text-gray-500 dark:text-gray-400">
+                    {' '}
+                    · CABA
+                  </span>
+                </p>
+                <p className="mt-1 text-sm font-medium text-primary-800 group-hover:underline">
+                  {getVitrineCtaLabel(firstName, getSellerProductCount(user))}
+                </p>
+              </div>
+              <HiChevronRight
+                className="h-5 w-5 shrink-0 text-primary-800 transition-transform group-hover:translate-x-0.5"
+                aria-hidden
+              />
+            </Link>
+          ) : (
+            <div className="mt-3 text-sm text-gray-600 dark:text-gray-400">
+              <span className="font-bold text-gray-900 dark:text-white">
+                {firstName}
+              </span>
+              {' – '}
+              <span className="font-bold">CABA</span>
+              {(() => {
+                const productCount = getSellerProductCount(user);
+                if (productCount !== null && productCount > 0) {
+                  return (
+                    <>
+                      {' · '}
+                      <span>
+                        {productCount}{' '}
+                        {productCount === 1
+                          ? 'prenda publicada'
+                          : 'prendas publicadas'}
+                      </span>
+                    </>
+                  );
+                }
+                return null;
+              })()}
+            </div>
+          ))}
       </div>
 
       <div className="mt-6 mb-6 text-gray-500 dark:text-gray-400">

@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllProducts, getProductBySlug } from '../../lib/products';
-import { getSuggestedProducts } from '../../lib/helpers';
+import { getSellerOtherProducts, getSuggestedProducts } from '../../lib/helpers';
 import { getUsersByIdsFromSupabase } from '../../lib/users';
 import ProductDetail from '../../ui/product-detail';
 
@@ -133,8 +133,17 @@ export default async function ProductPage({
     }
   }
 
-  // Get suggested products
   const allProducts = await getAllProducts();
+
+  const sellerFirstName = user?.name
+    ? user.name.split(' ')[0]?.trim() || user.name
+    : null;
+
+  const sellerProducts =
+    user?.id && product.id
+      ? getSellerOtherProducts(allProducts, user.id, product.id, 6)
+      : [];
+
   const suggestedProducts = product.id
     ? getSuggestedProducts(allProducts, product.id, 6)
     : [];
@@ -143,6 +152,9 @@ export default async function ProductPage({
     <ProductDetail
       product={product}
       user={user}
+      sellerProducts={sellerProducts}
+      sellerFirstName={sellerFirstName}
+      sellerUserId={user?.id ?? null}
       suggestedProducts={suggestedProducts}
     />
   );

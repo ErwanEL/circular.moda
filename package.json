@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node --test --experimental-strip-types --experimental-specifier-resolution=node src/app/lib/catalogue-newsletter.test.mjs",
+    "test": "node --test --experimental-strip-types --experimental-specifier-resolution=node src/app/lib/*.test.mjs",
     "postinstall": "flowbite-react patch"
   },
   "dependencies": {

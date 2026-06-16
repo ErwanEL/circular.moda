@@ -13,6 +13,11 @@ import {
 import type { Product } from '../../lib/types';
 import Card from '../../ui/card';
 import CatalogueNewsletterCard from '../../ui/catalogue-newsletter-card';
+import AffiliateProductCard from '../../ui/affiliate-product-card';
+import {
+  AFFILIATE_PRODUCTS,
+  AFFILIATE_DISPLAY,
+} from '../../lib/affiliate-products';
 
 const DESKTOP_LEAD_MAGNET_START = 6;
 const DESKTOP_LEAD_MAGNET_STEP = 12;
@@ -111,17 +116,39 @@ export default function ProductsGridInfinite({
     return index >= start && (index - start) % step === 0;
   }
 
+  // Returns the sponsored affiliate product to render before a given organic
+  // card index, or null. Conservative cadence (see AFFILIATE_DISPLAY): first
+  // card after `start` organic cards, then one every `step`, rotating through
+  // the affiliate list. Suppressed until enough catalogue products are loaded.
+  function affiliateProductBeforeIndex(index: number) {
+    const { start, step, minProducts } = AFFILIATE_DISPLAY;
+    if (AFFILIATE_PRODUCTS.length === 0 || cards.length < minProducts) {
+      return null;
+    }
+    if (index < start || (index - start) % step !== 0) {
+      return null;
+    }
+    const occurrence = (index - start) / step;
+    return AFFILIATE_PRODUCTS[occurrence % AFFILIATE_PRODUCTS.length];
+  }
+
   return (
     <>
       <div className="mb-4 grid items-stretch gap-x-4 gap-y-8 sm:grid-cols-2 md:mb-8 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-        {cards.map((cardData, index) => (
-          <Fragment key={cardData.href}>
-            {shouldRenderLeadMagnetBeforeIndex(index) && (
-              <CatalogueNewsletterCard />
-            )}
-            <Card {...cardData} />
-          </Fragment>
-        ))}
+        {cards.map((cardData, index) => {
+          const affiliateProduct = affiliateProductBeforeIndex(index);
+          return (
+            <Fragment key={cardData.href}>
+              {shouldRenderLeadMagnetBeforeIndex(index) && (
+                <CatalogueNewsletterCard />
+              )}
+              {affiliateProduct && (
+                <AffiliateProductCard product={affiliateProduct} />
+              )}
+              <Card {...cardData} />
+            </Fragment>
+          );
+        })}
       </div>
       {cards.length === 0 && !loading && (
         <div className="rounded-3xl border border-dashed border-gray-300 py-12 text-center dark:border-gray-700">

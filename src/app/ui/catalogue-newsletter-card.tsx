@@ -177,26 +177,6 @@ export default function CatalogueNewsletterCard() {
               />
             </svg>
           </button>
-          <div className="mt-4 flex items-center gap-3 text-[1rem] text-[#5f6d64]">
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              className="h-6 w-6 shrink-0 text-[#6f9f3b]"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 12.5L9.2 17L19 6.5"
-                stroke="currentColor"
-                strokeWidth="2.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span>1 email por mes</span>
-            <span aria-hidden="true">•</span>
-            <span>Sin spam</span>
-          </div>
         </div>
       </div>
 
@@ -256,7 +236,6 @@ export default function CatalogueNewsletterCard() {
 
             <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm text-[#6a7560]">
               <span>1 email por mes</span>
-              <span>Sin spam</span>
               <span>Baja con un click</span>
             </div>
             <p

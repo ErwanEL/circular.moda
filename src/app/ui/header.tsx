@@ -321,7 +321,7 @@ export default function Header() {
                       d="M15 7a3 3 0 11-6 0 3 3 0 016 0zm-9 13a6 6 0 1112 0H6z"
                     />
                   </svg>
-                  <span>Regístrate | Inicia sesión</span>
+                  <span>Inicia sesión</span>
                 </Link>
               )}
             </div>

@@ -131,3 +131,35 @@ export function getSuggestedProducts(
   const shuffled = transformedProducts.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, limit);
 }
+
+function productBelongsToOwner(
+  product: Product,
+  ownerId: string | number
+): boolean {
+  const rawUserIds = product['User ID'];
+  if (!rawUserIds) {
+    return false;
+  }
+
+  const ownerIdStr = String(ownerId);
+  const ids = Array.isArray(rawUserIds) ? rawUserIds : [rawUserIds];
+  return ids.some((id) => id != null && String(id) === ownerIdStr);
+}
+
+/**
+ * Other listings from the same seller, excluding the current product.
+ */
+export function getSellerOtherProducts(
+  products: Product[],
+  ownerId: string | number,
+  currentProductId: string,
+  limit: number = 6
+): ProductCard[] {
+  const filteredProducts = products.filter(
+    (item) =>
+      productBelongsToOwner(item, ownerId) &&
+      String(item.id) !== String(currentProductId)
+  );
+
+  return transformProductsToCards(filteredProducts).slice(0, limit);
+}

@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAllBlogArticles } from './lib/blog';
 import { getAllProducts } from './lib/products';
+import { getOwnerIdsWithProducts } from './lib/users';
 
 const baseUrl = 'https://circular.moda';
 
@@ -67,5 +68,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error fetching products for sitemap:', error);
   }
 
-  return [...staticRoutes, ...blogRoutes, ...productRoutes];
+  let userRoutes: MetadataRoute.Sitemap = [];
+  try {
+    const ownerIds = await getOwnerIdsWithProducts();
+    userRoutes = ownerIds.map((id) => ({
+      url: `${baseUrl}/user/${id}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }));
+  } catch (error) {
+    console.error('Error fetching user pages for sitemap:', error);
+  }
+
+  return [...staticRoutes, ...blogRoutes, ...productRoutes, ...userRoutes];
 }

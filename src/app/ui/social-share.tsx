@@ -14,6 +14,7 @@ interface SocialShareProps {
   url?: string;
   message?: string;
   title?: string;
+  description?: string;
 }
 
 const DEFAULT_URL =
@@ -28,10 +29,14 @@ const getShareLinks = (url: string, message: string) => ({
   facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
 });
 
+const DEFAULT_DESCRIPTION =
+  'Compartí para encontrar más prendas y más clientes para vaciar tu armario.';
+
 export default function SocialShare({
   url = DEFAULT_URL,
   message = DEFAULT_MESSAGE,
   title = 'Compartí circul<span className="text-primary-800">ar</span>.moda',
+  description = DEFAULT_DESCRIPTION,
 }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
   const links = getShareLinks(url, message);
@@ -55,8 +60,7 @@ export default function SocialShare({
             dangerouslySetInnerHTML={{ __html: title }}
           />
           <p className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
-            Compartí para encontrar más prendas y más clientes para vaciar tu
-            armario.
+            {description}
           </p>
         </div>
         <div className="xs:gap-6 mt-6 flex flex-row justify-center sm:gap-10">

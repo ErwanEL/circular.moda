@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import Button from './button';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { FaShieldAlt } from 'react-icons/fa';
@@ -23,28 +24,36 @@ type ProductDetailProps = {
     value: number;
     count: number;
   };
-  suggestedProducts?: Array<{
-    image: {
-      light: string;
-      dark: string;
-      alt: string;
-    };
-    badge: string;
-    title: string;
-    sku: string;
-    rating: {
-      value: number;
-      count: number;
-    };
-    price: string;
-    href: string;
-  }>;
+  suggestedProducts?: ProductCardItem[];
+  sellerProducts?: ProductCardItem[];
+  sellerFirstName?: string | null;
+  sellerUserId?: string | null;
+};
+
+type ProductCardItem = {
+  image: {
+    light: string;
+    dark: string;
+    alt: string;
+  };
+  badge: string;
+  title: string;
+  sku: string;
+  rating: {
+    value: number;
+    count: number;
+  };
+  price: string;
+  href: string;
 };
 
 export default function ProductDetail({
   product,
   user,
   rating = { value: 5.0, count: 345 },
+  sellerProducts = [],
+  sellerFirstName = null,
+  sellerUserId = null,
   suggestedProducts = [],
 }: ProductDetailProps) {
   const [shareUrl, setShareUrl] = useState('');
@@ -118,6 +127,36 @@ export default function ProductDetail({
         message={`¡Mirá esta prenda en Circular Moda! ${product['Product Name'] || product.SKU}`}
         title="¡Compartí esta prenda!"
       />
+
+      {sellerProducts.length > 0 && sellerFirstName && (
+        <section className="py-8 antialiased md:py-12">
+          <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+            <div className="mb-8 flex flex-col items-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white">
+                  Más prendas de {sellerFirstName}
+                </h2>
+                <p className="mt-2 text-gray-600 dark:text-gray-400">
+                  Otras publicaciones del mismo vendedor en circular.moda
+                </p>
+              </div>
+              {sellerUserId && (
+                <Link
+                  href={`/user/${sellerUserId}`}
+                  className="text-sm font-semibold text-primary-800 hover:underline"
+                >
+                  Ver vitrina completa
+                </Link>
+              )}
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {sellerProducts.map((sellerProduct) => (
+                <Card key={sellerProduct.href} {...sellerProduct} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Suggested Products Section */}
       {suggestedProducts.length > 0 && (

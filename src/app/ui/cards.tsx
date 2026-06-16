@@ -3,6 +3,7 @@ import type { ProductCard } from '../lib/helpers';
 
 interface CardsProps {
   products?: ProductCard[];
+  heading?: string;
 }
 
 const fallbackContent = {
@@ -10,11 +11,11 @@ const fallbackContent = {
   cards: [],
 };
 
-export default function Cards({ products }: CardsProps) {
+export default function Cards({ products, heading = 'Novedades' }: CardsProps) {
   const content =
     products && products.length > 0
-      ? { heading: 'Novedades', cards: products }
-      : fallbackContent;
+      ? { heading, cards: products }
+      : { ...fallbackContent, heading };
 
   return (
     <section>
