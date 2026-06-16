@@ -90,11 +90,37 @@ function transformSupabaseToProduct(row: any): Product {
     gender,
     'User ID': userId,
     Images: images,
+    featured: row.featured === true,
   };
 }
 
 /** Cursor for pagination: (created_at, id) of the last item of the previous page */
 export type ProductsPageCursor = { created_at: string; id: string };
+
+/** Fetch all products flagged featured = true, newest first. */
+export async function getFeaturedProductsFromSupabase(): Promise<Product[]> {
+  if (!isSupabaseConfigured()) {
+    return [];
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('featured', true)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('[Supabase] Error fetching featured products:', error);
+      return [];
+    }
+
+    return (data ?? []).map(transformSupabaseToProduct);
+  } catch (error) {
+    console.error('[Supabase] Failed to fetch featured products:', error);
+    return [];
+  }
+}
 
 function escapeLikeValue(value: string): string {
   return value
