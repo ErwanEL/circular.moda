@@ -66,6 +66,28 @@ node scripts/test-supabase.mjs
 
 Use this after setting up Supabase or when debugging product loading.
 
+## `fetch-supabase-products.mjs`
+
+Script to refresh the local product cache from Supabase.
+
+**Usage:**
+
+```bash
+npm run fetch:products
+```
+
+**Requirements:**
+
+- `.env.local` with:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `SUPABASE_SERVICE_ROLE_KEY` or `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+**What it does:**
+
+1. Fetches every row from the Supabase `products` table, newest first
+2. Transforms rows into the app's local `Product` shape
+3. Writes `data/.products-cache.json` with `{ data, timestamp }`
+
 ## `import-supabase-users-to-brevo.mjs`
 
 One-off import script to sync Supabase auth users into a Brevo contact list.

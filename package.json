@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "prebuild": "echo 'Building without Airtable fetch (Supabase only)'",
     "build": "next build",
+    "fetch:products": "node scripts/fetch-supabase-products.mjs",
     "start": "next start",
     "lint": "eslint .",
     "test": "node --test --experimental-strip-types --experimental-specifier-resolution=node src/app/lib/*.test.mjs",
