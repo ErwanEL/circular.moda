@@ -88,6 +88,33 @@ npm run fetch:products
 2. Transforms rows into the app's local `Product` shape
 3. Writes `data/.products-cache.json` with `{ data, timestamp }`
 
+## Featured product rotation
+
+### `build-featured-contact-sheets.mjs`
+
+Script to render product cover images into contact sheets for visual review.
+
+**Usage:**
+
+```bash
+npm run featured:contact-sheets -- --min-id=1000
+npm run featured:contact-sheets -- --skus=SKU-001344,SKU-001337
+```
+
+### `apply-featured-products.mjs`
+
+Script to preview or apply a featured-product batch in Supabase.
+
+**Usage:**
+
+```bash
+npm run featured:apply -- --skus=SKU-001344,SKU-001337
+npm run featured:apply -- --apply --skus=SKU-001344,SKU-001337
+```
+
+Without `--apply`, it only verifies and previews. With `--apply`, it clears the
+current featured products first, then marks the provided SKUs as featured.
+
 ## `import-supabase-users-to-brevo.mjs`
 
 One-off import script to sync Supabase auth users into a Brevo contact list.

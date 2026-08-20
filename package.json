@@ -6,6 +6,8 @@
     "dev": "next dev --turbopack",
     "prebuild": "echo 'Building without Airtable fetch (Supabase only)'",
     "build": "next build",
+    "featured:apply": "node scripts/apply-featured-products.mjs",
+    "featured:contact-sheets": "node scripts/build-featured-contact-sheets.mjs",
     "fetch:products": "node scripts/fetch-supabase-products.mjs",
     "start": "next start",
     "lint": "eslint .",

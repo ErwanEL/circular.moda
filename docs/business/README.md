@@ -23,3 +23,4 @@ Une note doit idealement contenir :
 ## Notes
 
 - [2026-06-16 - Audit parcours utilisateur et monetisation](./2026-06-16-audit-parcours-monetisation.md)
+- [2026-08-20 - Featured products visual batch](./featured-products-batch-2026-08-20.md)
