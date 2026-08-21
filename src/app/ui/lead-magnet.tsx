@@ -1,4 +1,5 @@
 import React from 'react';
+import NewsletterSubscribeForm from './newsletter-subscribe-form';
 
 export default function LeadMagnet() {
   return (
@@ -13,28 +14,7 @@ export default function LeadMagnet() {
             descuentos y tips para vender más rápido.
           </p>
         </div>
-        <div className="flex h-[250px] justify-center sm:h-[200px]">
-          <iframe
-            width="540"
-            height="305"
-            src="https://e7b4fa4e.sibforms.com/serve/MUIFAFp26SAaAgfK2vdo0gwbOhCItlRHsvatFXKJ3SQ558IKSN09A1BLhS28I9hNBynInQCmnQHKp-eMjeF0UFTqwWFeMavr1D6Fd7EtocWjvECxRNotxnnwcdE-Ch8vQdf8LPih_ODWG0J6sUEOPa2DI38FJlKMAT3eWrVjlxwow3WFh2X2oaAEAB0FKt3hsbWRA_Q5nqb3gYEv"
-            frameBorder="0"
-            scrolling="auto"
-            allowFullScreen
-            style={{
-              display: 'block',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              maxWidth: '100%',
-              borderRadius: '0.5rem',
-              outline: 'none',
-              overflow: 'hidden',
-              padding: '0px',
-              margin: '0px',
-            }}
-            title="Suscripción novedades"
-          ></iframe>
-        </div>
+        <NewsletterSubscribeForm />
       </div>
     </section>
   );

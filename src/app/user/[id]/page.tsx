@@ -9,6 +9,8 @@ import {
 } from '../../lib/users';
 import Cards from '../../ui/cards';
 import UserPageShare from './user-page-share';
+import SellerPremiumBadge from '../../ui/seller-premium-badge';
+import { isPremiumSeller } from '../../lib/seller-tier';
 
 /** Fallback ISR if listings change without a targeted revalidation. */
 export const revalidate = 300;
@@ -90,14 +92,31 @@ export default async function UserPage({
   const cards = transformProductsToCards(products);
   const firstName = getFirstName(user.name);
   const count = products.length;
+  const premium = isPremiumSeller(count);
 
   return (
     <>
-      <section>
+      <section
+        className={
+          premium
+            ? 'bg-[radial-gradient(75%_60%_at_50%_0%,#fbbf2420,transparent_70%)]'
+            : undefined
+        }
+      >
         <div className="mx-auto max-w-screen-xl px-4 py-8 text-center lg:py-16">
-          <h1 className="mb-4 text-4xl leading-none font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          {premium && (
+            <div className="mb-4 flex justify-center">
+              <SellerPremiumBadge />
+            </div>
+          )}
+          <h1
+            className={`text-4xl leading-none font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white ${premium ? 'mb-3' : 'mb-4'}`}
+          >
             Prendas de {firstName}
           </h1>
+          {premium && (
+            <div className="mx-auto mb-4 h-px w-20 bg-gradient-to-r from-transparent via-amber-400/80 to-transparent" />
+          )}
           <p className="mb-2 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48 dark:text-gray-400">
             {count === 0
               ? 'Este vendedor aún no tiene prendas publicadas.'
@@ -117,7 +136,7 @@ export default async function UserPage({
       </section>
 
       {count > 0 ? (
-        <Cards products={cards} heading="Catálogo" />
+        <Cards products={cards} heading={premium ? 'Colección' : 'Catálogo'} />
       ) : (
         <section className="pb-16">
           <div className="mx-auto max-w-screen-xl px-4 text-center">

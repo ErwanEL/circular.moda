@@ -17,6 +17,7 @@ type CardProps = {
   };
   price: string;
   href?: string;
+  featured?: boolean;
 };
 
 export default function Card({
@@ -26,10 +27,15 @@ export default function Card({
   sku,
   price,
   href,
+  featured,
 }: CardProps) {
   const CardContent = () => (
     <div className="flex h-full flex-col bg-transparent">
-      <div className="relative h-[23rem] w-full bg-transparent">
+      <div
+        className={`relative h-[23rem] w-full overflow-hidden rounded-md bg-transparent ${
+          featured ? 'ring-primary-600 dark:ring-primary-400 ring-2' : ''
+        }`}
+      >
         <Image
           className="h-full w-full rounded-md object-cover"
           src={image.light}
@@ -38,6 +44,19 @@ export default function Card({
           sizes="30vw"
           loading="lazy"
         />
+        {featured && (
+          <span className="bg-primary-700 absolute top-2 left-2 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
+            <svg
+              className="h-3.5 w-3.5"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden
+            >
+              <path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.77l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.5z" />
+            </svg>
+            Destacado
+          </span>
+        )}
       </div>
       <div className="flex flex-1 flex-col text-left">
         <div className="mt-1 line-clamp-2 min-h-[2.9rem] text-lg leading-tight font-semibold text-gray-900 dark:text-white">

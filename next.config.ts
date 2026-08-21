@@ -4,7 +4,7 @@ import createMDX from '@next/mdx';
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: false,
+    unoptimized: true,
     localPatterns: [{ pathname: '/**' }],
     remotePatterns: [
       {

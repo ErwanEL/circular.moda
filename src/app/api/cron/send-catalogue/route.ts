@@ -56,7 +56,10 @@ async function resetStaleProcessing(now: Date): Promise<void> {
     .lt('processing_started_at', staleCutoff);
 
   if (error) {
-    console.error('[send-catalogue] Failed to reset stale processing rows:', error);
+    console.error(
+      '[send-catalogue] Failed to reset stale processing rows:',
+      error
+    );
   }
 }
 
@@ -147,13 +150,17 @@ async function selectProducts(
   sendKind: CatalogueSendKind;
   windowStart: string;
 }> {
-  const windowStart = subscription.last_window_end_at ?? subscription.subscribed_at;
+  const windowStart =
+    subscription.last_window_end_at ?? subscription.subscribed_at;
   const newProductRows = await fetchProductsForWindow(windowStart, nowIso);
   const mappedNewProducts = newProductRows
     .map(mapProductRowToNewsletterProduct)
     .filter(
-      (product): product is NonNullable<ReturnType<typeof mapProductRowToNewsletterProduct>> =>
-        product != null
+      (
+        product
+      ): product is NonNullable<
+        ReturnType<typeof mapProductRowToNewsletterProduct>
+      > => product != null
     );
 
   if (mappedNewProducts.length > 0) {
@@ -170,13 +177,15 @@ async function selectProducts(
   const mappedLatestPicks = latestPickRows
     .map(mapProductRowToNewsletterProduct)
     .filter(
-      (product): product is NonNullable<ReturnType<typeof mapProductRowToNewsletterProduct>> =>
-        product != null
+      (
+        product
+      ): product is NonNullable<
+        ReturnType<typeof mapProductRowToNewsletterProduct>
+      > => product != null
     );
 
   return {
-    intro:
-      'Este mes no hubo publicaciones nuevas para tu ventana, así que armamos una selección actual del catálogo.',
+    intro: 'Estas son las últimas publicaciones.',
     products: mappedLatestPicks,
     sendKind: 'latest_picks',
     windowStart,
@@ -343,7 +352,10 @@ export async function GET(request: Request) {
             lastError: errorMessage,
           });
         } catch (cycleError) {
-          console.error('[send-catalogue] Failed to record error cycle:', cycleError);
+          console.error(
+            '[send-catalogue] Failed to record error cycle:',
+            cycleError
+          );
         }
 
         await releaseSubscription({
@@ -371,7 +383,9 @@ export async function GET(request: Request) {
       {
         ok: false,
         message:
-          error instanceof Error ? error.message : 'Unknown cron execution error',
+          error instanceof Error
+            ? error.message
+            : 'Unknown cron execution error',
       },
       { status: 500 }
     );
