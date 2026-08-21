@@ -15,6 +15,7 @@ import { isSupabaseConfigured, supabase } from './supabase';
 import {
   type ProductsPageCursor,
   getAllProductsFromSupabase,
+  getFeaturedProductsFromSupabase,
   getProductsPageFromSupabase,
   getProductBySlugFromSupabase,
 } from './supabase-products';
@@ -23,6 +24,18 @@ export async function getAllProducts(): Promise<Product[]> {
   return unstable_cache(
     async () => getAllProductsFromSupabase(),
     ['products', 'all'],
+    {
+      revalidate: PRODUCTS_ISR_SECONDS,
+      tags: [PRODUCTS_TAG],
+    }
+  )();
+}
+
+/** Products flagged featured = true (curated). Cached, refreshes with PRODUCTS_TAG. */
+export async function getFeaturedProductsList(): Promise<Product[]> {
+  return unstable_cache(
+    async () => getFeaturedProductsFromSupabase(),
+    ['products', 'featured'],
     {
       revalidate: PRODUCTS_ISR_SECONDS,
       tags: [PRODUCTS_TAG],

@@ -1,4 +1,5 @@
 import {
+  getFeaturedProductsList,
   getProductFilterOptions,
   getProductsPage,
   PRODUCTS_PAGE_SIZE,
@@ -11,6 +12,7 @@ import {
 } from '../lib/product-filters';
 import ProductsGridInfinite from './components/products-grid-infinite';
 import ProductsFilters from './components/products-filters';
+import FeaturedProducts from './components/featured-products';
 
 /** Fallback ISR if the webhook misses an update. */
 export const revalidate = 300;
@@ -52,34 +54,23 @@ export default async function ProductsPage({
     const initialCards = transformProductsToCards(products);
     const initialNextCursor = encodeNextCursor(nextCursor);
     const gridKey = serializeProductFilters(activeFilters);
+    const featuredCards = transformProductsToCards(
+      await getFeaturedProductsList()
+    );
 
     return (
-      <>
-        {/* Hero Section */}
-        <section>
-          <div className="mx-auto max-w-screen-xl px-4 py-8 text-center lg:py-16">
-            <h1 className="mb-4 text-4xl leading-none font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-              Catalogo de articulos
-            </h1>
-            <p className="mb-8 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48 dark:text-gray-400">
-              Descubrí nuestra selección de productos enviados por miembros de
-              la comunidad Circular.moda
-            </p>
-          </div>
-        </section>
+      <section className="py-6 antialiased md:py-8">
+        <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+          <FeaturedProducts cards={featuredCards} />
 
-        {/* Products Grid (infinite scroll) */}
-        <section className="py-8 antialiased md:py-12">
-          <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-            <div className="mb-8">
-              <ProductsFilters
-                activeFilters={activeFilters}
-                categories={filterOptions.categories}
-                colors={filterOptions.colors}
-                genders={filterOptions.genders}
-              />
-            </div>
+          <ProductsFilters
+            activeFilters={activeFilters}
+            categories={filterOptions.categories}
+            colors={filterOptions.colors}
+            genders={filterOptions.genders}
+          />
 
+          <div className="mt-6">
             <ProductsGridInfinite
               key={gridKey}
               initialCards={initialCards}
@@ -88,8 +79,8 @@ export default async function ProductsPage({
               activeFilters={activeFilters}
             />
           </div>
-        </section>
-      </>
+        </div>
+      </section>
     );
   } catch (err: unknown) {
     const errorMessage = err instanceof Error ? err.message : String(err);

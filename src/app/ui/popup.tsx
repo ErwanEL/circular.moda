@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import NewsletterSubscribeForm from './newsletter-subscribe-form';
 
 export default function Popup() {
   const [isVisible, setIsVisible] = useState(false);
@@ -53,16 +54,6 @@ export default function Popup() {
         }
       }}
     >
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-          iframe {
-            margin-top: -32px !important;
-            margin-bottom: -32px !important;
-          }
-        `,
-        }}
-      />
       <div
         className="relative my-auto max-h-[calc(100vh-2rem)] w-full max-w-2xl overflow-y-auto rounded-lg bg-white p-4 shadow-xl sm:p-6"
         onClick={(e) => e.stopPropagation()}
@@ -129,27 +120,7 @@ export default function Popup() {
             <span className="text-xs font-medium text-gray-600">EMAIL</span>
           </div>
         </div>
-        <div className="flex h-[250px] justify-center sm:h-[200px]">
-          <iframe
-            width="540"
-            height="305"
-            src="https://e7b4fa4e.sibforms.com/serve/MUIFAFp26SAaAgfK2vdo0gwbOhCItlRHsvatFXKJ3SQ558IKSN09A1BLhS28I9hNBynInQCmnQHKp-eMjeF0UFTqwWFeMavr1D6Fd7EtocWjvECxRNotxnnwcdE-Ch8vQdf8LPih_ODWG0J6sUEOPa2DI38FJlKMAT3eWrVjlxwow3WFh2X2oaAEAB0FKt3hsbWRA_Q5nqb3gYEv"
-            frameBorder="0"
-            scrolling="auto"
-            allowFullScreen
-            style={{
-              display: 'block',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              maxWidth: '100%',
-              borderRadius: '0.5rem',
-              outline: 'none',
-              overflow: 'hidden',
-              padding: '0px',
-            }}
-            title="Suscripción novedades"
-          ></iframe>
-        </div>
+        <NewsletterSubscribeForm className="mt-4 max-w-xl" />
         <p className="mt-2 text-center text-xs text-gray-500 uppercase">
           Sin spam. 1 email por mes. Te desuscribís cuando quieras
         </p>

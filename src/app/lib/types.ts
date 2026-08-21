@@ -25,6 +25,7 @@ export interface Product {
   description?: string;
   gender?: string[]; // Support gender array
   'User ID'?: string | string[]; // Linked record field from Airtable
+  featured?: boolean; // Curated/featured product flag (Supabase column)
   // Add any other fields you use in your product objects
 }
 

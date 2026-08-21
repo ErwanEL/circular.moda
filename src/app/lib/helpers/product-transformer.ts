@@ -17,6 +17,7 @@ export interface ProductCard {
   };
   price: string;
   href: string;
+  featured: boolean;
 }
 
 /**
@@ -92,12 +93,14 @@ export function transformProductsToCards(products: Product[]): ProductCard[] {
       price:
         product.Price !== undefined ? `$${product.Price}` : 'Price on request',
       href: `/products/${product.slug}`,
+      featured: Boolean(product.featured),
     };
   });
 }
 
 /**
- * Gets a limited number of featured products
+ * Gets a limited number of products flagged as featured (featured === true).
+ * Falls back to nothing when none are featured.
  * @param products - Array of all products
  * @param limit - Maximum number of products to return (default: 8)
  * @returns Array of featured product cards
@@ -106,8 +109,8 @@ export function getFeaturedProducts(
   products: Product[],
   limit: number = 8
 ): ProductCard[] {
-  const transformedProducts = transformProductsToCards(products);
-  return transformedProducts.slice(0, limit);
+  const featuredOnly = products.filter((product) => product.featured);
+  return transformProductsToCards(featuredOnly).slice(0, limit);
 }
 
 /**

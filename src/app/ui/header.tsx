@@ -214,7 +214,7 @@ export default function Header() {
       style={{ background: 'var(--background)' }}
     >
       <div className="mx-auto max-w-screen-xl">
-        <Navbar fluid rounded className="!bg-[var(--background)]">
+        <Navbar fluid rounded className="!bg-[var(--background)] !py-1.5">
           <NavbarBrand href="/">
             <span className="lg:text-1xl self-center text-xl font-semibold whitespace-nowrap sm:text-2xl dark:text-white">
               circul<span className="text-primary-800">ar</span>.moda

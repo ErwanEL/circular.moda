@@ -66,6 +66,55 @@ node scripts/test-supabase.mjs
 
 Use this after setting up Supabase or when debugging product loading.
 
+## `fetch-supabase-products.mjs`
+
+Script to refresh the local product cache from Supabase.
+
+**Usage:**
+
+```bash
+npm run fetch:products
+```
+
+**Requirements:**
+
+- `.env.local` with:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `SUPABASE_SERVICE_ROLE_KEY` or `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+**What it does:**
+
+1. Fetches every row from the Supabase `products` table, newest first
+2. Transforms rows into the app's local `Product` shape
+3. Writes `data/.products-cache.json` with `{ data, timestamp }`
+
+## Featured product rotation
+
+### `build-featured-contact-sheets.mjs`
+
+Script to render product cover images into contact sheets for visual review.
+
+**Usage:**
+
+```bash
+npm run featured:contact-sheets -- --min-id=1000
+npm run featured:contact-sheets -- --skus=SKU-001344,SKU-001337
+```
+
+### `apply-featured-products.mjs`
+
+Script to preview or apply a featured-product batch in Supabase.
+
+**Usage:**
+
+```bash
+npm run featured:apply -- --skus=SKU-001344,SKU-001337
+npm run featured:apply -- --apply --skus=SKU-001344,SKU-001337
+```
+
+Without `--apply`, it only verifies and previews. With `--apply`, it clears the
+current featured products first, then marks the provided SKUs as featured.
+
 ## `import-supabase-users-to-brevo.mjs`
 
 One-off import script to sync Supabase auth users into a Brevo contact list.
