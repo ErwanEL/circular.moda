@@ -1,0 +1,28 @@
+---
+title: Produits Supabase
+---
+
+# Produits Supabase
+
+## Recuperer les derniers produits localement
+
+Le projet contient un script dedie :
+
+```bash
+npm run fetch:products
+```
+
+Ce script lit les produits depuis Supabase et regenere le cache local attendu
+par l'application.
+
+## Points a verifier
+
+- Les variables Supabase doivent etre presentes dans `.env.local`.
+- Le cache local peut changer apres chaque fetch.
+- Avant commit, verifier les fichiers modifies avec `git status`.
+
+## Featured products
+
+Le champ `featured` des produits sert a choisir les articles mis en avant sur le
+site. Les rotations se font par batch avec les scripts documentes dans
+`Operations > Featured products`.

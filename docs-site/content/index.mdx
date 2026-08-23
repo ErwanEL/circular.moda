@@ -1,0 +1,61 @@
+---
+title: Accueil
+---
+
+# Documentation interne circular.moda
+
+Cette documentation est locale pour l'instant. Elle sert a garder les decisions,
+les commandes utiles et les procedures operationnelles proches du code.
+
+## Objectif
+
+- Retrouver rapidement comment lancer le projet, synchroniser les donnees et
+  verifier les changements.
+- Documenter les features au fur et a mesure, directement dans le meme depot.
+- Servir de reference commune aux developpeurs humains et aux agents IA avant
+  de modifier ou refactorer une partie du code.
+- Garder une base simple a heberger plus tard comme projet Vercel separe si on
+  decide de l'ouvrir avec une protection d'acces.
+
+## Usage humain et agents IA
+
+Avant de travailler sur une feature, commencer par la page correspondante dans
+`Features`. La version simple donne le comportement produit ; la version
+detaillee donne les services, tables, routes, fichiers, variables
+d'environnement et tests a verifier.
+
+Quand une feature change, mettre a jour sa documentation dans le meme commit ou
+dans la meme session de travail. L'objectif est que la prochaine personne, ou le
+prochain agent IA, puisse comprendre le contexte avant de toucher au code.
+
+## Structure
+
+- `docs-site/` : app Nextra locale.
+- `docs-site/content/` : pages Markdown/MDX affichees dans la doc.
+- `docs/` : notes historiques et fichiers operationnels deja presents dans le
+  depot.
+- `scripts/` : scripts utilitaires pour Supabase, featured products et donnees.
+
+## Features documentees
+
+- [Newsletter catalogue automatique](/features#newsletter-catalogue-automatique)
+- [Login passwordless avec Supabase](/features#login-passwordless-avec-supabase)
+- [Espace vendeur](/features#espace-vendeur)
+- [Catalogue produits](/features#catalogue-produits)
+- [Back-office admin et analyse IA produit](/features#back-office-admin-et-analyse-ia-produit)
+- [Blog MDX et contenu editorial](/features#blog-mdx-et-contenu-editorial)
+- [Homepage, acquisition et navigation](/features#homepage-acquisition-et-navigation)
+- [SEO, sitemap, tracking et partage](/features#seo-sitemap-tracking-et-partage)
+- [Pipeline images et media produit](/features#pipeline-images-et-media-produit)
+- [Couche data Supabase et APIs publiques](/features#couche-data-supabase-et-apis-publiques)
+- [Operations metier et scripts](/features#operations-metier-et-scripts)
+
+## Commandes principales
+
+```bash
+npm install
+npm install --prefix docs-site
+npm run docs:dev
+```
+
+Puis ouvrir `http://localhost:3002`.

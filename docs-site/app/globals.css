@@ -1,0 +1,11 @@
+/* Keep the right "Sur cette page" outline focused on feature-level sections.
+   Detailed subsections stay available inside the page through <details>. */
+.nextra-toc li:has(> a[class*="x:ms-6"]),
+.nextra-toc li:has(> a[class*="x:ms-9"]),
+.nextra-toc li:has(> a[class*="x:ms-12"]) {
+  display: none;
+}
+
+main details summary {
+  cursor: pointer;
+}

@@ -1,0 +1,52 @@
+---
+title: Featured products
+---
+
+# Featured products
+
+## But
+
+Changer regulierement les produits affiches en feature pour eviter la
+redondance sur le site et montrer des articles avec de belles images.
+
+## Fichiers utiles
+
+- `scripts/build-featured-contact-sheets.mjs` : genere des planches visuelles
+  pour choisir les meilleurs produits.
+- `scripts/apply-featured-products.mjs` : applique le batch en base via
+  Supabase.
+- `docs/business/featured-products-shortlist.md` : shortlist de travail.
+- `docs/business/featured-products-batch-2026-08-20.md` : trace du batch
+  precedent.
+
+## Workflow
+
+Generer les planches de selection :
+
+```bash
+npm run featured:contact-sheets
+```
+
+Mettre a jour la shortlist ou le batch cible si necessaire, puis appliquer en
+base :
+
+```bash
+npm run featured:apply
+```
+
+Rafraichir ensuite les produits locaux :
+
+```bash
+npm run fetch:products
+```
+
+Verifier les changements :
+
+```bash
+git status
+npm run build
+```
+
+Le lint global peut signaler des problemes preexistants de l'application. Quand
+on touche seulement aux scripts ou a la doc, privilegier aussi une verification
+ciblee des fichiers modifies.
