@@ -28,8 +28,9 @@ npm run docs:build
 ```
 
 Avant un refactoring ou une modification de feature importante, lire les pages
-correspondantes dans `docs-site/content/`, notamment `features.mdx`. Chaque
-feature doit expliquer le comportement simplement, puis detailler les services,
+correspondantes dans `docs-site/content/features/`. La page
+`docs-site/content/features/index.mdx` liste les features documentees, et chaque
+sous-page explique le comportement simplement, puis detaille les services,
 tables, routes, fichiers de code, variables d'environnement et tests utiles.
 Cette structure doit permettre a un developpeur humain ou a un agent IA de
 retrouver rapidement le contexte et de modifier le code sans repartir de zero.

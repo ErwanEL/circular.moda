@@ -1,0 +1,129 @@
+---
+title: Pipeline images et media produit
+---
+
+# Pipeline images et media produit
+
+## Version simple
+
+Les images produit sont au centre du catalogue. Elles peuvent etre uploadees par
+un vendeur ou par l'admin, stockees dans Supabase Storage, puis servies via un
+proxy image interne pour reduire le poids et limiter l'egress Supabase.
+
+Le site gere aussi les images manquantes, les fallbacks, les thumbnails, le zoom
+sur la page detail et un script de correction d'orientation pour les anciennes
+photos.
+
+## Version detaillee
+
+<details>
+<summary><strong>Upload et validation</strong></summary>
+
+Les routes d'upload vendeur et admin utilisent `getUploadedImageMetadata` pour
+verifier qu'un fichier ressemble bien a une image et pour determiner son
+extension/content-type.
+
+Les images sont stockees dans Supabase Storage :
+
+```text
+bucket: storage
+prefix: products/
+```
+
+Pour un nouveau produit, le nom de fichier utilise le `public_id` UUID du
+produit. Pour une edition vendeur, les nouvelles images gardent le `public_id`
+existant avec un suffixe horodate.
+
+</details>
+
+<details>
+<summary><strong>Proxy image</strong></summary>
+
+`/api/image` accepte une URL Supabase Storage publique via le parametre `url`.
+La route refuse les URLs qui ne viennent pas du projet Supabase attendu.
+
+Elle peut recevoir :
+
+- `w` pour largeur max ;
+- `h` pour hauteur max.
+
+Elle utilise `sharp` pour resize, auto-orienter certains cas EXIF et convertir
+en WebP. Le resultat est cache avec un cache memoire par instance et
+`unstable_cache`.
+
+</details>
+
+<details>
+<summary><strong>Affichage et fallback</strong></summary>
+
+Les cartes produit utilisent une version reduite des images via
+`CARD_IMAGE_WIDTH`.
+
+La page detail utilise :
+
+- `DETAIL_MAIN_MAX_HEIGHT` pour l'image principale ;
+- `THUMB_SIZE` pour les thumbnails ;
+- `ExternalImage` pour gerer les erreurs de chargement et fallback ;
+- `ProductImageGallery` pour selectionner une image et afficher le zoom desktop.
+
+Le code garde encore de la compatibilite avec d'anciens formats Airtable :
+images objet, fichiers locaux et IDs commencant par `rec`.
+
+</details>
+
+<details>
+<summary><strong>Backfill orientation</strong></summary>
+
+Le proxy corrige l'affichage sur le site, mais certains services externes lisent
+l'URL Supabase brute pour les previews sociales.
+
+Le script `normalize-product-image-orientation.mjs` sert a corriger directement
+les fichiers stockes. Il est prevu comme backfill ponctuel :
+
+- mode `--dry-run` pour previsualiser ;
+- mode `--limit=N` pour tester sur un petit lot ;
+- execution complete pour traiter toutes les images.
+
+Le script est idempotent et evite de tourner les images deja correctes avec un
+tag EXIF stale.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier validation fichier image | [`src/app/lib/uploaded-image-file.ts`](../../../src/app/lib/uploaded-image-file.ts) |
+| Modifier tests validation image | [`src/app/lib/uploaded-image-file.test.mjs`](../../../src/app/lib/uploaded-image-file.test.mjs) |
+| Modifier helpers images produit | [`src/app/lib/product-images.ts`](../../../src/app/lib/product-images.ts) |
+| Modifier proxy image | [`src/app/api/image/route.ts`](../../../src/app/api/image/route.ts) |
+| Modifier affichage image fallback | [`src/app/ui/external-image.tsx`](../../../src/app/ui/external-image.tsx) |
+| Modifier galerie detail | [`src/app/ui/product-image-gallery.tsx`](../../../src/app/ui/product-image-gallery.tsx) |
+| Modifier upload vendeur | [`src/app/api/me/upload-product/route.ts`](../../../src/app/api/me/upload-product/route.ts) |
+| Modifier upload admin | [`src/app/api/admin/upload-product/route.ts`](../../../src/app/api/admin/upload-product/route.ts) |
+| Corriger orientation images stockees | [`scripts/normalize-product-image-orientation.mjs`](../../../scripts/normalize-product-image-orientation.mjs) |
+| Lire les scripts disponibles | [`scripts/README.md`](../../../scripts/README.md) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Uploader une image depuis le parcours vendeur.
+2. Uploader plusieurs images depuis l'admin.
+3. Ouvrir une carte catalogue et verifier l'image.
+4. Ouvrir une page produit et verifier galerie, thumbnails et zoom.
+5. Tester une URL `/api/image?url=...&w=300`.
+6. Tester une URL externe non autorisee et verifier le `403`.
+
+Tests techniques :
+
+```bash
+npm run test
+node scripts/normalize-product-image-orientation.mjs --dry-run
+```
+
+</details>

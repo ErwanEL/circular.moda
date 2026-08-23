@@ -1,0 +1,117 @@
+---
+title: Operations metier et scripts
+---
+
+# Operations metier et scripts
+
+## Version simple
+
+Le projet contient plusieurs scripts pour aider a exploiter le site sans tout
+faire a la main dans Supabase : tester la connexion, recuperer un cache local de
+produits, choisir les produits mis en avant, corriger les images et importer des
+contacts utilisateurs dans Brevo.
+
+Ces scripts ne sont pas des pages publiques, mais ils font partie du projet. Ils
+doivent etre documentes parce qu'ils peuvent modifier la base ou preparer des
+donnees utilisees en production.
+
+## Version detaillee
+
+<details>
+<summary><strong>Scripts principaux</strong></summary>
+
+| Besoin | Commande | Fichier |
+| --- | --- | --- |
+| Tester Supabase | `node scripts/test-supabase.mjs` | [`scripts/test-supabase.mjs`](../../../scripts/test-supabase.mjs) |
+| Recuperer cache local produits | `npm run fetch:products` | [`scripts/fetch-supabase-products.mjs`](../../../scripts/fetch-supabase-products.mjs) |
+| Generer contact sheets featured | `npm run featured:contact-sheets` | [`scripts/build-featured-contact-sheets.mjs`](../../../scripts/build-featured-contact-sheets.mjs) |
+| Appliquer produits featured | `npm run featured:apply` | [`scripts/apply-featured-products.mjs`](../../../scripts/apply-featured-products.mjs) |
+| Corriger orientation images | `node scripts/normalize-product-image-orientation.mjs --dry-run` | [`scripts/normalize-product-image-orientation.mjs`](../../../scripts/normalize-product-image-orientation.mjs) |
+| Importer users Supabase vers Brevo | `node scripts/import-supabase-users-to-brevo.mjs --list-id=4 --dry-run` | [`scripts/import-supabase-users-to-brevo.mjs`](../../../scripts/import-supabase-users-to-brevo.mjs) |
+
+Lire aussi [`scripts/README.md`](../../../scripts/README.md) avant d'executer un
+script qui ecrit dans Supabase ou Brevo.
+
+</details>
+
+<details>
+<summary><strong>Featured products</strong></summary>
+
+Le workflow featured products est operationnel :
+
+1. recuperer ou verifier le cache produits ;
+2. generer des contact sheets pour revue visuelle ;
+3. choisir une liste de SKUs ;
+4. lancer `featured:apply` sans `--apply` pour preview ;
+5. relancer avec `--apply` pour ecrire dans Supabase.
+
+Le script d'application vide d'abord les featured existants, puis marque les
+SKUs fournis comme `featured = true`.
+
+Les notes business historiques sont dans `docs/business/`.
+
+</details>
+
+<details>
+<summary><strong>Imports Brevo et donnees sensibles</strong></summary>
+
+`import-supabase-users-to-brevo.mjs` lit Supabase Auth avec pagination, joint les
+profils `users`, normalise le telephone et upsert les contacts dans Brevo.
+
+Toujours lancer d'abord :
+
+```bash
+node scripts/import-supabase-users-to-brevo.mjs --list-id=4 --dry-run
+```
+
+La sortie peut contenir des emails. Ne pas copier cette sortie dans la doc, dans
+un ticket public ou dans un prompt partage.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier les scripts npm | [`package.json`](../../../package.json) |
+| Lire les procedures scripts | [`scripts/README.md`](../../../scripts/README.md) |
+| Notes business | [`docs/business/README.md`](../../../docs/business/README.md) |
+| SQL featured products | [`docs/business/set-featured.sql`](../../../docs/business/set-featured.sql) |
+| Batch featured historique | [`docs/business/featured-products-batch-2026-08-20.md`](../../../docs/business/featured-products-batch-2026-08-20.md) |
+| Shortlist featured historique | [`docs/business/featured-products-shortlist.md`](../../../docs/business/featured-products-shortlist.md) |
+| Audit monetisation | [`docs/business/2026-06-16-audit-parcours-monetisation.md`](../../../docs/business/2026-06-16-audit-parcours-monetisation.md) |
+| Vendeurs par volume | [`docs/business/sellers-by-article-count.md`](../../../docs/business/sellers-by-article-count.md) |
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement</strong></summary>
+
+Variables frequentes selon script :
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `BREVO_API_KEY`
+
+Pour les scripts qui ecrivent, preferer une session explicite et un dry-run
+quand il existe.
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Commandes non destructives utiles :
+
+```bash
+node scripts/test-supabase.mjs
+node scripts/normalize-product-image-orientation.mjs --dry-run
+node scripts/import-supabase-users-to-brevo.mjs --list-id=4 --dry-run
+npm run featured:apply -- --skus=SKU-000001
+```
+
+Ne pas ajouter `--apply` sans avoir relu la sortie de preview.
+
+</details>

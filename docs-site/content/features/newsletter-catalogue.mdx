@@ -1,0 +1,191 @@
+---
+title: Newsletter catalogue automatique
+---
+
+# Newsletter catalogue automatique
+
+## Version simple
+
+La newsletter catalogue permet a une personne de laisser son email pour recevoir
+les nouvelles pieces du catalogue une fois par mois.
+
+Quand l'utilisateur s'inscrit depuis le site, l'email est ajoute dans Brevo et
+dans Supabase. Brevo sert a stocker le contact cote marketing et a envoyer les
+emails. Supabase sert a garder l'etat de l'abonnement : email actif, date
+d'inscription, prochaine date d'envoi, dernier envoi et eventuelle erreur.
+
+Le systeme fonctionne avec un cycle mensuel. Le `cron` Vercel passe tous les
+jours, mais il n'envoie pas un email tous les jours a chaque personne. Il verifie
+simplement quels abonnes ont une date `next_send_at` arrivee. Si une personne
+s'est inscrite aujourd'hui, son premier email catalogue est planifie environ un
+mois plus tard, puis le cycle continue mois par mois.
+
+Chaque email contient un lien de desinscription. Quand l'utilisateur clique sur
+ce lien, son abonnement est marque comme `unsubscribed` dans Supabase et le
+contact est aussi retire de la liste Brevo de la newsletter catalogue.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Next.js** expose les routes API, le formulaire, la page de desinscription et
+  le rendu HTML de l'email.
+- **Supabase** garde les abonnements newsletter et l'historique des cycles
+  d'envoi.
+- **Brevo** garde le contact dans une liste et envoie les emails transactionnels.
+- **Vercel Cron** appelle la route d'envoi automatiquement selon le planning de
+  production.
+
+</details>
+
+<details>
+<summary><strong>Parcours d'inscription</strong></summary>
+
+1. L'utilisateur ouvre la carte newsletter du catalogue et entre son email.
+2. Le client appelle `POST /api/catalogue-subscribe`.
+3. La route normalise et valide l'email.
+4. L'email est ajoute ou mis a jour dans la liste Brevo catalogue.
+5. Une ligne est creee ou mise a jour dans `catalogue_subscriptions`.
+6. `next_send_at` est calcule pour le meme jour du mois suivant, a l'heure
+   d'envoi configuree.
+
+Si l'email etait deja actif, le planning existant est conserve. Si l'ajout Brevo
+reussit mais que l'ecriture Supabase echoue, la route tente de retirer le contact
+de la liste Brevo pour eviter un etat incoherent.
+
+</details>
+
+<details>
+<summary><strong>Cycle mensuel d'envoi</strong></summary>
+
+Le planning Vercel appelle `GET /api/cron/send-catalogue` tous les jours a
+`13:00 UTC`. Cette execution quotidienne sert seulement a trouver les
+abonnements dus.
+
+La route cron :
+
+1. verifie le header `Authorization: Bearer ${CRON_SECRET}` ;
+2. remet en `active` les lignes restees trop longtemps en `processing` ;
+3. selectionne les lignes `catalogue_subscriptions` avec `status = active` et
+   `next_send_at <= now` ;
+4. claim chaque ligne en la passant en `processing` ;
+5. cherche les produits ajoutes depuis la derniere fenetre d'envoi ;
+6. utilise les dernieres pieces du catalogue en fallback s'il n'y a pas de
+   nouveaux produits ;
+7. rend le HTML de l'email dans le code ;
+8. envoie l'email via Brevo transactional ;
+9. enregistre le cycle dans `catalogue_delivery_cycles` ;
+10. replace l'abonne en `active` avec un nouveau `next_send_at` un mois plus
+    tard.
+
+La limite d'envoi quotidienne est controlee par `BREVO_DAILY_SEND_CAP`, avec une
+valeur par defaut de `250`.
+
+</details>
+
+<details>
+<summary><strong>Desinscription et synchronisation Brevo</strong></summary>
+
+Chaque email contient un lien signe vers `/newsletter/unsubscribe`. Le token
+contient l'email normalise et une signature HMAC basee sur
+`NEWSLETTER_TOKEN_SECRET`.
+
+Quand l'utilisateur se desinscrit depuis ce lien :
+
+- `catalogue_subscriptions.status` passe a `unsubscribed` ;
+- `processing_started_at` est remis a `null` ;
+- le contact est retire de la liste Brevo catalogue.
+
+Brevo peut aussi notifier l'application via le webhook transactionnel. Les
+evenements `delivered`, `unsubscribed`, `blocked`, `hard_bounce`, `spam`,
+`error` et `invalid` mettent a jour `catalogue_delivery_cycles` et, quand
+l'email est disponible, `catalogue_subscriptions`.
+
+</details>
+
+<details>
+<summary><strong>Tables Supabase</strong></summary>
+
+La feature utilise deux tables principales :
+
+- `catalogue_subscriptions` : une ligne par email inscrit, avec le statut, la
+  date d'inscription, la prochaine date d'envoi et les informations d'erreur.
+- `catalogue_delivery_cycles` : une ligne par cycle d'envoi, avec la fenetre de
+  produits, le type d'envoi, le nombre de produits, l'id de message Brevo et le
+  statut de livraison.
+
+Le schema SQL de reference est dans
+[`docs/sql/catalogue-newsletter.sql`](../../../docs/sql/catalogue-newsletter.sql).
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier la carte catalogue, la modal ou le texte d'inscription | [`src/app/ui/catalogue-newsletter-card.tsx`](../../../src/app/ui/catalogue-newsletter-card.tsx) |
+| Modifier le formulaire newsletter generique | [`src/app/ui/newsletter-subscribe-form.tsx`](../../../src/app/ui/newsletter-subscribe-form.tsx) |
+| Modifier la route d'inscription | [`src/app/api/catalogue-subscribe/route.ts`](../../../src/app/api/catalogue-subscribe/route.ts) |
+| Modifier le calcul du cycle mensuel, la liste Brevo, les tokens ou le HTML email | [`src/app/lib/catalogue-newsletter.ts`](../../../src/app/lib/catalogue-newsletter.ts) |
+| Modifier le sujet production, la selection de produits ou le claim des abonnes dus | [`src/app/api/cron/send-catalogue/route.ts`](../../../src/app/api/cron/send-catalogue/route.ts) |
+| Modifier le planning du cron Vercel | [`vercel.json`](../../../vercel.json) |
+| Modifier la page de desinscription | [`src/app/newsletter/unsubscribe/page.tsx`](../../../src/app/newsletter/unsubscribe/page.tsx) |
+| Modifier la synchronisation des evenements Brevo vers Supabase | [`src/app/api/webhooks/brevo-transactional/route.ts`](../../../src/app/api/webhooks/brevo-transactional/route.ts) |
+| Envoyer un email de test immediatement | [`src/app/api/catalogue-test-send/route.ts`](../../../src/app/api/catalogue-test-send/route.ts) |
+| Modifier ou recreer les tables Supabase | [`docs/sql/catalogue-newsletter.sql`](../../../docs/sql/catalogue-newsletter.sql) |
+| Lire la documentation technique historique | [`docs/catalogue-newsletter.md`](../../../docs/catalogue-newsletter.md) |
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement</strong></summary>
+
+Variables requises pour la feature :
+
+- `BREVO_API_KEY`
+- `BREVO_SENDER_EMAIL`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `NEWSLETTER_TOKEN_SECRET`
+- `CRON_SECRET`
+
+Variables optionnelles utiles :
+
+- `BREVO_CATALOGUE_LIST_ID`, defaut `3`
+- `BREVO_DAILY_SEND_CAP`, defaut `250`
+- `NEXT_PUBLIC_SITE_URL`
+- `NEWSLETTER_TEST_SECRET`
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Pour tester le rendu et l'envoi sans attendre le cycle mensuel, utiliser la
+route de test :
+
+```text
+GET /api/catalogue-test-send?email=you@example.com&secret=YOUR_SECRET
+```
+
+ou :
+
+```bash
+curl -X POST https://<deployment-domain>/api/catalogue-test-send \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "you@example.com",
+    "secret": "YOUR_SECRET",
+    "subject": "Mi prueba"
+  }'
+```
+
+Les tests unitaires existants pour les helpers newsletter se lancent avec :
+
+```bash
+npm run test
+```
+
+</details>

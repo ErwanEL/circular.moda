@@ -5,10 +5,7 @@ export default {
   },
   'getting-started': 'Demarrage local',
   project: 'Projet',
-  features: {
-    title: 'Features',
-    type: 'page'
-  },
+  features: 'Features',
   'supabase-products': 'Produits Supabase',
   operations: 'Operations',
   'future-hosting': 'Hebergement futur'

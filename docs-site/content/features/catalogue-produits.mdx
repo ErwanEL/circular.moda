@@ -1,0 +1,363 @@
+---
+title: Catalogue produits
+---
+
+# Catalogue produits
+
+## Version simple
+
+Le catalogue produits est la partie du site qui affiche les prendas disponibles.
+La page principale est `/products`.
+
+Les produits viennent de Supabase. Le catalogue affiche d'abord une premiere
+page de produits, puis charge la suite automatiquement quand l'utilisateur
+descend dans la page. L'utilisateur peut rechercher et filtrer par categorie,
+couleur, genre, taille et prix.
+
+Le catalogue contient aussi des produits mis en avant, des cartes sponsorisees
+affiliees et des cartes newsletter pour convertir les visiteurs en abonnes.
+
+Chaque produit a sa page detail `/products/[slug]`. Cette page affiche les
+images, les informations produit, le vendeur, le bouton WhatsApp, les autres
+prendas du meme vendeur et des produits suggeres.
+
+Le catalogue utilise ISR et le cache Next.js. En pratique, les pages sont
+rafraichies automatiquement toutes les 5 minutes au maximum, et les mutations de
+produits declenchent aussi une revalidation ciblee pour que les changements
+arrivent plus vite.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Supabase Postgres** est la source principale pour `products`, `users`,
+  `categories`, `colors` et `genders`.
+- **Supabase Storage** sert les images produit.
+- **Next.js App Router** rend `/products`, `/products/[slug]`, les APIs filtre
+  et l'ISR.
+- **Next.js data cache** garde les lectures produit avec des tags de cache.
+- **Vercel** execute les pages en production et applique le comportement ISR.
+- **Brevo** est indirectement implique via les cartes newsletter du catalogue.
+
+</details>
+
+<details>
+<summary><strong>Chargement du catalogue</strong></summary>
+
+La page `/products` est rendue cote serveur.
+
+Elle charge :
+
+1. les options de filtres avec `getProductFilterOptions` ;
+2. les filtres actifs depuis les query params ;
+3. la premiere page de produits avec `getProductsPage` ;
+4. les produits mis en avant avec `getFeaturedProductsList` ;
+5. les cartes UI via `transformProductsToCards`.
+
+La suite du catalogue est chargee cote client par `ProductsGridInfinite`.
+Quand le sentinel de bas de page devient visible, le composant appelle
+`GET /api/products` avec `limit`, `cursor` et les filtres actifs.
+
+La pagination est basee sur un curseur `{ created_at, id }`, encode en base64.
+Ce choix evite les problemes classiques de pagination par offset quand de
+nouveaux produits sont ajoutes.
+
+</details>
+
+<details>
+<summary><strong>Recherche et filtres</strong></summary>
+
+Filtres supportes :
+
+- `q`
+- `category`
+- `color`
+- `gender`
+- `size`
+- `priceMin`
+- `priceMax`
+
+Les filtres sont ecrits dans l'URL avec `URLSearchParams`. Cela rend la page
+partageable et permet au serveur de reconstruire l'etat au chargement.
+
+Les options de filtres viennent de Supabase :
+
+- `GET /api/categories`
+- `GET /api/colors`
+- `GET /api/genders`
+
+Les valeurs envoyees par l'URL sont normalisees puis resolues contre les options
+existantes. Si une valeur ne correspond pas a une option connue, elle est
+ignoree plutot que de lancer une requete incoherente.
+
+La recherche `q` cherche dans `name`, `sku` et `description` cote Supabase.
+
+</details>
+
+<details>
+<summary><strong>ISR, cache et revalidation</strong></summary>
+
+La partie catalogue a deux niveaux de cache a comprendre.
+
+Premier niveau : les routes page.
+
+- `/products` declare `export const revalidate = 300`.
+- `/products/[slug]` declare aussi `export const revalidate = 300`.
+- `/products/[slug]` garde `dynamicParams = true`, donc un nouveau slug peut
+  etre genere a la premiere requete meme s'il n'etait pas connu au build.
+
+Deuxieme niveau : les lectures data.
+
+Les helpers dans `src/app/lib/products.ts` utilisent `unstable_cache` avec :
+
+- `PRODUCTS_ISR_SECONDS = 300`
+- tag global `products`
+- tag detail `product:{slug}` pour une page produit precise
+
+Cela signifie qu'une lecture produit peut etre servie depuis le cache pendant
+environ 5 minutes, sauf si une revalidation ciblee invalide le tag avant.
+
+Les mutations produit appelees par le site declenchent directement
+`revalidateProductContent` :
+
+- creation admin ;
+- creation vendeur ;
+- edition vendeur ;
+- suppression vendeur.
+
+Cette fonction appelle `revalidateTag` et `revalidatePath` sur :
+
+- `/products`
+- `/products/{slug}`
+- tag `products`
+- tag `product:{slug}`
+
+Il existe aussi `POST /api/revalidate`, protege par `REVALIDATE_SECRET`, pour
+permettre a une source externe comme Supabase trigger ou Edge Function de
+forcer la revalidation apres une modification faite hors application.
+
+Point important : `GET /api/products` renvoie une reponse HTTP `no-store` pour
+l'infinite scroll, mais les donnees lues par cette route passent quand meme par
+les helpers de cache Next.js.
+
+</details>
+
+<details>
+<summary><strong>Page detail produit</strong></summary>
+
+La page `/products/[slug]` cherche le produit via `getProductBySlug`.
+
+Le lookup Supabase essaie d'abord de recuperer le `public_id` depuis le slug au
+format `{nom-produit}-{uuid}`. Si ce format ne marche pas, il essaie la colonne
+`slug`.
+
+La page produit :
+
+- genere des metadata dynamiques ;
+- choisit une image Open Graph/Twitter ;
+- recupere le vendeur lie au produit ;
+- affiche les images via `ProductImageGallery` ;
+- affiche les infos via `ProductInfo` ;
+- construit un lien WhatsApp ;
+- affiche les autres produits du meme vendeur ;
+- affiche des produits suggeres.
+
+Le vendeur est optionnel : si la recuperation vendeur echoue, la page produit
+continue de rendre les informations produit.
+
+</details>
+
+<details>
+<summary><strong>Images produit</strong></summary>
+
+Les produits Supabase stockent leurs images comme URLs publiques dans
+`products.images`.
+
+Pour l'affichage catalogue et detail, le site passe par `/api/image`.
+Cette route :
+
+1. accepte uniquement les URLs publiques Supabase Storage du projet ;
+2. fetch l'image source ;
+3. applique un resize optionnel avec `sharp` ;
+4. corrige certains cas d'orientation EXIF ;
+5. convertit en WebP quand le processing reussit ;
+6. cache le resultat.
+
+Les cartes catalogue utilisent une largeur reduite pour limiter l'egress. La
+page detail utilise une hauteur maximum plus grande et des thumbnails separes.
+
+Le script `normalize-product-image-orientation.mjs` sert de backfill ponctuel
+pour corriger les fichiers deja stockes quand il faut que les URLs brutes soient
+correctes partout, y compris dans les previews sociales.
+
+</details>
+
+<details>
+<summary><strong>Produits mis en avant</strong></summary>
+
+Les produits avec `featured = true` sont affiches en haut du catalogue dans le
+bloc `Destacados`.
+
+La selection vient de Supabase via `getFeaturedProductsList`. Elle est aussi
+cachee avec le tag global `products`, donc une modification de featured doit
+revalider le catalogue.
+
+Les scripts d'exploitation permettent :
+
+- de generer des contact sheets pour selection visuelle ;
+- de preview/apply un batch de SKUs featured ;
+- de vider les anciens featured avant d'appliquer le nouveau batch.
+
+</details>
+
+<details>
+<summary><strong>Cartes newsletter et cartes affiliees</strong></summary>
+
+La grille catalogue peut injecter deux types de cartes qui ne sont pas des
+produits Supabase classiques.
+
+Cartes newsletter :
+
+- `CatalogueNewsletterCard` apparait a intervalle regulier dans la grille ;
+- elle appelle `POST /api/catalogue-subscribe` ;
+- elle alimente la feature newsletter catalogue automatique.
+
+Cartes affiliees :
+
+- les donnees sont statiques dans `affiliate-products.ts` ;
+- elles apparaissent seulement cote client dans la grille `/products` ;
+- elles sont marquees `Patrocinado` ;
+- elles ne sont pas renvoyees par `/api/products` ;
+- elles ne doivent pas apparaitre dans le sitemap, les pages detail ou la
+  newsletter catalogue.
+
+</details>
+
+<details>
+<summary><strong>Tables Supabase</strong></summary>
+
+Tables principales :
+
+- `products` : source des produits catalogue.
+- `users` : vendeurs lies aux produits via `products.owner`.
+- `categories` : options categorie.
+- `colors` : options couleur.
+- `genders` : options genre.
+
+Champs importants de `products` :
+
+- `id`
+- `public_id`
+- `slug`
+- `sku`
+- `name`
+- `price`
+- `size`
+- `color`
+- `category`
+- `gender`
+- `description`
+- `images`
+- `owner`
+- `featured`
+- `created_at`
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier la page catalogue | [`src/app/products/page.tsx`](../../../src/app/products/page.tsx) |
+| Modifier la grille infinie | [`src/app/products/components/products-grid-infinite.tsx`](../../../src/app/products/components/products-grid-infinite.tsx) |
+| Modifier les filtres catalogue | [`src/app/products/components/products-filters.tsx`](../../../src/app/products/components/products-filters.tsx) |
+| Modifier le bloc produits mis en avant | [`src/app/products/components/featured-products.tsx`](../../../src/app/products/components/featured-products.tsx) |
+| Modifier l'API produits paginee | [`src/app/api/products/route.ts`](../../../src/app/api/products/route.ts) |
+| Modifier les APIs categories/couleurs/genres | [`src/app/api/categories/route.ts`](../../../src/app/api/categories/route.ts), [`src/app/api/colors/route.ts`](../../../src/app/api/colors/route.ts) et [`src/app/api/genders/route.ts`](../../../src/app/api/genders/route.ts) |
+| Modifier les helpers cache et data produits | [`src/app/lib/products.ts`](../../../src/app/lib/products.ts) |
+| Modifier les requetes Supabase produits | [`src/app/lib/supabase-products.ts`](../../../src/app/lib/supabase-products.ts) |
+| Modifier les filtres et query params | [`src/app/lib/product-filters.ts`](../../../src/app/lib/product-filters.ts) |
+| Modifier les labels des options | [`src/app/lib/product-option-labels.ts`](../../../src/app/lib/product-option-labels.ts) |
+| Modifier les constantes de cache produit | [`src/app/lib/product-cache.ts`](../../../src/app/lib/product-cache.ts) |
+| Modifier la revalidation ISR | [`src/app/lib/product-revalidation.ts`](../../../src/app/lib/product-revalidation.ts) |
+| Modifier l'endpoint externe de revalidation | [`src/app/api/revalidate/route.ts`](../../../src/app/api/revalidate/route.ts) |
+| Modifier la page detail produit | [`src/app/products/[slug]/page.tsx`](../../../src/app/products/[slug]/page.tsx) |
+| Modifier le composant detail produit | [`src/app/ui/product-detail.tsx`](../../../src/app/ui/product-detail.tsx) |
+| Modifier les infos produit/vendeur | [`src/app/ui/product-info.tsx`](../../../src/app/ui/product-info.tsx) |
+| Modifier la galerie image | [`src/app/ui/product-image-gallery.tsx`](../../../src/app/ui/product-image-gallery.tsx) |
+| Modifier le traitement des images | [`src/app/lib/product-images.ts`](../../../src/app/lib/product-images.ts) |
+| Modifier le proxy image | [`src/app/api/image/route.ts`](../../../src/app/api/image/route.ts) |
+| Modifier la transformation produit vers carte UI | [`src/app/lib/helpers/product-transformer.ts`](../../../src/app/lib/helpers/product-transformer.ts) |
+| Modifier les suggestions et autres produits vendeur | [`src/app/lib/helpers/product-transformer.ts`](../../../src/app/lib/helpers/product-transformer.ts) |
+| Modifier les slugs produits | [`src/app/lib/product-slug.ts`](../../../src/app/lib/product-slug.ts) |
+| Modifier les produits affilies | [`src/app/lib/affiliate-products.ts`](../../../src/app/lib/affiliate-products.ts) |
+| Modifier la carte affiliee | [`src/app/ui/affiliate-product-card.tsx`](../../../src/app/ui/affiliate-product-card.tsx) |
+| Modifier la carte newsletter catalogue | [`src/app/ui/catalogue-newsletter-card.tsx`](../../../src/app/ui/catalogue-newsletter-card.tsx) |
+| Modifier le sitemap produit/vendeur | [`src/app/sitemap.ts`](../../../src/app/sitemap.ts) |
+| Modifier les redirects d'anciens produits | [`vercel.json`](../../../vercel.json) |
+| Lire l'ancienne doc technique Supabase produits | [`SUPABASE_PRODUCTS_DOCUMENTATION.md`](../../../SUPABASE_PRODUCTS_DOCUMENTATION.md) |
+| Modifier les indexes SQL de recherche | [`docs/sql/products-search-indexes.sql`](../../../docs/sql/products-search-indexes.sql) |
+| Rafraichir le cache local produits | [`scripts/fetch-supabase-products.mjs`](../../../scripts/fetch-supabase-products.mjs) |
+| Generer les contact sheets featured | [`scripts/build-featured-contact-sheets.mjs`](../../../scripts/build-featured-contact-sheets.mjs) |
+| Appliquer un batch featured | [`scripts/apply-featured-products.mjs`](../../../scripts/apply-featured-products.mjs) |
+| Corriger l'orientation des images stockees | [`scripts/normalize-product-image-orientation.mjs`](../../../scripts/normalize-product-image-orientation.mjs) |
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement</strong></summary>
+
+Variables principales :
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `REVALIDATE_SECRET`
+
+Variables indirectes :
+
+- `NEXT_PUBLIC_SITE_URL`, utile pour les URLs publiques et les previews.
+- `BREVO_API_KEY`, utilise si on teste la carte newsletter du catalogue.
+- `NEWSLETTER_TOKEN_SECRET`, utilise par la desinscription newsletter.
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels catalogue :
+
+1. Ouvrir `/products`.
+2. Verifier que les produits featured apparaissent en haut si des produits sont
+   marques `featured`.
+3. Tester la recherche `q`.
+4. Tester les filtres categorie, couleur, genre, taille et prix.
+5. Descendre en bas de page pour verifier l'infinite scroll.
+6. Ouvrir une page `/products/[slug]`.
+7. Verifier galerie, metadata sociale, infos vendeur, bouton WhatsApp,
+   produits du meme vendeur et produits suggeres.
+8. Publier ou modifier une prenda puis verifier que la revalidation met a jour
+   `/products` et `/products/[slug]`.
+
+Tests techniques :
+
+```bash
+npm run test
+npm run build
+```
+
+Pour tester la revalidation externe :
+
+```bash
+curl -X POST https://<deployment-domain>/api/revalidate \
+  -H "Content-Type: application/json" \
+  -H "x-revalidate-secret: YOUR_SECRET" \
+  -d '{
+    "event": "UPDATE",
+    "slug": "slug-produit-a-revalider"
+  }'
+```
+
+</details>
