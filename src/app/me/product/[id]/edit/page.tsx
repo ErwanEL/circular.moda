@@ -13,6 +13,11 @@ import { FormFieldsEs } from '@/app/me/product/add/form-fields-es';
 import { ImageUploadSectionEs } from '@/app/me/product/add/image-upload-section-es';
 import { Alert, Spinner } from 'flowbite-react';
 import Button from '@/app/ui/button';
+import {
+  getUploadApiErrorMessage,
+  prepareProductImagesForUpload,
+  readUploadApiResponse,
+} from '@/app/lib/client-upload';
 
 interface Product {
   id: number;
@@ -37,7 +42,7 @@ export default function MeEditProductPage() {
   const categories = useCategories();
   const genders = useGenders();
 
-  const { files, previews, addFiles, removeFile, clearAll } = useImageUpload();
+  const { files, previews, addFiles, removeFile } = useImageUpload();
 
   const { formData, updateField, validateAndPrepare } = useProductForm({
     colors: colors.data,
@@ -141,6 +146,7 @@ export default function MeEditProductPage() {
       setUploading(true);
 
       try {
+        const uploadFiles = await prepareProductImagesForUpload(files);
         const formDataToSend = new FormData();
         formDataToSend.append('name', validation.validatedData.name!);
         formDataToSend.append('existingImages', JSON.stringify(existingImages));
@@ -167,7 +173,7 @@ export default function MeEditProductPage() {
             'description',
             validation.validatedData.description
           );
-        files.forEach((file) => {
+        uploadFiles.forEach((file) => {
           formDataToSend.append('images', file);
         });
 
@@ -176,10 +182,12 @@ export default function MeEditProductPage() {
           body: formDataToSend,
         });
 
-        const data = await response.json();
+        const data = await readUploadApiResponse(response);
 
         if (!response.ok) {
-          throw new Error(data.error || 'Error al guardar la prenda');
+          throw new Error(
+            getUploadApiErrorMessage(data, 'Error al guardar la prenda')
+          );
         }
 
         setMessage({
@@ -200,7 +208,7 @@ export default function MeEditProductPage() {
         setUploading(false);
       }
     },
-    [existingImages, files, id, validateAndPrepare, router]
+    [existingImages, files, id, validateAndPrepare, router, formData.gender]
   );
 
   if (loading) {

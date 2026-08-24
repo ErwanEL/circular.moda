@@ -24,6 +24,11 @@ import {
   HiShoppingBag,
   HiTag,
 } from 'react-icons/hi2';
+import {
+  getUploadApiErrorMessage,
+  prepareProductImagesForUpload,
+  readUploadApiResponse,
+} from '@/app/lib/client-upload';
 
 export default function MeAddProductPage() {
   const router = useRouter();
@@ -150,6 +155,7 @@ export default function MeAddProductPage() {
       setUploading(true);
 
       try {
+        const uploadFiles = await prepareProductImagesForUpload(files);
         const formDataToSend = new FormData();
         formDataToSend.append('name', validation.validatedData.name!);
         if (validation.validatedData.price)
@@ -176,7 +182,7 @@ export default function MeAddProductPage() {
             validation.validatedData.description
           );
         formDataToSend.append('featured', 'false');
-        files.forEach((file) => {
+        uploadFiles.forEach((file) => {
           formDataToSend.append('images', file);
         });
 
@@ -185,10 +191,12 @@ export default function MeAddProductPage() {
           body: formDataToSend,
         });
 
-        const data = await response.json();
+        const data = await readUploadApiResponse(response);
 
         if (!response.ok) {
-          throw new Error(data.error || 'Error al publicar la prenda');
+          throw new Error(
+            getUploadApiErrorMessage(data, 'Error al publicar la prenda')
+          );
         }
 
         setMessage({

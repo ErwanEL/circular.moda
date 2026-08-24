@@ -13,6 +13,11 @@ import { useAiAnalysis } from './hooks/use-ai-analysis';
 import { AiModeSection } from './components/ai-mode-section';
 import { ImageUploadSection } from './components/image-upload-section';
 import { FormFields } from './components/form-fields';
+import {
+  getUploadApiErrorMessage,
+  prepareProductImagesForUpload,
+  readUploadApiResponse,
+} from '@/app/lib/client-upload';
 
 export default function UploadProductPage() {
   // Supabase data hooks
@@ -158,6 +163,7 @@ export default function UploadProductPage() {
       setUploading(true);
 
       try {
+        const uploadFiles = await prepareProductImagesForUpload(files);
         const formDataToSend = new FormData();
         formDataToSend.append('name', validation.validatedData.name!);
         formDataToSend.append('ownerId', ownerId);
@@ -186,7 +192,7 @@ export default function UploadProductPage() {
           'featured',
           String(validation.validatedData.featured || false)
         );
-        files.forEach((file) => {
+        uploadFiles.forEach((file) => {
           formDataToSend.append('images', file);
         });
 
@@ -195,10 +201,12 @@ export default function UploadProductPage() {
           body: formDataToSend,
         });
 
-        const data = await response.json();
+        const data = await readUploadApiResponse(response);
 
         if (!response.ok) {
-          throw new Error(data.error || "Erreur lors de l'upload");
+          throw new Error(
+            getUploadApiErrorMessage(data, "Erreur lors de l'upload")
+          );
         }
 
         setMessage({ type: 'success', text: 'Produit uploadé avec succès !' });
