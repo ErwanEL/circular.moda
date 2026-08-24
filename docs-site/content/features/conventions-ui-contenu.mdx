@@ -1,0 +1,158 @@
+---
+title: Conventions UI et contenu
+---
+
+# Conventions UI et contenu
+
+## Version simple
+
+Le site public parle aux utilisateurs en espagnol argentin. La documentation
+interne est en francais.
+
+Les composants UI utilisent principalement Tailwind, Flowbite React, React
+Icons, les couleurs `circular.moda` et des composants partages. Avant de
+modifier une page, il faut verifier les composants deja existants pour eviter
+de recreer un style different.
+
+Cette page sert de guide pour garder une interface coherente pendant les
+refactorings humains ou IA.
+
+## Version detaillee
+
+<details>
+<summary><strong>Langues</strong></summary>
+
+Regle actuelle :
+
+- textes visibles du site : espagnol argentin ;
+- documentation : francais ;
+- noms techniques, routes, variables, fonctions : anglais quand le code les
+  utilise deja ;
+- commentaires de code : suivre le style local du fichier.
+
+Exemples de textes UI existants :
+
+- `Vender ahora`
+- `Publicar prenda`
+- `Mi perfil`
+- `Catalogo de articulos`
+- `Patrocinado`
+- `Vendedor destacado`
+
+Avant de changer un texte public, verifier l'impact SEO et les pages qui
+reprennent la meme promesse marketing.
+
+</details>
+
+<details>
+<summary><strong>Design system local</strong></summary>
+
+Le theme global est dans `globals.css`.
+
+Variables principales :
+
+- `--color-circular-lighter`
+- `--color-circular-light`
+- `--color-circular-secondary`
+- `--color-circular-primary`
+- `--color-primary-*`
+
+Le layout global utilise :
+
+- Geist et Geist Mono via `next/font/google` ;
+- Header ;
+- Footer ;
+- bouton WhatsApp flottant ;
+- Flowbite ;
+- Google Tag Manager en production.
+
+</details>
+
+<details>
+<summary><strong>Composants partages</strong></summary>
+
+Composants a reutiliser avant d'en creer de nouveaux :
+
+- `Header`
+- `Footer`
+- `Card`
+- `Cards`
+- `Button`
+- `getButtonClasses`
+- `NewsletterSubscribeForm`
+- `CatalogueNewsletterCard`
+- `SocialShare`
+- `WhatsappFloat`
+- `SellerPremiumBadge`
+
+Pour les boutons, privilegier `getButtonClasses` ou le composant `Button` quand
+le besoin correspond. Cela evite les divergences de tailles, couleurs et etats.
+
+</details>
+
+<details>
+<summary><strong>Navigation et CTA</strong></summary>
+
+Le header change selon l'etat de connexion :
+
+- deconnecte : `Vender ahora` et login ;
+- connecte : WhatsApp, `Publicar prenda`, `Mi perfil`.
+
+Le CTA vendeur non connecte utilise `signupUrl('/me/product/add')`, ce qui
+permet de revenir vers l'ajout produit apres signup/login.
+
+Le footer garde une navigation plus simple et un lien Instagram.
+
+</details>
+
+<details>
+<summary><strong>Images et assets</strong></summary>
+
+Assets principaux :
+
+- images homepage et comment ca marche dans `public/` ;
+- images blog dans `public/blog/` ;
+- images affiliees dans `public/affiliate/` ;
+- illustration newsletter catalogue dans `public/catalogue-newsletter-illustration.png`.
+
+Pour les images produit utilisateur, ne pas ajouter d'assets dans `public/` :
+elles doivent rester dans Supabase Storage.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier le theme global | [`src/app/globals.css`](../../../src/app/globals.css) |
+| Modifier le layout global | [`src/app/layout.tsx`](../../../src/app/layout.tsx) |
+| Modifier le header | [`src/app/ui/header.tsx`](../../../src/app/ui/header.tsx) |
+| Modifier le footer | [`src/app/ui/footer.tsx`](../../../src/app/ui/footer.tsx) |
+| Modifier les classes de boutons | [`src/app/ui/button-classes.ts`](../../../src/app/ui/button-classes.ts) |
+| Modifier le composant bouton | [`src/app/ui/button.tsx`](../../../src/app/ui/button.tsx) |
+| Modifier les cartes produit | [`src/app/ui/card.tsx`](../../../src/app/ui/card.tsx) et [`src/app/ui/cards.tsx`](../../../src/app/ui/cards.tsx) |
+| Modifier le WhatsApp flottant | [`src/app/ui/whatsapp-float.tsx`](../../../src/app/ui/whatsapp-float.tsx) |
+| Modifier le partage social | [`src/app/ui/social-share.tsx`](../../../src/app/ui/social-share.tsx) |
+| Modifier les assets publics | [`public/`](../../../public) |
+| Modifier le contenu blog | [`content/blog/`](../../../content/blog) |
+
+</details>
+
+<details>
+<summary><strong>Checklist avant refactoring UI</strong></summary>
+
+1. Verifier si un composant partage existe deja.
+2. Garder les textes publics en espagnol argentin.
+3. Ne pas casser les CTA login/signup avec `next`.
+4. Tester mobile et desktop.
+5. Verifier header/footer sur pages publiques et connectees.
+6. Verifier contraste et etats focus/hover.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

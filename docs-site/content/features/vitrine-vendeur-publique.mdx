@@ -1,0 +1,120 @@
+---
+title: Vitrine vendeur publique
+---
+
+# Vitrine vendeur publique
+
+## Version simple
+
+Chaque vendeur peut avoir une page publique `/user/[id]`.
+
+Cette page affiche son prenom, le nombre de prendas publiees, ses produits, des
+boutons de partage et, si le vendeur a assez de produits, un badge vendeur
+premium.
+
+La page est publique, indexee dans le sitemap si le vendeur a des produits, et
+utilise ISR pour rester rapide.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Supabase Postgres** pour les tables `users` et `products`.
+- **Next.js App Router** pour la page dynamique `/user/[id]`.
+- **Next.js ISR** avec `revalidate = 300`.
+- **Social sharing** via WhatsApp, X, Facebook et copie de lien.
+
+</details>
+
+<details>
+<summary><strong>Rendu de la page</strong></summary>
+
+La page `/user/[id]` :
+
+1. parse l'id avec `parseUserIdParam` ;
+2. recupere le vendeur avec `getPublicUserById` ;
+3. renvoie `notFound()` si l'id est invalide ou le vendeur absent ;
+4. recupere les produits avec `getProductsByOwnerId` ;
+5. transforme les produits en cartes UI avec `transformProductsToCards` ;
+6. calcule le statut premium via `isPremiumSeller(count)` ;
+7. affiche le hero vendeur et les cartes produit.
+
+La page declare :
+
+- `export const revalidate = 300` ;
+- `export const dynamicParams = true` ;
+- `generateStaticParams` a partir des vendeurs qui ont au moins un produit.
+
+Cela permet de prerendre les vendeurs connus, tout en laissant Next.js generer
+une nouvelle page vendeur a la premiere requete si elle n'existait pas au build.
+
+</details>
+
+<details>
+<summary><strong>SEO et partage</strong></summary>
+
+`generateMetadata` construit :
+
+- un titre `Prendas de {firstName} | circular.moda` ;
+- une description differente selon le nombre de produits ;
+- des metadonnees Open Graph ;
+- des metadonnees Twitter.
+
+`UserPageShare` construit les liens de partage cote client :
+
+- WhatsApp ;
+- X ;
+- Facebook ;
+- copie du lien actuel.
+
+Le composant commence avec `https://circular.moda/user/{id}`, puis remplace
+l'URL par `window.location.href` quand le composant est monte dans le navigateur.
+
+</details>
+
+<details>
+<summary><strong>Relation avec le sitemap</strong></summary>
+
+Le sitemap ajoute les pages vendeur depuis `getOwnerIdsWithProducts`.
+
+Important : seuls les vendeurs avec au moins un produit doivent apparaitre dans
+le sitemap. Les vendeurs vides peuvent exister en base, mais ne doivent pas
+devenir des pages SEO inutiles.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier la page publique vendeur | [`src/app/user/[id]/page.tsx`](../../../src/app/user/[id]/page.tsx) |
+| Modifier le partage social vendeur | [`src/app/user/[id]/user-page-share.tsx`](../../../src/app/user/[id]/user-page-share.tsx) |
+| Modifier les requetes vendeur | [`src/app/lib/users.ts`](../../../src/app/lib/users.ts) |
+| Modifier les cartes produit | [`src/app/ui/cards.tsx`](../../../src/app/ui/cards.tsx) et [`src/app/ui/card.tsx`](../../../src/app/ui/card.tsx) |
+| Modifier le badge premium | [`src/app/ui/seller-premium-badge.tsx`](../../../src/app/ui/seller-premium-badge.tsx) |
+| Modifier la logique premium | [`src/app/lib/seller-tier.ts`](../../../src/app/lib/seller-tier.ts) |
+| Modifier le sitemap vendeur | [`src/app/sitemap.ts`](../../../src/app/sitemap.ts) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ouvrir une page `/user/[id]` avec produits.
+2. Verifier titre, compteur et grille produits.
+3. Tester les boutons de partage.
+4. Ouvrir une page vendeur inexistante et verifier le 404.
+5. Verifier qu'un vendeur avec au moins 20 produits affiche le badge premium.
+6. Verifier que `/sitemap.xml` contient les vendeurs avec produits.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

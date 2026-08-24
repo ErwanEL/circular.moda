@@ -1,0 +1,134 @@
+---
+title: Analyse IA produit
+---
+
+# Analyse IA produit
+
+## Version simple
+
+L'analyse IA produit aide l'admin a remplir un produit plus vite.
+
+L'admin donne une description et une ou plusieurs images. La route API envoie
+ces donnees a OpenAI, puis retourne une proposition de nom, prix, taille,
+couleur, categorie, genre, description et flag `featured`.
+
+Les valeurs comme couleur, categorie et genre doivent correspondre aux options
+existantes dans Supabase. Si l'IA propose quelque chose d'inconnu, le formulaire
+doit laisser l'humain corriger.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **OpenAI** avec le modele `gpt-4o-mini`.
+- **Supabase Postgres** pour lire les categories, couleurs et genres valides.
+- **Next.js API route** pour recevoir le formulaire admin.
+- **React hook client** pour appliquer les donnees IA dans le formulaire.
+
+</details>
+
+<details>
+<summary><strong>Parcours technique</strong></summary>
+
+Le client appelle :
+
+```http
+POST /api/admin/ai-analyze-product
+```
+
+La route :
+
+1. lit `textDescription` et `images` depuis `formData` ;
+2. refuse la requete si la description ou les images manquent ;
+3. charge les valeurs valides depuis `categories`, `colors` et `genders` ;
+4. convertit les images en base64 ;
+5. construit un prompt en espagnol argentin ;
+6. demande une reponse JSON stricte ;
+7. parse la reponse ;
+8. renvoie une structure nettoyee au client.
+
+La reponse attendue contient :
+
+- `name`
+- `price`
+- `size`
+- `color`
+- `category`
+- `gender`
+- `description`
+- `featured`
+
+</details>
+
+<details>
+<summary><strong>Matching avec les valeurs Supabase</strong></summary>
+
+Le prompt demande a l'IA de retourner exactement les couleurs, categories et
+genres presents dans Supabase. Ce n'est pas suffisant pour garantir la qualite.
+
+Cote client, le formulaire remappe aussi les valeurs via les helpers de matching.
+Si aucune correspondance fiable n'est trouvee, le champ doit rester vide ou etre
+corrige manuellement.
+
+Cette double verification evite d'inserer des valeurs qui casseraient les
+filtres ou les contraintes de base.
+
+</details>
+
+<details>
+<summary><strong>Limites connues</strong></summary>
+
+- La route est dans l'espace `/api/admin/*`.
+- Le code lu ne montre pas de garde d'auth admin dediee dans cette route.
+- Les images sont envoyees en base64 a OpenAI, donc attention a la taille des
+  fichiers et au cout.
+- Le prompt demande une description SEO courte, mais le resultat doit rester
+  relu par un humain.
+- Le champ `featured` est retourne, mais il doit rester sous controle admin.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier la route OpenAI | [`src/app/api/admin/ai-analyze-product/route.ts`](../../../src/app/api/admin/ai-analyze-product/route.ts) |
+| Modifier le hook client IA | [`src/app/admin/upload-product/hooks/use-ai-analysis.ts`](../../../src/app/admin/upload-product/hooks/use-ai-analysis.ts) |
+| Modifier le matching des valeurs IA | [`src/app/admin/upload-product/utils/matching.ts`](../../../src/app/admin/upload-product/utils/matching.ts) |
+| Modifier la section UI du mode IA | [`src/app/admin/upload-product/components/ai-mode-section.tsx`](../../../src/app/admin/upload-product/components/ai-mode-section.tsx) |
+| Modifier le formulaire admin | [`src/app/admin/upload-product/page.tsx`](../../../src/app/admin/upload-product/page.tsx) |
+| Modifier les options Supabase chargees | [`src/app/admin/upload-product/hooks/use-supabase-data.ts`](../../../src/app/admin/upload-product/hooks/use-supabase-data.ts) |
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement</strong></summary>
+
+- `OPENAI_API_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ouvrir `/admin/upload-product`.
+2. Ajouter une description courte et une image.
+3. Lancer l'analyse IA.
+4. Verifier que les champs proposes sont en espagnol argentin.
+5. Verifier que couleur, categorie et genre correspondent aux options Supabase.
+6. Corriger manuellement les champs faibles.
+7. Publier le produit et verifier la page detail.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>
