@@ -1,9 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-const { getUploadApiErrorMessage, readUploadApiResponse } = await import(
-  './client-upload.ts'
-);
+const {
+  MAX_PRODUCT_IMAGE_COUNT,
+  getUploadApiErrorMessage,
+  getUploadExceptionMessage,
+  prepareProductImagesForUpload,
+  readUploadApiResponse,
+} = await import('./client-upload.ts');
 
 test('reads JSON upload API errors', async () => {
   const response = new Response(JSON.stringify({ error: 'Error esperado' }), {
@@ -31,4 +35,23 @@ test('falls back when an upload API error has no JSON body', async () => {
   const data = await readUploadApiResponse(response);
 
   assert.equal(getUploadApiErrorMessage(data, 'Fallback'), 'Fallback');
+});
+
+test('rejects too many product images before upload', async () => {
+  const files = Array.from(
+    { length: MAX_PRODUCT_IMAGE_COUNT + 1 },
+    (_, index) => new File(['x'], `image-${index}.jpg`, { type: 'image/jpeg' })
+  );
+
+  await assert.rejects(
+    () => prepareProductImagesForUpload(files),
+    /Podés subir hasta 5 fotos/
+  );
+});
+
+test('turns generic network errors into actionable upload guidance', () => {
+  assert.equal(
+    getUploadExceptionMessage(new Error('Failed to fetch')),
+    'No pudimos publicar la prenda. Probá con 3 fotos primero, o escribinos por WhatsApp y te ayudamos.'
+  );
 });

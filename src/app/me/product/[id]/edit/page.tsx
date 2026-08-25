@@ -14,10 +14,15 @@ import { ImageUploadSectionEs } from '@/app/me/product/add/image-upload-section-
 import { Alert, Spinner } from 'flowbite-react';
 import Button from '@/app/ui/button';
 import {
+  MAX_PRODUCT_IMAGE_COUNT,
   getUploadApiErrorMessage,
+  getUploadExceptionMessage,
+  getTooManyProductImagesMessage,
   prepareProductImagesForUpload,
   readUploadApiResponse,
 } from '@/app/lib/client-upload';
+
+type UploadStep = 'idle' | 'preparing' | 'publishing';
 
 interface Product {
   id: number;
@@ -42,7 +47,22 @@ export default function MeEditProductPage() {
   const categories = useCategories();
   const genders = useGenders();
 
-  const { files, previews, addFiles, removeFile } = useImageUpload();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [existingImages, setExistingImages] = useState<string[]>([]);
+  const remainingNewImageSlots = Math.max(
+    0,
+    MAX_PRODUCT_IMAGE_COUNT - existingImages.length
+  );
+  const {
+    files,
+    previews,
+    error: imageUploadError,
+    addFiles,
+    removeFile,
+  } = useImageUpload({
+    maxFiles: remainingNewImageSlots,
+    tooManyFilesMessage: getTooManyProductImagesMessage(),
+  });
 
   const { formData, updateField, validateAndPrepare } = useProductForm({
     colors: colors.data,
@@ -50,14 +70,19 @@ export default function MeEditProductPage() {
     genders: genders.data,
   });
 
-  const [product, setProduct] = useState<Product | null>(null);
-  const [existingImages, setExistingImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState(false);
+  const [uploadStep, setUploadStep] = useState<UploadStep>('idle');
   const [message, setMessage] = useState<{
     type: 'success' | 'error';
     text: string;
   } | null>(null);
+  const uploading = uploadStep !== 'idle';
+  const submitText =
+    uploadStep === 'preparing'
+      ? 'Preparando fotos...'
+      : uploadStep === 'publishing'
+        ? 'Guardando...'
+        : 'Guardar cambios';
 
   useEffect(() => {
     if (!id) {
@@ -134,6 +159,14 @@ export default function MeEditProductPage() {
         return;
       }
 
+      if (totalImages > MAX_PRODUCT_IMAGE_COUNT) {
+        setMessage({
+          type: 'error',
+          text: getTooManyProductImagesMessage(),
+        });
+        return;
+      }
+
       const validation = validateAndPrepare();
       if (!validation.isValid) {
         setMessage({
@@ -143,10 +176,11 @@ export default function MeEditProductPage() {
         return;
       }
 
-      setUploading(true);
+      setUploadStep('preparing');
 
       try {
         const uploadFiles = await prepareProductImagesForUpload(files);
+        setUploadStep('publishing');
         const formDataToSend = new FormData();
         formDataToSend.append('name', validation.validatedData.name!);
         formDataToSend.append('existingImages', JSON.stringify(existingImages));
@@ -202,10 +236,10 @@ export default function MeEditProductPage() {
         console.error('Update error:', error);
         setMessage({
           type: 'error',
-          text: error instanceof Error ? error.message : 'Error al guardar',
+          text: getUploadExceptionMessage(error),
         });
       } finally {
-        setUploading(false);
+        setUploadStep('idle');
       }
     },
     [existingImages, files, id, validateAndPrepare, router, formData.gender]
@@ -335,6 +369,9 @@ export default function MeEditProductPage() {
               <ImageUploadSectionEs
                 files={files}
                 previews={previews}
+                currentCount={existingImages.length + files.length}
+                error={imageUploadError}
+                maxFiles={MAX_PRODUCT_IMAGE_COUNT}
                 onDrop={addFiles}
                 onRemove={removeFile}
               />
@@ -357,7 +394,7 @@ export default function MeEditProductPage() {
               disabled={uploading}
               className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 w-full rounded-md px-4 py-3 font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {uploading ? 'Guardando...' : 'Guardar cambios'}
+              {submitText}
             </button>
           </form>
         </div>

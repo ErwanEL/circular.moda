@@ -1,8 +1,14 @@
 const TARGET_IMAGE_BYTES = 650_000;
 const MAX_UPLOAD_BODY_BYTES = 3_800_000;
 
+export const MAX_PRODUCT_IMAGE_COUNT = 5;
+export const PRODUCT_IMAGE_UPLOAD_HELP_TEXT =
+  'Máximo 5 fotos por prenda. Optimizamos tus fotos automáticamente para que se publiquen más rápido.';
+export const UPLOAD_ACTIONABLE_ERROR_MESSAGE =
+  'No pudimos publicar la prenda. Probá con 3 fotos primero, o escribinos por WhatsApp y te ayudamos.';
+
 const PAYLOAD_TOO_LARGE_MESSAGE =
-  'Las fotos son demasiado pesadas para publicarlas juntas. Probá con menos fotos o sacalas con menor resolución.';
+  'Las fotos son demasiado pesadas para publicarlas juntas. Probá con 3 fotos primero o sacalas con menor resolución.';
 
 const COMPRESSIBLE_IMAGE_EXTENSIONS = new Set([
   'avif',
@@ -24,6 +30,12 @@ type UploadApiResponse = {
   error?: unknown;
   [key: string]: unknown;
 };
+
+export function getTooManyProductImagesMessage(
+  maxFiles = MAX_PRODUCT_IMAGE_COUNT
+) {
+  return `Podés subir hasta ${maxFiles} fotos por prenda. Quitá algunas para continuar.`;
+}
 
 function getFileExtension(name: string) {
   const lastDot = name.lastIndexOf('.');
@@ -171,16 +183,19 @@ async function compressImageForUpload(file: File) {
 }
 
 export async function prepareProductImagesForUpload(files: File[]) {
-  const preparedFiles = await Promise.all(
-    files.map(async (file) => {
-      try {
-        return await compressImageForUpload(file);
-      } catch (error) {
-        console.warn('[Upload] Image preparation failed:', error);
-        return file;
-      }
-    })
-  );
+  if (files.length > MAX_PRODUCT_IMAGE_COUNT) {
+    throw new Error(getTooManyProductImagesMessage());
+  }
+
+  const preparedFiles: File[] = [];
+  for (const file of files) {
+    try {
+      preparedFiles.push(await compressImageForUpload(file));
+    } catch (error) {
+      console.warn('[Upload] Image preparation failed:', error);
+      preparedFiles.push(file);
+    }
+  }
 
   const totalBytes = preparedFiles.reduce((sum, file) => sum + file.size, 0);
   if (totalBytes > MAX_UPLOAD_BODY_BYTES) {
@@ -208,7 +223,15 @@ function getNonJsonUploadError(response: Response, responseText: string) {
     return 'El servidor respondió en un formato inesperado. Probá de nuevo.';
   }
 
-  return text || 'No se pudo completar la publicación. Probá de nuevo.';
+  if (
+    !text ||
+    normalized.includes('<html') ||
+    normalized === 'internal server error'
+  ) {
+    return UPLOAD_ACTIONABLE_ERROR_MESSAGE;
+  }
+
+  return text;
 }
 
 export async function readUploadApiResponse<T extends UploadApiResponse>(
@@ -234,4 +257,24 @@ export function getUploadApiErrorMessage(
   return typeof data.error === 'string' && data.error.trim()
     ? data.error
     : fallbackMessage;
+}
+
+export function getUploadExceptionMessage(
+  error: unknown,
+  fallbackMessage = UPLOAD_ACTIONABLE_ERROR_MESSAGE
+) {
+  const message =
+    error instanceof Error && error.message.trim() ? error.message.trim() : '';
+  const normalized = message.toLowerCase();
+
+  if (
+    !message ||
+    normalized === 'failed to fetch' ||
+    normalized === 'load failed' ||
+    normalized.includes('networkerror')
+  ) {
+    return fallbackMessage;
+  }
+
+  return message;
 }

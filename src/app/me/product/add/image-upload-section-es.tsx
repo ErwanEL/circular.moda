@@ -5,14 +5,22 @@ import { useDropzone } from 'react-dropzone';
 import {
   HiArrowUpTray,
   HiCheckCircle,
+  HiExclamationTriangle,
   HiPhoto,
   HiSparkles,
   HiXMark,
 } from 'react-icons/hi2';
+import {
+  MAX_PRODUCT_IMAGE_COUNT,
+  PRODUCT_IMAGE_UPLOAD_HELP_TEXT,
+} from '@/app/lib/client-upload';
 
 interface ImageUploadSectionEsProps {
   files: File[];
   previews: string[];
+  currentCount?: number;
+  error?: string | null;
+  maxFiles?: number;
   onDrop: (acceptedFiles: File[]) => void;
   onRemove: (index: number) => void;
 }
@@ -20,10 +28,16 @@ interface ImageUploadSectionEsProps {
 export function ImageUploadSectionEs({
   files,
   previews,
+  currentCount,
+  error,
+  maxFiles = MAX_PRODUCT_IMAGE_COUNT,
   onDrop,
   onRemove,
 }: ImageUploadSectionEsProps) {
+  const displayedCount = currentCount ?? files.length;
+  const isLimitReached = displayedCount >= maxFiles;
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    disabled: isLimitReached,
     onDrop,
     multiple: true,
   });
@@ -45,20 +59,25 @@ export function ImageUploadSectionEs({
               Mostrá la prenda completa, un detalle de la tela y cualquier marca
               o particularidad.
             </p>
+            <p className="mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+              {PRODUCT_IMAGE_UPLOAD_HELP_TEXT}
+            </p>
           </div>
         </div>
         <span className="inline-flex w-fit items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-200">
           <HiCheckCircle className="text-primary-800 h-4 w-4" />
-          {files.length} foto{files.length !== 1 ? 's' : ''}
+          {displayedCount}/{maxFiles} fotos
         </span>
       </div>
 
       <div
         {...getRootProps()}
-        className={`group cursor-pointer rounded-lg border-2 border-dashed p-4 transition sm:p-5 ${
-          isDragActive
-            ? 'border-primary-800 bg-primary-100 dark:bg-primary-900/20'
-            : 'hover:border-primary-700 hover:bg-primary-100/40 border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-900'
+        className={`group rounded-lg border-2 border-dashed p-4 transition sm:p-5 ${
+          isLimitReached
+            ? 'cursor-not-allowed border-gray-300 bg-gray-100 opacity-80 dark:border-gray-600 dark:bg-gray-900'
+            : isDragActive
+              ? 'cursor-pointer border-primary-800 bg-primary-100 dark:bg-primary-900/20'
+              : 'hover:border-primary-700 hover:bg-primary-100/40 cursor-pointer border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-900'
         }`}
       >
         <input {...getInputProps()} />
@@ -88,7 +107,11 @@ export function ImageUploadSectionEs({
           </div>
 
           <div className="space-y-4 rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
-            {isDragActive ? (
+            {isLimitReached ? (
+              <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+                Ya tenés {maxFiles} fotos. Quitá una si querés cambiarla.
+              </p>
+            ) : isDragActive ? (
               <p className="text-primary-900 dark:text-primary-300 text-sm font-semibold">
                 Soltá las imágenes acá...
               </p>
@@ -103,13 +126,23 @@ export function ImageUploadSectionEs({
                   la publicación.
                 </p>
                 <p className="rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-500 dark:bg-gray-900 dark:text-gray-400">
-                  Cualquier formato de imagen
+                  Elegí hasta {maxFiles} fotos
                 </p>
               </>
             )}
           </div>
         </div>
       </div>
+
+      {error && (
+        <div
+          className="mt-4 flex gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-300"
+          role="alert"
+        >
+          <HiExclamationTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
 
       {previews.length > 0 && (
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">

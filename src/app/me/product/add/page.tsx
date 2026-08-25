@@ -25,10 +25,15 @@ import {
   HiTag,
 } from 'react-icons/hi2';
 import {
+  MAX_PRODUCT_IMAGE_COUNT,
   getUploadApiErrorMessage,
+  getUploadExceptionMessage,
+  getTooManyProductImagesMessage,
   prepareProductImagesForUpload,
   readUploadApiResponse,
 } from '@/app/lib/client-upload';
+
+type UploadStep = 'idle' | 'preparing' | 'publishing';
 
 export default function MeAddProductPage() {
   const router = useRouter();
@@ -36,7 +41,14 @@ export default function MeAddProductPage() {
   const categories = useCategories();
   const genders = useGenders();
 
-  const { files, previews, addFiles, removeFile, clearAll } = useImageUpload();
+  const {
+    files,
+    previews,
+    error: imageUploadError,
+    addFiles,
+    removeFile,
+    clearAll,
+  } = useImageUpload();
 
   const {
     formData,
@@ -51,11 +63,18 @@ export default function MeAddProductPage() {
 
   const [ownerId, setOwnerId] = useState('');
   const [loadingUser, setLoadingUser] = useState(true);
-  const [uploading, setUploading] = useState(false);
+  const [uploadStep, setUploadStep] = useState<UploadStep>('idle');
   const [message, setMessage] = useState<{
     type: 'success' | 'error';
     text: string;
   } | null>(null);
+  const uploading = uploadStep !== 'idle';
+  const submitText =
+    uploadStep === 'preparing'
+      ? 'Preparando fotos...'
+      : uploadStep === 'publishing'
+        ? 'Publicando...'
+        : 'Publicar prenda';
 
   useEffect(() => {
     const loadUser = async () => {
@@ -89,7 +108,7 @@ export default function MeAddProductPage() {
       label: 'Fotos',
       detail:
         files.length > 0
-          ? `${files.length} foto${files.length !== 1 ? 's' : ''} lista${files.length !== 1 ? 's' : ''}`
+          ? `${files.length}/${MAX_PRODUCT_IMAGE_COUNT} foto${files.length !== 1 ? 's' : ''} lista${files.length !== 1 ? 's' : ''}`
           : 'Subí al menos una foto',
       done: files.length > 0,
       icon: <HiCamera className="h-4 w-4" />,
@@ -135,6 +154,14 @@ export default function MeAddProductPage() {
         return;
       }
 
+      if (files.length > MAX_PRODUCT_IMAGE_COUNT) {
+        setMessage({
+          type: 'error',
+          text: getTooManyProductImagesMessage(),
+        });
+        return;
+      }
+
       if (!ownerId || ownerId.trim() === '') {
         setMessage({
           type: 'error',
@@ -152,10 +179,11 @@ export default function MeAddProductPage() {
         return;
       }
 
-      setUploading(true);
+      setUploadStep('preparing');
 
       try {
         const uploadFiles = await prepareProductImagesForUpload(files);
+        setUploadStep('publishing');
         const formDataToSend = new FormData();
         formDataToSend.append('name', validation.validatedData.name!);
         if (validation.validatedData.price)
@@ -217,10 +245,10 @@ export default function MeAddProductPage() {
         console.error('Upload error:', error);
         setMessage({
           type: 'error',
-          text: error instanceof Error ? error.message : 'Error al publicar',
+          text: getUploadExceptionMessage(error),
         });
       } finally {
-        setUploading(false);
+        setUploadStep('idle');
       }
     },
     [
@@ -337,6 +365,9 @@ export default function MeAddProductPage() {
             <ImageUploadSectionEs
               files={files}
               previews={previews}
+              currentCount={files.length}
+              error={imageUploadError}
+              maxFiles={MAX_PRODUCT_IMAGE_COUNT}
               onDrop={addFiles}
               onRemove={removeFile}
             />
@@ -399,7 +430,7 @@ export default function MeAddProductPage() {
                   className="bg-primary-800 hover:bg-primary-900 focus:ring-primary-300 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-sm transition focus:ring-4 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                 >
                   <HiArrowUpTray className="h-5 w-5" />
-                  {uploading ? 'Publicando...' : 'Publicar prenda'}
+                  {submitText}
                 </button>
               </div>
             </div>

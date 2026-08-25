@@ -2,10 +2,14 @@
 'use client';
 
 import { useDropzone } from 'react-dropzone';
+import { MAX_PRODUCT_IMAGE_COUNT } from '@/app/lib/client-upload';
 
 interface ImageUploadSectionProps {
   files: File[];
   previews: string[];
+  currentCount?: number;
+  error?: string | null;
+  maxFiles?: number;
   onDrop: (acceptedFiles: File[]) => void;
   onRemove: (index: number) => void;
 }
@@ -13,10 +17,16 @@ interface ImageUploadSectionProps {
 export function ImageUploadSection({
   files,
   previews,
+  currentCount,
+  error,
+  maxFiles = MAX_PRODUCT_IMAGE_COUNT,
   onDrop,
   onRemove,
 }: ImageUploadSectionProps) {
+  const displayedCount = currentCount ?? files.length;
+  const isLimitReached = displayedCount >= maxFiles;
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    disabled: isLimitReached,
     onDrop,
     multiple: true,
   });
@@ -24,14 +34,16 @@ export function ImageUploadSection({
   return (
     <div>
       <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-        Images *
+        Images * ({displayedCount}/{maxFiles})
       </label>
       <div
         {...getRootProps()}
-        className={`cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
-          isDragActive
-            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-            : 'border-gray-300 hover:border-gray-400 dark:border-gray-600'
+        className={`rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
+          isLimitReached
+            ? 'cursor-not-allowed border-gray-300 bg-gray-100 opacity-80 dark:border-gray-600 dark:bg-gray-900'
+            : isDragActive
+              ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+              : 'cursor-pointer border-gray-300 hover:border-gray-400 dark:border-gray-600'
         }`}
       >
         <input {...getInputProps()} />
@@ -49,7 +61,11 @@ export function ImageUploadSection({
               strokeLinejoin="round"
             />
           </svg>
-          {isDragActive ? (
+          {isLimitReached ? (
+            <p className="text-gray-600 dark:text-gray-400">
+              Limite de {maxFiles} images atteinte.
+            </p>
+          ) : isDragActive ? (
             <p className="text-primary-600 dark:text-primary-400">
               Déposez les images ici...
             </p>
@@ -59,12 +75,22 @@ export function ImageUploadSection({
                 Glissez-déposez des images ici, ou cliquez pour sélectionner
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-500">
-                Tous les formats image
+                Maximum {maxFiles} images par produit. Les images sont
+                optimisées automatiquement avant l&apos;upload.
               </p>
             </>
           )}
         </div>
       </div>
+
+      {error && (
+        <div
+          className="mt-3 rounded-md border border-red-200 bg-red-50 p-3 text-sm font-medium text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-300"
+          role="alert"
+        >
+          {error}
+        </div>
+      )}
 
       {/* Preview des images */}
       {previews.length > 0 && (
