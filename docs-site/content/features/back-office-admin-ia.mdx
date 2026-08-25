@@ -55,6 +55,16 @@ La route d'upload valide le produit, genere un `public_id`, upload les images
 vers Supabase Storage, insere la ligne dans `products`, puis declenche la
 revalidation du catalogue.
 
+Le parcours admin utilise les memes helpers client que le parcours vendeur pour
+les photos :
+
+- maximum 5 images par produit ;
+- compression navigateur avant l'appel API ;
+- garde-fou de poids total pour rester sous la limite Vercel Function ;
+- etat de bouton `Preparation des images...`, puis `Upload en cours...` ;
+- message d'erreur actionnable si le payload est trop lourd ou si le serveur
+  renvoie une reponse non JSON.
+
 </details>
 
 <details>
@@ -74,6 +84,9 @@ La route :
 Ensuite, le hook client remappe les valeurs IA contre les valeurs autorisees
 dans Supabase. Si l'IA propose une couleur ou une categorie inconnue, le champ
 est vide et un warning demande une selection manuelle.
+
+Le hook d'analyse IA prepare aussi les images cote client avant l'appel API. La
+limite de 5 images et les controles de poids s'appliquent donc aussi au flux IA.
 
 </details>
 
@@ -126,6 +139,8 @@ et inserer des produits.
 | Modifier la section mode IA | [`src/app/admin/upload-product/components/ai-mode-section.tsx`](../../../src/app/admin/upload-product/components/ai-mode-section.tsx) |
 | Modifier l'upload images admin | [`src/app/admin/upload-product/components/image-upload-section.tsx`](../../../src/app/admin/upload-product/components/image-upload-section.tsx) |
 | Modifier le hook fichiers/previews | [`src/app/admin/upload-product/hooks/use-image-upload.ts`](../../../src/app/admin/upload-product/hooks/use-image-upload.ts) |
+| Modifier limites, compression et messages d'upload | [`src/app/lib/client-upload.ts`](../../../src/app/lib/client-upload.ts) |
+| Tester limites et erreurs d'upload client | [`src/app/lib/client-upload.test.mjs`](../../../src/app/lib/client-upload.test.mjs) |
 | Modifier la validation formulaire commune | [`src/app/admin/upload-product/hooks/use-product-form.ts`](../../../src/app/admin/upload-product/hooks/use-product-form.ts) |
 | Modifier le chargement des options Supabase | [`src/app/admin/upload-product/hooks/use-supabase-data.ts`](../../../src/app/admin/upload-product/hooks/use-supabase-data.ts) |
 | Modifier le matching de valeurs IA | [`src/app/admin/upload-product/utils/matching.ts`](../../../src/app/admin/upload-product/utils/matching.ts) |
@@ -156,16 +171,18 @@ Tests manuels :
 1. Ouvrir `/admin/upload-product`.
 2. Charger les options couleur/categorie/genre.
 3. Selectionner ou creer un vendeur.
-4. Ajouter plusieurs images.
+4. Ajouter plusieurs images et verifier le compteur `x/5`.
 5. Tester le mode IA avec une description courte.
 6. Verifier que les champs proposes sont coherents.
-7. Publier le produit.
-8. Verifier que le produit apparait dans `/products` et `/products/[slug]`.
-9. Verifier que le catalogue a ete revalide.
+7. Essayer de depasser 5 images et verifier le message d'erreur.
+8. Publier le produit.
+9. Verifier que le produit apparait dans `/products` et `/products/[slug]`.
+10. Verifier que le catalogue a ete revalide.
 
 Tests techniques :
 
 ```bash
+npm run test
 npm run build
 ```
 

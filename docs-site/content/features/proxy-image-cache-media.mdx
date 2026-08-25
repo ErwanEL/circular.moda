@@ -12,7 +12,8 @@ Storage.
 Pour l'affichage catalogue et detail, il passe souvent par `/api/image`. Cette
 route agit comme un proxy : elle verifie que l'URL vient bien du storage
 Supabase du projet, telecharge l'image, peut la redimensionner, peut corriger
-l'orientation EXIF, convertit en WebP quand possible, puis cache le resultat.
+l'orientation EXIF, convertit en WebP quand un resize est demande, puis cache le
+resultat.
 
 Cette feature reduit le poids des images et protege le site contre des URLs
 externes non autorisees.
@@ -68,7 +69,7 @@ La route :
 7. detecte le `content-type` ;
 8. applique Sharp si un resize est demande ;
 9. corrige certains cas d'orientation EXIF ;
-10. convertit en WebP avec qualite 85 ;
+10. convertit en WebP avec qualite 85 quand `w` ou `h` est present ;
 11. renvoie l'image avec `Cache-Control`.
 
 En developpement, le cache memoire est desactive pour faciliter les tests.
@@ -87,6 +88,28 @@ Constantes actuelles :
 
 Si le pipeline change les octets de sortie, il faut augmenter `CACHE_VERSION`.
 Cela evite de continuer a servir d'anciennes images transformees.
+
+</details>
+
+<details>
+<summary><strong>Pourquoi l'URL peut contenir .jpg mais servir du WebP</strong></summary>
+
+Le parametre `url` de `/api/image` contient l'URL du fichier original Supabase.
+Ce fichier peut etre un `.jpg`, surtout depuis que la preparation client exporte
+les images compressees en JPEG avant l'upload.
+
+La reponse de `/api/image` est independante de cette extension source. Quand un
+parametre `w` ou `h` est fourni, la route utilise Sharp, redimensionne l'image
+et renvoie un WebP avec `Content-Type: image/webp`.
+
+Exemple attendu :
+
+```text
+/api/image?url=https://.../products/abc-1.jpg&h=800
+```
+
+L'URL source pointe vers un `.jpg`, mais la reponse peut etre sauvegardee comme
+`.webp` par le navigateur parce que le proxy sert effectivement du WebP.
 
 </details>
 

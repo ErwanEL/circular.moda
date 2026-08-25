@@ -81,6 +81,16 @@ Elles servent a limiter les valeurs envoyees dans `products`.
 
 Au submit, la page appelle `POST /api/me/upload-product`.
 
+Avant cet appel, le client prepare les images avec
+`prepareProductImagesForUpload` :
+
+- maximum 5 photos par prenda ;
+- compression navigateur quand le format est supporte ;
+- garde-fou de poids total pour rester sous la limite Vercel Function ;
+- etat `Preparando fotos...` pendant la compression ;
+- message lisible si l'upload est trop lourd ou si la reponse serveur n'est pas
+  du JSON.
+
 La route :
 
 1. verifie que l'utilisateur est connecte ;
@@ -112,6 +122,10 @@ que si :
 La mise a jour passe par `PUT /api/me/products/[id]`. Le vendeur peut garder ou
 retirer des images existantes et ajouter de nouvelles images. Les nouvelles
 images sont uploadees dans Supabase Storage avec le `public_id` existant.
+
+La limite de 5 photos compte les images conservees et les nouvelles images. Par
+exemple, si une prenda garde deja 4 photos, le formulaire d'edition n'accepte
+qu'une nouvelle photo.
 
 La suppression passe par `DELETE /api/me/products/[id]`. L'API supprime la ligne
 `products` seulement si le produit appartient au vendeur connecte. Apres update
@@ -195,6 +209,8 @@ Stockage :
 | Modifier la page d'ajout vendeur | [`src/app/me/product/add/page.tsx`](../../../src/app/me/product/add/page.tsx) |
 | Modifier les champs du formulaire vendeur | [`src/app/me/product/add/form-fields-es.tsx`](../../../src/app/me/product/add/form-fields-es.tsx) |
 | Modifier l'upload images vendeur | [`src/app/me/product/add/image-upload-section-es.tsx`](../../../src/app/me/product/add/image-upload-section-es.tsx) |
+| Modifier limites, compression et messages d'upload | [`src/app/lib/client-upload.ts`](../../../src/app/lib/client-upload.ts) |
+| Tester limites et erreurs d'upload client | [`src/app/lib/client-upload.test.mjs`](../../../src/app/lib/client-upload.test.mjs) |
 | Modifier l'API de creation produit vendeur | [`src/app/api/me/upload-product/route.ts`](../../../src/app/api/me/upload-product/route.ts) |
 | Modifier la page d'edition vendeur | [`src/app/me/product/[id]/edit/page.tsx`](../../../src/app/me/product/[id]/edit/page.tsx) |
 | Modifier l'API lecture/update/delete d'un produit vendeur | [`src/app/api/me/products/[id]/route.ts`](../../../src/app/api/me/products/[id]/route.ts) |
@@ -235,10 +251,12 @@ Tests manuels principaux :
 2. Aller sur `/welcome` et creer un profil avec nom et WhatsApp.
 3. Verifier que `/me` affiche le profil et le bloc vitrine publique.
 4. Publier une prenda depuis `/me/product/add`.
-5. Verifier que la prenda apparait dans `/me`, `/products` et `/user/{id}`.
-6. Modifier la prenda depuis `/me/product/[id]/edit`.
-7. Supprimer la prenda depuis `/me`.
-8. Verifier qu'un autre compte ne peut pas editer l'ID du produit supprime ou
+5. Verifier la limite de 5 photos et le message `Preparando fotos...`.
+6. Verifier que la prenda apparait dans `/me`, `/products` et `/user/{id}`.
+7. Modifier la prenda depuis `/me/product/[id]/edit`.
+8. Verifier que la limite de 5 photos reste correcte en edition.
+9. Supprimer la prenda depuis `/me`.
+10. Verifier qu'un autre compte ne peut pas editer l'ID du produit supprime ou
    d'un produit appartenant a un autre vendeur.
 
 Tests techniques utiles :
