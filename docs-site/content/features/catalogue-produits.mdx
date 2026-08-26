@@ -220,6 +220,9 @@ produits Supabase classiques.
 Cartes newsletter :
 
 - `CatalogueNewsletterCard` apparait a intervalle regulier dans la grille ;
+- elle affiche un formulaire inline directement dans la carte, sans popup ;
+- le texte, le champ email et le bouton sont integres en overlay dans la zone
+  image pour rester proche de la hauteur des cartes produit ;
 - elle appelle `POST /api/catalogue-subscribe` ;
 - elle alimente la feature newsletter catalogue automatique.
 
@@ -335,8 +338,10 @@ Tests manuels catalogue :
 3. Tester la recherche `q`.
 4. Tester les filtres categorie, couleur, genre, taille et prix.
 5. Descendre en bas de page pour verifier l'infinite scroll.
-6. Ouvrir une page `/products/[slug]`.
-7. Verifier galerie, metadata sociale, infos vendeur, bouton WhatsApp,
+6. Verifier que la carte newsletter affiche l'accroche courte
+   `Recibí las novedades del catálogo` et que l'inscription se fait sans popup.
+7. Ouvrir une page `/products/[slug]`.
+8. Verifier galerie, metadata sociale, infos vendeur, bouton WhatsApp,
    produits du meme vendeur et produits suggeres.
 8. Publier ou modifier une prenda puis verifier que la revalidation met a jour
    `/products` et `/products/[slug]`.

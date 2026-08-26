@@ -9,6 +9,10 @@ title: Newsletter catalogue automatique
 La newsletter catalogue permet a une personne de laisser son email pour recevoir
 les nouvelles pieces du catalogue une fois par mois.
 
+Dans le catalogue, l'inscription se fait directement dans une carte inline :
+l'utilisateur voit l'accroche courte `Recibí las novedades del catálogo`, entre
+son email et valide sans ouvrir de popup.
+
 Quand l'utilisateur s'inscrit depuis le site, l'email est ajoute dans Brevo et
 dans Supabase. Brevo sert a stocker le contact cote marketing et a envoyer les
 emails. Supabase sert a garder l'etat de l'abonnement : email actif, date
@@ -42,12 +46,15 @@ contact est aussi retire de la liste Brevo de la newsletter catalogue.
 <details>
 <summary><strong>Parcours d'inscription</strong></summary>
 
-1. L'utilisateur ouvre la carte newsletter du catalogue et entre son email.
-2. Le client appelle `POST /api/catalogue-subscribe`.
-3. La route normalise et valide l'email.
-4. L'email est ajoute ou mis a jour dans la liste Brevo catalogue.
-5. Une ligne est creee ou mise a jour dans `catalogue_subscriptions`.
-6. `next_send_at` est calcule pour le meme jour du mois suivant, a l'heure
+1. L'utilisateur voit la carte newsletter integree dans la grille catalogue.
+2. Le texte, le champ email et le bouton sont affiches en overlay dans la zone
+   image pour conserver une hauteur proche des cartes produit.
+3. L'utilisateur entre son email directement dans la carte.
+4. Le client appelle `POST /api/catalogue-subscribe`.
+5. La route normalise et valide l'email.
+6. L'email est ajoute ou mis a jour dans la liste Brevo catalogue.
+7. Une ligne est creee ou mise a jour dans `catalogue_subscriptions`.
+8. `next_send_at` est calcule pour le meme jour du mois suivant, a l'heure
    d'envoi configuree.
 
 Si l'email etait deja actif, le planning existant est conserve. Si l'ajout Brevo
@@ -187,5 +194,14 @@ Les tests unitaires existants pour les helpers newsletter se lancent avec :
 ```bash
 npm run test
 ```
+
+Tests manuels UI :
+
+1. Ouvrir `/products`.
+2. Verifier que la carte newsletter n'ouvre pas de popup.
+3. Verifier que l'accroche est `Recibí las novedades del catálogo`.
+4. Verifier que l'input email et le bouton restent dans la carte, avec une
+   hauteur proche des cartes produit.
+5. Soumettre un email de test et verifier le retour succes ou erreur.
 
 </details>

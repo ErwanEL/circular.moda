@@ -15,6 +15,11 @@ prenda, compression client quand le format le permet, controle du poids total
 envoye a l'API, et messages d'erreur actionnables pour eviter les erreurs JSON
 brutes du type `Request Entity Too Large`.
 
+L'ordre des photos est aussi une partie du pipeline : `products.images` garde
+un tableau ordonne, et la premiere URL du tableau est la couverture utilisee par
+les cartes catalogue, les vitrines vendeur et les surfaces qui choisissent une
+image principale.
+
 Le site gere aussi les images manquantes, les fallbacks, les thumbnails, le zoom
 sur la page detail et un script de correction d'orientation pour les anciennes
 photos.
@@ -155,6 +160,30 @@ transforme les reponses non JSON en messages lisibles.
 </details>
 
 <details>
+<summary><strong>Ordre des images et couverture</strong></summary>
+
+La couverture n'est pas stockee dans une colonne separee. Elle correspond a la
+premiere URL du tableau `products.images`.
+
+Comportement actuel :
+
+- sur `/me/product/add`, les images selectionnees peuvent etre reordonnees avant
+  publication par drag and drop ou boutons fleches ;
+- le badge `Portada` indique toujours l'image en premiere position ;
+- sur `/me/product/[id]/edit`, les images existantes peuvent etre conservees,
+  retirees et reordonnees ;
+- les nouvelles images ajoutees en edition sont uploadees puis ajoutees apres
+  les images existantes conservees ;
+- l'ordre final sauvegarde dans `products.images` pilote ensuite le catalogue,
+  la vitrine vendeur et la galerie detail.
+
+Le hook commun `useImageUpload` expose `moveFile(fromIndex, toIndex)` pour
+reordonner les fichiers locaux avant upload. L'edition produit gere en plus un
+ordre local des URLs existantes avant l'appel `PUT /api/me/products/[id]`.
+
+</details>
+
+<details>
 <summary><strong>Format source, URL .jpg et WebP</strong></summary>
 
 Il faut distinguer le fichier stocke et le fichier servi au navigateur.
@@ -220,6 +249,11 @@ memoire par instance et `unstable_cache`.
 Les cartes produit utilisent une version reduite des images via
 `CARD_IMAGE_WIDTH`.
 
+La premiere image de `products.images` est celle qui sert de couverture sur les
+cartes catalogue et les vitrines vendeur. Si l'ordre change en edition vendeur,
+la prochaine revalidation produit/catalogue doit donc afficher cette nouvelle
+couverture.
+
 La page detail utilise :
 
 - `DETAIL_MAIN_MAX_HEIGHT` pour l'image principale ;
@@ -257,7 +291,9 @@ tag EXIF stale.
 | --- | --- |
 | Modifier limites, compression et erreurs upload client | [`src/app/lib/client-upload.ts`](../../../src/app/lib/client-upload.ts) |
 | Tester limites, parsing d'erreur et compression upload client | [`src/app/lib/client-upload.test.mjs`](../../../src/app/lib/client-upload.test.mjs) |
-| Modifier hook fichiers/previews/limite | [`src/app/admin/upload-product/hooks/use-image-upload.ts`](../../../src/app/admin/upload-product/hooks/use-image-upload.ts) |
+| Modifier hook fichiers/previews/limite/ordre | [`src/app/admin/upload-product/hooks/use-image-upload.ts`](../../../src/app/admin/upload-product/hooks/use-image-upload.ts) |
+| Modifier UI ordre/couverture en ajout vendeur | [`src/app/me/product/add/image-upload-section-es.tsx`](../../../src/app/me/product/add/image-upload-section-es.tsx) |
+| Modifier UI ordre/couverture en edition vendeur | [`src/app/me/product/[id]/edit/page.tsx`](../../../src/app/me/product/[id]/edit/page.tsx) |
 | Modifier validation fichier image | [`src/app/lib/uploaded-image-file.ts`](../../../src/app/lib/uploaded-image-file.ts) |
 | Modifier tests validation image | [`src/app/lib/uploaded-image-file.test.mjs`](../../../src/app/lib/uploaded-image-file.test.mjs) |
 | Modifier helpers images produit | [`src/app/lib/product-images.ts`](../../../src/app/lib/product-images.ts) |
@@ -280,11 +316,15 @@ Tests manuels :
 2. Uploader 5 images depuis le parcours vendeur et verifier le compteur `5/5`.
 3. Essayer d'ajouter une 6e image et verifier le blocage immediat.
 4. Verifier l'etat `Preparando fotos...` avant l'appel reseau.
-5. Uploader plusieurs images depuis l'admin.
-6. Ouvrir une carte catalogue et verifier l'image.
-7. Ouvrir une page produit et verifier galerie, thumbnails et zoom.
-8. Tester une URL `/api/image?url=...&w=300`.
-9. Tester une URL externe non autorisee et verifier le `403`.
+5. Reordonner les images avant publication et verifier que `Portada` pointe sur
+   la premiere image.
+6. Editer une prenda existante, changer l'ordre des images conservees et
+   verifier la nouvelle couverture dans le catalogue.
+7. Uploader plusieurs images depuis l'admin.
+8. Ouvrir une carte catalogue et verifier l'image.
+9. Ouvrir une page produit et verifier galerie, thumbnails et zoom.
+10. Tester une URL `/api/image?url=...&w=300`.
+11. Tester une URL externe non autorisee et verifier le `403`.
 
 Tests techniques :
 
