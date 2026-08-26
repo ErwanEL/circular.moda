@@ -1,13 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import {
-  FormEvent,
-  KeyboardEvent as ReactKeyboardEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { FormEvent, useId, useState } from 'react';
 
 type SubmitState = 'idle' | 'success' | 'error';
 
@@ -16,44 +10,21 @@ type SubscribeResponse = {
   message?: string;
 };
 
-const defaultMessage =
-  'Suscribite para recibir por mail cada mes las últimas publicaciones y novedades del catálogo.';
+const defaultErrorMessage =
+  'No pudimos registrar tu email. Volvé a intentarlo en unos minutos.';
 
 export default function CatalogueNewsletterCard() {
+  const emailInputId = useId();
   const [email, setEmail] = useState('');
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [message, setMessage] = useState(defaultMessage);
+  const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const emailInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (!isModalOpen) {
-      return;
-    }
-
-    emailInputRef.current?.focus();
-  }, [isModalOpen]);
-
-  useEffect(() => {
-    if (!isModalOpen) {
-      return;
-    }
-
-    function handleEscape(event: globalThis.KeyboardEvent) {
-      if (event.key === 'Escape' && !isSubmitting) {
-        setIsModalOpen(false);
-      }
-    }
-
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [isModalOpen, isSubmitting]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
     setSubmitState('idle');
+    setMessage('');
 
     try {
       const response = await fetch('/api/catalogue-subscribe', {
@@ -69,188 +40,106 @@ export default function CatalogueNewsletterCard() {
         .catch(() => null)) as SubscribeResponse | null;
 
       if (!response.ok || !payload?.ok) {
-        throw new Error(
-          payload?.message ||
-            'No pudimos registrar tu email. Volvé a intentarlo en unos minutos.'
-        );
+        throw new Error(payload?.message || defaultErrorMessage);
       }
 
       setEmail('');
       setSubmitState('success');
       setMessage(
         payload.message ||
-          'Listo. Ya quedaste suscripto para recibir las novedades mensuales del catálogo.'
+          'Listo. Ya quedaste suscripta para recibir las novedades mensuales del catálogo.'
       );
-      setIsModalOpen(false);
     } catch (error) {
       setSubmitState('error');
-      setMessage(
-        error instanceof Error
-          ? error.message
-          : 'No pudimos registrar tu email. Volvé a intentarlo en unos minutos.'
-      );
+      setMessage(error instanceof Error ? error.message : defaultErrorMessage);
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  function openModal() {
-    setSubmitState('idle');
-    setMessage(defaultMessage);
-    setIsModalOpen(true);
-  }
-
-  function handleCardKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      openModal();
-    }
-  }
-
-  return (
-    <>
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={openModal}
-        onKeyDown={handleCardKeyDown}
-        aria-label="Abrir suscripción a novedades del catálogo"
-        className="relative flex h-full cursor-pointer flex-col overflow-hidden rounded-md border border-[#dfe7ce] bg-[radial-gradient(circle_at_top_left,_rgba(229,241,204,0.95),_rgba(255,253,246,1)_55%)] shadow-[0_18px_40px_rgba(169,189,131,0.16)] transition outline-none hover:shadow-[0_24px_48px_rgba(169,189,131,0.2)] focus-visible:ring-4 focus-visible:ring-[#dce9c3]"
-      >
+  if (submitState === 'success') {
+    return (
+      <div className="relative h-full min-h-[23rem] overflow-hidden rounded-md border border-[#dfe7ce] bg-[radial-gradient(circle_at_top_left,_rgba(229,241,204,0.95),_rgba(255,253,246,1)_55%)] p-5 shadow-[0_18px_40px_rgba(169,189,131,0.16)]">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c9ddb0] to-transparent" />
-        <div className="relative h-[12.5rem] w-full overflow-hidden bg-[linear-gradient(135deg,_rgba(245,249,233,0.9),_rgba(232,241,210,0.55))] sm:h-[13.5rem]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(210,229,176,0.35),_transparent_55%)]" />
-          <div className="relative flex h-full items-center justify-center p-0">
-            <Image
-              src="/catalogue-newsletter-illustration.png"
-              alt="Ilustración de novedades del catálogo"
-              width={420}
-              height={420}
-              className="h-[115%] w-auto max-w-none object-contain drop-shadow-[0_20px_30px_rgba(132,165,84,0.18)]"
-              priority={false}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-1 flex-col p-5 sm:p-6">
-          {/* <span className="inline-flex w-fit items-center rounded-full border border-[#d7e4bf] bg-white/85 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-[#6c9842] uppercase">
-            Novedades
-          </span> */}
-          <h3 className="font-semibold text-[#13254a] sm:text-[1.8rem]">
-            No dejes pasar esa joyita
-          </h3>
-          <p className="mt-4 max-w-[28ch] text-[1rem] leading-7 text-[#5d6655]">
-            Suscribite y recibí gratis los últimos artículos publicados directo
-            en tu mail para no perderte nada.
-          </p>
-          {/* <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-[#6a7560]">
-            <span>Baja con un click</span>
-          </div> */}
-          <button
-            type="button"
-            onClick={openModal}
-            className="mt-5 inline-flex min-h-14 w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-[#6f9f3b] px-5 text-base font-semibold text-white shadow-[0_14px_28px_rgba(111,159,59,0.28)] transition hover:bg-[#5f8c32]"
-          >
-            <span>Quiero recibir novedades</span>
+        <div className="flex h-full flex-col justify-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#6f9f3b] text-white shadow-[0_14px_28px_rgba(111,159,59,0.28)]">
             <svg
               aria-hidden="true"
               viewBox="0 0 24 24"
-              className="h-5 w-5 shrink-0"
+              className="h-6 w-6"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <rect
-                x="2.5"
-                y="4.5"
-                width="19"
-                height="15"
-                rx="2.5"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              />
               <path
-                d="M5.5 7.5L12 13L18.5 7.5"
+                d="M5 12.5L9.5 17L19 7"
                 stroke="currentColor"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
-          </button>
+          </div>
+          <h3 className="mt-4 text-2xl font-semibold text-[#13254a]">
+            Ya estás suscripta
+          </h3>
+          <p className="mt-3 text-sm leading-6 text-[#5d6655]">{message}</p>
         </div>
       </div>
+    );
+  }
 
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4"
-          onClick={(event) => {
-            if (event.target === event.currentTarget && !isSubmitting) {
-              setIsModalOpen(false);
-            }
-          }}
-        >
-          <div className="w-full max-w-md rounded-[28px] border border-[#dfe7ce] bg-[radial-gradient(circle_at_top_left,_rgba(229,241,204,0.98),_rgba(255,253,246,1)_55%)] p-6 shadow-[0_28px_70px_rgba(0,0,0,0.18)] sm:p-7">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <span className="inline-flex items-center rounded-full border border-[#dbe7c3] bg-white/80 px-3 py-1 text-[11px] font-semibold tracking-[0.18em] text-[#6d9841] uppercase">
-                  Catálogo mensual
-                </span>
-                <h3 className="mt-4 text-3xl leading-[1.05] font-semibold text-[#1f2a1b]">
-                  Suscribite a las novedades
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => !isSubmitting && setIsModalOpen(false)}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#dbe7c3] bg-white/80 text-2xl leading-none text-[#607055] transition hover:bg-white"
-                aria-label="Cerrar modal"
-              >
-                ×
-              </button>
-            </div>
-
-            <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-              <label htmlFor="catalogue-newsletter-email" className="sr-only">
-                Email
-              </label>
-              <input
-                ref={emailInputRef}
-                id="catalogue-newsletter-email"
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="tu@email.com"
-                autoComplete="email"
-                required
-                disabled={isSubmitting}
-                className="h-14 w-full rounded-full border border-[#d6dfc0] bg-white px-5 text-[15px] text-[#1f2a1b] shadow-[0_10px_22px_rgba(190,203,168,0.18)] transition outline-none focus:border-[#7aaa49] focus:ring-4 focus:ring-[#dce9c3]"
-              />
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-[#6f9f3b] px-5 text-base font-semibold text-white shadow-[0_14px_28px_rgba(111,159,59,0.28)] transition hover:bg-[#5f8c32] disabled:cursor-not-allowed disabled:bg-[#92b56b]"
-              >
-                {isSubmitting ? 'Suscribiendo...' : 'Confirmar suscripción'}
-              </button>
-            </form>
-
-            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm text-[#6a7560]">
-              <span>1 email por mes</span>
-              <span>Baja con un click</span>
-            </div>
-            <p
-              className={`mt-3 text-sm ${
-                submitState === 'error' ? 'text-[#b44f3d]' : 'text-[#6a7560]'
-              }`}
-              aria-live="polite"
-            >
-              {submitState === 'error'
-                ? message
-                : 'Al suscribirte aceptás recibir novedades mensuales del catálogo de circular.moda.'}
-            </p>
-          </div>
+  return (
+    <div className="relative h-full min-h-[23rem] overflow-hidden rounded-md border border-[#dfe7ce] bg-[radial-gradient(circle_at_top_left,_rgba(229,241,204,0.95),_rgba(255,253,246,1)_55%)] shadow-[0_18px_40px_rgba(169,189,131,0.16)] transition">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c9ddb0] to-transparent" />
+      <div className="relative h-full min-h-[23rem] w-full overflow-hidden bg-[linear-gradient(135deg,_rgba(245,249,233,0.9),_rgba(232,241,210,0.55))]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(210,229,176,0.35),_transparent_55%)]" />
+        <div className="absolute inset-0 flex items-start justify-center overflow-hidden">
+          <Image
+            src="/catalogue-newsletter-illustration.png"
+            alt="Ilustración de novedades del catálogo"
+            width={420}
+            height={420}
+            className="mt-[-2.5rem] h-[92%] w-auto max-w-none object-contain opacity-90 drop-shadow-[0_20px_30px_rgba(132,165,84,0.18)]"
+            priority={false}
+          />
         </div>
-      )}
-    </>
+
+        <div className="absolute inset-x-3 bottom-3 rounded-2xl border border-white/70 bg-[#fffdf6]/90 p-3 shadow-[0_18px_42px_rgba(115,143,71,0.18)] backdrop-blur-md">
+          <h3 className="text-base leading-tight font-semibold text-[#13254a]">
+            Recibí las novedades del catálogo
+          </h3>
+
+          <form onSubmit={handleSubmit} className="mt-2 space-y-2">
+          <label htmlFor={emailInputId} className="sr-only">
+            Email
+          </label>
+          <input
+            id={emailInputId}
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="tu@email.com"
+            autoComplete="email"
+            required
+            disabled={isSubmitting}
+            className="h-10 w-full rounded-full border border-[#d6dfc0] bg-white px-4 text-sm text-[#1f2a1b] shadow-[0_10px_22px_rgba(190,203,168,0.18)] transition outline-none focus:border-[#7aaa49] focus:ring-4 focus:ring-[#dce9c3] disabled:cursor-not-allowed disabled:bg-[#f4f5ef]"
+          />
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="inline-flex min-h-10 w-full cursor-pointer items-center justify-center rounded-full bg-[#6f9f3b] px-5 text-sm font-semibold text-white shadow-[0_14px_28px_rgba(111,159,59,0.28)] transition hover:bg-[#5f8c32] disabled:cursor-not-allowed disabled:bg-[#92b56b]"
+          >
+            {isSubmitting ? 'Suscribiendo...' : 'Suscribirme'}
+          </button>
+        </form>
+
+          {submitState === 'error' && (
+            <p className="mt-2 text-xs leading-5 text-[#b44f3d]" aria-live="polite">
+              {message}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

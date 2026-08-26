@@ -47,6 +47,7 @@ export default function MeAddProductPage() {
     error: imageUploadError,
     addFiles,
     removeFile,
+    moveFile,
     clearAll,
   } = useImageUpload();
 
@@ -370,6 +371,7 @@ export default function MeAddProductPage() {
               maxFiles={MAX_PRODUCT_IMAGE_COUNT}
               onDrop={addFiles}
               onRemove={removeFile}
+              onMove={moveFile}
             />
 
             <FormFieldsEs

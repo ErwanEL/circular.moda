@@ -1,8 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
+import type { DragEvent } from 'react';
 import { useDropzone } from 'react-dropzone';
 import {
+  HiArrowLeft,
+  HiArrowRight,
   HiArrowUpTray,
   HiCheckCircle,
   HiExclamationTriangle,
@@ -23,6 +26,7 @@ interface ImageUploadSectionEsProps {
   maxFiles?: number;
   onDrop: (acceptedFiles: File[]) => void;
   onRemove: (index: number) => void;
+  onMove?: (fromIndex: number, toIndex: number) => void;
 }
 
 export function ImageUploadSectionEs({
@@ -33,6 +37,7 @@ export function ImageUploadSectionEs({
   maxFiles = MAX_PRODUCT_IMAGE_COUNT,
   onDrop,
   onRemove,
+  onMove,
 }: ImageUploadSectionEsProps) {
   const displayedCount = currentCount ?? files.length;
   const isLimitReached = displayedCount >= maxFiles;
@@ -43,6 +48,26 @@ export function ImageUploadSectionEs({
   });
 
   const hasImages = previews.length > 0;
+
+  function moveImage(fromIndex: number, toIndex: number) {
+    onMove?.(fromIndex, toIndex);
+  }
+
+  function handleDragStart(
+    event: DragEvent<HTMLDivElement>,
+    index: number
+  ) {
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', String(index));
+  }
+
+  function handleDrop(event: DragEvent<HTMLDivElement>, index: number) {
+    event.preventDefault();
+    const fromIndex = Number(event.dataTransfer.getData('text/plain'));
+    if (Number.isInteger(fromIndex)) {
+      moveImage(fromIndex, index);
+    }
+  }
 
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800">
@@ -149,6 +174,10 @@ export function ImageUploadSectionEs({
           {previews.map((preview, index) => (
             <div
               key={preview}
+              draggable={Boolean(onMove)}
+              onDragStart={(event) => handleDragStart(event, index)}
+              onDragOver={(event) => event.preventDefault()}
+              onDrop={(event) => handleDrop(event, index)}
               className="group relative overflow-hidden rounded-lg border border-gray-200 bg-gray-100 dark:border-gray-700"
             >
               <img
@@ -156,6 +185,21 @@ export function ImageUploadSectionEs({
                 alt={`Vista previa ${index + 1}`}
                 className="h-32 w-full object-cover transition group-hover:scale-105"
               />
+              <div className="absolute top-2 left-2 flex flex-wrap gap-1">
+                {index === 0 ? (
+                  <span className="rounded-full bg-rose-600 px-2 py-1 text-[11px] font-bold text-white shadow">
+                    Portada
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => moveImage(index, 0)}
+                    className="rounded-full bg-white/95 px-2 py-1 text-[11px] font-bold text-gray-800 shadow transition hover:bg-rose-50 hover:text-rose-700"
+                  >
+                    Usar como portada
+                  </button>
+                )}
+              </div>
               <button
                 type="button"
                 onClick={() => onRemove(index)}
@@ -167,6 +211,28 @@ export function ImageUploadSectionEs({
               <div className="absolute right-0 bottom-0 left-0 bg-black/60 px-2 py-1 text-xs text-white">
                 <span className="line-clamp-1">{files[index]?.name}</span>
               </div>
+              {onMove && previews.length > 1 && (
+                <div className="absolute right-2 bottom-8 flex gap-1">
+                  <button
+                    type="button"
+                    onClick={() => moveImage(index, index - 1)}
+                    disabled={index === 0}
+                    aria-label={`Mover foto ${index + 1} a la izquierda`}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-700 shadow transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-45"
+                  >
+                    <HiArrowLeft className="h-4 w-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => moveImage(index, index + 1)}
+                    disabled={index === previews.length - 1}
+                    aria-label={`Mover foto ${index + 1} a la derecha`}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-700 shadow transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-45"
+                  >
+                    <HiArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>

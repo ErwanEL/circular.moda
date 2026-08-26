@@ -10,6 +10,7 @@ interface UseImageUploadResult {
   error: string | null;
   addFiles: (acceptedFiles: File[]) => void;
   removeFile: (index: number) => void;
+  moveFile: (fromIndex: number, toIndex: number) => void;
   clearAll: () => void;
 }
 
@@ -37,6 +38,24 @@ function createPreviewUrl(file: File): string | null {
     console.warn('[ImageUpload] Could not create preview URL:', error);
     return null;
   }
+}
+
+function moveItem<T>(items: T[], fromIndex: number, toIndex: number) {
+  if (
+    fromIndex === toIndex ||
+    fromIndex < 0 ||
+    toIndex < 0 ||
+    fromIndex >= items.length ||
+    toIndex >= items.length
+  ) {
+    return items;
+  }
+
+  const nextItems = [...items];
+  const [item] = nextItems.splice(fromIndex, 1);
+  if (item === undefined) return items;
+  nextItems.splice(toIndex, 0, item);
+  return nextItems;
 }
 
 export function useImageUpload(
@@ -85,6 +104,12 @@ export function useImageUpload(
     [files, previews]
   );
 
+  const moveFile = useCallback((fromIndex: number, toIndex: number) => {
+    setFiles((current) => moveItem(current, fromIndex, toIndex));
+    setPreviews((current) => moveItem(current, fromIndex, toIndex));
+    setError(null);
+  }, []);
+
   const clearAll = useCallback(() => {
     previews.forEach(revokePreviewUrl);
     setFiles([]);
@@ -98,6 +123,7 @@ export function useImageUpload(
     error,
     addFiles,
     removeFile,
+    moveFile,
     clearAll,
   };
 }

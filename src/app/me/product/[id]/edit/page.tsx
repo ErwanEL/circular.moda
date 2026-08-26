@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, type DragEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import {
   useColors,
@@ -13,6 +14,7 @@ import { FormFieldsEs } from '@/app/me/product/add/form-fields-es';
 import { ImageUploadSectionEs } from '@/app/me/product/add/image-upload-section-es';
 import { Alert, Spinner } from 'flowbite-react';
 import Button from '@/app/ui/button';
+import { HiArrowLeft, HiArrowRight, HiXMark } from 'react-icons/hi2';
 import {
   MAX_PRODUCT_IMAGE_COUNT,
   getUploadApiErrorMessage,
@@ -23,6 +25,24 @@ import {
 } from '@/app/lib/client-upload';
 
 type UploadStep = 'idle' | 'preparing' | 'publishing';
+
+function moveItem<T>(items: T[], fromIndex: number, toIndex: number) {
+  if (
+    fromIndex === toIndex ||
+    fromIndex < 0 ||
+    toIndex < 0 ||
+    fromIndex >= items.length ||
+    toIndex >= items.length
+  ) {
+    return items;
+  }
+
+  const nextItems = [...items];
+  const [item] = nextItems.splice(fromIndex, 1);
+  if (item === undefined) return items;
+  nextItems.splice(toIndex, 0, item);
+  return nextItems;
+}
 
 interface Product {
   id: number;
@@ -59,6 +79,7 @@ export default function MeEditProductPage() {
     error: imageUploadError,
     addFiles,
     removeFile,
+    moveFile,
   } = useImageUpload({
     maxFiles: remainingNewImageSlots,
     tooManyFilesMessage: getTooManyProductImagesMessage(),
@@ -136,6 +157,10 @@ export default function MeEditProductPage() {
 
   const removeExistingImage = useCallback((index: number) => {
     setExistingImages((prev) => prev.filter((_, i) => i !== index));
+  }, []);
+
+  const moveExistingImage = useCallback((fromIndex: number, toIndex: number) => {
+    setExistingImages((prev) => moveItem(prev, fromIndex, toIndex));
   }, []);
 
   const handleGenderChange = useCallback(
@@ -328,42 +353,11 @@ export default function MeEditProductPage() {
 
             <div>
               {existingImages.length > 0 && (
-                <div className="mb-4">
-                  <p className="mb-2 text-xs text-gray-500">
-                    Imágenes actuales (tocá la X para quitar)
-                  </p>
-                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-                    {existingImages.map((url, index) => (
-                      <div key={`${url}-${index}`} className="group relative">
-                        <img
-                          src={url}
-                          alt={`Actual ${index + 1}`}
-                          className="h-32 w-full rounded-md object-cover"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => removeExistingImage(index)}
-                          className="absolute top-2 right-2 rounded-full bg-red-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
-                          aria-label="Quitar imagen"
-                        >
-                          <svg
-                            className="h-4 w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <ExistingImagesEditor
+                  images={existingImages}
+                  onMove={moveExistingImage}
+                  onRemove={removeExistingImage}
+                />
               )}
               <p className="mb-2 text-xs text-gray-500">Agregar más imágenes</p>
               <ImageUploadSectionEs
@@ -374,6 +368,7 @@ export default function MeEditProductPage() {
                 maxFiles={MAX_PRODUCT_IMAGE_COUNT}
                 onDrop={addFiles}
                 onRemove={removeFile}
+                onMove={moveFile}
               />
             </div>
 
@@ -400,5 +395,106 @@ export default function MeEditProductPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+function ExistingImagesEditor({
+  images,
+  onMove,
+  onRemove,
+}: {
+  images: string[];
+  onMove: (fromIndex: number, toIndex: number) => void;
+  onRemove: (index: number) => void;
+}) {
+  function handleDragStart(event: DragEvent<HTMLDivElement>, index: number) {
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', String(index));
+  }
+
+  function handleDrop(event: DragEvent<HTMLDivElement>, index: number) {
+    event.preventDefault();
+    const fromIndex = Number(event.dataTransfer.getData('text/plain'));
+    if (Number.isInteger(fromIndex)) {
+      onMove(fromIndex, index);
+    }
+  }
+
+  return (
+    <div className="mb-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+      <div className="mb-3">
+        <p className="text-sm font-semibold text-gray-900 dark:text-white">
+          Imágenes actuales
+        </p>
+        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+          La primera imagen será la portada en la vitrina. Arrastrá las fotos o
+          usá los botones para cambiar el orden.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+        {images.map((url, index) => (
+          <div
+            key={`${url}-${index}`}
+            draggable
+            onDragStart={(event) => handleDragStart(event, index)}
+            onDragOver={(event) => event.preventDefault()}
+            onDrop={(event) => handleDrop(event, index)}
+            className="group relative overflow-hidden rounded-lg border border-gray-200 bg-gray-100 dark:border-gray-700"
+          >
+            <img
+              src={url}
+              alt={`Actual ${index + 1}`}
+              className="h-32 w-full object-cover transition group-hover:scale-105"
+            />
+            <div className="absolute top-2 left-2 flex flex-wrap gap-1">
+              {index === 0 ? (
+                <span className="rounded-full bg-rose-600 px-2 py-1 text-[11px] font-bold text-white shadow">
+                  Portada
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => onMove(index, 0)}
+                  className="rounded-full bg-white/95 px-2 py-1 text-[11px] font-bold text-gray-800 shadow transition hover:bg-rose-50 hover:text-rose-700"
+                >
+                  Usar como portada
+                </button>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={() => onRemove(index)}
+              className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-700 shadow transition hover:bg-red-50 hover:text-red-600 focus:ring-2 focus:ring-red-400 focus:outline-none"
+              aria-label={`Quitar imagen ${index + 1}`}
+            >
+              <HiXMark className="h-5 w-5" />
+            </button>
+            {images.length > 1 && (
+              <div className="absolute right-2 bottom-2 flex gap-1">
+                <button
+                  type="button"
+                  onClick={() => onMove(index, index - 1)}
+                  disabled={index === 0}
+                  aria-label={`Mover imagen ${index + 1} a la izquierda`}
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-700 shadow transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-45"
+                >
+                  <HiArrowLeft className="h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onMove(index, index + 1)}
+                  disabled={index === images.length - 1}
+                  aria-label={`Mover imagen ${index + 1} a la derecha`}
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-700 shadow transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-45"
+                >
+                  <HiArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
