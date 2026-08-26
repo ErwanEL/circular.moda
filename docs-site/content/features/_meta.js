@@ -6,6 +6,7 @@ export default {
   'vitrine-vendeur-publique': 'Vitrine vendeur publique',
   'badge-vendeur-premium': 'Badge vendeur premium',
   'catalogue-produits': 'Catalogue produits',
+  'mise-en-relation-whatsapp': 'Mise en relation WhatsApp',
   'produits-mis-en-avant': 'Produits mis en avant',
   'produits-affilies': 'Produits affilies',
   'back-office-admin-ia': 'Back-office admin et IA',

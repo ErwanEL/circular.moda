@@ -25,6 +25,7 @@ au cache.
 | `GET /api/colors` | Options couleurs | Publique | [`src/app/api/colors/route.ts`](../../../src/app/api/colors/route.ts) |
 | `GET /api/genders` | Options genres | Publique | [`src/app/api/genders/route.ts`](../../../src/app/api/genders/route.ts) |
 | `GET /api/image` | Proxy image Supabase Storage | Publique, URL allowlist | [`src/app/api/image/route.ts`](../../../src/app/api/image/route.ts) |
+| `POST /api/product-interest` | Cree une demande de mise en relation WhatsApp | Publique, ne renvoie pas le telephone vendeur | [`src/app/api/product-interest/route.ts`](../../../src/app/api/product-interest/route.ts) |
 
 </details>
 
@@ -52,6 +53,9 @@ au cache.
 | `POST /api/admin/users` | Cree vendeur admin | A renforcer/verifier | [`src/app/api/admin/users/route.ts`](../../../src/app/api/admin/users/route.ts) |
 | `POST /api/admin/upload-product` | Cree produit admin | A renforcer/verifier | [`src/app/api/admin/upload-product/route.ts`](../../../src/app/api/admin/upload-product/route.ts) |
 | `POST /api/admin/ai-analyze-product` | Analyse IA produit | A renforcer/verifier | [`src/app/api/admin/ai-analyze-product/route.ts`](../../../src/app/api/admin/ai-analyze-product/route.ts) |
+| `GET /api/admin/introductions` | Liste les demandes de mise en relation | Local uniquement | [`src/app/api/admin/introductions/route.ts`](../../../src/app/api/admin/introductions/route.ts) |
+| `PATCH /api/admin/introductions/[id]` | Met a jour acheteuse, notes et statut | Local uniquement | [`src/app/api/admin/introductions/[id]/route.ts`](../../../src/app/api/admin/introductions/[id]/route.ts) |
+| `DELETE /api/admin/introductions/[id]` | Supprime une demande de test ou invalide | Local uniquement | [`src/app/api/admin/introductions/[id]/route.ts`](../../../src/app/api/admin/introductions/[id]/route.ts) |
 
 </details>
 
@@ -91,6 +95,7 @@ endpoints :
 | `/me` | Dashboard vendeur | [`src/app/me/page.tsx`](../../../src/app/me/page.tsx) |
 | `/me/product/add` | Ajout produit vendeur | [`src/app/me/product/add/page.tsx`](../../../src/app/me/product/add/page.tsx) |
 | `/me/product/[id]/edit` | Edition produit vendeur | [`src/app/me/product/[id]/edit/page.tsx`](../../../src/app/me/product/[id]/edit/page.tsx) |
+| `/admin/introductions` | Back-office local de mise en relation WhatsApp | [`src/app/admin/introductions/page.tsx`](../../../src/app/admin/introductions/page.tsx) |
 | `/admin/upload-product` | Ajout produit admin | [`src/app/admin/upload-product/page.tsx`](../../../src/app/admin/upload-product/page.tsx) |
 | `/newsletter/unsubscribe` | Desinscription newsletter | [`src/app/newsletter/unsubscribe/page.tsx`](../../../src/app/newsletter/unsubscribe/page.tsx) |
 
