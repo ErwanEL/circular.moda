@@ -1,0 +1,337 @@
+---
+title: Pipeline images et media produit
+---
+
+# Pipeline images et media produit
+
+## Version simple
+
+Les images produit sont au centre du catalogue. Elles peuvent etre uploadees par
+un vendeur ou par l'admin, stockees dans Supabase Storage, puis servies via un
+proxy image interne pour reduire le poids et limiter l'egress Supabase.
+
+Avant l'upload, le navigateur prepare les photos : limite a 5 photos par
+prenda, compression client quand le format le permet, controle du poids total
+envoye a l'API, et messages d'erreur actionnables pour eviter les erreurs JSON
+brutes du type `Request Entity Too Large`.
+
+L'ordre des photos est aussi une partie du pipeline : `products.images` garde
+un tableau ordonne, et la premiere URL du tableau est la couverture utilisee par
+les cartes catalogue, les vitrines vendeur et les surfaces qui choisissent une
+image principale.
+
+Le site gere aussi les images manquantes, les fallbacks, les thumbnails, le zoom
+sur la page detail et un script de correction d'orientation pour les anciennes
+photos.
+
+## Version detaillee
+
+<details>
+<summary><strong>Upload et validation</strong></summary>
+
+Flux actuel :
+
+```text
+navigateur -> prepareProductImagesForUpload -> route API Next.js -> Supabase Storage
+```
+
+Les parcours vendeur et admin partagent les helpers client de
+`src/app/lib/client-upload.ts`.
+
+Avant d'appeler l'API :
+
+- `useImageUpload` bloque l'ajout au-dela de `MAX_PRODUCT_IMAGE_COUNT = 5` ;
+- les zones d'upload affichent un compteur `x/5` ;
+- le bouton passe par un etat de preparation pendant la compression ;
+- `prepareProductImagesForUpload` compresse les images supportees puis verifie
+  le poids total du payload.
+
+Les routes d'upload vendeur et admin gardent ensuite la validation serveur avec
+`getUploadedImageMetadata` pour verifier qu'un fichier ressemble bien a une
+image et pour determiner son extension/content-type.
+
+Les images sont stockees dans Supabase Storage :
+
+```text
+bucket: storage
+prefix: products/
+```
+
+Pour un nouveau produit, le nom de fichier utilise le `public_id` UUID du
+produit. Pour une edition vendeur, les nouvelles images gardent le `public_id`
+existant avec un suffixe horodate.
+
+</details>
+
+<details>
+<summary><strong>Compression client et limite Vercel</strong></summary>
+
+En production, les routes API Next.js sont executees comme des Vercel
+Functions. Tant que les fichiers passent par `POST /api/me/upload-product`,
+`PUT /api/me/products/[id]` ou `POST /api/admin/upload-product`, le body
+`multipart/form-data` complet traverse Vercel avant d'arriver a Supabase.
+
+Vercel limite le body d'une Function a 4.5 MB. Le code garde donc une marge avec
+`MAX_UPLOAD_BODY_BYTES = 3_800_000` dans `client-upload.ts`. Cette limite est
+volontairement plus basse que 4.5 MB pour tenir compte des champs texte et de
+l'overhead multipart.
+
+Supabase Storage n'est pas le goulot d'etranglement principal dans ce flux :
+Supabase permet une limite globale plus haute selon le plan, puis des limites
+par bucket. Les uploads standards Supabase sont recommandes pour de petits
+fichiers, et les gros fichiers devraient plutot passer par un upload direct ou
+resumable.
+
+References utiles :
+
+- [Vercel Functions limits](https://vercel.com/docs/functions/limitations#request-body-size)
+- [Supabase Storage file limits](https://supabase.com/docs/guides/storage/uploads/file-limits)
+- [Supabase standard uploads](https://supabase.com/docs/guides/storage/uploads/standard-uploads)
+
+</details>
+
+<details>
+<summary><strong>Conversion dans le navigateur</strong></summary>
+
+La preparation client utilise uniquement les APIs natives du navigateur :
+
+1. `createImageBitmap(file)` quand disponible, sinon chargement via un element
+   `Image` et une URL `blob:`.
+2. Dessin de l'image dans un `canvas`.
+3. Export avec `canvas.toBlob(..., 'image/jpeg', quality)`.
+4. Creation d'un nouveau `File` `.jpg` plus leger pour l'upload.
+
+Les essais actuels sont :
+
+```text
+1600 px, qualite 0.82
+1400 px, qualite 0.78
+1200 px, qualite 0.74
+1000 px, qualite 0.70
+```
+
+L'objectif est d'approcher `TARGET_IMAGE_BYTES = 650_000` par image. Le gain
+depend beaucoup de la photo d'origine : une photo mobile lourde peut perdre une
+grande partie de son poids, tandis qu'une image deja optimisee peut rester
+proche de son poids initial. Si la compression echoue, le fichier original est
+conserve puis le controle de poids total decide si l'upload peut continuer.
+
+Formats non compresses cote navigateur :
+
+- SVG ;
+- HEIC ;
+- HEIF ;
+- formats non reconnus comme image compressible.
+
+Les images sont preparees sequentiellement, et non en `Promise.all`, pour
+reduire la pression memoire sur mobile.
+
+</details>
+
+<details>
+<summary><strong>Limite de 5 photos et experience utilisateur</strong></summary>
+
+La limite actuelle est `MAX_PRODUCT_IMAGE_COUNT = 5`.
+
+Pourquoi 5 et pas 10 pour l'instant :
+
+- l'objectif par image est environ 650 KB ;
+- 5 images donnent environ 3.25 MB avant les champs texte et l'overhead
+  multipart ;
+- le garde-fou client bloque a 3.8 MB ;
+- 10 images optimises pourraient deja representer environ 6.5 MB avant
+  overhead, donc depasser la limite Vercel de 4.5 MB dans le flux actuel.
+
+Comportement UI :
+
+- selection bloquee immediatement si l'utilisateur depasse la limite ;
+- dropzone desactivee quand le compteur atteint `5/5` ;
+- message d'aide visible : les photos sont optimisees automatiquement ;
+- etat `Preparando fotos...` pendant la compression vendeur ;
+- etat `Publicando...` ou `Guardando...` pendant l'appel reseau ;
+- message d'erreur actionnable si le serveur renvoie du texte non JSON, une
+  page HTML, une erreur reseau generique ou un payload trop lourd.
+
+Le bug historique `Unexpected token 'R', "Request En"... is not valid JSON`
+venait du fait que le client essayait de parser une reponse texte comme du JSON.
+`readUploadApiResponse` lit maintenant la reponse en texte, tente le JSON, puis
+transforme les reponses non JSON en messages lisibles.
+
+</details>
+
+<details>
+<summary><strong>Ordre des images et couverture</strong></summary>
+
+La couverture n'est pas stockee dans une colonne separee. Elle correspond a la
+premiere URL du tableau `products.images`.
+
+Comportement actuel :
+
+- sur `/me/product/add`, les images selectionnees peuvent etre reordonnees avant
+  publication par drag and drop ou boutons fleches ;
+- le badge `Portada` indique toujours l'image en premiere position ;
+- sur `/me/product/[id]/edit`, les images existantes peuvent etre conservees,
+  retirees et reordonnees ;
+- les nouvelles images ajoutees en edition sont uploadees puis ajoutees apres
+  les images existantes conservees ;
+- l'ordre final sauvegarde dans `products.images` pilote ensuite le catalogue,
+  la vitrine vendeur et la galerie detail.
+
+Le hook commun `useImageUpload` expose `moveFile(fromIndex, toIndex)` pour
+reordonner les fichiers locaux avant upload. L'edition produit gere en plus un
+ordre local des URLs existantes avant l'appel `PUT /api/me/products/[id]`.
+
+</details>
+
+<details>
+<summary><strong>Format source, URL .jpg et WebP</strong></summary>
+
+Il faut distinguer le fichier stocke et le fichier servi au navigateur.
+
+Le fichier stocke dans Supabase peut etre un `.jpg`, notamment quand la
+compression client a cree un JPEG. L'URL source peut donc contenir `.jpg`.
+
+Quand l'affichage passe par `/api/image` avec `w` ou `h`, le proxy telecharge le
+fichier source, le redimensionne, puis renvoie un WebP avec
+`Content-Type: image/webp`. Il est donc normal de voir `.jpg` dans le parametre
+`url=...` et d'obtenir un fichier `.webp` en sauvegardant l'image depuis le
+navigateur.
+
+Le WebP est une optimisation de sortie du proxy. Il ne signifie pas que le
+fichier original stocke dans Supabase est lui-meme en WebP.
+
+</details>
+
+<details>
+<summary><strong>Evolution future : upload direct Supabase</strong></summary>
+
+Le point non implemente pour l'instant consiste a eviter que les octets image
+traversent une Vercel Function.
+
+Flux cible possible :
+
+```text
+navigateur -> Supabase Storage direct -> route API Next.js avec URLs/metadonnees
+```
+
+Ce changement permettrait de relever la limite fonctionnelle du nombre ou du
+poids de photos, car l'API Next.js ne recevrait plus les fichiers dans son body.
+Il faudra toutefois definir la securite avant implementation :
+
+- bucket policy/RLS ou URL signee ;
+- controle d'ownership vendeur ;
+- nettoyage des fichiers orphelins si la creation produit echoue ;
+- validation serveur des URLs stockees ;
+- strategie pour edition/suppression d'images.
+
+</details>
+
+<details>
+<summary><strong>Proxy image</strong></summary>
+
+`/api/image` accepte une URL Supabase Storage publique via le parametre `url`.
+La route refuse les URLs qui ne viennent pas du projet Supabase attendu.
+
+Elle peut recevoir :
+
+- `w` pour largeur max ;
+- `h` pour hauteur max.
+
+Elle utilise `sharp` pour resize, auto-orienter certains cas EXIF et convertir
+en WebP quand `w` ou `h` est present. Le resultat est cache avec un cache
+memoire par instance et `unstable_cache`.
+
+</details>
+
+<details>
+<summary><strong>Affichage et fallback</strong></summary>
+
+Les cartes produit utilisent une version reduite des images via
+`CARD_IMAGE_WIDTH`.
+
+La premiere image de `products.images` est celle qui sert de couverture sur les
+cartes catalogue et les vitrines vendeur. Si l'ordre change en edition vendeur,
+la prochaine revalidation produit/catalogue doit donc afficher cette nouvelle
+couverture.
+
+La page detail utilise :
+
+- `DETAIL_MAIN_MAX_HEIGHT` pour l'image principale ;
+- `THUMB_SIZE` pour les thumbnails ;
+- `ExternalImage` pour gerer les erreurs de chargement et fallback ;
+- `ProductImageGallery` pour selectionner une image et afficher le zoom desktop.
+
+Le code garde encore de la compatibilite avec d'anciens formats Airtable :
+images objet, fichiers locaux et IDs commencant par `rec`.
+
+</details>
+
+<details>
+<summary><strong>Backfill orientation</strong></summary>
+
+Le proxy corrige l'affichage sur le site, mais certains services externes lisent
+l'URL Supabase brute pour les previews sociales.
+
+Le script `normalize-product-image-orientation.mjs` sert a corriger directement
+les fichiers stockes. Il est prevu comme backfill ponctuel :
+
+- mode `--dry-run` pour previsualiser ;
+- mode `--limit=N` pour tester sur un petit lot ;
+- execution complete pour traiter toutes les images.
+
+Le script est idempotent et evite de tourner les images deja correctes avec un
+tag EXIF stale.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier limites, compression et erreurs upload client | [`src/app/lib/client-upload.ts`](../../../src/app/lib/client-upload.ts) |
+| Tester limites, parsing d'erreur et compression upload client | [`src/app/lib/client-upload.test.mjs`](../../../src/app/lib/client-upload.test.mjs) |
+| Modifier hook fichiers/previews/limite/ordre | [`src/app/admin/upload-product/hooks/use-image-upload.ts`](../../../src/app/admin/upload-product/hooks/use-image-upload.ts) |
+| Modifier UI ordre/couverture en ajout vendeur | [`src/app/me/product/add/image-upload-section-es.tsx`](../../../src/app/me/product/add/image-upload-section-es.tsx) |
+| Modifier UI ordre/couverture en edition vendeur | [`src/app/me/product/[id]/edit/page.tsx`](../../../src/app/me/product/[id]/edit/page.tsx) |
+| Modifier validation fichier image | [`src/app/lib/uploaded-image-file.ts`](../../../src/app/lib/uploaded-image-file.ts) |
+| Modifier tests validation image | [`src/app/lib/uploaded-image-file.test.mjs`](../../../src/app/lib/uploaded-image-file.test.mjs) |
+| Modifier helpers images produit | [`src/app/lib/product-images.ts`](../../../src/app/lib/product-images.ts) |
+| Modifier proxy image | [`src/app/api/image/route.ts`](../../../src/app/api/image/route.ts) |
+| Modifier affichage image fallback | [`src/app/ui/external-image.tsx`](../../../src/app/ui/external-image.tsx) |
+| Modifier galerie detail | [`src/app/ui/product-image-gallery.tsx`](../../../src/app/ui/product-image-gallery.tsx) |
+| Modifier upload vendeur | [`src/app/api/me/upload-product/route.ts`](../../../src/app/api/me/upload-product/route.ts) |
+| Modifier upload admin | [`src/app/api/admin/upload-product/route.ts`](../../../src/app/api/admin/upload-product/route.ts) |
+| Corriger orientation images stockees | [`scripts/normalize-product-image-orientation.mjs`](../../../scripts/normalize-product-image-orientation.mjs) |
+| Lire les scripts disponibles | [`scripts/README.md`](../../../scripts/README.md) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Uploader une image depuis le parcours vendeur.
+2. Uploader 5 images depuis le parcours vendeur et verifier le compteur `5/5`.
+3. Essayer d'ajouter une 6e image et verifier le blocage immediat.
+4. Verifier l'etat `Preparando fotos...` avant l'appel reseau.
+5. Reordonner les images avant publication et verifier que `Portada` pointe sur
+   la premiere image.
+6. Editer une prenda existante, changer l'ordre des images conservees et
+   verifier la nouvelle couverture dans le catalogue.
+7. Uploader plusieurs images depuis l'admin.
+8. Ouvrir une carte catalogue et verifier l'image.
+9. Ouvrir une page produit et verifier galerie, thumbnails et zoom.
+10. Tester une URL `/api/image?url=...&w=300`.
+11. Tester une URL externe non autorisee et verifier le `403`.
+
+Tests techniques :
+
+```bash
+npm run test
+npm run build
+node scripts/normalize-product-image-orientation.mjs --dry-run
+```
+
+</details>

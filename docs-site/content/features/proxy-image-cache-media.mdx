@@ -1,0 +1,162 @@
+---
+title: Proxy image et cache media
+---
+
+# Proxy image et cache media
+
+## Version simple
+
+Le site ne sert pas toujours les images produit directement depuis Supabase
+Storage.
+
+Pour l'affichage catalogue et detail, il passe souvent par `/api/image`. Cette
+route agit comme un proxy : elle verifie que l'URL vient bien du storage
+Supabase du projet, telecharge l'image, peut la redimensionner, peut corriger
+l'orientation EXIF, convertit en WebP quand un resize est demande, puis cache le
+resultat.
+
+Cette feature reduit le poids des images et protege le site contre des URLs
+externes non autorisees.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Supabase Storage** pour les images originales.
+- **Next.js route handler** pour `/api/image`.
+- **Sharp** pour resize, orientation et conversion WebP.
+- **Next.js `unstable_cache`** pour le cache data partage.
+- **Cache memoire par instance** pour eviter des fetchs repetes.
+
+</details>
+
+<details>
+<summary><strong>Parametres de la route</strong></summary>
+
+Endpoint :
+
+```http
+GET /api/image?url=<encoded-url>&w=<width>&h=<height>
+```
+
+Parametres :
+
+- `url` est obligatoire ;
+- `w` est optionnel ;
+- `h` est optionnel.
+
+La route refuse :
+
+- les URLs manquantes ;
+- les URLs mal encodees ;
+- les URLs qui ne viennent pas du domaine `NEXT_PUBLIC_SUPABASE_URL` ;
+- les URLs qui ne commencent pas par `/storage/v1/object/public/`.
+
+</details>
+
+<details>
+<summary><strong>Pipeline de traitement</strong></summary>
+
+La route :
+
+1. decode l'URL source ;
+2. verifie que l'URL est une URL publique Supabase Storage autorisee ;
+3. construit une cle de cache avec `CACHE_VERSION`, l'URL, `w` et `h` ;
+4. tente le cache memoire en production ;
+5. sinon utilise `unstable_cache` ;
+6. fetch l'image source ;
+7. detecte le `content-type` ;
+8. applique Sharp si un resize est demande ;
+9. corrige certains cas d'orientation EXIF ;
+10. convertit en WebP avec qualite 85 quand `w` ou `h` est present ;
+11. renvoie l'image avec `Cache-Control`.
+
+En developpement, le cache memoire est desactive pour faciliter les tests.
+
+</details>
+
+<details>
+<summary><strong>Cache</strong></summary>
+
+Constantes actuelles :
+
+- `CACHE_MAX_ENTRIES = 200`
+- `CACHE_MAX_AGE = 7 jours`
+- `DATA_CACHE_REVALIDATE = 7 jours`
+- `CACHE_VERSION = 'v3'`
+
+Si le pipeline change les octets de sortie, il faut augmenter `CACHE_VERSION`.
+Cela evite de continuer a servir d'anciennes images transformees.
+
+</details>
+
+<details>
+<summary><strong>Pourquoi l'URL peut contenir .jpg mais servir du WebP</strong></summary>
+
+Le parametre `url` de `/api/image` contient l'URL du fichier original Supabase.
+Ce fichier peut etre un `.jpg`, surtout depuis que la preparation client exporte
+les images compressees en JPEG avant l'upload.
+
+La reponse de `/api/image` est independante de cette extension source. Quand un
+parametre `w` ou `h` est fourni, la route utilise Sharp, redimensionne l'image
+et renvoie un WebP avec `Content-Type: image/webp`.
+
+Exemple attendu :
+
+```text
+/api/image?url=https://.../products/abc-1.jpg&h=800
+```
+
+L'URL source pointe vers un `.jpg`, mais la reponse peut etre sauvegardee comme
+`.webp` par le navigateur parce que le proxy sert effectivement du WebP.
+
+</details>
+
+<details>
+<summary><strong>Relation avec le pipeline images</strong></summary>
+
+Le proxy optimise l'affichage, mais ne modifie pas les fichiers originaux dans
+Supabase Storage.
+
+Si une correction doit etre appliquee aux fichiers eux-memes, utiliser plutot
+le script de normalisation d'orientation. Ce cas est utile quand les URLs brutes
+sont consommees ailleurs, par exemple dans des previews sociales ou des emails.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier le proxy image | [`src/app/api/image/route.ts`](../../../src/app/api/image/route.ts) |
+| Modifier les helpers image produit | [`src/app/lib/product-images.ts`](../../../src/app/lib/product-images.ts) |
+| Modifier la galerie produit | [`src/app/ui/product-image-gallery.tsx`](../../../src/app/ui/product-image-gallery.tsx) |
+| Modifier l'affichage image fallback | [`src/app/ui/external-image.tsx`](../../../src/app/ui/external-image.tsx) |
+| Modifier la validation upload | [`src/app/lib/uploaded-image-file.ts`](../../../src/app/lib/uploaded-image-file.ts) |
+| Tester la validation upload | [`src/app/lib/uploaded-image-file.test.mjs`](../../../src/app/lib/uploaded-image-file.test.mjs) |
+| Corriger des fichiers deja stockes | [`scripts/normalize-product-image-orientation.mjs`](../../../scripts/normalize-product-image-orientation.mjs) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ouvrir une page produit avec plusieurs images.
+2. Verifier que les images passent par `/api/image`.
+3. Tester une URL Supabase valide avec `w` ou `h`.
+4. Tester une URL externe et verifier un 403.
+5. Verifier l'orientation sur mobile et desktop.
+6. Verifier que les images restent visibles si Sharp echoue.
+
+Tests techniques :
+
+```bash
+npm run test
+npm run build
+```
+
+</details>

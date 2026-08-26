@@ -1,5 +1,40 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Documentation locale
+
+La documentation interne vit dans `docs-site/` sous forme d'app Nextra separee.
+Elle reste locale pour l'instant et sert de reference commune pour les humains
+et les agents IA qui travaillent sur le projet.
+
+Installer les dependances :
+
+```bash
+npm install
+npm install --prefix docs-site
+```
+
+Ouvrir la documentation locale :
+
+```bash
+npm run docs:dev
+```
+
+Ouvrir ensuite [http://localhost:3002](http://localhost:3002).
+
+Verifier que la documentation compile sans lancer de serveur :
+
+```bash
+npm run docs:build
+```
+
+Avant un refactoring ou une modification de feature importante, lire les pages
+correspondantes dans `docs-site/content/features/`. La page
+`docs-site/content/features/index.mdx` liste les features documentees, et chaque
+sous-page explique le comportement simplement, puis detaille les services,
+tables, routes, fichiers de code, variables d'environnement et tests utiles.
+Cette structure doit permettre a un developpeur humain ou a un agent IA de
+retrouver rapidement le contexte et de modifier le code sans repartir de zero.
+
 ## Getting Started
 
 First, run the development server:

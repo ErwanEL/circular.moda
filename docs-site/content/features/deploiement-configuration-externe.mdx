@@ -1,0 +1,181 @@
+---
+title: Deploiement et configuration externe
+---
+
+# Deploiement et configuration externe
+
+## Version simple
+
+Le site depend de plusieurs services externes :
+
+- Vercel pour l'hebergement, le cron et les redirects ;
+- Supabase pour Auth, Postgres et Storage ;
+- Brevo pour SMTP/contact/newsletter ;
+- OpenAI pour l'analyse produit ;
+- Google Tag Manager pour le tracking production.
+
+Cette page sert de carte de configuration pour savoir quoi verifier quand une
+feature marche localement mais pas en production.
+
+## Version detaillee
+
+<details>
+<summary><strong>Vercel</strong></summary>
+
+`vercel.json` contient :
+
+- le cron `/api/cron/send-catalogue` ;
+- un planning `0 13 * * *` ;
+- des redirects permanents d'anciens produits vers les nouveaux slugs ;
+- environ 190 redirects produit historiques.
+
+Le cron appelle la route newsletter et doit envoyer :
+
+```http
+Authorization: Bearer CRON_SECRET
+```
+
+Les variables Vercel doivent couvrir Supabase, Brevo, OpenAI, secrets de cron et
+secrets de revalidation.
+
+</details>
+
+<details>
+<summary><strong>Supabase</strong></summary>
+
+Supabase couvre :
+
+- Auth passwordless ;
+- Postgres ;
+- Storage ;
+- callbacks de magic link ;
+- eventuellement SMTP via Brevo dans les reglages Auth.
+
+Callbacks importants :
+
+- `/auth/confirm` pour echanger le code ou verifier l'OTP ;
+- URLs de production Vercel / domaine custom ;
+- URLs locales si on teste le login en local.
+
+Le code utilise des clients Supabase differents :
+
+- browser client ;
+- server client SSR ;
+- client historique ;
+- service role pour certaines operations serveur/scripts.
+
+</details>
+
+<details>
+<summary><strong>Brevo</strong></summary>
+
+Brevo est utilise pour deux familles de contacts :
+
+- contacts utilisateurs via `BREVO_USERS_LIST_ID` ;
+- contacts newsletter catalogue via `BREVO_CATALOGUE_LIST_ID`.
+
+Brevo sert aussi aux emails transactionnels de newsletter catalogue.
+
+Si Supabase Auth utilise Brevo SMTP pour les magic links, cette configuration
+est dans Supabase, pas dans le repo.
+
+Verifier aussi :
+
+- l'API key Brevo ;
+- l'email expediteur `BREVO_SENDER_EMAIL` si configure ;
+- le webhook transactionnel vers `/api/webhooks/brevo-transactional` ;
+- les listes Brevo utilisees par le site.
+
+</details>
+
+<details>
+<summary><strong>OpenAI</strong></summary>
+
+OpenAI est utilise uniquement pour l'analyse IA produit admin.
+
+Variable requise :
+
+- `OPENAI_API_KEY`
+
+Le modele actuel dans le code est `gpt-4o-mini`.
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement utilisees</strong></summary>
+
+Variables lues par le code :
+
+- `BREVO_API_KEY`
+- `BREVO_CATALOGUE_LIST_ID`
+- `BREVO_DAILY_SEND_CAP`
+- `BREVO_SENDER_EMAIL`
+- `BREVO_USERS_LIST_ID`
+- `CRON_SECRET`
+- `NEWSLETTER_TEST_SECRET`
+- `NEWSLETTER_TOKEN_SECRET`
+- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `OPENAI_API_KEY`
+- `REVALIDATE_SECRET`
+- `SITE_URL`
+- `VERCEL_PROJECT_PRODUCTION_URL`
+- `VERCEL_URL`
+
+Le fichier exemple actuel ne liste pas toutes ces variables. En cas de
+refactoring config, commencer par aligner `.env.local.example`.
+
+</details>
+
+<details>
+<summary><strong>Tracking et scripts externes</strong></summary>
+
+Le layout global charge :
+
+- Flowbite via script CDN ;
+- Google Tag Manager uniquement en production avec `GTM-P8TK9FBN`.
+
+Si le tracking change, modifier le layout et verifier que le script ne se charge
+pas inutilement en developpement.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier cron ou redirects Vercel | [`vercel.json`](../../../vercel.json) |
+| Modifier les variables locales exemples | [`.env.local.example`](../../../.env.local.example) |
+| Modifier Supabase Auth confirm | [`src/app/auth/confirm/route.ts`](../../../src/app/auth/confirm/route.ts) |
+| Modifier clients Supabase | [`src/app/lib/supabase/server.ts`](../../../src/app/lib/supabase/server.ts), [`src/app/lib/supabase/client.ts`](../../../src/app/lib/supabase/client.ts), [`src/app/lib/supabase.ts`](../../../src/app/lib/supabase.ts) |
+| Modifier Brevo utilisateurs | [`src/app/lib/brevo-users.ts`](../../../src/app/lib/brevo-users.ts) |
+| Modifier Brevo newsletter | [`src/app/lib/catalogue-newsletter.ts`](../../../src/app/lib/catalogue-newsletter.ts) |
+| Modifier OpenAI | [`src/app/api/admin/ai-analyze-product/route.ts`](../../../src/app/api/admin/ai-analyze-product/route.ts) |
+| Modifier GTM/scripts globaux | [`src/app/layout.tsx`](../../../src/app/layout.tsx) |
+| Modifier scripts npm | [`package.json`](../../../package.json) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Verifier que toutes les variables production existent dans Vercel.
+2. Tester le login magic link sur le domaine production.
+3. Tester une inscription newsletter.
+4. Tester le cron avec le bon `CRON_SECRET`.
+5. Tester `/api/revalidate` avec `REVALIDATE_SECRET`.
+6. Tester l'analyse IA avec `OPENAI_API_KEY`.
+7. Verifier que GTM ne charge qu'en production.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

@@ -13,6 +13,16 @@ import { useAiAnalysis } from './hooks/use-ai-analysis';
 import { AiModeSection } from './components/ai-mode-section';
 import { ImageUploadSection } from './components/image-upload-section';
 import { FormFields } from './components/form-fields';
+import {
+  MAX_PRODUCT_IMAGE_COUNT,
+  getUploadApiErrorMessage,
+  getUploadExceptionMessage,
+  getTooManyProductImagesMessage,
+  prepareProductImagesForUpload,
+  readUploadApiResponse,
+} from '@/app/lib/client-upload';
+
+type UploadStep = 'idle' | 'preparing' | 'publishing';
 
 export default function UploadProductPage() {
   // Supabase data hooks
@@ -21,7 +31,14 @@ export default function UploadProductPage() {
   const genders = useGenders();
 
   // Image upload hook
-  const { files, previews, addFiles, removeFile, clearAll } = useImageUpload();
+  const {
+    files,
+    previews,
+    error: imageUploadError,
+    addFiles,
+    removeFile,
+    clearAll,
+  } = useImageUpload();
 
   // Product form hook
   const {
@@ -45,13 +62,20 @@ export default function UploadProductPage() {
   useEffect(() => {
     updateField('ownerId', ownerId);
   }, [ownerId, updateField]);
-  const [uploading, setUploading] = useState(false);
+  const [uploadStep, setUploadStep] = useState<UploadStep>('idle');
   const [message, setMessage] = useState<{
     type: 'success' | 'error';
     text: string;
   } | null>(null);
   const [aiMode, setAiMode] = useState(true);
   const [aiDescription, setAiDescription] = useState('');
+  const uploading = uploadStep !== 'idle';
+  const submitText =
+    uploadStep === 'preparing'
+      ? 'Préparation des images...'
+      : uploadStep === 'publishing'
+        ? 'Upload en cours...'
+        : 'Uploader le produit';
 
   // Handle AI analysis
   const handleAiAnalyze = useCallback(async () => {
@@ -136,6 +160,14 @@ export default function UploadProductPage() {
         return;
       }
 
+      if (files.length > MAX_PRODUCT_IMAGE_COUNT) {
+        setMessage({
+          type: 'error',
+          text: getTooManyProductImagesMessage(),
+        });
+        return;
+      }
+
       // Validate ownerId (check both component state and form data)
       if (!ownerId || ownerId.trim() === '') {
         setMessage({
@@ -155,9 +187,11 @@ export default function UploadProductPage() {
         return;
       }
 
-      setUploading(true);
+      setUploadStep('preparing');
 
       try {
+        const uploadFiles = await prepareProductImagesForUpload(files);
+        setUploadStep('publishing');
         const formDataToSend = new FormData();
         formDataToSend.append('name', validation.validatedData.name!);
         formDataToSend.append('ownerId', ownerId);
@@ -186,7 +220,7 @@ export default function UploadProductPage() {
           'featured',
           String(validation.validatedData.featured || false)
         );
-        files.forEach((file) => {
+        uploadFiles.forEach((file) => {
           formDataToSend.append('images', file);
         });
 
@@ -195,10 +229,12 @@ export default function UploadProductPage() {
           body: formDataToSend,
         });
 
-        const data = await response.json();
+        const data = await readUploadApiResponse(response);
 
         if (!response.ok) {
-          throw new Error(data.error || "Erreur lors de l'upload");
+          throw new Error(
+            getUploadApiErrorMessage(data, "Erreur lors de l'upload")
+          );
         }
 
         setMessage({ type: 'success', text: 'Produit uploadé avec succès !' });
@@ -213,10 +249,13 @@ export default function UploadProductPage() {
         setMessage({
           type: 'error',
           text:
-            error instanceof Error ? error.message : "Erreur lors de l'upload",
+            getUploadExceptionMessage(
+              error,
+              "Erreur lors de l'upload. Essayez avec 3 images ou des photos moins lourdes."
+            ),
         });
       } finally {
-        setUploading(false);
+        setUploadStep('idle');
       }
     },
     [files, ownerId, validateAndPrepare, resetForm, clearAll]
@@ -280,6 +319,9 @@ export default function UploadProductPage() {
             <ImageUploadSection
               files={files}
               previews={previews}
+              currentCount={files.length}
+              error={imageUploadError}
+              maxFiles={MAX_PRODUCT_IMAGE_COUNT}
               onDrop={addFiles}
               onRemove={removeFile}
             />
@@ -303,7 +345,7 @@ export default function UploadProductPage() {
               disabled={uploading}
               className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 w-full rounded-md px-4 py-3 font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {uploading ? 'Upload en cours...' : 'Uploader le produit'}
+              {submitText}
             </button>
           </form>
         </div>

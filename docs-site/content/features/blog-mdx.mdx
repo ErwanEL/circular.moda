@@ -1,0 +1,135 @@
+---
+title: Blog MDX et contenu editorial
+---
+
+# Blog MDX et contenu editorial
+
+## Version simple
+
+Le blog permet de publier des articles depuis des fichiers MDX dans le depot.
+Chaque fichier devient un article public avec son slug, sa page detail, son
+image, son extrait, son auteur et ses metadata SEO.
+
+La page `/blog` liste les articles publies. Chaque article est disponible sur
+`/blog/[slug]`. Les articles peuvent afficher un hero, le contenu principal et
+des articles lies.
+
+Le blog est statique : les pages sont generees au build a partir des fichiers
+dans `content/blog`.
+
+## Version detaillee
+
+<details>
+<summary><strong>Source de contenu</strong></summary>
+
+Les articles vivent dans `content/blog/*.mdx`.
+
+Le nom du fichier devient le slug. Exemple :
+
+```text
+content/blog/mon-article.mdx -> /blog/mon-article
+```
+
+Le frontmatter controle les informations principales :
+
+- `title`
+- `excerpt`
+- `author`
+- `publishedAt`
+- `updatedAt`
+- `featuredImage`
+- `readTime`
+- `published`
+
+Seuls les articles avec `published: true` sont retournes par
+`getAllBlogArticles`.
+
+</details>
+
+<details>
+<summary><strong>Rendu des pages</strong></summary>
+
+La page `/blog` lit tous les articles publies, trie du plus recent au plus
+ancien et affiche l'article principal en carte mise en avant.
+
+La page `/blog/[slug]` :
+
+1. genere les slugs statiques avec `generateStaticParams` ;
+2. charge l'article par slug ;
+3. genere les metadata avec `generateBlogMetadata` ;
+4. rend `BlogHero`, `BlogContent` et `RelatedArticles`.
+
+`revalidate = false` indique que les articles sont pleinement statiques. Pour
+mettre un article a jour en production, il faut reconstruire/deployer le site.
+
+</details>
+
+<details>
+<summary><strong>Articles lies, tags et recherche</strong></summary>
+
+Le code contient des helpers pour :
+
+- recuperer les articles recents ;
+- chercher dans les titres, extraits et contenus ;
+- recuperer des articles lies ;
+- formater la date ;
+- calculer le temps de lecture.
+
+Le composant `BlogTags` existe pour une interface de tags, mais les articles
+charges actuellement initialisent `tags` avec un tableau vide dans `blog.ts`.
+Si on veut activer un vrai filtrage par tags, il faut lire les tags du
+frontmatter et verifier les composants `BlogFilter` / `BlogTags`.
+
+</details>
+
+<details>
+<summary><strong>SEO blog</strong></summary>
+
+Le blog genere :
+
+- metadata globales sur `/blog` ;
+- metadata dynamiques pour chaque article ;
+- Open Graph type `article` ;
+- image sociale quand `featuredImage` existe ;
+- entree sitemap pour chaque article publie.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Ajouter ou modifier un article | [`content/blog/`](../../../content/blog) |
+| Lire les consignes de contenu blog | [`content/blog/README.md`](../../../content/blog/README.md) |
+| Modifier la page liste blog | [`src/app/blog/page.tsx`](../../../src/app/blog/page.tsx) |
+| Modifier la page detail article | [`src/app/blog/[slug]/page.tsx`](../../../src/app/blog/[slug]/page.tsx) |
+| Modifier les helpers blog | [`src/app/lib/blog.ts`](../../../src/app/lib/blog.ts) |
+| Modifier le type article | [`src/app/lib/types.ts`](../../../src/app/lib/types.ts) |
+| Modifier la carte article | [`src/app/ui/blog-card.tsx`](../../../src/app/ui/blog-card.tsx) |
+| Modifier le hero article | [`src/app/ui/blog-hero.tsx`](../../../src/app/ui/blog-hero.tsx) |
+| Modifier le rendu contenu | [`src/app/ui/blog-content.tsx`](../../../src/app/ui/blog-content.tsx) |
+| Modifier les articles lies | [`src/app/ui/related-articles.tsx`](../../../src/app/ui/related-articles.tsx) |
+| Modifier tags/filtres blog | [`src/app/ui/blog-tags.tsx`](../../../src/app/ui/blog-tags.tsx) et [`src/app/ui/blog-filter.tsx`](../../../src/app/ui/blog-filter.tsx) |
+| Lire la doc historique blog | [`BLOG_README.md`](../../../BLOG_README.md) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ajouter ou modifier un fichier `.mdx` dans `content/blog`.
+2. Verifier que `published: true` est present.
+3. Ouvrir `/blog`.
+4. Ouvrir `/blog/[slug]`.
+5. Verifier le hero, le contenu, les articles lies et les metadata.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

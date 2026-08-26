@@ -1,0 +1,227 @@
+---
+title: Mise en relation WhatsApp
+---
+
+# Mise en relation WhatsApp
+
+## Version simple
+
+La mise en relation WhatsApp est un MVP concierge : l'acheteuse clique sur le
+bouton produit, l'application cree une demande avec un code court, puis ouvre
+WhatsApp vers Circular avec ce code et les infos de la prenda.
+
+Circular reste le point d'entree. Le numero de la vendeuse n'est pas expose sur
+la page publique. Depuis `/admin/introductions`, l'admin retrouve la demande,
+complete le nom/telephone de l'acheteuse, puis utilise des templates prets a
+copier ou a ouvrir dans WhatsApp.
+
+Le systeme n'envoie pas encore de messages automatiquement et ne cree pas de
+groupe WhatsApp automatiquement. Ces actions restent manuelles.
+
+## Version detaillee
+
+<details>
+<summary><strong>Flux utilisateur</strong></summary>
+
+Flux public :
+
+1. L'acheteuse ouvre une fiche `/products/[slug]`.
+2. Elle clique sur `Hacer una oferta al vendedor`.
+3. Le composant `ProductInterestButton` appelle `POST /api/product-interest`.
+4. L'API retrouve le produit et cree une ligne dans
+   `product_interest_requests`.
+5. L'API renvoie un lien `wa.me` vers le WhatsApp Circular.
+6. Le navigateur ouvre WhatsApp avec un message contenant le code, le SKU,
+   la taille, la couleur et le lien produit.
+
+Si l'API echoue, par exemple parce que la table Supabase n'a pas encore ete
+creee, le bouton retombe sur l'ancien message WhatsApp sans code. L'achat ne
+doit donc pas etre bloque par le MVP de suivi.
+
+</details>
+
+<details>
+<summary><strong>Flux admin</strong></summary>
+
+La page `/admin/introductions` est un outil local. Elle renvoie une 404 si la
+requete ne vient pas de `localhost`, `127.0.0.1` ou `::1`.
+
+Elle charge les demandes via :
+
+```http
+GET /api/admin/introductions
+```
+
+Elle permet de :
+
+- filtrer par statut ;
+- rechercher par code, SKU, vendeuse, acheteuse ou telephone ;
+- completer `buyer_name` et `buyer_phone` ;
+- ajouter des notes internes ;
+- confirmer la disponibilite apres retour vendeuse ;
+- changer le statut ;
+- supprimer une demande de test ou invalide ;
+- copier les templates ;
+- ouvrir WhatsApp avec le message vendeuse ou acheteuse.
+
+Le message de groupe est uniquement copiable, car WhatsApp Web/app ne permet pas
+de creer proprement un groupe depuis une URL `wa.me`.
+
+</details>
+
+<details>
+<summary><strong>Templates</strong></summary>
+
+Les templates vivent dans `src/app/lib/product-interest.ts`.
+
+Templates actuels :
+
+- message a la vendeuse ;
+- message a l'acheteuse ;
+- message de groupe.
+
+Ils utilisent :
+
+- le code de demande ;
+- le SKU ;
+- le nom de la prenda ;
+- la taille et la couleur ;
+- le nom de la vendeuse ;
+- le nom de l'acheteuse si l'admin l'a complete ;
+- l'etat de disponibilite.
+
+Le vocabulaire actuel suppose une acheteuse et une vendeuse, ce qui correspond
+au cas d'usage principal du projet.
+
+</details>
+
+<details>
+<summary><strong>Donnees Supabase</strong></summary>
+
+La verification prealable en lecture seule est documentee dans :
+
+```text
+docs/sql/product-interest-requests-preflight.sql
+```
+
+La table a creer est documentee dans :
+
+```text
+docs/sql/product-interest-requests.sql
+```
+
+Table principale :
+
+```text
+product_interest_requests
+```
+
+Champs importants :
+
+- `code` : code court envoye dans WhatsApp ;
+- `product_id`, `product_sku`, `product_slug`, `product_name` : snapshot
+  produit ;
+- `seller_id` : lien vers `users.id` ;
+- `buyer_name`, `buyer_phone` : complete manuellement dans l'admin ;
+- `status` : progression de la mise en relation ;
+- `availability_confirmed` : `false` par defaut, passe a `true` quand la
+  vendeuse confirme la disponibilite ;
+- `whatsapp_message` : message public genere pour Circular ;
+- `notes` : notes internes.
+
+La table active RLS sans policy. Les appels passent par les routes API serveur
+avec le client Supabase service role quand il est configure.
+
+</details>
+
+<details>
+<summary><strong>Statuts</strong></summary>
+
+Statuts supportes :
+
+- `new` : demande recue ;
+- `seller_contacted` : vendeuse contactee ;
+- `buyer_contacted` : acheteuse contactee ;
+- `group_created` : groupe cree manuellement ;
+- `sale_coordinated` : vente coordonnee ;
+- `cancelled` : abandon ou erreur.
+
+Les labels visibles dans l'admin sont definis dans
+`INTRODUCTION_STATUS_LABELS`.
+
+</details>
+
+<details>
+<summary><strong>Protection et confidentialite</strong></summary>
+
+Le endpoint public `POST /api/product-interest` ne renvoie pas le telephone de
+la vendeuse. Il renvoie seulement le code, le message et le lien WhatsApp vers
+Circular.
+
+Les endpoints admin exposent les numeros vendeurs pour permettre la mise en
+relation. Ils suivent le niveau de protection actuel du back-office admin, mais
+la zone doit etre renforcee avant une ouverture plus large :
+
+- session admin ;
+- role admin ;
+- allowlist email ;
+- ou secret d'acces admin.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier le bouton public de demande | [`src/app/ui/product-interest-button.tsx`](../../../src/app/ui/product-interest-button.tsx) |
+| Modifier le detail produit | [`src/app/ui/product-detail.tsx`](../../../src/app/ui/product-detail.tsx) |
+| Modifier templates, statuts et liens WhatsApp | [`src/app/lib/product-interest.ts`](../../../src/app/lib/product-interest.ts) |
+| Tester les helpers de templates | [`src/app/lib/product-interest.test.mjs`](../../../src/app/lib/product-interest.test.mjs) |
+| Modifier l'API publique de creation | [`src/app/api/product-interest/route.ts`](../../../src/app/api/product-interest/route.ts) |
+| Modifier la liste admin | [`src/app/api/admin/introductions/route.ts`](../../../src/app/api/admin/introductions/route.ts) |
+| Modifier la mise a jour ou suppression admin | [`src/app/api/admin/introductions/[id]/route.ts`](../../../src/app/api/admin/introductions/[id]/route.ts) |
+| Modifier l'interface admin | [`src/app/admin/introductions/page.tsx`](../../../src/app/admin/introductions/page.tsx) |
+| Modifier la garde locale du panel admin | [`src/app/lib/local-admin-access.ts`](../../../src/app/lib/local-admin-access.ts) |
+| Verifier la base avant migration | [`docs/sql/product-interest-requests-preflight.sql`](../../../docs/sql/product-interest-requests-preflight.sql) |
+| Creer la table Supabase | [`docs/sql/product-interest-requests.sql`](../../../docs/sql/product-interest-requests.sql) |
+| Corriger le defaut de disponibilite apres migration | [`docs/sql/product-interest-requests-set-availability-default.sql`](../../../docs/sql/product-interest-requests-set-availability-default.sql) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Preparation :
+
+1. Executer `docs/sql/product-interest-requests-preflight.sql` dans Supabase.
+2. Verifier que les tables `products` et `users` existent avec les colonnes attendues.
+3. Executer `docs/sql/product-interest-requests.sql` dans Supabase.
+4. Si la migration avait deja ete executee avec l'ancien defaut de disponibilite,
+   executer `docs/sql/product-interest-requests-set-availability-default.sql`.
+5. Verifier que `SUPABASE_SERVICE_ROLE_KEY` est configuree cote serveur.
+
+Tests manuels :
+
+1. Ouvrir une fiche produit.
+2. Cliquer sur `Hacer una oferta al vendedor`.
+3. Verifier que WhatsApp s'ouvre avec un code `INT-...`.
+4. Ouvrir `/admin/introductions`.
+5. Verifier que la demande apparait.
+6. Completer le nom et le telephone de l'acheteuse.
+7. Confirmer la disponibilite seulement apres retour vendeuse.
+8. Ouvrir le WhatsApp vendeuse depuis le template 1.
+9. Ouvrir le WhatsApp acheteuse depuis le template 2.
+10. Copier le message de groupe.
+11. Changer le statut jusqu'a `Grupo creado` ou `Venta coordinada`.
+12. Supprimer les demandes de test depuis le bouton `Supprimer`.
+
+Tests techniques :
+
+```bash
+npm run test
+npm run build
+npm run docs:build
+```
+
+</details>

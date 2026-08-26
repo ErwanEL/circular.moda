@@ -1,0 +1,154 @@
+---
+title: Produits mis en avant
+---
+
+# Produits mis en avant
+
+## Version simple
+
+Les produits mis en avant sont les produits avec `featured = true` dans
+Supabase.
+
+Ils apparaissent dans le bloc `Destacados` en haut du catalogue `/products`.
+La selection se fait avec des scripts : on genere d'abord des planches visuelles
+pour choisir les produits, puis on applique un batch de SKUs dans Supabase.
+
+Comme cette feature modifie le catalogue public, elle est liee au cache Next.js
+et a l'ISR. Apres modification du flag `featured`, le catalogue doit etre
+revalide.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Supabase Postgres** stocke le flag `products.featured`.
+- **Next.js App Router** affiche le bloc `Destacados`.
+- **Next.js cache / ISR** garde la liste pendant environ 5 minutes.
+- **Scripts Node** aident a selectionner et appliquer les batches.
+- **Sharp** sert a generer les contact sheets.
+
+</details>
+
+<details>
+<summary><strong>Affichage cote site</strong></summary>
+
+La page `/products` charge les produits mis en avant via
+`getFeaturedProductsList`.
+
+Le composant `FeaturedProducts` :
+
+- ne rend rien si la liste est vide ;
+- affiche un titre `Destacados` ;
+- affiche le nombre de produits mis en avant ;
+- rend une ligne horizontale scrollable ;
+- utilise `DraggableCarousel` pour permettre le drag a la souris sur desktop ;
+- reutilise les cartes catalogue classiques avec la prop `featured`.
+
+La carte standard ajoute un style visuel quand `featured` est vrai.
+
+</details>
+
+<details>
+<summary><strong>Workflow de selection</strong></summary>
+
+Workflow recommande :
+
+1. Recuperer ou rafraichir le cache local des produits.
+2. Generer des contact sheets pour inspecter les visuels.
+3. Choisir une liste de SKUs.
+4. Lancer `featured:apply` sans `--apply` pour preview.
+5. Lancer `featured:apply` avec `--apply` pour ecrire dans Supabase.
+6. Revalider le catalogue si necessaire.
+
+Commandes :
+
+```bash
+npm run fetch:products
+npm run featured:contact-sheets -- --min-id=1000 --limit=120
+npm run featured:apply -- --skus=SKU-001344,SKU-001337
+npm run featured:apply -- --apply --skus=SKU-001344,SKU-001337
+```
+
+Le script d'application vide d'abord les produits deja `featured`, puis marque
+les SKUs selectionnes comme `featured = true`. Il verifie ensuite que le resultat
+final correspond exactement au batch attendu.
+
+</details>
+
+<details>
+<summary><strong>Cache et ISR</strong></summary>
+
+`getFeaturedProductsList` utilise `unstable_cache` avec :
+
+- cle `['products', 'featured']` ;
+- tag global `products` ;
+- `PRODUCTS_ISR_SECONDS = 300`.
+
+Si la modification est faite par les routes applicatives, la revalidation est
+declenchee automatiquement. Si la modification est faite par script direct
+Supabase, il faut prevoir une revalidation manuelle ou accepter le fallback ISR
+de 5 minutes.
+
+Endpoint disponible :
+
+```bash
+curl -X POST https://<deployment-domain>/api/revalidate \
+  -H "content-type: application/json" \
+  -H "x-revalidate-secret: YOUR_SECRET" \
+  -d '{"paths":["/products"]}'
+```
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier la requete featured Supabase | [`src/app/lib/supabase-products.ts`](../../../src/app/lib/supabase-products.ts) |
+| Modifier le helper cache featured | [`src/app/lib/products.ts`](../../../src/app/lib/products.ts) |
+| Modifier le bloc `Destacados` | [`src/app/products/components/featured-products.tsx`](../../../src/app/products/components/featured-products.tsx) |
+| Modifier le drag horizontal | [`src/app/products/components/draggable-carousel.tsx`](../../../src/app/products/components/draggable-carousel.tsx) |
+| Modifier le style carte featured | [`src/app/ui/card.tsx`](../../../src/app/ui/card.tsx) |
+| Generer les contact sheets | [`scripts/build-featured-contact-sheets.mjs`](../../../scripts/build-featured-contact-sheets.mjs) |
+| Appliquer un batch Supabase | [`scripts/apply-featured-products.mjs`](../../../scripts/apply-featured-products.mjs) |
+| Revalider le catalogue | [`src/app/api/revalidate/route.ts`](../../../src/app/api/revalidate/route.ts) |
+| Lire les notes business | [`docs/business/README.md`](../../../docs/business/README.md) |
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement</strong></summary>
+
+Pour les scripts :
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- fallback possible dans le script : `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+Pour la revalidation externe :
+
+- `REVALIDATE_SECRET`
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Appliquer un batch de test en dry-run.
+2. Appliquer avec `--apply` seulement si le dry-run est correct.
+3. Ouvrir `/products`.
+4. Verifier que `Destacados` affiche les bons produits.
+5. Modifier le batch et verifier que les anciens featured disparaissent.
+6. Verifier que la page se met a jour apres revalidation ou apres le delai ISR.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

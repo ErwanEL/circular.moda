@@ -1,34 +1,73 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
+import type { DragEvent } from 'react';
 import { useDropzone } from 'react-dropzone';
 import {
+  HiArrowLeft,
+  HiArrowRight,
   HiArrowUpTray,
   HiCheckCircle,
+  HiExclamationTriangle,
   HiPhoto,
   HiSparkles,
   HiXMark,
 } from 'react-icons/hi2';
+import {
+  MAX_PRODUCT_IMAGE_COUNT,
+  PRODUCT_IMAGE_UPLOAD_HELP_TEXT,
+} from '@/app/lib/client-upload';
 
 interface ImageUploadSectionEsProps {
   files: File[];
   previews: string[];
+  currentCount?: number;
+  error?: string | null;
+  maxFiles?: number;
   onDrop: (acceptedFiles: File[]) => void;
   onRemove: (index: number) => void;
+  onMove?: (fromIndex: number, toIndex: number) => void;
 }
 
 export function ImageUploadSectionEs({
   files,
   previews,
+  currentCount,
+  error,
+  maxFiles = MAX_PRODUCT_IMAGE_COUNT,
   onDrop,
   onRemove,
+  onMove,
 }: ImageUploadSectionEsProps) {
+  const displayedCount = currentCount ?? files.length;
+  const isLimitReached = displayedCount >= maxFiles;
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    disabled: isLimitReached,
     onDrop,
     multiple: true,
   });
 
   const hasImages = previews.length > 0;
+
+  function moveImage(fromIndex: number, toIndex: number) {
+    onMove?.(fromIndex, toIndex);
+  }
+
+  function handleDragStart(
+    event: DragEvent<HTMLDivElement>,
+    index: number
+  ) {
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', String(index));
+  }
+
+  function handleDrop(event: DragEvent<HTMLDivElement>, index: number) {
+    event.preventDefault();
+    const fromIndex = Number(event.dataTransfer.getData('text/plain'));
+    if (Number.isInteger(fromIndex)) {
+      moveImage(fromIndex, index);
+    }
+  }
 
   return (
     <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800">
@@ -45,20 +84,25 @@ export function ImageUploadSectionEs({
               Mostrá la prenda completa, un detalle de la tela y cualquier marca
               o particularidad.
             </p>
+            <p className="mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+              {PRODUCT_IMAGE_UPLOAD_HELP_TEXT}
+            </p>
           </div>
         </div>
         <span className="inline-flex w-fit items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700 dark:bg-gray-700 dark:text-gray-200">
           <HiCheckCircle className="text-primary-800 h-4 w-4" />
-          {files.length} foto{files.length !== 1 ? 's' : ''}
+          {displayedCount}/{maxFiles} fotos
         </span>
       </div>
 
       <div
         {...getRootProps()}
-        className={`group cursor-pointer rounded-lg border-2 border-dashed p-4 transition sm:p-5 ${
-          isDragActive
-            ? 'border-primary-800 bg-primary-100 dark:bg-primary-900/20'
-            : 'hover:border-primary-700 hover:bg-primary-100/40 border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-900'
+        className={`group rounded-lg border-2 border-dashed p-4 transition sm:p-5 ${
+          isLimitReached
+            ? 'cursor-not-allowed border-gray-300 bg-gray-100 opacity-80 dark:border-gray-600 dark:bg-gray-900'
+            : isDragActive
+              ? 'cursor-pointer border-primary-800 bg-primary-100 dark:bg-primary-900/20'
+              : 'hover:border-primary-700 hover:bg-primary-100/40 cursor-pointer border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-900'
         }`}
       >
         <input {...getInputProps()} />
@@ -88,7 +132,11 @@ export function ImageUploadSectionEs({
           </div>
 
           <div className="space-y-4 rounded-lg bg-white p-4 shadow-sm dark:bg-gray-800">
-            {isDragActive ? (
+            {isLimitReached ? (
+              <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+                Ya tenés {maxFiles} fotos. Quitá una si querés cambiarla.
+              </p>
+            ) : isDragActive ? (
               <p className="text-primary-900 dark:text-primary-300 text-sm font-semibold">
                 Soltá las imágenes acá...
               </p>
@@ -103,7 +151,7 @@ export function ImageUploadSectionEs({
                   la publicación.
                 </p>
                 <p className="rounded-lg bg-gray-50 px-3 py-2 text-xs text-gray-500 dark:bg-gray-900 dark:text-gray-400">
-                  Cualquier formato de imagen
+                  Elegí hasta {maxFiles} fotos
                 </p>
               </>
             )}
@@ -111,11 +159,25 @@ export function ImageUploadSectionEs({
         </div>
       </div>
 
+      {error && (
+        <div
+          className="mt-4 flex gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-300"
+          role="alert"
+        >
+          <HiExclamationTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
+
       {previews.length > 0 && (
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
           {previews.map((preview, index) => (
             <div
               key={preview}
+              draggable={Boolean(onMove)}
+              onDragStart={(event) => handleDragStart(event, index)}
+              onDragOver={(event) => event.preventDefault()}
+              onDrop={(event) => handleDrop(event, index)}
               className="group relative overflow-hidden rounded-lg border border-gray-200 bg-gray-100 dark:border-gray-700"
             >
               <img
@@ -123,6 +185,21 @@ export function ImageUploadSectionEs({
                 alt={`Vista previa ${index + 1}`}
                 className="h-32 w-full object-cover transition group-hover:scale-105"
               />
+              <div className="absolute top-2 left-2 flex flex-wrap gap-1">
+                {index === 0 ? (
+                  <span className="rounded-full bg-rose-600 px-2 py-1 text-[11px] font-bold text-white shadow">
+                    Portada
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => moveImage(index, 0)}
+                    className="rounded-full bg-white/95 px-2 py-1 text-[11px] font-bold text-gray-800 shadow transition hover:bg-rose-50 hover:text-rose-700"
+                  >
+                    Usar como portada
+                  </button>
+                )}
+              </div>
               <button
                 type="button"
                 onClick={() => onRemove(index)}
@@ -134,6 +211,28 @@ export function ImageUploadSectionEs({
               <div className="absolute right-0 bottom-0 left-0 bg-black/60 px-2 py-1 text-xs text-white">
                 <span className="line-clamp-1">{files[index]?.name}</span>
               </div>
+              {onMove && previews.length > 1 && (
+                <div className="absolute right-2 bottom-8 flex gap-1">
+                  <button
+                    type="button"
+                    onClick={() => moveImage(index, index - 1)}
+                    disabled={index === 0}
+                    aria-label={`Mover foto ${index + 1} a la izquierda`}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-700 shadow transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-45"
+                  >
+                    <HiArrowLeft className="h-4 w-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => moveImage(index, index + 1)}
+                    disabled={index === previews.length - 1}
+                    aria-label={`Mover foto ${index + 1} a la derecha`}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-700 shadow transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-45"
+                  >
+                    <HiArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>

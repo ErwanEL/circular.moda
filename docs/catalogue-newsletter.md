@@ -22,6 +22,8 @@ This is not a Brevo visual automation. The app decides who is due, fetches produ
 
 - Lead magnet UI:
   - `src/app/ui/catalogue-newsletter-card.tsx`
+  - inline card in the catalogue grid, no modal/popup
+  - current short CTA copy: `Recibí las novedades del catálogo`
 - Subscribe route:
   - `src/app/api/catalogue-subscribe/route.ts`
 - Immediate test-send route:
@@ -94,11 +96,14 @@ Make sure `BREVO_SENDER_EMAIL` is a sender address accepted by your Brevo accoun
 
 When a user subscribes from the catalogue card:
 
-1. The client calls `POST /api/catalogue-subscribe`
-2. The route validates and normalizes the email
-3. The route upserts the contact into Brevo list `3`
-4. The route upserts a local row into `catalogue_subscriptions`
-5. `next_send_at` is set to the same calendar day next month in `America/Argentina/Buenos_Aires`
+1. The user enters an email directly in the inline catalogue card.
+2. The UI keeps the copy, input, and submit button inside the image area so the
+   card stays close to the product-card height.
+3. The client calls `POST /api/catalogue-subscribe`.
+4. The route validates and normalizes the email.
+5. The route upserts the contact into Brevo list `3`.
+6. The route upserts a local row into `catalogue_subscriptions`.
+7. `next_send_at` is set to the same calendar day next month in `America/Argentina/Buenos_Aires`.
 
 If the email is already actively subscribed:
 
@@ -318,4 +323,3 @@ Before relying on the monthly automation in production:
 5. Confirm `NEWSLETTER_TOKEN_SECRET` is set
 6. Confirm the Brevo webhook points to `/api/webhooks/brevo-transactional`
 7. Send one manual test email through `/api/catalogue-test-send`
-

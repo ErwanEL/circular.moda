@@ -45,6 +45,9 @@ Zone de drag & drop pour les images :
 - Gestion du dropzone
 - Preview des images
 - Suppression d'images
+- Compteur d'images `x/5`
+- Blocage visuel quand la limite est atteinte
+- Message d'erreur si l'utilisateur selectionne trop d'images
 
 ## Hooks
 
@@ -65,14 +68,51 @@ Gère l'état et la validation du formulaire :
 Gère l'upload d'images :
 - `files` - Liste des fichiers
 - `previews` - URLs de prévisualisation
+- `error` - Message d'erreur local de selection
 - `addFiles()` - Ajouter des fichiers
 - `removeFile()` - Supprimer un fichier
 - `clearAll()` - Tout effacer
+
+Par defaut, le hook applique `MAX_PRODUCT_IMAGE_COUNT = 5`, defini dans
+`src/app/lib/client-upload.ts`. Il refuse d'ajouter des fichiers si la selection
+depasse la limite et ne fait pas d'ajout partiel. En edition produit, l'appelant
+peut passer `maxFiles` pour tenir compte des images deja existantes.
 
 ### `use-ai-analysis.ts`
 Gère l'analyse AI :
 - `analyzing` - État de chargement
 - `analyze()` - Lancer l'analyse avec description et images
+
+Le flux IA utilise aussi `prepareProductImagesForUpload()` avant d'envoyer les
+images a `/api/admin/ai-analyze-product`, donc les memes limites de nombre et de
+poids s'appliquent.
+
+## Preparation client des images
+
+Avant l'appel API, `page.tsx` prepare les images avec
+`prepareProductImagesForUpload()` depuis `src/app/lib/client-upload.ts`.
+
+Cette preparation :
+- bloque toute soumission au-dela de 5 images ;
+- compresse les images supportees via les APIs navigateur (`createImageBitmap`
+  ou `Image`, puis `canvas.toBlob('image/jpeg')`) ;
+- vise environ 650 KB par image quand c'est possible ;
+- verifie que le body total reste sous `MAX_UPLOAD_BODY_BYTES = 3_800_000` ;
+- affiche `Preparation des images...` avant `Upload en cours...` ;
+- transforme les erreurs non JSON ou les erreurs reseau generiques en messages
+  actionnables.
+
+Cette limite existe parce que le flux actuel envoie les images au serveur Next
+avant Supabase :
+
+```
+navigateur -> route API Next.js / Vercel Function -> Supabase Storage
+```
+
+La limite Vercel Function est 4.5 MB pour le body. Le seuil local de 3.8 MB
+garde une marge pour les champs texte et l'overhead multipart. L'upload direct
+vers Supabase Storage n'est pas encore implemente ; il permettra plus tard de
+revoir la limite de photos sans faire transiter les fichiers par Vercel.
 
 ## Utilitaires
 
@@ -97,10 +137,21 @@ Le composant principal `page.tsx` utilise tous ces hooks et composants de maniè
 ```tsx
 const colors = useColors();
 const { formData, updateField, validateAndPrepare } = useProductForm({...});
-const { files, addFiles, removeFile } = useImageUpload();
+const { files, error, addFiles, removeFile } = useImageUpload();
 const { analyzing, analyze } = useAiAnalysis();
 ```
 
 Cela rend le code principal beaucoup plus lisible et maintenable.
+
+## Tests utiles
+
+```bash
+npm run test
+npm run build
+```
+
+Les tests unitaires de `src/app/lib/client-upload.test.mjs` couvrent notamment
+le parsing des erreurs non JSON, le blocage des selections trop longues et les
+messages d'erreur reseau.
 
 

@@ -1,0 +1,148 @@
+---
+title: Securite et permissions
+---
+
+# Securite et permissions
+
+## Version simple
+
+La securite du site repose surtout sur Supabase Auth, le middleware Next.js et
+des secrets serveur.
+
+Les pages vendeur connecte `/me` et `/welcome` sont protegees par middleware.
+Les routes vendeur verifient aussi la session Supabase et filtrent les produits
+par proprietaire.
+
+Certaines routes sensibles utilisent des secrets, comme le cron newsletter ou
+la revalidation externe. Les routes admin existent, mais le code lu ne montre
+pas encore de garde admin dediee dans chaque endpoint.
+
+## Version detaillee
+
+<details>
+<summary><strong>Protection des pages connectees</strong></summary>
+
+Le middleware matche actuellement :
+
+- `/me/:path*`
+- `/welcome`
+
+Il appelle `updateSession`, qui cree un client Supabase SSR, lit les claims, et
+redirige vers `/login` si l'utilisateur n'est pas connecte.
+
+Si un utilisateur connecte tente d'aller vers `/login` ou `/auth`, il est
+redirige vers `/me`.
+
+</details>
+
+<details>
+<summary><strong>Routes vendeur</strong></summary>
+
+Les routes vendeur utilisent `createClient()` cote serveur pour lire
+`supabase.auth.getUser()`.
+
+Routes concernees :
+
+- `GET /api/me`
+- `PUT /api/me`
+- `POST /api/me/upload-product`
+- `GET /api/me/products/[id]`
+- `PUT /api/me/products/[id]`
+- `DELETE /api/me/products/[id]`
+
+Pour les produits, les requetes filtrent par `owner = userData.id`. Cela evite
+qu'un vendeur modifie ou supprime un produit qui ne lui appartient pas.
+
+</details>
+
+<details>
+<summary><strong>Secrets serveur</strong></summary>
+
+Secrets utilises par des routes sensibles :
+
+- `CRON_SECRET` protege `GET /api/cron/send-catalogue`.
+- `REVALIDATE_SECRET` protege `POST /api/revalidate`.
+- `NEWSLETTER_TEST_SECRET` ou `CRON_SECRET` protege l'envoi de test newsletter.
+- `NEWSLETTER_TOKEN_SECRET` signe les liens de desinscription.
+- `SUPABASE_SERVICE_ROLE_KEY` permet les operations serveur/scripts privilegiees.
+- `BREVO_API_KEY` permet les appels Brevo.
+- `OPENAI_API_KEY` permet l'analyse IA produit.
+
+Ne jamais exposer ces valeurs dans la documentation, les logs ou le frontend.
+
+</details>
+
+<details>
+<summary><strong>Routes admin</strong></summary>
+
+Routes admin actuelles :
+
+- `GET /api/admin/users`
+- `POST /api/admin/users`
+- `POST /api/admin/upload-product`
+- `POST /api/admin/ai-analyze-product`
+
+Le code lu ne montre pas de verification de role admin dans ces routes. Avant
+de renforcer ou exposer cette zone, choisir une strategie claire :
+
+- session Supabase obligatoire ;
+- role admin en table ;
+- allowlist email ;
+- middleware dedie ;
+- ou secret serveur pour usage interne.
+
+Ce point est prioritaire si le back-office doit rester accessible en production.
+
+</details>
+
+<details>
+<summary><strong>Webhooks et endpoints publics</strong></summary>
+
+Le webhook Brevo transactionnel accepte des evenements et met a jour Supabase.
+Le code lu ne montre pas de verification de signature Brevo. Si Brevo fournit
+une signature/verif webhook configurable, l'ajouter avant d'elargir son usage.
+
+`/api/image` est public mais limite les URLs autorisees aux objets publics
+Supabase Storage du projet.
+
+`/api/catalogue-subscribe` est public par nature, mais doit rester prudent sur
+les messages d'erreur et les rollbacks Brevo/Supabase.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier le matcher middleware | [`src/middleware.ts`](../../../src/middleware.ts) |
+| Modifier la session Supabase SSR | [`src/app/lib/supabase/proxy.ts`](../../../src/app/lib/supabase/proxy.ts) |
+| Modifier le client server Supabase | [`src/app/lib/supabase/server.ts`](../../../src/app/lib/supabase/server.ts) |
+| Modifier le client browser Supabase | [`src/app/lib/supabase/client.ts`](../../../src/app/lib/supabase/client.ts) |
+| Modifier les routes vendeur | [`src/app/api/me/route.ts`](../../../src/app/api/me/route.ts) et [`src/app/api/me/products/[id]/route.ts`](../../../src/app/api/me/products/[id]/route.ts) |
+| Modifier les routes admin | [`src/app/api/admin/users/route.ts`](../../../src/app/api/admin/users/route.ts), [`src/app/api/admin/upload-product/route.ts`](../../../src/app/api/admin/upload-product/route.ts) et [`src/app/api/admin/ai-analyze-product/route.ts`](../../../src/app/api/admin/ai-analyze-product/route.ts) |
+| Modifier la protection cron newsletter | [`src/app/api/cron/send-catalogue/route.ts`](../../../src/app/api/cron/send-catalogue/route.ts) |
+| Modifier la protection revalidation | [`src/app/api/revalidate/route.ts`](../../../src/app/api/revalidate/route.ts) |
+| Modifier le webhook Brevo | [`src/app/api/webhooks/brevo-transactional/route.ts`](../../../src/app/api/webhooks/brevo-transactional/route.ts) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ouvrir `/me` deconnecte : redirection vers `/login`.
+2. Ouvrir `/welcome` deconnecte : redirection vers `/login`.
+3. Appeler une route `/api/me/*` deconnecte : 401 attendu.
+4. Tenter de modifier un produit d'un autre vendeur : 404 ou refus attendu.
+5. Appeler `/api/revalidate` avec mauvais secret : 401 attendu.
+6. Appeler le cron sans `Authorization: Bearer CRON_SECRET` : 401 attendu.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

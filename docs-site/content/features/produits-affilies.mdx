@@ -1,0 +1,121 @@
+---
+title: Produits affilies
+---
+
+# Produits affilies
+
+## Version simple
+
+Les produits affilies sont des cartes sponsorisees affichees dans la grille du
+catalogue `/products`.
+
+Ils ne viennent pas de Supabase. Ils sont definis dans le code, utilisent des
+images locales dans `public/affiliate/`, et renvoient vers des liens externes
+Temu.
+
+Ces cartes doivent rester separees du vrai catalogue :
+
+- pas de page detail produit ;
+- pas de presence dans `/api/products` ;
+- pas de presence dans le sitemap ;
+- pas de presence dans la newsletter catalogue ;
+- label visible `Patrocinado`.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Next.js client components** pour injecter les cartes dans la grille.
+- **Assets locaux** dans `public/affiliate/`.
+- **Programme affilie externe** pour les URLs sortantes.
+- **Catalogue Supabase** uniquement comme contexte d'affichage : les produits
+  affilies ne sont pas stockes dans la table `products`.
+
+</details>
+
+<details>
+<summary><strong>Fonctionnement</strong></summary>
+
+La source de verite est `AFFILIATE_PRODUCTS`.
+
+Chaque produit contient :
+
+- `id`, prefixe par `aff-` pour eviter les collisions avec les produits reels ;
+- `source`, aujourd'hui `temu` ;
+- `url`, lien externe ;
+- `title` ;
+- `priceArs` ;
+- `salesLabel` ;
+- `image`, chemin local sous `public/` ;
+- `category`.
+
+L'insertion se fait dans `ProductsGridInfinite`. Avant certains produits
+organiques, le composant appelle `affiliateProductBeforeIndex(index)`.
+
+La cadence actuelle est definie par `AFFILIATE_DISPLAY` :
+
+- premiere carte apres 20 produits organiques ;
+- puis une carte tous les 24 produits ;
+- pas de rendu avant d'avoir charge au moins 20 produits.
+
+Les cartes tournent dans l'ordre du tableau `AFFILIATE_PRODUCTS`.
+
+</details>
+
+<details>
+<summary><strong>Regles a respecter</strong></summary>
+
+Ces cartes sont des contenus sponsorises, pas des produits du marketplace.
+
+Ne pas les ajouter :
+
+- a la table `products` ;
+- aux filtres Supabase ;
+- a `/api/products` ;
+- au sitemap ;
+- aux pages `/products/[slug]` ;
+- aux emails mensuels de la newsletter catalogue.
+
+Le label `Patrocinado` doit rester visible sur chaque carte. Si on ajoute un
+nouveau programme affilie, documenter aussi la source et les obligations de
+disclosure.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Ajouter ou modifier les produits affilies | [`src/app/lib/affiliate-products.ts`](../../../src/app/lib/affiliate-products.ts) |
+| Modifier la carte sponsorisee | [`src/app/ui/affiliate-product-card.tsx`](../../../src/app/ui/affiliate-product-card.tsx) |
+| Modifier la cadence d'insertion | [`src/app/products/components/products-grid-infinite.tsx`](../../../src/app/products/components/products-grid-infinite.tsx) |
+| Ajouter/remplacer les images locales | [`public/affiliate/`](../../../public/affiliate) |
+| Verifier que les affilies restent exclus du sitemap | [`src/app/sitemap.ts`](../../../src/app/sitemap.ts) |
+| Verifier que les affilies restent exclus de l'API produits | [`src/app/api/products/route.ts`](../../../src/app/api/products/route.ts) |
+| Verifier que les affilies restent exclus de la newsletter | [`src/app/api/cron/send-catalogue/route.ts`](../../../src/app/api/cron/send-catalogue/route.ts) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ouvrir `/products`.
+2. Charger assez de produits pour depasser le seuil `AFFILIATE_DISPLAY.start`.
+3. Verifier que la carte sponsorisee apparait dans la grille.
+4. Verifier le label `Patrocinado`.
+5. Cliquer la carte et verifier l'ouverture du lien externe dans un nouvel
+   onglet.
+6. Verifier que `/api/products` ne contient pas les ids `aff-*`.
+7. Verifier que `/sitemap.xml` ne contient pas les URLs affiliees.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>
