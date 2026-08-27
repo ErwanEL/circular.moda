@@ -5,6 +5,7 @@ export default {
   },
   'getting-started': 'Demarrage local',
   project: 'Projet',
+  business: 'Business',
   agents: 'Agents',
   features: 'Features',
   'supabase-products': 'Produits Supabase',
