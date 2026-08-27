@@ -27,10 +27,49 @@ donnees utilisees en production.
 | Generer contact sheets featured | `npm run featured:contact-sheets` | [`scripts/build-featured-contact-sheets.mjs`](../../../scripts/build-featured-contact-sheets.mjs) |
 | Appliquer produits featured | `npm run featured:apply` | [`scripts/apply-featured-products.mjs`](../../../scripts/apply-featured-products.mjs) |
 | Corriger orientation images | `node scripts/normalize-product-image-orientation.mjs --dry-run` | [`scripts/normalize-product-image-orientation.mjs`](../../../scripts/normalize-product-image-orientation.mjs) |
+| Auditer images orphelines Supabase | `npm run storage:images:audit` | [`scripts/audit-supabase-storage-images.mjs`](../../../scripts/audit-supabase-storage-images.mjs) |
+| Supprimer images orphelines avec garde-fous | `node scripts/delete-supabase-orphan-images-safe.mjs` | [`scripts/delete-supabase-orphan-images-safe.mjs`](../../../scripts/delete-supabase-orphan-images-safe.mjs) |
 | Importer users Supabase vers Brevo | `node scripts/import-supabase-users-to-brevo.mjs --list-id=4 --dry-run` | [`scripts/import-supabase-users-to-brevo.mjs`](../../../scripts/import-supabase-users-to-brevo.mjs) |
 
 Lire aussi [`scripts/README.md`](../../../scripts/README.md) avant d'executer un
 script qui ecrit dans Supabase ou Brevo.
+
+</details>
+
+<details>
+<summary><strong>Maintenance Supabase Storage images</strong></summary>
+
+Le 27 aout 2026, le projet a depasse le quota Supabase Free Plan a cause de
+fichiers sous `storage/products/` qui n'etaient plus references par
+`products.images`.
+
+Le diagnostic a donne :
+
+- `2333` objets storage avant nettoyage final ;
+- `1967` chemins encore references par des produits ;
+- `366` images orphelines supprimees ;
+- environ `290.8 MB` recuperes ;
+- `791.6 MB` restants sous `storage/products/` apres suppression ;
+- `0` candidat orphelin restant au post-audit.
+
+Commandes :
+
+```bash
+npm run storage:images:audit
+node scripts/delete-supabase-orphan-images-safe.mjs
+node scripts/delete-supabase-orphan-images-safe.mjs --delete-confirmed
+```
+
+`storage:images:audit` est non destructif. Il compare les objets du bucket avec
+les URLs encore presentes dans `products.images`.
+
+`delete-supabase-orphan-images-safe.mjs` est l'outil a privilegier avant une
+purge : il genere un plan dans `reports/`, protege les images referencees par
+les produits et scanne aussi les references locales du repo. Sans
+`--delete-confirmed`, il ne supprime rien.
+
+Ne pas lancer `--delete-confirmed` sans avoir relu le resume du dry-run. Les
+suppressions Supabase Storage sont distantes et irreversibles.
 
 </details>
 
@@ -76,6 +115,8 @@ un ticket public ou dans un prompt partage.
 | --- | --- |
 | Modifier les scripts npm | [`package.json`](../../../package.json) |
 | Lire les procedures scripts | [`scripts/README.md`](../../../scripts/README.md) |
+| Audit storage images | [`scripts/audit-supabase-storage-images.mjs`](../../../scripts/audit-supabase-storage-images.mjs) |
+| Suppression safe storage images | [`scripts/delete-supabase-orphan-images-safe.mjs`](../../../scripts/delete-supabase-orphan-images-safe.mjs) |
 | Notes business | [`docs/business/README.md`](../../../docs/business/README.md) |
 | SQL featured products | [`docs/business/set-featured.sql`](../../../docs/business/set-featured.sql) |
 | Batch featured historique | [`docs/business/featured-products-batch-2026-08-20.md`](../../../docs/business/featured-products-batch-2026-08-20.md) |
@@ -108,6 +149,8 @@ Commandes non destructives utiles :
 ```bash
 node scripts/test-supabase.mjs
 node scripts/normalize-product-image-orientation.mjs --dry-run
+npm run storage:images:audit
+node scripts/delete-supabase-orphan-images-safe.mjs
 node scripts/import-supabase-users-to-brevo.mjs --list-id=4 --dry-run
 npm run featured:apply -- --skus=SKU-000001
 ```

@@ -24,6 +24,35 @@ Le site gere aussi les images manquantes, les fallbacks, les thumbnails, le zoom
 sur la page detail et un script de correction d'orientation pour les anciennes
 photos.
 
+## Diagnostic storage du 27 aout 2026
+
+Le dashboard Supabase a indique un depassement du quota Free Plan sur
+`Storage Size` : environ `1.061 / 1 GB`.
+
+Le diagnostic a montre que le probleme venait du bucket Supabase Storage, et
+non de la taille SQL de la base :
+
+- bucket concerne : `storage` ;
+- prefix produit : `products/` ;
+- produits scannes : `826` ;
+- objets storage avant nettoyage : `2333` apres le premier test de suppression ;
+- chemins images references par `products.images` : `1967` ;
+- images orphelines supprimees : `366` ;
+- espace recupere : environ `290.8 MB` ;
+- volume `storage/products/` apres nettoyage : environ `791.6 MB` ;
+- candidats orphelins restants apres audit : `0`.
+
+Une image orpheline est un fichier encore present dans Supabase Storage, mais
+dont l'URL n'apparait plus dans aucun `products.images`. Elle n'est donc plus
+utilisee par le catalogue, la page detail ou les vitrines vendeur, mais elle
+continue a compter dans le quota storage.
+
+Le cas verifie manuellement etait un doublon visuel : deux fichiers differents
+contenaient la meme photo. L'image affichee sur le site etait encore referencee
+par le produit `Gazelle Indoor - Adidas`, tandis que l'autre copie n'etait plus
+referencee et a d'abord ete supprimee seule pour test. Le site et le proxy
+image ont ensuite continue a repondre en `HTTP 200`.
+
 ## Version detaillee
 
 <details>
@@ -47,8 +76,17 @@ Avant d'appeler l'API :
   le poids total du payload.
 
 Les routes d'upload vendeur et admin gardent ensuite la validation serveur avec
-`getUploadedImageMetadata` pour verifier qu'un fichier ressemble bien a une
-image et pour determiner son extension/content-type.
+`validateUploadedProductImage` et `validateUploadedProductImages`. Le serveur
+refuse les formats trop lourds ou non souhaites, meme si le client a ete
+contourne.
+
+Regles serveur actuelles :
+
+- formats acceptes : JPG/JPEG/JFIF, PNG, WebP, AVIF ;
+- formats refuses : HEIC/HEIF, RAW, TIFF, PSD, SVG, GIF et autres formats
+  exotiques ;
+- poids max par image apres preparation client : `900_000` bytes ;
+- poids total max des images envoyees : `3_800_000` bytes.
 
 Les images sont stockees dans Supabase Storage :
 
@@ -60,6 +98,49 @@ prefix: products/
 Pour un nouveau produit, le nom de fichier utilise le `public_id` UUID du
 produit. Pour une edition vendeur, les nouvelles images gardent le `public_id`
 existant avec un suffixe horodate.
+
+Depuis le nettoyage du 27 aout 2026, les routes suppriment aussi les fichiers
+nouvellement uploades si l'insertion ou la mise a jour SQL echoue. Cela evite
+de recreer des images orphelines apres une erreur partielle.
+
+</details>
+
+<details>
+<summary><strong>Nettoyage des images orphelines</strong></summary>
+
+Le nettoyage storage repose sur deux sources de verite :
+
+1. les URLs encore presentes dans `products.images` ;
+2. les references locales dans le repo, pour eviter de supprimer une image qui
+   serait utilisee par un article, une page statique ou du code.
+
+Les helpers de production dans `src/app/lib/supabase-storage-images.ts`
+convertissent une URL publique Supabase en chemin storage interne, uniquement
+si elle pointe vers `storage/products/`.
+
+Comportements ajoutes :
+
+- edition vendeur : si une URL existante est retiree de `products.images`, le
+  fichier correspondant est supprime du bucket apres mise a jour reussie ;
+- suppression vendeur : les fichiers du produit supprime sont retires du bucket
+  apres suppression SQL reussie ;
+- upload vendeur/admin : si l'upload storage reussit mais l'ecriture SQL echoue,
+  les fichiers deja uploades pendant la requete sont nettoyes ;
+- edition vendeur : le serveur refuse une liste `existingImages` qui contient
+  une URL non presente dans le produit courant.
+
+Scripts de maintenance :
+
+```bash
+npm run storage:images:audit
+node scripts/delete-supabase-orphan-images-safe.mjs
+node scripts/delete-supabase-orphan-images-safe.mjs --delete-confirmed
+```
+
+`storage:images:audit` est un audit simple et non destructif. Le script
+`delete-supabase-orphan-images-safe.mjs` est plus conservateur : il genere un
+plan dans `reports/`, protege les references produits et locales, puis ne
+supprime qu'avec `--delete-confirmed`.
 
 </details>
 
@@ -227,6 +308,53 @@ Il faudra toutefois definir la securite avant implementation :
 </details>
 
 <details>
+<summary><strong>Evolution future : optimisation serveur des images</strong></summary>
+
+La compression client reduit deja les uploads, mais elle ne doit pas etre la
+seule barriere. Pour un site d'annonces mode avec une exigence visuelle proche
+e-commerce, l'evolution recommandee est de rendre l'optimisation serveur
+obligatoire avant stockage definitif.
+
+Pipeline cible :
+
+```text
+fichier recu -> sharp cote serveur -> WebP optimise -> Supabase Storage
+```
+
+Parametres de depart proposes :
+
+- dimension max cote long : `1600 px` ;
+- format stocke : WebP ;
+- qualite : `78` a `82` ;
+- suppression des metadata EXIF inutiles ;
+- poids cible par photo : `250 KB` a `500 KB` ;
+- limite dure par photo : `700 KB`.
+
+Cette approche garde une qualite correcte pour inspecter les prendas, tout en
+limitant le risque de remplir a nouveau le quota storage. Le site n'a pas
+besoin de stocker plusieurs tailles par image pour l'instant : `/api/image`
+continue de produire les tailles d'affichage et les WebP de sortie pour le
+catalogue, les details et les thumbnails.
+
+Backfill possible :
+
+1. auditer les plus grosses images encore referencees par `products.images` ;
+2. tester la conversion WebP sur un petit lot ;
+3. comparer visuellement catalogue + detail ;
+4. remplacer les fichiers en storage ou ecrire de nouvelles URLs WebP ;
+5. mettre a jour `products.images` de facon transactionnelle ou par lots
+   surveilles ;
+6. purger les anciennes sources seulement apres verification.
+
+Ordre recommande :
+
+1. garder les protections upload/nettoyage actuelles ;
+2. ajouter l'optimisation serveur pour toutes les nouvelles images ;
+3. seulement ensuite lancer un backfill des anciennes images referencees.
+
+</details>
+
+<details>
 <summary><strong>Proxy image</strong></summary>
 
 `/api/image` accepte une URL Supabase Storage publique via le parametre `url`.
@@ -296,12 +424,17 @@ tag EXIF stale.
 | Modifier UI ordre/couverture en edition vendeur | [`src/app/me/product/[id]/edit/page.tsx`](../../../src/app/me/product/[id]/edit/page.tsx) |
 | Modifier validation fichier image | [`src/app/lib/uploaded-image-file.ts`](../../../src/app/lib/uploaded-image-file.ts) |
 | Modifier tests validation image | [`src/app/lib/uploaded-image-file.test.mjs`](../../../src/app/lib/uploaded-image-file.test.mjs) |
+| Modifier helpers nettoyage storage | [`src/app/lib/supabase-storage-images.ts`](../../../src/app/lib/supabase-storage-images.ts) |
+| Modifier tests nettoyage storage | [`src/app/lib/supabase-storage-images.test.mjs`](../../../src/app/lib/supabase-storage-images.test.mjs) |
 | Modifier helpers images produit | [`src/app/lib/product-images.ts`](../../../src/app/lib/product-images.ts) |
 | Modifier proxy image | [`src/app/api/image/route.ts`](../../../src/app/api/image/route.ts) |
 | Modifier affichage image fallback | [`src/app/ui/external-image.tsx`](../../../src/app/ui/external-image.tsx) |
 | Modifier galerie detail | [`src/app/ui/product-image-gallery.tsx`](../../../src/app/ui/product-image-gallery.tsx) |
 | Modifier upload vendeur | [`src/app/api/me/upload-product/route.ts`](../../../src/app/api/me/upload-product/route.ts) |
+| Modifier edition/suppression vendeur | [`src/app/api/me/products/[id]/route.ts`](../../../src/app/api/me/products/[id]/route.ts) |
 | Modifier upload admin | [`src/app/api/admin/upload-product/route.ts`](../../../src/app/api/admin/upload-product/route.ts) |
+| Auditer les images orphelines | [`scripts/audit-supabase-storage-images.mjs`](../../../scripts/audit-supabase-storage-images.mjs) |
+| Supprimer les orphelins avec garde-fous | [`scripts/delete-supabase-orphan-images-safe.mjs`](../../../scripts/delete-supabase-orphan-images-safe.mjs) |
 | Corriger orientation images stockees | [`scripts/normalize-product-image-orientation.mjs`](../../../scripts/normalize-product-image-orientation.mjs) |
 | Lire les scripts disponibles | [`scripts/README.md`](../../../scripts/README.md) |
 
@@ -331,6 +464,7 @@ Tests techniques :
 ```bash
 npm run test
 npm run build
+npm run storage:images:audit
 node scripts/normalize-product-image-orientation.mjs --dry-run
 ```
 
