@@ -53,6 +53,31 @@ par le produit `Gazelle Indoor - Adidas`, tandis que l'autre copie n'etait plus
 referencee et a d'abord ete supprimee seule pour test. Le site et le proxy
 image ont ensuite continue a repondre en `HTTP 200`.
 
+## Etat des travaux
+
+Cette page separe volontairement ce qui est deja en production de ce qui reste
+a faire.
+
+### Deja fait
+
+- compression client avant upload avec limite de 5 photos ;
+- validation serveur des formats et tailles acceptes ;
+- stockage des images produit dans Supabase Storage sous `storage/products/` ;
+- affichage via `/api/image`, resize et conversion WebP de sortie ;
+- purge des images orphelines detectees le 27 aout 2026 ;
+- nettoyage automatique des fichiers retires, des produits supprimes et des
+  uploads partiellement echoues ;
+- scripts d'audit et de suppression safe pour la maintenance storage.
+
+### Pas encore fait
+
+- reencoder cote serveur toutes les nouvelles images en WebP optimise avant
+  stockage ;
+- auditer les plus grosses images encore referencees par `products.images` ;
+- lancer un backfill progressif des anciennes images referencees ;
+- passer a un upload direct Supabase pour eviter que les octets image
+  traversent les Vercel Functions.
+
 ## Version detaillee
 
 <details>
@@ -284,7 +309,7 @@ fichier original stocke dans Supabase est lui-meme en WebP.
 </details>
 
 <details>
-<summary><strong>Evolution future : upload direct Supabase</strong></summary>
+<summary><strong>A faire : upload direct Supabase</strong></summary>
 
 Le point non implemente pour l'instant consiste a eviter que les octets image
 traversent une Vercel Function.
@@ -308,7 +333,7 @@ Il faudra toutefois definir la securite avant implementation :
 </details>
 
 <details>
-<summary><strong>Evolution future : optimisation serveur des images</strong></summary>
+<summary><strong>A faire : optimisation serveur des images</strong></summary>
 
 La compression client reduit deja les uploads, mais elle ne doit pas etre la
 seule barriere. Pour un site d'annonces mode avec une exigence visuelle proche
