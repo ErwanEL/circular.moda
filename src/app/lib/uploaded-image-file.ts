@@ -1,4 +1,4 @@
-Doit-on garder les fichiers de code que tu as créés dans le projet ou ils ne sont plus utiles ? Ne fais rien d'autre pour le moment.export const MAX_UPLOADED_PRODUCT_IMAGE_BYTES = 900_000;
+export const MAX_UPLOADED_PRODUCT_IMAGE_BYTES = 900_000;
 export const MAX_UPLOADED_PRODUCT_IMAGES_TOTAL_BYTES = 3_800_000;
 
 const PRODUCT_IMAGE_FORMATS_MESSAGE =
