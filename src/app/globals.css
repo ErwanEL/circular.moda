@@ -51,6 +51,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+button:not(:disabled),
+[role='button']:not(:disabled) {
+  cursor: pointer;
+}
+
+button:disabled,
+[role='button'][aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
 /* Catalog search: borderless input inside a pill; remove WebKit/mobile focus chrome */
 .catalog-search-input {
   -webkit-appearance: none;

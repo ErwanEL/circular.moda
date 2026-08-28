@@ -14,6 +14,11 @@ import { FormFieldsEs } from '@/app/me/product/add/form-fields-es';
 import { ImageUploadSectionEs } from '@/app/me/product/add/image-upload-section-es';
 import { Alert, Spinner } from 'flowbite-react';
 import Button from '@/app/ui/button';
+import {
+  BoostTeaserButton,
+  LockedPlusTools,
+  MonetizationTeaserProvider,
+} from '@/app/me/ui/monetization-teasers';
 import { HiArrowLeft, HiArrowRight, HiXMark } from 'react-icons/hi2';
 import {
   MAX_PRODUCT_IMAGE_COUNT,
@@ -159,9 +164,12 @@ export default function MeEditProductPage() {
     setExistingImages((prev) => prev.filter((_, i) => i !== index));
   }, []);
 
-  const moveExistingImage = useCallback((fromIndex: number, toIndex: number) => {
-    setExistingImages((prev) => moveItem(prev, fromIndex, toIndex));
-  }, []);
+  const moveExistingImage = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      setExistingImages((prev) => moveItem(prev, fromIndex, toIndex));
+    },
+    []
+  );
 
   const handleGenderChange = useCallback(
     (value: string) => {
@@ -307,94 +315,134 @@ export default function MeEditProductPage() {
               {message.text}
             </Alert>
           )}
-          <Button link="/me" variant="primary" solid text="Volver al dashboard" />
+          <Button
+            link="/me"
+            variant="primary"
+            solid
+            text="Volver al dashboard"
+          />
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-3xl">
-        <div className="mb-6 flex items-center gap-4">
-          <Button link="/me" variant="secondary" text="← Volver al dashboard" />
-        </div>
-        <div className="rounded-lg bg-white p-6 shadow sm:p-8 dark:bg-gray-800">
-          <h1 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-            Editar prenda
-          </h1>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <FormFieldsEs
-              name={formData.name}
-              price={formData.price}
-              size={formData.size}
-              color={formData.color}
-              category={formData.category}
-              gender={formData.gender}
-              description={formData.description}
-              colors={colors.data}
-              loadingColors={colors.loading}
-              colorsError={colors.error}
-              categories={categories.data}
-              loadingCategories={categories.loading}
-              categoriesError={categories.error}
-              gendersList={genders.data}
-              loadingGenders={genders.loading}
-              gendersError={genders.error}
-              onNameChange={(value) => updateField('name', value)}
-              onPriceChange={(value) => updateField('price', value)}
-              onSizeChange={(value) => updateField('size', value)}
-              onColorChange={(value) => updateField('color', value)}
-              onCategoryChange={(value) => updateField('category', value)}
-              onGenderChange={handleGenderChange}
-              onDescriptionChange={(value) => updateField('description', value)}
-            />
-
-            <div>
-              {existingImages.length > 0 && (
-                <ExistingImagesEditor
-                  images={existingImages}
-                  onMove={moveExistingImage}
-                  onRemove={removeExistingImage}
-                />
-              )}
-              <p className="mb-2 text-xs text-gray-500">Agregar más imágenes</p>
-              <ImageUploadSectionEs
-                files={files}
-                previews={previews}
-                currentCount={existingImages.length + files.length}
-                error={imageUploadError}
-                maxFiles={MAX_PRODUCT_IMAGE_COUNT}
-                onDrop={addFiles}
-                onRemove={removeFile}
-                onMove={moveFile}
+    <MonetizationTeaserProvider>
+      {(openTeaser) => (
+        <main className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl">
+            <div className="mb-6 flex items-center gap-4">
+              <Button
+                link="/me"
+                variant="secondary"
+                text="← Volver al dashboard"
               />
             </div>
+            <div className="rounded-lg bg-white p-6 shadow sm:p-8 dark:bg-gray-800">
+              <h1 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+                Editar prenda
+              </h1>
 
-            {message && (
-              <div
-                className={`rounded-md p-4 ${
-                  message.type === 'success'
-                    ? 'bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-                    : 'bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-400'
-                }`}
-              >
-                {message.text}
+              <div className="mb-6 grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+                <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
+                  <p className="text-sm font-semibold text-amber-950">
+                    Más visibilidad para esta prenda
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-amber-900">
+                    Estamos probando boosts de 3 y 7 días para aparecer en
+                    espacios destacados.
+                  </p>
+                </div>
+                <BoostTeaserButton
+                  productId={product.id}
+                  productName={product.name}
+                  source="edit_product"
+                  onOpen={openTeaser}
+                  className="w-full md:w-auto"
+                />
               </div>
-            )}
 
-            <button
-              type="submit"
-              disabled={uploading}
-              className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 w-full rounded-md px-4 py-3 font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {submitText}
-            </button>
-          </form>
-        </div>
-      </div>
-    </main>
+              <div className="mb-6">
+                <LockedPlusTools source="edit_product" onOpen={openTeaser} />
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <FormFieldsEs
+                  name={formData.name}
+                  price={formData.price}
+                  size={formData.size}
+                  color={formData.color}
+                  category={formData.category}
+                  gender={formData.gender}
+                  description={formData.description}
+                  colors={colors.data}
+                  loadingColors={colors.loading}
+                  colorsError={colors.error}
+                  categories={categories.data}
+                  loadingCategories={categories.loading}
+                  categoriesError={categories.error}
+                  gendersList={genders.data}
+                  loadingGenders={genders.loading}
+                  gendersError={genders.error}
+                  onNameChange={(value) => updateField('name', value)}
+                  onPriceChange={(value) => updateField('price', value)}
+                  onSizeChange={(value) => updateField('size', value)}
+                  onColorChange={(value) => updateField('color', value)}
+                  onCategoryChange={(value) => updateField('category', value)}
+                  onGenderChange={handleGenderChange}
+                  onDescriptionChange={(value) =>
+                    updateField('description', value)
+                  }
+                />
+
+                <div>
+                  {existingImages.length > 0 && (
+                    <ExistingImagesEditor
+                      images={existingImages}
+                      onMove={moveExistingImage}
+                      onRemove={removeExistingImage}
+                    />
+                  )}
+                  <p className="mb-2 text-xs text-gray-500">
+                    Agregar más imágenes
+                  </p>
+                  <ImageUploadSectionEs
+                    files={files}
+                    previews={previews}
+                    currentCount={existingImages.length + files.length}
+                    error={imageUploadError}
+                    maxFiles={MAX_PRODUCT_IMAGE_COUNT}
+                    onDrop={addFiles}
+                    onRemove={removeFile}
+                    onMove={moveFile}
+                  />
+                </div>
+
+                {message && (
+                  <div
+                    className={`rounded-md p-4 ${
+                      message.type === 'success'
+                        ? 'bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+                        : 'bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-400'
+                    }`}
+                  >
+                    {message.text}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={uploading}
+                  className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 w-full rounded-md px-4 py-3 font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {submitText}
+                </button>
+              </form>
+            </div>
+          </div>
+        </main>
+      )}
+    </MonetizationTeaserProvider>
   );
 }
 

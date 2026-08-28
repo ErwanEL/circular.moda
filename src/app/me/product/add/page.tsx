@@ -14,6 +14,11 @@ import { ImageUploadSectionEs } from './image-upload-section-es';
 import { Alert, Spinner } from 'flowbite-react';
 import Button from '@/app/ui/button';
 import {
+  LockedPlusTools,
+  MonetizationTeaserProvider,
+  PlusTeaserCard,
+} from '@/app/me/ui/monetization-teasers';
+import {
   HiArrowLeft,
   HiArrowUpTray,
   HiCamera,
@@ -300,213 +305,228 @@ export default function MeAddProductPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7faf4] px-4 py-6 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-5 flex items-center justify-between gap-4">
-          <Button
-            link="/me"
-            variant="secondary"
-            startIcon={<HiArrowLeft className="h-4 w-4" />}
-            text="Volver al dashboard"
-          />
-        </div>
-
-        <section className="border-primary-100 mb-6 rounded-lg border bg-white p-6 shadow-sm sm:p-8 dark:border-gray-700 dark:bg-gray-800">
-          <div className="max-w-3xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-rose-50 px-3 py-1 text-sm font-semibold text-rose-700">
-              <HiHeart className="h-4 w-4" />
-              Dale otra vida a una prenda
+    <MonetizationTeaserProvider>
+      {(openTeaser) => (
+        <main className="min-h-screen bg-[#f7faf4] px-4 py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <Button
+                link="/me"
+                variant="secondary"
+                startIcon={<HiArrowLeft className="h-4 w-4" />}
+                text="Volver al dashboard"
+              />
             </div>
-            <h1 className="text-3xl font-bold text-gray-950 sm:text-4xl dark:text-white">
-              Publicá rápido y hacé que tu prenda se vea deseable.
-            </h1>
-            <p className="mt-4 text-base leading-7 text-gray-600 dark:text-gray-300">
-              Empezá por las fotos. Después sumá los datos que ayudan a que
-              alguien confíe, pregunte y se anime a comprar.
-            </p>
-          </div>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            {completionItems.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-900"
-              >
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <span
-                    className={`flex h-8 w-8 items-center justify-center rounded-full ${
-                      item.done
-                        ? 'bg-primary-800 text-white'
-                        : 'bg-white text-gray-500 dark:bg-gray-800'
-                    }`}
-                  >
-                    {item.done ? (
-                      <HiCheckCircle className="h-4 w-4" />
-                    ) : (
-                      item.icon
-                    )}
-                  </span>
-                  <span className="text-xs font-semibold text-gray-500">
-                    {item.done ? 'Listo' : 'Pendiente'}
-                  </span>
+            <section className="border-primary-100 mb-6 rounded-lg border bg-white p-6 shadow-sm sm:p-8 dark:border-gray-700 dark:bg-gray-800">
+              <div className="max-w-3xl">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-rose-50 px-3 py-1 text-sm font-semibold text-rose-700">
+                  <HiHeart className="h-4 w-4" />
+                  Dale otra vida a una prenda
                 </div>
-                <p className="text-sm font-semibold text-gray-950 dark:text-white">
-                  {item.label}
-                </p>
-                <p className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                  {item.detail}
+                <h1 className="text-3xl font-bold text-gray-950 sm:text-4xl dark:text-white">
+                  Publicá rápido y hacé que tu prenda se vea deseable.
+                </h1>
+                <p className="mt-4 text-base leading-7 text-gray-600 dark:text-gray-300">
+                  Empezá por las fotos. Después sumá los datos que ayudan a que
+                  alguien confíe, pregunte y se anime a comprar.
                 </p>
               </div>
-            ))}
-          </div>
-        </section>
 
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <ImageUploadSectionEs
-              files={files}
-              previews={previews}
-              currentCount={files.length}
-              error={imageUploadError}
-              maxFiles={MAX_PRODUCT_IMAGE_COUNT}
-              onDrop={addFiles}
-              onRemove={removeFile}
-              onMove={moveFile}
-            />
-
-            <FormFieldsEs
-              name={formData.name}
-              price={formData.price}
-              size={formData.size}
-              color={formData.color}
-              category={formData.category}
-              gender={formData.gender}
-              description={formData.description}
-              colors={colors.data}
-              loadingColors={colors.loading}
-              colorsError={colors.error}
-              categories={categories.data}
-              loadingCategories={categories.loading}
-              categoriesError={categories.error}
-              gendersList={genders.data}
-              loadingGenders={genders.loading}
-              gendersError={genders.error}
-              onNameChange={(value) => updateField('name', value)}
-              onPriceChange={(value) => updateField('price', value)}
-              onSizeChange={(value) => updateField('size', value)}
-              onColorChange={(value) => updateField('color', value)}
-              onCategoryChange={(value) => updateField('category', value)}
-              onGenderChange={handleGenderChange}
-              onDescriptionChange={(value) => updateField('description', value)}
-            />
-
-            {message && (
-              <div
-                className={`rounded-lg border p-4 text-sm font-medium ${
-                  message.type === 'success'
-                    ? 'border-green-200 bg-green-50 text-green-800 dark:border-green-900 dark:bg-green-900/20 dark:text-green-300'
-                    : 'border-red-200 bg-red-50 text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-300'
-                }`}
-                aria-live="polite"
-              >
-                {message.text}
-              </div>
-            )}
-
-            <div className="sticky bottom-4 z-10 rounded-lg border border-gray-200 bg-white p-4 shadow-lg dark:border-gray-700 dark:bg-gray-800">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="text-sm font-semibold text-gray-950 dark:text-white">
-                    {completedItems === completionItems.length
-                      ? 'Lista para publicar'
-                      : 'Te faltan pocos datos'}
-                  </p>
-                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                    Podés publicar cuando tengas al menos una foto y el nombre.
-                  </p>
-                </div>
-                <button
-                  type="submit"
-                  disabled={uploading}
-                  aria-busy={uploading}
-                  className="bg-primary-800 hover:bg-primary-900 focus:ring-primary-300 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-sm transition focus:ring-4 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-                >
-                  <HiArrowUpTray className="h-5 w-5" />
-                  {submitText}
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <aside className="space-y-5 lg:sticky lg:top-6">
-            <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-              <div className="mb-4 flex items-start gap-3">
-                <div className="bg-primary-100 text-primary-900 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
-                  <HiShoppingBag className="h-5 w-5" />
-                </div>
-                <div>
-                  <h2 className="text-base font-semibold text-gray-950 dark:text-white">
-                    Tu publicación
-                  </h2>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    {completionPercent}% completa
-                  </p>
-                </div>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
-                <div
-                  className="bg-primary-800 h-full rounded-full transition-all"
-                  style={{ width: `${completionPercent}%` }}
-                />
-              </div>
-              <div className="mt-4 space-y-3">
+              <div className="mt-6 grid gap-3 sm:grid-cols-3">
                 {completionItems.map((item) => (
-                  <div key={item.label} className="flex gap-3">
-                    <span
-                      className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
-                        item.done
-                          ? 'bg-primary-800 text-white'
-                          : 'bg-gray-100 text-gray-500 dark:bg-gray-700'
-                      }`}
-                    >
-                      {item.done ? (
-                        <HiCheckCircle className="h-4 w-4" />
-                      ) : (
-                        item.icon
-                      )}
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                        {item.label}
-                      </p>
-                      <p className="text-xs leading-5 text-gray-500 dark:text-gray-400">
-                        {item.detail}
-                      </p>
+                  <div
+                    key={item.label}
+                    className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-900"
+                  >
+                    <div className="mb-2 flex items-center justify-between gap-3">
+                      <span
+                        className={`flex h-8 w-8 items-center justify-center rounded-full ${
+                          item.done
+                            ? 'bg-primary-800 text-white'
+                            : 'bg-white text-gray-500 dark:bg-gray-800'
+                        }`}
+                      >
+                        {item.done ? (
+                          <HiCheckCircle className="h-4 w-4" />
+                        ) : (
+                          item.icon
+                        )}
+                      </span>
+                      <span className="text-xs font-semibold text-gray-500">
+                        {item.done ? 'Listo' : 'Pendiente'}
+                      </span>
                     </div>
+                    <p className="text-sm font-semibold text-gray-950 dark:text-white">
+                      {item.label}
+                    </p>
+                    <p className="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">
+                      {item.detail}
+                    </p>
                   </div>
                 ))}
               </div>
             </section>
 
-            <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-              <h2 className="flex items-center gap-2 text-base font-semibold text-gray-950 dark:text-white">
-                <HiClock className="h-5 w-5 text-rose-600" />
-                Publicá sin pensarlo demasiado
-              </h2>
-              <div className="mt-4 space-y-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
-                <p>
-                  Una publicación simple con buenas fotos funciona mejor que una
-                  descripción perfecta que nunca se sube.
-                </p>
-                <p>
-                  Si te falta algo, podés volver a editar la prenda desde tu
-                  dashboard.
-                </p>
-              </div>
-            </section>
-          </aside>
-        </div>
-      </div>
-    </main>
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <ImageUploadSectionEs
+                  files={files}
+                  previews={previews}
+                  currentCount={files.length}
+                  error={imageUploadError}
+                  maxFiles={MAX_PRODUCT_IMAGE_COUNT}
+                  onDrop={addFiles}
+                  onRemove={removeFile}
+                  onMove={moveFile}
+                />
+
+                <FormFieldsEs
+                  name={formData.name}
+                  price={formData.price}
+                  size={formData.size}
+                  color={formData.color}
+                  category={formData.category}
+                  gender={formData.gender}
+                  description={formData.description}
+                  colors={colors.data}
+                  loadingColors={colors.loading}
+                  colorsError={colors.error}
+                  categories={categories.data}
+                  loadingCategories={categories.loading}
+                  categoriesError={categories.error}
+                  gendersList={genders.data}
+                  loadingGenders={genders.loading}
+                  gendersError={genders.error}
+                  onNameChange={(value) => updateField('name', value)}
+                  onPriceChange={(value) => updateField('price', value)}
+                  onSizeChange={(value) => updateField('size', value)}
+                  onColorChange={(value) => updateField('color', value)}
+                  onCategoryChange={(value) => updateField('category', value)}
+                  onGenderChange={handleGenderChange}
+                  onDescriptionChange={(value) =>
+                    updateField('description', value)
+                  }
+                />
+
+                {message && (
+                  <div
+                    className={`rounded-lg border p-4 text-sm font-medium ${
+                      message.type === 'success'
+                        ? 'border-green-200 bg-green-50 text-green-800 dark:border-green-900 dark:bg-green-900/20 dark:text-green-300'
+                        : 'border-red-200 bg-red-50 text-red-800 dark:border-red-900 dark:bg-red-900/20 dark:text-red-300'
+                    }`}
+                    aria-live="polite"
+                  >
+                    {message.text}
+                  </div>
+                )}
+
+                <div className="sticky bottom-4 z-10 rounded-lg border border-gray-200 bg-white p-4 shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-950 dark:text-white">
+                        {completedItems === completionItems.length
+                          ? 'Lista para publicar'
+                          : 'Te faltan pocos datos'}
+                      </p>
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        Podés publicar cuando tengas al menos una foto y el
+                        nombre.
+                      </p>
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={uploading}
+                      aria-busy={uploading}
+                      className="bg-primary-800 hover:bg-primary-900 focus:ring-primary-300 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white shadow-sm transition focus:ring-4 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                    >
+                      <HiArrowUpTray className="h-5 w-5" />
+                      {submitText}
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <aside className="space-y-5 lg:sticky lg:top-6">
+                <LockedPlusTools source="upload_form" onOpen={openTeaser} />
+
+                <PlusTeaserCard
+                  source="upload_form"
+                  onOpen={openTeaser}
+                  compact
+                />
+
+                <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                  <div className="mb-4 flex items-start gap-3">
+                    <div className="bg-primary-100 text-primary-900 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                      <HiShoppingBag className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h2 className="text-base font-semibold text-gray-950 dark:text-white">
+                        Tu publicación
+                      </h2>
+                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        {completionPercent}% completa
+                      </p>
+                    </div>
+                  </div>
+                  <div className="h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
+                    <div
+                      className="bg-primary-800 h-full rounded-full transition-all"
+                      style={{ width: `${completionPercent}%` }}
+                    />
+                  </div>
+                  <div className="mt-4 space-y-3">
+                    {completionItems.map((item) => (
+                      <div key={item.label} className="flex gap-3">
+                        <span
+                          className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
+                            item.done
+                              ? 'bg-primary-800 text-white'
+                              : 'bg-gray-100 text-gray-500 dark:bg-gray-700'
+                          }`}
+                        >
+                          {item.done ? (
+                            <HiCheckCircle className="h-4 w-4" />
+                          ) : (
+                            item.icon
+                          )}
+                        </span>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                            {item.label}
+                          </p>
+                          <p className="text-xs leading-5 text-gray-500 dark:text-gray-400">
+                            {item.detail}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                  <h2 className="flex items-center gap-2 text-base font-semibold text-gray-950 dark:text-white">
+                    <HiClock className="h-5 w-5 text-rose-600" />
+                    Publicá sin pensarlo demasiado
+                  </h2>
+                  <div className="mt-4 space-y-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
+                    <p>
+                      Una publicación simple con buenas fotos funciona mejor que
+                      una descripción perfecta que nunca se sube.
+                    </p>
+                    <p>
+                      Si te falta algo, podés volver a editar la prenda desde tu
+                      dashboard.
+                    </p>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </div>
+        </main>
+      )}
+    </MonetizationTeaserProvider>
   );
 }

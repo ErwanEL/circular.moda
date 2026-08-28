@@ -184,17 +184,19 @@ Offre de depart possible :
 - presence possible dans une newsletter ;
 - lien de partage prepare pour WhatsApp ou Instagram.
 
-Offres a tester :
+Offres a tester plus tard :
 
-| Offre | Prix hypothese | Promesse |
-| --- | --- | --- |
-| Boost 3 jours | ARS 1.500 | tester rapidement une prenda |
-| Boost 7 jours | ARS 2.500 | offre principale simple |
-| Pack 3 boosts 7 jours | ARS 6.000 | economie pour vendeuse active |
-| Pack 5 boosts | ARS 9.000 | pour vendeuse avec inventaire regulier |
+| Offre                 | Prix hypothese | Promesse                               |
+| --------------------- | -------------- | -------------------------------------- |
+| Boost 3 jours         | A definir      | tester rapidement une prenda           |
+| Boost 7 jours         | A definir      | offre principale simple                |
+| Pack 3 boosts 7 jours | A definir      | economie pour vendeuse active          |
+| Pack 5 boosts         | A definir      | pour vendeuse avec inventaire regulier |
 
 Ces prix sont des hypotheses de test, pas une decision definitive. Ils doivent
 etre confrontes aux clics, aux demandes WhatsApp et aux frais de paiement.
+Pour le teaser actuel, aucun prix n'est affiche afin de mesurer l'interet avant
+de fixer l'offre commerciale.
 
 ### Pourquoi c'est prioritaire
 
@@ -413,15 +415,17 @@ Fonctionnalites possibles pour un plan `Circular Pro` plus tard :
 
 Offres a tester :
 
-| Plan | Prix hypothese | Inclus |
-| --- | --- | --- |
-| Circular Plus fundador | ARS 4.900 / mois | IA, optimisation photos, badge, stats, 2 boosts |
-| Circular Pro visibilidad | ARS 9.900 / mois | Plus, 5 boosts, priorite campagnes |
-| Campana destacada ponctuelle | ARS 3.500 a 5.000 | eligibilite d'une prenda a une campagne |
+| Plan                         | Prix hypothese | Inclus                                              |
+| ---------------------------- | -------------- | --------------------------------------------------- |
+| Circular Plus fundador       | A definir      | IA, optimisation photos, badge, stats, boost        |
+| Circular Pro visibilidad     | A definir      | Plus, boosts, priorite campagnes                    |
+| Campana destacada ponctuelle | A definir      | eligibilite d'une prenda a une campagne sponsorisee |
 
 Ces prix sont des hypotheses de pre-vente. Ils doivent etre ajustes selon le
 taux de clic, les frais de paiement, le budget publicitaire reel et les
 retours vendeuses.
+Pour le teaser actuel, ces prix restent internes et ne sont pas affiches dans
+l'interface.
 
 ### Avis
 
@@ -504,52 +508,86 @@ Aparece con Circular Plus
 Estamos preparando herramientas para vender mas rapido:
 IA para publicar, optimizacion de fotos, boosts incluidos y mas visibilidad.
 
-[Me interesa] [Ver planes]
+[Me interesa]
 ```
 
 Features a proposer dans le teaser :
 
 - `Completar con IA` ;
 - `Optimizar fotos` ;
-- `Boosts incluidos` ;
+- `Boost incluido` ;
 - `Aparecer en campanas de Circular` ;
 - `Estadisticas de interes` ;
 - `Badge Vendedora Plus`.
 
-Table possible :
+Implementation de test ajoutee :
 
 ```sql
-premium_interest
+monetization_interest_requests
 - id
-- user_id
+- auth_user_id
+- seller_id
+- seller_email
+- feature
+- source
+- offer_id
+- offer_title
+- offer_price
 - product_id
-- source
-- selected_feature
-- selected_plan
-- suggested_price
-- interested_features
-- created_at
-```
-
-Evenements possibles :
-
-```sql
-premium_events
-- id
-- user_id
-- event
-- source
+- product_name
+- status
 - metadata
 - created_at
 ```
 
+Fichiers concernes :
+
+- `src/app/me/ui/monetization-teasers.tsx` : UI de teasing, modal et CTA.
+- `src/app/api/monetization-interest/route.ts` : enregistrement serveur des
+  clics `Me interesa`.
+- `docs/sql/monetization-interest-requests.sql` : table Supabase additive a
+  executer avant mesure en production.
+
+Etat courant du test :
+
+- une seule offre Premium est affichee : `Circular Plus fundador`, sans prix
+  public pour le moment ;
+- une seule offre boost est affichee : `Boost de prenda`, sans prix public pour
+  le moment ;
+- les features visibles dans la grande banniere Plus sont informatives : elles
+  gardent le rendu de cartes, mais ne sont pas des boutons et n'ouvrent pas la
+  modal ;
+- en sidebar mobile, une seule carte Plus doit etre visible pour eviter la
+  repetition ;
+- dans `/me` mobile, l'ordre retenu est :
+  `Publicar nueva prenda`, grande carte Plus, profil vendeur, liste des prendas ;
+- le desktop ne doit pas etre modifie par les ajustements mobiles : la grande
+  banniere Plus reste en haut et la carte compacte Plus reste dans la sidebar ;
+- les modals Plus et boost affichent les features en une seule colonne pour
+  augmenter la lisibilite et la perception de valeur ;
+- les modals doivent pouvoir etre fermees avec le bouton de fermeture, le bouton
+  `Cerrar`, un clic en dehors et la touche `Echap` ;
+- le label dans la modal est `Oferta`, pas `Oferta de test` ;
+- le dark mode de la section `Tu vitrina publica` doit garder un contraste fort :
+  fond sombre net, titre clair, texte secondaire lisible et bloc `/user/...`
+  distinct ;
+- les clics sont enregistres cote serveur dans
+  `monetization_interest_requests` quand la table existe ;
+- une copie de debug reste aussi dans le `localStorage` navigateur
+  `circular.monetizationInterest.v1` pour verifier rapidement les clics en
+  local ;
+- apres clic sur `Me interesa`, l'utilisateur voit une confirmation :
+  `Tu interes quedo registrado. Te vamos a contactar pronto cuando esta opcion
+este disponible.`
+
 Valeurs utiles :
 
-- `event`: `impression`, `click`, `modal_open`, `plan_select`, `submit` ;
-- `selected_feature`: `ai_listing`, `photo_optimization`,
-  `included_boosts`, `meta_campaign_visibility`, `seller_stats` ;
-- `source`: `me_banner`, `product_card`, `after_publish`, `upload_form`,
-  `plus_page`.
+- `feature`: `boost`, `plus`, `ai_listing`, `photo_optimization`, `stats`,
+  `seller_badge`, `meta_campaign_visibility` ;
+- `source`: `me_banner`, `me_sidebar`, `me_product_card`, `after_publish`,
+  `edit_product`, `upload_form` ;
+- evenement actuellement persiste : clic `Me interesa` ;
+- evenements a ajouter plus tard : impression, ouverture de modal, conversion.
 
 ### Schema de donnees recommande
 
@@ -598,7 +636,7 @@ le nombre de produits. Quand les plans payants arriveront, il faudra separer :
 Regle future possible :
 
 ```ts
-isPremiumSeller(productCount) || sellerPlan === 'plus'
+isPremiumSeller(productCount) || sellerPlan === 'plus';
 ```
 
 Cette regle devra rester explicite pour ne pas confondre qualite, anciennete et
@@ -807,19 +845,25 @@ Evenements possibles :
 ### Phase 0 : preparation technique
 
 - Ajouter `product_promotions`, `seller_entitlements` et `product_events`.
-- Ajouter `boost_interest`, `premium_interest` ou une table d'evenements
-  equivalente pour mesurer le teasing.
+- Fait en prototype : ajouter `monetization_interest_requests` pour mesurer les
+  demandes d'interet sur boost et Plus.
 - Garder `products.featured` pour la curation existante.
 - Ajouter une couche de lecture pour les promotions actives.
 - Ajouter une mesure minimale des clics WhatsApp et affilies.
 
 ### Phase 1 : teasing boost et compte Plus
 
-- Ajouter un CTA `Boostear prenda` dans `/me`.
-- Ajouter un CTA `Mejorar con Plus` ou `Circular Plus` dans l'espace vendeur.
-- Ajouter des modules verrouilles IA/photo dans le formulaire de publication.
-- Ajouter une modal de pre-vente avec plans/prix hypotheses.
-- Enregistrer les clics, impressions et selections de features.
+- Fait en prototype : ajouter un CTA `Boostear` dans `/me`.
+- Fait en prototype : ajouter un CTA `Circular Plus` dans l'espace vendeur.
+- Fait en prototype : ajouter des modules verrouilles IA/photo/stats/campagnes
+  dans le formulaire de publication.
+- Fait en prototype : ajouter une modal de pre-vente avec une offre boost et une
+  offre Plus.
+- Fait en prototype : enregistrer les clics `Me interesa` via
+  `POST /api/monetization-interest`.
+- A faire : appliquer `docs/sql/monetization-interest-requests.sql` dans
+  Supabase avant de considerer la mesure comme persistante en production.
+- A faire : enregistrer les impressions des teasers, pas seulement les clics.
 - Contacter manuellement les vendeuses interessees.
 
 ### Phase 2 : test manuel du boost
