@@ -1,0 +1,885 @@
+---
+title: Monetisation
+---
+
+# Monetisation
+
+## Contexte
+
+circular.moda est une marketplace locale de vetements de seconde main pour
+Buenos Aires. Le site combine :
+
+- catalogue public ;
+- fiches produits ;
+- vitrines vendeurs ;
+- publication vendeur ;
+- mise en relation via WhatsApp ;
+- newsletter catalogue ;
+- cartes affiliees sponsorisees.
+
+L'audience est encore limitee. La priorite business n'est donc pas de maximiser
+le revenu immediat, mais de preparer une monetisation testable avant une
+nouvelle phase d'acquisition.
+
+## Strategie recommandee
+
+Le modele recommande a court terme est :
+
+1. conserver l'affiliation comme revenu passif discret ;
+2. tester des boosts de visibilite pour les annonces ;
+3. tester un service d'aide a la publication, potentiellement par WhatsApp ;
+4. preparer les bases techniques d'un futur compte Plus/Pro ;
+5. eviter pour l'instant les commissions sur vente.
+
+Le message business central :
+
+> Vendre plus vite, sans commission.
+
+## Etat actuel et hypotheses
+
+Cette page separe les briques deja presentes dans le projet des idees a tester
+ou a implementer plus tard.
+
+### Deja en place
+
+- catalogue public et fiches produit ;
+- espace vendeur avec publication et edition de prendas ;
+- mise en relation via WhatsApp ;
+- champ `products.featured` et bloc `Destacados` existants ;
+- cartes affiliees sponsorisees dans le catalogue ;
+- analyse IA cote admin ;
+- documentation et scripts de maintenance image/storage.
+
+### A teaser maintenant
+
+- boost ponctuel d'une prenda ;
+- compte `Circular Plus` ou `Vendedor Plus` ;
+- IA vendeur pour publier plus vite ;
+- optimisation photo automatique ;
+- inclusion possible dans les campagnes marketing Circular ;
+- packs de boosts ou boosts inclus dans un abonnement.
+
+### A implementer plus tard
+
+- paiement automatise ;
+- activation automatique par webhook ;
+- ranking catalogue avec slots sponsorises ;
+- statistiques vendeur detaillees ;
+- abonnement recurrent avec quotas mensuels ;
+- backfill/optimisation serveur des images existantes.
+
+## Affiliation
+
+### Etat actuel
+
+Le site affiche deja des produits affilies dans la grille du catalogue
+`/products`.
+
+Implementation actuelle :
+
+- source de verite : `AFFILIATE_PRODUCTS` ;
+- fichier principal : `src/app/lib/affiliate-products.ts` ;
+- injection dans la grille : `ProductsGridInfinite` ;
+- images locales : `public/affiliate/` ;
+- source actuelle : Temu ;
+- label visible : `Patrocinado`.
+
+La documentation feature dediee est ici :
+
+- `docs-site/content/features/produits-affilies.mdx`
+
+### Role business
+
+L'affiliation permet de monetiser une partie de l'audience sans demander de
+paiement aux vendeuses et sans gerer la transaction entre acheteur et vendeur.
+
+Avantages :
+
+- revenu passif avec peu d'operations ;
+- pas de paiement vendeur ;
+- pas de gestion de litiges ou remboursements ;
+- monetise aussi les visiteurs qui ne contactent aucune vendeuse ;
+- peut rester coherente si les produits sont utiles au contexte mode/revente.
+
+Produits affilies coherents :
+
+- rasoir anti-peluches ;
+- rangements pour vetements ;
+- housses de protection ;
+- cintres ;
+- sacs de stockage ;
+- accessoires pour photo produit ;
+- emballage simple pour remise ou envoi.
+
+### Limites
+
+L'affiliation ne doit pas devenir le coeur du modele economique.
+
+Risques :
+
+- revenu probablement faible sans volume important ;
+- dependance a un programme externe ;
+- controle limite sur les prix, disponibilites et pages de destination ;
+- confusion si les cartes ressemblent trop aux produits du marketplace ;
+- perte de confiance si les cartes sponsorisees apparaissent trop tot ou trop
+  souvent.
+
+### Regles a maintenir
+
+Les cartes affiliees doivent rester separees du vrai catalogue :
+
+- label `Patrocinado` toujours visible ;
+- pas de page detail produit ;
+- pas de presence dans `/api/products` ;
+- pas de presence dans le sitemap ;
+- pas de presence dans les filtres Supabase ;
+- pas de presence dans la newsletter catalogue ;
+- ouverture vers le lien externe dans un nouvel onglet ;
+- cadence d'affichage conservative.
+
+L'objectif est de generer un revenu complementaire sans donner l'impression que
+circular.moda vend directement ces produits.
+
+### Mesure
+
+Evenements a suivre :
+
+- impression carte affiliee ;
+- clic carte affiliee ;
+- source du clic ;
+- position dans la grille ;
+- produit affilie clique.
+
+Table possible :
+
+```sql
+affiliate_events
+- id
+- affiliate_product_id
+- affiliate_source
+- event_type
+- page
+- grid_index
+- metadata
+- created_at
+```
+
+Evenements possibles :
+
+- `affiliate_impression`;
+- `affiliate_click`.
+
+## Boosts de visibilite
+
+### Principe
+
+Une vendeuse paie pour donner plus de visibilite a une prenda pendant une duree
+limitee, par exemple 7 jours.
+
+Offre de depart possible :
+
+- `Destacar mi prenda 7 dias` ;
+- affichage dans le bloc `Destacados` du catalogue ;
+- badge visuel sur la carte produit ;
+- presence possible dans une newsletter ;
+- lien de partage prepare pour WhatsApp ou Instagram.
+
+Offres a tester :
+
+| Offre | Prix hypothese | Promesse |
+| --- | --- | --- |
+| Boost 3 jours | ARS 1.500 | tester rapidement une prenda |
+| Boost 7 jours | ARS 2.500 | offre principale simple |
+| Pack 3 boosts 7 jours | ARS 6.000 | economie pour vendeuse active |
+| Pack 5 boosts | ARS 9.000 | pour vendeuse avec inventaire regulier |
+
+Ces prix sont des hypotheses de test, pas une decision definitive. Ils doivent
+etre confrontes aux clics, aux demandes WhatsApp et aux frais de paiement.
+
+### Pourquoi c'est prioritaire
+
+Le boost est l'offre payante la plus simple a comprendre et a tester.
+
+Elle monetise une douleur directe : vendre plus vite. Elle ne demande pas de
+controler la transaction finale, puisque la vente peut continuer a se faire via
+WhatsApp.
+
+Elle s'appuie sur des briques deja presentes :
+
+- `products.featured` existe deja dans Supabase ;
+- `/products` affiche deja un bloc `Destacados` ;
+- les cartes produit savent deja afficher un etat `featured` ;
+- la newsletter catalogue peut devenir une surface de visibilite.
+
+### Point de vigilance
+
+Ne pas promettre que le produit sera toujours tout en haut du catalogue
+principal.
+
+Risques :
+
+- experience acheteur degradee si des produits faibles passent devant les bons
+  produits ;
+- impression de catalogue trop publicitaire ;
+- pagination plus complexe si le tri principal change.
+
+Formulations recommandees :
+
+- `Mas visibilidad durante 7 dias` ;
+- `Aparece en Destacados` ;
+- `Puede aparecer en la newsletter` ;
+- `Sin comisiones sobre la venta`.
+
+Formulations a eviter :
+
+- `Siempre arriba del catalogo` ;
+- `Venta garantizada` ;
+- `Mas mensajes asegurados`.
+
+### Ou placer le CTA boost
+
+Emplacements recommandes pour le teasing :
+
+- `/me`, sur chaque carte produit vendeur : `Boostear prenda` ;
+- `/me/product/[id]/edit`, bouton secondaire : `Boostear esta prenda` ;
+- apres publication d'une prenda : `Queres mas visibilidad?` ;
+- dans une future page Plus : boost ponctuel presente comme alternative a
+  l'abonnement.
+
+Ne pas afficher ce CTA cote acheteur public. Le boost est une fonctionnalite
+vendeur.
+
+### Teasing avant paiement
+
+Avant d'integrer Mercado Pago ou un autre provider, ajouter un teaser tracke :
+
+1. bouton `Boostear prenda` ;
+2. modal avec les durees possibles ;
+3. CTA `Me interesa` ou `Avisarme cuando este disponible` ;
+4. enregistrement de l'interet en base ;
+5. message de confirmation simple.
+
+Table possible :
+
+```sql
+boost_interest
+- id
+- user_id
+- product_id
+- selected_plan
+- suggested_price
+- source
+- created_at
+```
+
+Sources utiles :
+
+- `me_product_card` ;
+- `after_publish` ;
+- `edit_product` ;
+- `plus_page`.
+
+Mesures prioritaires :
+
+- taux de clic sur le bouton ;
+- duree choisie ;
+- prix choisi ou accepte ;
+- nombre de vendeuses interessees ;
+- nombre de produits concernes ;
+- comportement des vendeuses avec plusieurs produits.
+
+### Schema de donnees recommande
+
+Ne pas utiliser uniquement `products.featured` comme mecanisme payant final.
+Ce champ sert aujourd'hui plutot a la curation editoriale.
+
+Table dediee recommandee :
+
+```sql
+product_promotions
+- id
+- product_id
+- user_id
+- type
+- status
+- starts_at
+- ends_at
+- source
+- created_at
+- updated_at
+```
+
+Valeurs possibles :
+
+- `type`: `catalogue_boost`, `newsletter_boost`, `home_feature`;
+- `status`: `pending_payment`, `active`, `expired`, `cancelled`;
+- `source`: `manual`, `paid`, `subscription_quota`, `admin`.
+
+### Impact catalogue
+
+Court terme :
+
+- garder le tri principal du catalogue par `created_at` ;
+- utiliser les boosts seulement dans le bloc `Destacados` ;
+- eviter de modifier la pagination principale.
+
+Moyen terme :
+
+- introduire un ranking explicite ;
+- mixer produits recents, qualite visuelle et promotions actives ;
+- revoir le curseur de pagination pour tenir compte de `promotion_score`,
+  `created_at` et `id`.
+
+Regle recommandee :
+
+- ne pas creer deux catalogues separes ;
+- garder un catalogue unique avec des parametres de campagne ;
+- limiter les produits boostes a un nombre de slots ;
+- eviter d'afficher plusieurs produits du meme vendeur d'affilee ;
+- ne jamais vendre une premiere position permanente.
+
+Parametres possibles :
+
+```text
+/products?highlight=boosted
+/products?campaign=meta-plus
+/products?seller_tier=plus
+```
+
+`seller_tier=plus` peut servir a tester une campagne ou une landing dediee,
+mais le catalogue public principal doit rester pertinent pour les acheteurs.
+
+### Impact front-end
+
+Sur `/me` :
+
+- bouton `Destacar` sur chaque produit ;
+- etat de promotion actif/inactif ;
+- date de fin du boost ;
+- CTA apres publication : `Queres vender mas rapido?`.
+
+Dans le catalogue :
+
+- badge clair ;
+- distinction possible entre `Destacado` editorial et `Impulsado` payant ;
+- nombre de produits boostes plafonne.
+
+Dans l'admin :
+
+- voir les promotions actives ;
+- activer ou desactiver une promotion ;
+- verifier les paiements manuels au debut.
+
+## Compte Plus ou Pro
+
+### Principe
+
+Un abonnement vendeur donne acces a des avantages recurrents.
+
+Nom possible :
+
+- `Circular Plus` ;
+- `Vendedor Plus` ;
+- `Circular Pro` pour un plan plus cher et plus oriente visibilite.
+
+Promesse simple :
+
+> Publica mas rapido, mejora tus fotos y consigue mas visibilidad para tus
+> prendas.
+
+Fonctionnalites possibles pour `Circular Plus` :
+
+- boosts mensuels inclus ;
+- analyse IA pour remplir les fiches produit ;
+- suggestion IA du titre, de la categorie, de la couleur, de la taille et de la
+  description ;
+- optimisation automatique des images ;
+- suggestion de meilleure photo de couverture ;
+- score de qualite de l'annonce ;
+- vitrine vendeur amelioree ;
+- statistiques basiques ;
+- badge `Vendedora Plus` ;
+- templates de reponse WhatsApp ;
+- priorite limitee dans certains emplacements catalogue ;
+- tri manuel des produits dans la vitrine.
+
+Fonctionnalites possibles pour un plan `Circular Pro` plus tard :
+
+- plus de boosts inclus ;
+- plus de credits IA ;
+- priorite plus forte dans les campagnes Circular ;
+- presence possible en newsletter ou collections sponsorisees ;
+- aide a la publication ou accompagnement manuel.
+
+Offres a tester :
+
+| Plan | Prix hypothese | Inclus |
+| --- | --- | --- |
+| Circular Plus fundador | ARS 4.900 / mois | IA, optimisation photos, badge, stats, 2 boosts |
+| Circular Pro visibilidad | ARS 9.900 / mois | Plus, 5 boosts, priorite campagnes |
+| Campana destacada ponctuelle | ARS 3.500 a 5.000 | eligibilite d'une prenda a une campagne |
+
+Ces prix sont des hypotheses de pre-vente. Ils doivent etre ajustes selon le
+taux de clic, les frais de paiement, le budget publicitaire reel et les
+retours vendeuses.
+
+### Avis
+
+Le compte Plus/Pro est interessant, mais plutot en deuxieme phase.
+
+Avec peu d'audience, une vendeuse aura du mal a justifier un abonnement mensuel
+si la valeur percue depend surtout du nombre d'acheteurs actifs. Le boost
+ponctuel est plus facile a tester.
+
+Le compte Pro devient pertinent quand il combine :
+
+- visibilite ;
+- gain de temps ;
+- credibilite ;
+- donnees de performance.
+
+Il ne doit pas seulement signifier que les vetements sont plus hauts dans le
+catalogue.
+
+### Visibilite marketing et campagnes Meta
+
+Idee a tester : les vendeuses Plus/Pro peuvent etre eligibles a apparaitre dans
+les campagnes marketing de Circular, par exemple des publicites Meta/Facebook
+qui envoient vers un catalogue ou les produits Plus sont mis en avant.
+
+Approche recommandee :
+
+- garder un seul catalogue public ;
+- utiliser des parametres d'URL pour les campagnes ;
+- classer les produits Plus/boostes en priorite dans certains slots ;
+- limiter la part sponsorisee pour proteger la qualite acheteur.
+
+Exemples d'URLs de campagne :
+
+```text
+/products?highlight=plus&utm_source=meta&utm_campaign=plus_sellers
+/products?campaign=meta-plus
+/products?seller_tier=plus
+```
+
+Ne pas creer deux catalogues permanents. Un catalogue separe peut etre utile
+pour un test marketing, mais il risque d'etre vide ou repetitif si peu de
+vendeuses paient. Le catalogue principal doit rester utile pour les acheteurs.
+
+Promesse recommandee :
+
+- `Tus prendas pueden aparecer en campanas de Circular` ;
+- `Prioridad para campanas y selecciones destacadas` ;
+- `Mas oportunidades de visibilidad`.
+
+Promesses a eviter :
+
+- `Siempre en nuestras publicidades` ;
+- `Siempre arriba del catalogo` ;
+- `Ventas garantizadas`.
+
+Point critique : si Circular depense vraiment en publicite payante pour les
+vendeuses Pro, le prix du plan doit couvrir une partie du budget media. Sinon
+l'abonnement peut couter plus cher a servir que ce qu'il rapporte.
+
+### Teasing du compte Plus/Pro
+
+Le teasing doit vendre une intention claire sans promettre une feature deja
+disponible.
+
+Emplacements recommandes :
+
+- banniere dans `/me` ;
+- bouton `Mejorar con Plus` sur les cartes produit vendeur ;
+- bloc verrouille dans le formulaire d'ajout : `Completar con IA` ;
+- bloc verrouille dans l'upload : `Optimizar fotos con Plus` ;
+- message apres publication : `Queres mas visibilidad?` ;
+- page dediee `/plus` ou section dans l'espace vendeur.
+
+Exemple de modal :
+
+```text
+Aparece con Circular Plus
+
+Estamos preparando herramientas para vender mas rapido:
+IA para publicar, optimizacion de fotos, boosts incluidos y mas visibilidad.
+
+[Me interesa] [Ver planes]
+```
+
+Features a proposer dans le teaser :
+
+- `Completar con IA` ;
+- `Optimizar fotos` ;
+- `Boosts incluidos` ;
+- `Aparecer en campanas de Circular` ;
+- `Estadisticas de interes` ;
+- `Badge Vendedora Plus`.
+
+Table possible :
+
+```sql
+premium_interest
+- id
+- user_id
+- product_id
+- source
+- selected_feature
+- selected_plan
+- suggested_price
+- interested_features
+- created_at
+```
+
+Evenements possibles :
+
+```sql
+premium_events
+- id
+- user_id
+- event
+- source
+- metadata
+- created_at
+```
+
+Valeurs utiles :
+
+- `event`: `impression`, `click`, `modal_open`, `plan_select`, `submit` ;
+- `selected_feature`: `ai_listing`, `photo_optimization`,
+  `included_boosts`, `meta_campaign_visibility`, `seller_stats` ;
+- `source`: `me_banner`, `product_card`, `after_publish`, `upload_form`,
+  `plus_page`.
+
+### Schema de donnees recommande
+
+```sql
+seller_subscriptions
+- id
+- user_id
+- plan
+- status
+- current_period_start
+- current_period_end
+- provider
+- provider_customer_id
+- provider_subscription_id
+- created_at
+- updated_at
+```
+
+```sql
+seller_entitlements
+- id
+- user_id
+- period_start
+- period_end
+- boost_credits_total
+- boost_credits_used
+- ai_credits_total
+- ai_credits_used
+- created_at
+- updated_at
+```
+
+Ne pas surcharger `users` avec toute la logique business. Les abonnements,
+quotas et paiements doivent rester dans des tables dediees.
+
+### Badge premium
+
+Le helper actuel `isPremiumSeller(productCount)` donne un statut visuel base sur
+le nombre de produits. Quand les plans payants arriveront, il faudra separer :
+
+- prestige gagne par activite ;
+- statut payant ;
+- badge vendeur verifie ;
+- droits fonctionnels reels.
+
+Regle future possible :
+
+```ts
+isPremiumSeller(productCount) || sellerPlan === 'plus'
+```
+
+Cette regle devra rester explicite pour ne pas confondre qualite, anciennete et
+paiement.
+
+## IA payante
+
+### Principe
+
+L'IA analyse les photos et une description courte, puis propose :
+
+- nom du produit ;
+- categorie ;
+- couleur ;
+- taille ;
+- genre ;
+- prix si mentionne ;
+- description courte optimisee.
+
+### Etat actuel
+
+Une route existe deja cote admin :
+
+```http
+POST /api/admin/ai-analyze-product
+```
+
+Elle utilise OpenAI et les options Supabase existantes. Elle n'est pas encore
+une fonctionnalite vendeur publique.
+
+### Avis
+
+C'est une bonne fonctionnalite Plus/Pro, car elle fait gagner du temps a la
+vendeuse et ne depend pas uniquement de l'audience.
+
+Options de packaging :
+
+- quelques analyses gratuites pour tester ;
+- analyses supplementaires payantes ;
+- analyses incluses dans le plan Plus/Pro.
+
+### Garde-fous
+
+Avant exposition vendeur :
+
+- verifier l'authentification ;
+- limiter le nombre d'images ;
+- limiter la taille des fichiers ;
+- ajouter un quota par utilisateur ;
+- logger les appels ;
+- ne jamais laisser l'IA controler `featured` ou une promotion ;
+- forcer une validation utilisateur avant publication.
+
+Table utile :
+
+```sql
+ai_usage_events
+- id
+- user_id
+- product_id
+- action
+- input_image_count
+- status
+- cost_estimate
+- created_at
+```
+
+## Commissions
+
+### Commission sur achat
+
+Cette option est deconseillee a court terme.
+
+Raisons :
+
+- le site ne controle pas la transaction finale ;
+- la conversation et la vente se font via WhatsApp ;
+- il est difficile de savoir si une vente a vraiment eu lieu ;
+- il faut gerer paiements, remboursements, litiges, fraude et support ;
+- cela contredit potentiellement la promesse `sin comisiones`.
+
+Pour rendre ce modele fiable, il faudrait internaliser le paiement acheteur et
+ajouter une logique marketplace beaucoup plus lourde.
+
+### Commission sur publication
+
+Faire payer chaque publication est plus simple techniquement, mais risque de
+freiner l'offre de produits. Pour une marketplace jeune, il est plus important
+d'augmenter l'inventaire que de le taxer.
+
+Cette option peut etre testee plus tard si la demande vendeur est forte.
+
+## Paiement
+
+### Court terme
+
+Le paiement ne doit pas bloquer le test business.
+
+Approche recommandee :
+
+- paiement manuel par lien ;
+- verification manuelle cote admin ;
+- activation manuelle du boost ;
+- mesure des resultats.
+
+Cela permet de tester le prix psychologique, la comprehension de l'offre et le
+taux de conversion du CTA.
+
+### Fournisseurs
+
+Pour l'Argentine, Mercado Pago semble etre le fournisseur naturel a etudier en
+premier.
+
+Documentation officielle consultee le 2026-08-27 :
+
+- Mercado Pago Developers : https://www.mercadopago.com.ar/developers/es/docs
+- Stripe Global Availability : https://stripe.com/global
+
+Constat a cette date :
+
+- Mercado Pago propose une documentation locale Argentine et des solutions de
+  checkout ;
+- Stripe publie une liste officielle de disponibilite par pays, a verifier
+  avant toute integration si l'Argentine devient supportee.
+
+Decision :
+
+- commencer par des liens Mercado Pago ou une validation manuelle ;
+- ne pas integrer un paiement complet avant preuve de demande ;
+- garder les tables pretes pour connecter un provider plus tard.
+
+## Mesure
+
+Avant de vendre largement des boosts ou un abonnement, il faut mesurer la valeur
+produite.
+
+### Teasing et pre-vente
+
+Avant paiement automatise, le but est de mesurer l'intention :
+
+- qui voit l'offre ;
+- qui clique ;
+- quelle feature interesse ;
+- quel prix semble acceptable ;
+- depuis quel contexte l'interet apparait.
+
+On peut commencer sans encaisser :
+
+1. afficher un bouton ou bloc verrouille ;
+2. ouvrir une modal de pre-vente ;
+3. proposer 2 ou 3 plans/prix ;
+4. enregistrer l'interet ;
+5. contacter manuellement les vendeuses les plus interessees.
+
+Cette phase doit rester honnete : ne pas dire que le boost, le compte Plus ou
+les campagnes sont deja disponibles si ce n'est pas encore le cas.
+
+Evenements a suivre :
+
+- vue fiche produit ;
+- clic WhatsApp depuis fiche produit ;
+- clic WhatsApp depuis vitrine vendeur ;
+- clic `Destacar` ;
+- impression produit booste ;
+- clic produit booste ;
+- impression carte affiliee ;
+- clic carte affiliee ;
+- conversion apres CTA de boost ;
+- clic CTA compte Plus ;
+- selection prix compte Plus ;
+- selection feature Plus ;
+- clic CTA campagne Circular.
+
+Table possible :
+
+```sql
+product_events
+- id
+- product_id
+- user_id
+- event_type
+- source
+- metadata
+- created_at
+```
+
+Evenements possibles :
+
+- `product_view`;
+- `whatsapp_click`;
+- `seller_profile_view`;
+- `boost_cta_view`;
+- `boost_cta_click`;
+- `boost_impression`;
+- `boost_product_click`;
+- `affiliate_impression`;
+- `affiliate_click`;
+- `premium_cta_view`;
+- `premium_cta_click`;
+- `premium_feature_select`;
+- `premium_plan_select`;
+- `campaign_visibility_interest`.
+
+## Roadmap
+
+### Phase 0 : preparation technique
+
+- Ajouter `product_promotions`, `seller_entitlements` et `product_events`.
+- Ajouter `boost_interest`, `premium_interest` ou une table d'evenements
+  equivalente pour mesurer le teasing.
+- Garder `products.featured` pour la curation existante.
+- Ajouter une couche de lecture pour les promotions actives.
+- Ajouter une mesure minimale des clics WhatsApp et affilies.
+
+### Phase 1 : teasing boost et compte Plus
+
+- Ajouter un CTA `Boostear prenda` dans `/me`.
+- Ajouter un CTA `Mejorar con Plus` ou `Circular Plus` dans l'espace vendeur.
+- Ajouter des modules verrouilles IA/photo dans le formulaire de publication.
+- Ajouter une modal de pre-vente avec plans/prix hypotheses.
+- Enregistrer les clics, impressions et selections de features.
+- Contacter manuellement les vendeuses interessees.
+
+### Phase 2 : test manuel du boost
+
+- Rediriger vers WhatsApp ou un lien Mercado Pago manuel pour les premiers
+  paiements.
+- Activer le boost en admin apres validation humaine.
+- Afficher le produit dans `Destacados`.
+- Mesurer vues et clics.
+
+### Phase 3 : boost automatise
+
+- Creer une page ou modal de checkout.
+- Ajouter `pending_payment` puis activation par webhook.
+- Envoyer confirmation vendeur.
+- Afficher l'historique des boosts dans `/me`.
+
+### Phase 4 : compte Plus/Pro
+
+- Ajouter des quotas mensuels de boosts et d'IA.
+- Ajouter une vitrine vendeur enrichie.
+- Ajouter des stats simples.
+- Introduire un badge payant distinct du badge de vendeur actif.
+- Ajouter l'eligibilite aux campagnes Circular avec promesse prudente.
+
+### Phase 5 : marketplace transactionnelle
+
+- Etudier seulement si le volume le justifie.
+- Ajouter paiement acheteur, commandes, remboursements et litiges.
+- Reconsiderer eventuellement une commission.
+
+## Decisions provisoires
+
+- Garder l'affiliation comme revenu complementaire discret, clairement signale
+  et limite a des produits utiles au contexte mode/revente.
+- Ne pas lancer de commission sur vente maintenant.
+- Ne pas faire payer la publication standard maintenant.
+- Teaser d'abord le boost vendeur et le compte Plus/Pro avant paiement
+  automatise.
+- Ne pas promettre de premiere position permanente dans le catalogue.
+- Ne pas creer deux catalogues permanents ; preferer un catalogue unique avec
+  parametres de campagne et slots sponsorises.
+- Inclure les campagnes Circular comme avantage possible, mais avec une
+  promesse prudente d'eligibilite ou de priorite.
+- Preparer techniquement un futur compte Plus/Pro, sans le lancer largement
+  avant preuve d'interet.
+- Exposer l'IA aux vendeurs seulement avec quotas, limites et logs.
+- Commencer avec paiement manuel ou lien Mercado Pago avant une integration
+  complete.
+
+## Questions ouvertes
+
+- Quel prix tester pour un boost de 3 jours, 7 jours et pack multi-boosts ?
+- Combien de produits boostes peuvent etre affiches sans degrader le catalogue ?
+- Faut-il distinguer visuellement `Destacado` editorial et `Impulsado` payant ?
+- Le boost doit-il s'appliquer a une prenda precise ou a toute la vitrine ?
+- Combien d'analyses IA inclure dans un futur plan Plus/Pro ?
+- Le badge vendeur premium doit-il etre gagne, paye, ou separe en deux badges ?
+- Quel niveau d'affiliation reste acceptable sans nuire a la confiance ?
+- Quel budget media Circular peut etre inclus dans un plan Pro sans perdre
+  d'argent ?
+- Quels emplacements de teaser convertissent le mieux : `/me`, apres
+  publication, formulaire upload ou page Plus ?

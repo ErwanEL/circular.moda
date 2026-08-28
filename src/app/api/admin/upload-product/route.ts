@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getProductSlugFromUnknown } from '@/app/lib/product-slug';
 import { revalidateProductContent } from '@/app/lib/product-revalidation';
 import { supabase } from '@/app/lib/supabase';
-import { getUploadedImageMetadata } from '@/app/lib/uploaded-image-file';
+import { getStorageObjectPathFromPublicUrl } from '@/app/lib/supabase-storage-images';
+import {
+  validateUploadedProductImage,
+  validateUploadedProductImages,
+} from '@/app/lib/uploaded-image-file';
 import { randomUUID } from 'crypto';
 
 function refreshPublishedProduct(product: unknown) {
@@ -12,6 +16,19 @@ function refreshPublishedProduct(product: unknown) {
     });
   } catch (error) {
     console.error('[Admin Upload] Product revalidation failed:', error);
+  }
+}
+
+async function removeUploadedProductImages(imageUrls: string[]) {
+  const paths = imageUrls
+    .map(getStorageObjectPathFromPublicUrl)
+    .filter((path): path is string => path !== null);
+
+  if (paths.length === 0) return;
+
+  const { error } = await supabase.storage.from('storage').remove(paths);
+  if (error) {
+    console.error('[Admin Upload] Failed to clean uploaded images:', error);
   }
 }
 
@@ -166,6 +183,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const imagesValidation = validateUploadedProductImages(files);
+    if (imagesValidation.error) {
+      return NextResponse.json(
+        { error: imagesValidation.error },
+        { status: 400 }
+      );
+    }
+
     // Générer un public_id (UUID) pour le produit
     const publicId = randomUUID();
 
@@ -175,17 +200,17 @@ export async function POST(request: NextRequest) {
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const imageMetadata = getUploadedImageMetadata(file);
-      if (!imageMetadata) {
+      const imageValidation = validateUploadedProductImage(file);
+      if (imageValidation.error || !imageValidation.metadata) {
         return NextResponse.json(
           {
-            error: `Le fichier ${i + 1} ne semble pas être une image. Essayez un autre fichier.`,
+            error: `Image ${i + 1}: ${imageValidation.error}`,
           },
           { status: 400 }
         );
       }
 
-      const fileName = `${publicId}-${i + 1}.${imageMetadata.extension}`;
+      const fileName = `${publicId}-${i + 1}.${imageValidation.metadata.extension}`;
       const filePath = `products/${fileName}`;
 
       // Convertir File en ArrayBuffer puis en Uint8Array
@@ -196,12 +221,13 @@ export async function POST(request: NextRequest) {
       const { error: uploadError } = await supabase.storage
         .from('storage')
         .upload(filePath, uint8Array, {
-          contentType: imageMetadata.contentType,
+          contentType: imageValidation.metadata.contentType,
           upsert: false,
         });
 
       if (uploadError) {
         console.error('Error uploading image:', uploadError);
+        await removeUploadedProductImages(imageUrls);
         return NextResponse.json(
           {
             error: `Erreur lors de l'upload de l'image ${i + 1}: ${uploadError.message}`,
@@ -347,6 +373,7 @@ export async function POST(request: NextRequest) {
             .single();
 
         if (insertErrorRetry) {
+          await removeUploadedProductImages(imageUrls);
           return NextResponse.json(
             {
               error: `Erreur lors de l'insertion du produit: ${insertErrorRetry.message}. Le champ gender a été retiré mais l'erreur persiste.`,
@@ -365,6 +392,7 @@ export async function POST(request: NextRequest) {
         });
       }
 
+      await removeUploadedProductImages(imageUrls);
       return NextResponse.json(
         {
           error: `Erreur lors de l'insertion du produit: ${insertError.message}`,
