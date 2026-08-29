@@ -195,8 +195,9 @@ Offres a tester plus tard :
 
 Ces prix sont des hypotheses de test, pas une decision definitive. Ils doivent
 etre confrontes aux clics, aux demandes WhatsApp et aux frais de paiement.
-Pour le teaser actuel, aucun prix n'est affiche afin de mesurer l'interet avant
-de fixer l'offre commerciale.
+Pour le teaser actuel, le prix n'est pas affiche sur les cartes visibles. Il est
+affiche uniquement dans la modal de confirmation afin de qualifier l'interet
+comme une intention payante.
 
 ### Pourquoi c'est prioritaire
 
@@ -424,8 +425,10 @@ Offres a tester :
 Ces prix sont des hypotheses de pre-vente. Ils doivent etre ajustes selon le
 taux de clic, les frais de paiement, le budget publicitaire reel et les
 retours vendeuses.
-Pour le teaser actuel, ces prix restent internes et ne sont pas affiches dans
-l'interface.
+Pour le teaser actuel, les prix ne sont pas affiches sur les cartes visibles.
+Ils apparaissent uniquement dans les modals, juste avant le clic `Me interesa`,
+pour verifier que l'utilisateur comprend qu'il s'agit d'une fonctionnalite
+payante.
 
 ### Avis
 
@@ -550,10 +553,13 @@ Fichiers concernes :
 
 Etat courant du test :
 
-- une seule offre Premium est affichee : `Circular Plus fundador`, sans prix
-  public pour le moment ;
-- une seule offre boost est affichee : `Boost de prenda`, sans prix public pour
-  le moment ;
+- une seule offre Premium est testee : `Circular Plus fundador` a `ARS 4.900 /
+mes` ;
+- une seule offre boost est testee : `Boost de prenda` a `ARS 2.500` ;
+- les prix sont affiches uniquement dans les modals, pas sur les cartes ni sur
+  les boutons ;
+- la modal indique explicitement que la fonctionnalite sera payante avant le
+  clic `Me interesa` ;
 - les features visibles dans la grande banniere Plus sont informatives : elles
   gardent le rendu de cartes, mais ne sont pas des boutons et n'ouvrent pas la
   modal ;

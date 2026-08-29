@@ -23,6 +23,7 @@ export type MonetizationSource = (typeof MONETIZATION_SOURCES)[number];
 export type MonetizationOffer = {
   id: string;
   title: string;
+  price: string;
   detail: string;
   features: string[];
 };
@@ -30,6 +31,7 @@ export type MonetizationOffer = {
 export const PREMIUM_OFFER: MonetizationOffer = {
   id: 'circular_plus_founder',
   title: 'Circular Plus fundador',
+  price: 'ARS 4.900 / mes',
   detail: 'Un plan simple para publicar mejor y vender con más visibilidad.',
   features: [
     'Completar publicación con IA',
@@ -45,6 +47,7 @@ export const PREMIUM_OFFER: MonetizationOffer = {
 export const BOOST_OFFER: MonetizationOffer = {
   id: 'boost_single',
   title: 'Boost de prenda',
+  price: 'ARS 2.500',
   detail: 'Una prenda destacada temporalmente para medir demanda.',
   features: [
     'Más visibilidad en el catálogo',

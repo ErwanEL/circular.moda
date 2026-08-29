@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
       body.feature === 'boost' ? BOOST_OFFER : PREMIUM_OFFER;
     const offerId = getTrimmedString(body.offerId) ?? expectedOffer.id;
     const offerTitle = getTrimmedString(body.offerTitle) ?? expectedOffer.title;
-    const offerPrice = getTrimmedString(body.offerPrice);
+    const offerPrice = getTrimmedString(body.offerPrice) ?? expectedOffer.price;
 
     if (offerId !== expectedOffer.id) {
       return NextResponse.json(

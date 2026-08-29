@@ -88,6 +88,7 @@ function recordLocalDebugEvent(intent: TeaserIntent, offer: MonetizationOffer) {
     event: 'submit',
     offerId: offer.id,
     offerTitle: offer.title,
+    offerPrice: offer.price,
     createdAt: new Date().toISOString(),
   };
 
@@ -170,6 +171,7 @@ async function submitInterest(intent: TeaserIntent, offer: MonetizationOffer) {
       productName: intent.productName,
       offerId: offer.id,
       offerTitle: offer.title,
+      offerPrice: offer.price,
     }),
   });
 
@@ -193,6 +195,9 @@ function OfferSummary({ offer }: { offer: MonetizationOffer }) {
           <h3 className="mt-1 text-lg font-bold">{offer.title}</h3>
           <p className="mt-1 text-sm leading-6 text-gray-700">{offer.detail}</p>
         </div>
+        <p className="shrink-0 text-base font-extrabold text-emerald-800">
+          {offer.price}
+        </p>
       </div>
 
       <ul className="mt-4 space-y-2">
