@@ -1,0 +1,118 @@
+---
+title: Carte des routes API
+---
+
+# Carte des routes API
+
+## Version simple
+
+Cette page liste les routes API du site, leur role, leur niveau de protection et
+les fichiers a ouvrir.
+
+Elle sert de point d'entree rapide pour un humain ou un agent IA avant de
+modifier une feature qui touche aux donnees, a Supabase, a Brevo, a OpenAI ou
+au cache.
+
+## Version detaillee
+
+<details>
+<summary><strong>Routes publiques catalogue</strong></summary>
+
+| Route | Role | Protection | Fichier |
+| --- | --- | --- | --- |
+| `GET /api/products` | Liste produits, pagination, filtres | Publique | [`src/app/api/products/route.ts`](../../../src/app/api/products/route.ts) |
+| `GET /api/categories` | Options categories | Publique | [`src/app/api/categories/route.ts`](../../../src/app/api/categories/route.ts) |
+| `GET /api/colors` | Options couleurs | Publique | [`src/app/api/colors/route.ts`](../../../src/app/api/colors/route.ts) |
+| `GET /api/genders` | Options genres | Publique | [`src/app/api/genders/route.ts`](../../../src/app/api/genders/route.ts) |
+| `GET /api/image` | Proxy image Supabase Storage | Publique, URL allowlist | [`src/app/api/image/route.ts`](../../../src/app/api/image/route.ts) |
+| `POST /api/product-interest` | Cree une demande de mise en relation WhatsApp | Publique, ne renvoie pas le telephone vendeur | [`src/app/api/product-interest/route.ts`](../../../src/app/api/product-interest/route.ts) |
+
+</details>
+
+<details>
+<summary><strong>Routes auth et espace vendeur</strong></summary>
+
+| Route | Role | Protection | Fichier |
+| --- | --- | --- | --- |
+| `GET /auth/confirm` | Confirme magic link Supabase | Token/code Supabase | [`src/app/auth/confirm/route.ts`](../../../src/app/auth/confirm/route.ts) |
+| `GET /api/me` | Profil et produits du vendeur connecte | Session Supabase | [`src/app/api/me/route.ts`](../../../src/app/api/me/route.ts) |
+| `PUT /api/me` | Cree/met a jour profil vendeur | Session Supabase | [`src/app/api/me/route.ts`](../../../src/app/api/me/route.ts) |
+| `POST /api/me/upload-product` | Publie une prenda vendeur | Session Supabase + profil | [`src/app/api/me/upload-product/route.ts`](../../../src/app/api/me/upload-product/route.ts) |
+| `GET /api/me/products/[id]` | Lit un produit vendeur | Session Supabase + owner | [`src/app/api/me/products/[id]/route.ts`](../../../src/app/api/me/products/[id]/route.ts) |
+| `PUT /api/me/products/[id]` | Edite un produit vendeur | Session Supabase + owner | [`src/app/api/me/products/[id]/route.ts`](../../../src/app/api/me/products/[id]/route.ts) |
+| `DELETE /api/me/products/[id]` | Supprime un produit vendeur | Session Supabase + owner | [`src/app/api/me/products/[id]/route.ts`](../../../src/app/api/me/products/[id]/route.ts) |
+
+</details>
+
+<details>
+<summary><strong>Routes admin</strong></summary>
+
+| Route | Role | Protection constatee dans le code | Fichier |
+| --- | --- | --- | --- |
+| `GET /api/admin/users` | Liste vendeurs admin | A renforcer/verifier | [`src/app/api/admin/users/route.ts`](../../../src/app/api/admin/users/route.ts) |
+| `POST /api/admin/users` | Cree vendeur admin | A renforcer/verifier | [`src/app/api/admin/users/route.ts`](../../../src/app/api/admin/users/route.ts) |
+| `POST /api/admin/upload-product` | Cree produit admin | A renforcer/verifier | [`src/app/api/admin/upload-product/route.ts`](../../../src/app/api/admin/upload-product/route.ts) |
+| `POST /api/admin/ai-analyze-product` | Analyse IA produit | A renforcer/verifier | [`src/app/api/admin/ai-analyze-product/route.ts`](../../../src/app/api/admin/ai-analyze-product/route.ts) |
+| `GET /api/admin/introductions` | Liste les demandes de mise en relation | Local uniquement | [`src/app/api/admin/introductions/route.ts`](../../../src/app/api/admin/introductions/route.ts) |
+| `PATCH /api/admin/introductions/[id]` | Met a jour acheteuse, notes et statut | Local uniquement | [`src/app/api/admin/introductions/[id]/route.ts`](../../../src/app/api/admin/introductions/[id]/route.ts) |
+| `DELETE /api/admin/introductions/[id]` | Supprime une demande de test ou invalide | Local uniquement | [`src/app/api/admin/introductions/[id]/route.ts`](../../../src/app/api/admin/introductions/[id]/route.ts) |
+
+</details>
+
+<details>
+<summary><strong>Routes newsletter et Brevo</strong></summary>
+
+| Route | Role | Protection | Fichier |
+| --- | --- | --- | --- |
+| `POST /api/catalogue-subscribe` | Inscription newsletter catalogue | Publique | [`src/app/api/catalogue-subscribe/route.ts`](../../../src/app/api/catalogue-subscribe/route.ts) |
+| `GET /api/cron/send-catalogue` | Envoi mensuel des emails dus | `CRON_SECRET` | [`src/app/api/cron/send-catalogue/route.ts`](../../../src/app/api/cron/send-catalogue/route.ts) |
+| `GET /api/catalogue-test-send` | Aide/test endpoint newsletter | Secret test | [`src/app/api/catalogue-test-send/route.ts`](../../../src/app/api/catalogue-test-send/route.ts) |
+| `POST /api/catalogue-test-send` | Envoi test newsletter | Secret test | [`src/app/api/catalogue-test-send/route.ts`](../../../src/app/api/catalogue-test-send/route.ts) |
+| `POST /api/webhooks/brevo-transactional` | Sync events Brevo vers Supabase | Signature a verifier/renforcer | [`src/app/api/webhooks/brevo-transactional/route.ts`](../../../src/app/api/webhooks/brevo-transactional/route.ts) |
+
+</details>
+
+<details>
+<summary><strong>Routes cache et operations</strong></summary>
+
+| Route | Role | Protection | Fichier |
+| --- | --- | --- | --- |
+| `POST /api/revalidate` | Revalidation cache/ISR externe | `REVALIDATE_SECRET` | [`src/app/api/revalidate/route.ts`](../../../src/app/api/revalidate/route.ts) |
+
+</details>
+
+<details>
+<summary><strong>Routes pages liees</strong></summary>
+
+Ces routes ne sont pas des APIs, mais elles sont souvent modifiees avec les
+endpoints :
+
+| Page | Role | Fichier |
+| --- | --- | --- |
+| `/products` | Catalogue public | [`src/app/products/page.tsx`](../../../src/app/products/page.tsx) |
+| `/products/[slug]` | Detail produit | [`src/app/products/[slug]/page.tsx`](../../../src/app/products/[slug]/page.tsx) |
+| `/user/[id]` | Vitrine vendeur publique | [`src/app/user/[id]/page.tsx`](../../../src/app/user/[id]/page.tsx) |
+| `/me` | Dashboard vendeur | [`src/app/me/page.tsx`](../../../src/app/me/page.tsx) |
+| `/me/product/add` | Ajout produit vendeur | [`src/app/me/product/add/page.tsx`](../../../src/app/me/product/add/page.tsx) |
+| `/me/product/[id]/edit` | Edition produit vendeur | [`src/app/me/product/[id]/edit/page.tsx`](../../../src/app/me/product/[id]/edit/page.tsx) |
+| `/admin/introductions` | Back-office local de mise en relation WhatsApp | [`src/app/admin/introductions/page.tsx`](../../../src/app/admin/introductions/page.tsx) |
+| `/admin/upload-product` | Ajout produit admin | [`src/app/admin/upload-product/page.tsx`](../../../src/app/admin/upload-product/page.tsx) |
+| `/newsletter/unsubscribe` | Desinscription newsletter | [`src/app/newsletter/unsubscribe/page.tsx`](../../../src/app/newsletter/unsubscribe/page.tsx) |
+
+</details>
+
+<details>
+<summary><strong>Tester cette carte</strong></summary>
+
+Avant un refactoring API :
+
+1. Identifier les routes touchees dans cette page.
+2. Lire la page feature correspondante.
+3. Verifier auth/secrets/cache.
+4. Lancer au minimum :
+
+```bash
+npm run build
+```
+
+</details>

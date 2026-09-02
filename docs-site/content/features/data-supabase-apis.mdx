@@ -1,0 +1,161 @@
+---
+title: Couche data Supabase et APIs publiques
+---
+
+# Couche data Supabase et APIs publiques
+
+## Version simple
+
+La plupart des donnees du site viennent de Supabase : produits, vendeurs,
+categories, couleurs, genres, abonnements newsletter et cycles d'envoi.
+
+Le code contient une couche de helpers pour transformer les lignes Supabase en
+objets utilisables par l'UI. Cette couche evite que chaque page connaisse les
+details de noms de colonnes, anciens formats ou formats d'images.
+
+Des routes API exposent les produits, les filtres, le profil connecte, les
+uploads et les actions newsletter.
+
+## Version detaillee
+
+<details>
+<summary><strong>Clients Supabase</strong></summary>
+
+Le repo contient plusieurs clients Supabase :
+
+- client browser pour les pages client ;
+- client server SSR pour Auth/cookies ;
+- client service role/anon historique pour les helpers serveur et scripts.
+
+Avant un refactoring, verifier quel client est utilise :
+
+- un client publishable peut etre expose cote navigateur ;
+- la service role key doit rester uniquement serveur/scripts ;
+- les routes API doivent refaire leurs controles d'auth et d'ownership.
+
+</details>
+
+<details>
+<summary><strong>Transformation produits</strong></summary>
+
+La table `products` peut exposer plusieurs formats de colonnes selon l'historique
+du projet : `name`, `Product Name`, `price`, `Price`, `images`, `Images`, etc.
+
+`supabase-products.ts` transforme ces lignes vers le type `Product` attendu par
+l'UI. `product-transformer.ts` transforme ensuite les produits en cartes
+catalogue.
+
+Cette compatibilite historique est importante : ne pas supprimer un fallback
+sans verifier les donnees Supabase et les anciens imports.
+
+</details>
+
+<details>
+<summary><strong>APIs disponibles</strong></summary>
+
+APIs catalogue et options :
+
+- `GET /api/products`
+- `GET /api/categories`
+- `GET /api/colors`
+- `GET /api/genders`
+- `GET /api/image`
+- `POST /api/revalidate`
+
+APIs vendeur :
+
+- `GET /api/me`
+- `PUT /api/me`
+- `POST /api/me/upload-product`
+- `GET /api/me/products/[id]`
+- `PUT /api/me/products/[id]`
+- `DELETE /api/me/products/[id]`
+
+APIs admin :
+
+- `GET /api/admin/users`
+- `POST /api/admin/users`
+- `POST /api/admin/upload-product`
+- `POST /api/admin/ai-analyze-product`
+
+APIs newsletter :
+
+- `POST /api/catalogue-subscribe`
+- `GET /api/catalogue-test-send`
+- `POST /api/catalogue-test-send`
+- `GET /api/cron/send-catalogue`
+- `POST /api/webhooks/brevo-transactional`
+
+</details>
+
+<details>
+<summary><strong>Tables principales</strong></summary>
+
+Tables lues/ecrites par le code :
+
+- `products`
+- `users`
+- `categories`
+- `colors`
+- `genders`
+- `catalogue_subscriptions`
+- `catalogue_delivery_cycles`
+
+Table Auth :
+
+- `auth.users`
+
+Stockage :
+
+- bucket `storage`
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier client Supabase serveur historique | [`src/app/lib/supabase.ts`](../../../src/app/lib/supabase.ts) |
+| Modifier client Supabase browser historique | [`src/app/lib/supabase-client.ts`](../../../src/app/lib/supabase-client.ts) |
+| Modifier client Supabase browser SSR | [`src/app/lib/supabase/client.ts`](../../../src/app/lib/supabase/client.ts) |
+| Modifier client Supabase server SSR | [`src/app/lib/supabase/server.ts`](../../../src/app/lib/supabase/server.ts) |
+| Modifier proxy/middleware Supabase Auth | [`src/app/lib/supabase/proxy.ts`](../../../src/app/lib/supabase/proxy.ts) |
+| Modifier requetes produits Supabase | [`src/app/lib/supabase-products.ts`](../../../src/app/lib/supabase-products.ts) |
+| Modifier API data produits | [`src/app/lib/products.ts`](../../../src/app/lib/products.ts) |
+| Modifier requetes users/vendeurs | [`src/app/lib/users.ts`](../../../src/app/lib/users.ts) |
+| Modifier types partages | [`src/app/lib/types.ts`](../../../src/app/lib/types.ts) |
+| Tester connexion Supabase | [`scripts/test-supabase.mjs`](../../../scripts/test-supabase.mjs) |
+| Tester helper Supabase TS | [`src/app/lib/test-supabase.ts`](../../../src/app/lib/test-supabase.ts) |
+| Lancer helper MCP Supabase | [`scripts/supabase-mcp.sh`](../../../scripts/supabase-mcp.sh) |
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement</strong></summary>
+
+Variables principales :
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Le fichier d'exemple est
+[`.env.local.example`](../../../.env.local.example). Ne jamais documenter les
+valeurs reelles de `.env.local`.
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Commandes utiles :
+
+```bash
+node scripts/test-supabase.mjs
+npm run fetch:products
+npm run build
+```
+
+</details>

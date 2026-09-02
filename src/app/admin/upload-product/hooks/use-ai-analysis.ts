@@ -1,5 +1,22 @@
 import { useState } from 'react';
+import {
+  getUploadApiErrorMessage,
+  prepareProductImagesForUpload,
+  readUploadApiResponse,
+} from '@/app/lib/client-upload';
 import { mapAiValuesToValid } from '../utils/matching';
+
+type AiAnalysisData = {
+  name?: string;
+  price?: string;
+  size?: string;
+  color?: string;
+  category?: string;
+  gender?: string[];
+  description?: string;
+  featured?: boolean;
+  [key: string]: unknown;
+};
 
 interface UseAiAnalysisResult {
   analyzing: boolean;
@@ -9,7 +26,7 @@ interface UseAiAnalysisResult {
     options: { colors: string[]; categories: string[]; genders: string[] }
   ) => Promise<{
     success: boolean;
-    data?: any;
+    data?: AiAnalysisData;
     warnings?: string[];
     error?: string;
   }>;
@@ -40,9 +57,10 @@ export function useAiAnalysis(): UseAiAnalysisResult {
     setAnalyzing(true);
 
     try {
+      const uploadFiles = await prepareProductImagesForUpload(files);
       const formData = new FormData();
       formData.append('textDescription', description.trim());
-      files.forEach((file) => {
+      uploadFiles.forEach((file) => {
         formData.append('images', file);
       });
 
@@ -51,18 +69,27 @@ export function useAiAnalysis(): UseAiAnalysisResult {
         body: formData,
       });
 
-      const result = await response.json();
+      const result = await readUploadApiResponse<{
+        data?: AiAnalysisData;
+        error?: unknown;
+      }>(response);
 
       if (!response.ok) {
         return {
           success: false,
-          error: result.error || "Erreur lors de l'analyse AI",
+          error: getUploadApiErrorMessage(
+            result,
+            "Erreur lors de l'analyse AI"
+          ),
         };
       }
 
       if (result.data) {
         // Mapper les valeurs de l'IA aux valeurs valides dans Supabase
-        const mappedData = mapAiValuesToValid(result.data, options);
+        const mappedData = mapAiValuesToValid(
+          result.data,
+          options
+        ) as AiAnalysisData;
 
         const warnings: string[] = [];
         if (result.data.color && !mappedData.color) {

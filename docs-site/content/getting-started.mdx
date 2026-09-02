@@ -1,0 +1,64 @@
+---
+title: Demarrage local
+---
+
+# Demarrage local
+
+## Documentation
+
+Installer les dependances de l'app principale et de la doc :
+
+```bash
+npm install
+npm install --prefix docs-site
+```
+
+Lancer la doc :
+
+```bash
+npm run docs:dev
+```
+
+URL locale :
+
+```text
+http://localhost:3002
+```
+
+Verifier que la doc compile :
+
+```bash
+npm run docs:build
+```
+
+## Application principale
+
+Lancer le site principal :
+
+```bash
+npm run dev
+```
+
+URL locale habituelle :
+
+```text
+http://localhost:3000
+```
+
+Build de production :
+
+```bash
+npm run build
+```
+
+Tests Node existants :
+
+```bash
+npm run test
+```
+
+## Variables d'environnement
+
+Les fichiers `.env.local` et equivalents restent ignores par Git. Les scripts
+Supabase attendent les variables deja utilisees par le projet, notamment l'URL
+Supabase et une cle autorisee pour lire ou modifier les produits.

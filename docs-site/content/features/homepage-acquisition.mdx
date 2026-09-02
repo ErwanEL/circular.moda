@@ -1,0 +1,135 @@
+---
+title: Homepage, acquisition et navigation
+---
+
+# Homepage, acquisition et navigation
+
+## Version simple
+
+La homepage presente le service, pousse les visiteurs vers la publication d'une
+prenda et montre des produits du catalogue. Elle sert aussi a capter des emails
+via le lead magnet/newsletter et a orienter les visiteurs vers WhatsApp.
+
+La navigation change selon l'etat de connexion. Un utilisateur deconnecte voit
+des appels a l'inscription. Un utilisateur connecte voit les actions vendeur :
+publier une prenda, ouvrir son profil et contacter via WhatsApp.
+
+La page `como-funciona` explique le fonctionnement du service et renvoie aussi
+vers le parcours vendeur.
+
+## Version detaillee
+
+<details>
+<summary><strong>Parcours public principal</strong></summary>
+
+La homepage `/` assemble :
+
+- `Hero`
+- `VenderFacil`
+- `Features`
+- `ResponsiveCards`
+- `LeadMagnet`
+- `SocialShare`
+- `Cta`
+
+Les CTAs principaux utilisent `signupUrl('/me/product/add')`. Cela envoie vers
+`/signup?next=/me/product/add`, puis ramene l'utilisateur vers l'ajout de prenda
+apres confirmation du magic link.
+
+`ResponsiveCards` affiche un nombre de cartes different mobile/desktop et se
+base sur les produits `featured`.
+
+</details>
+
+<details>
+<summary><strong>Navigation auth-aware</strong></summary>
+
+Le header lit l'utilisateur Supabase cote client avec `supabase.auth.getUser`.
+Il ecoute aussi `onAuthStateChange` pour mettre a jour l'etat sans recharger la
+page.
+
+Si l'utilisateur est deconnecte :
+
+- bouton `Vender ahora` ;
+- lien login/signup ;
+- navigation publique.
+
+Si l'utilisateur est connecte :
+
+- lien WhatsApp ;
+- bouton `Publicar prenda` ;
+- lien `Mi perfil`.
+
+La version mobile utilise `NavbarCollapse` et ferme le menu quand la route
+change.
+
+</details>
+
+<details>
+<summary><strong>Lead magnet, popup et newsletter</strong></summary>
+
+`LeadMagnet` affiche un formulaire newsletter generique base sur
+`NewsletterSubscribeForm`.
+
+`Popup` existe aussi et utilise le meme formulaire. Il stocke `popupShown` dans
+`sessionStorage` pour ne pas s'afficher plusieurs fois dans une meme session.
+
+Dans le layout actuel, `Popup` est importe mais son rendu est commente. La
+feature popup existe donc dans le code, mais elle n'est pas activee sur le site
+tant que `<Popup />` reste commente.
+
+</details>
+
+<details>
+<summary><strong>WhatsApp et partage social</strong></summary>
+
+Le site utilise WhatsApp a plusieurs endroits :
+
+- lien contact global dans le header ;
+- bouton flottant WhatsApp ;
+- CTA produit pour contacter le vendeur ;
+- partage social des pages.
+
+`SocialShare` construit des liens vers WhatsApp, X et Facebook, et permet de
+copier le lien courant. Il est utilise sur la homepage et les pages produit.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier la homepage | [`src/app/page.tsx`](../../../src/app/page.tsx) |
+| Modifier le hero | [`src/app/ui/hero.tsx`](../../../src/app/ui/hero.tsx) |
+| Modifier le bloc "comment vendre" | [`src/app/ui/vender-facil.tsx`](../../../src/app/ui/vender-facil.tsx) |
+| Modifier les arguments/features marketing | [`src/app/ui/features.tsx`](../../../src/app/ui/features.tsx) |
+| Modifier les cartes responsive homepage | [`src/app/ui/ResponsiveCards.tsx`](../../../src/app/ui/ResponsiveCards.tsx) |
+| Modifier le lead magnet | [`src/app/ui/lead-magnet.tsx`](../../../src/app/ui/lead-magnet.tsx) |
+| Modifier le formulaire newsletter generique | [`src/app/ui/newsletter-subscribe-form.tsx`](../../../src/app/ui/newsletter-subscribe-form.tsx) |
+| Modifier la popup newsletter | [`src/app/ui/popup.tsx`](../../../src/app/ui/popup.tsx) |
+| Activer/desactiver la popup globale | [`src/app/layout.tsx`](../../../src/app/layout.tsx) |
+| Modifier les CTAs | [`src/app/ui/cta.tsx`](../../../src/app/ui/cta.tsx) |
+| Modifier le partage social | [`src/app/ui/social-share.tsx`](../../../src/app/ui/social-share.tsx) |
+| Modifier le header | [`src/app/ui/header.tsx`](../../../src/app/ui/header.tsx) |
+| Modifier le footer | [`src/app/ui/footer.tsx`](../../../src/app/ui/footer.tsx) |
+| Modifier le bouton WhatsApp flottant | [`src/app/ui/whatsapp-float.tsx`](../../../src/app/ui/whatsapp-float.tsx) |
+| Modifier la page comment ca marche | [`src/app/como-funciona/page.tsx`](../../../src/app/como-funciona/page.tsx) |
+| Modifier les helpers login/signup avec `next` | [`src/app/lib/helpers/index.ts`](../../../src/app/lib/helpers/index.ts) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ouvrir `/` en deconnecte.
+2. Cliquer les CTAs vendeur et verifier le parametre `next`.
+3. Tester le formulaire newsletter.
+4. Tester les liens de partage.
+5. Tester le header desktop et mobile.
+6. Se connecter et verifier que le header passe en mode vendeur.
+7. Ouvrir `/como-funciona`.
+
+</details>

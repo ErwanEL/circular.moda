@@ -1,0 +1,283 @@
+---
+title: Espace vendeur
+---
+
+# Espace vendeur
+
+## Version simple
+
+L'espace vendeur permet a une personne connectee de gerer son profil et ses
+prendas depuis le site.
+
+Le parcours commence apres le login. Si le profil n'est pas encore complet, le
+site demande un nom et un numero WhatsApp. Une fois ce profil cree, le vendeur
+peut publier une nouvelle prenda, modifier une prenda existante, supprimer une
+prenda et partager sa vitrine publique.
+
+Supabase Auth gere la session. La table `users` garde le profil vendeur. La
+table `products` garde les prendas, avec un lien vers le vendeur via `owner`.
+Les images sont envoyees dans Supabase Storage, puis les URLs publiques sont
+stockees sur le produit.
+
+Dans les formulaires produit, l'ordre des images est important : la premiere
+image devient la couverture visible dans le catalogue, la vitrine vendeur et les
+previews qui utilisent l'image principale. Le vendeur peut donc reordonner ses
+photos et changer la couverture sans reuploader la prenda.
+
+Quand le vendeur met a jour son profil, le contact Brevo utilisateur est aussi
+mis a jour avec le nom et le telephone. Cette sync ne sert pas au login, elle
+sert au suivi marketing/contact.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Supabase Auth** garde l'utilisateur connecte et les cookies de session.
+- **Supabase Postgres** stocke les profils vendeurs dans `users` et les prendas
+  dans `products`.
+- **Supabase Storage** stocke les images uploades dans le bucket `storage`.
+- **Next.js** expose les pages vendeur, les routes API et le middleware de
+  protection.
+- **Brevo** recoit la mise a jour contact utilisateur apres sauvegarde du
+  profil.
+
+</details>
+
+<details>
+<summary><strong>Parcours profil vendeur</strong></summary>
+
+Apres connexion, l'utilisateur arrive generalement sur `/me`.
+
+La page `/me` :
+
+1. verifie la session Supabase cote client ;
+2. appelle `GET /api/me` ;
+3. recupere le profil `users` lie a `auth.users.id` via `users.user_id` ;
+4. recupere les produits du vendeur via `products.owner = users.id` ;
+5. redirige vers `/welcome` si `name` ou `phone` manque.
+
+La page `/welcome` utilise le meme formulaire de profil que `/me`. Elle force la
+creation du profil avant de laisser l'utilisateur publier une prenda.
+
+La sauvegarde profil passe par `PUT /api/me` :
+
+1. l'API recupere l'utilisateur Auth courant ;
+2. elle normalise le telephone argentin en format `+54...` ;
+3. elle cree ou met a jour la ligne `users` ;
+4. elle synchronise Brevo avec `email`, `FIRSTNAME` et `SMS` quand c'est
+   possible.
+
+</details>
+
+<details>
+<summary><strong>Publication d'une prenda</strong></summary>
+
+Le vendeur publie depuis `/me/product/add`.
+
+La page charge les options produit avec les APIs :
+
+- `GET /api/categories`
+- `GET /api/colors`
+- `GET /api/genders`
+
+Ces options viennent des tables Supabase `categories`, `colors` et `genders`.
+Elles servent a limiter les valeurs envoyees dans `products`.
+
+Au submit, la page appelle `POST /api/me/upload-product`.
+
+Avant cet appel, le client prepare les images avec
+`prepareProductImagesForUpload` :
+
+- maximum 5 photos par prenda ;
+- ordre modifiable avant publication, avec badge `Portada` sur la premiere
+  image ;
+- compression navigateur quand le format est supporte ;
+- garde-fou de poids total pour rester sous la limite Vercel Function ;
+- etat `Preparando fotos...` pendant la compression ;
+- message lisible si l'upload est trop lourd ou si la reponse serveur n'est pas
+  du JSON.
+
+La route :
+
+1. verifie que l'utilisateur est connecte ;
+2. verifie qu'un profil `users` existe ;
+3. lit les champs `name`, `price`, `size`, `color`, `category`, `gender`,
+   `description` et `images` ;
+4. valide les fichiers image avec `getUploadedImageMetadata` ;
+5. genere un `public_id` UUID ;
+6. upload chaque image dans Supabase Storage sous `products/{public_id}-N.ext` ;
+7. insere le produit dans `products` avec `owner = users.id` ;
+8. declenche une revalidation produit pour rafraichir le catalogue.
+
+Le champ `featured` est force a `false` dans le parcours vendeur.
+
+</details>
+
+<details>
+<summary><strong>Edition et suppression d'une prenda</strong></summary>
+
+Le vendeur edite depuis `/me/product/[id]/edit`.
+
+La page appelle d'abord `GET /api/me/products/[id]`. L'API ne renvoie le produit
+que si :
+
+- l'utilisateur est connecte ;
+- le profil `users` existe ;
+- le produit appartient a ce vendeur via `products.owner`.
+
+La mise a jour passe par `PUT /api/me/products/[id]`. Le vendeur peut garder,
+retirer et reordonner les images existantes, puis ajouter de nouvelles images.
+La premiere image conservee devient la couverture. Les nouvelles images sont
+uploadees dans Supabase Storage avec le `public_id` existant et sont ajoutees
+apres les images existantes conservees.
+
+La limite de 5 photos compte les images conservees et les nouvelles images. Par
+exemple, si une prenda garde deja 4 photos, le formulaire d'edition n'accepte
+qu'une nouvelle photo.
+
+La suppression passe par `DELETE /api/me/products/[id]`. L'API supprime la ligne
+`products` seulement si le produit appartient au vendeur connecte. Apres update
+ou delete, le code revalide les pages catalogue et produit concernees.
+
+Point a noter : la suppression retire la ligne produit, mais le code lu ne
+supprime pas explicitement les fichiers deja presents dans Supabase Storage.
+
+</details>
+
+<details>
+<summary><strong>Vitrine publique vendeur</strong></summary>
+
+Chaque vendeur avec des produits peut avoir une page publique `/user/[id]`.
+
+Cette page :
+
+- lit le profil public avec `getPublicUserById` ;
+- lit les produits via `getProductsByOwnerId` ;
+- affiche le nom du vendeur, le nombre de prendas et les cartes produits ;
+- permet de partager l'URL de la vitrine ;
+- affiche un badge premium quand le vendeur atteint le seuil defini dans
+  `seller-tier.ts`.
+
+La page `/me` affiche aussi un bloc "Tu vitrina publica" pour copier ou ouvrir
+le lien `/user/{id}`.
+
+</details>
+
+<details>
+<summary><strong>Protection et ownership</strong></summary>
+
+Le middleware protege :
+
+- `/me/:path*`
+- `/welcome`
+
+Les routes API de l'espace vendeur refont quand meme une verification serveur
+avec Supabase. C'est important car la protection UI ne suffit pas pour securiser
+une mutation.
+
+Les endpoints de produit vendeur filtrent toujours avec :
+
+- l'utilisateur Auth courant ;
+- le profil `users` lie a cet Auth user ;
+- `products.owner = users.id`.
+
+Cette logique evite qu'un vendeur modifie ou supprime une prenda qui appartient
+a un autre vendeur.
+
+</details>
+
+<details>
+<summary><strong>Tables Supabase</strong></summary>
+
+Tables principales :
+
+- `auth.users` : identite Supabase Auth.
+- `users` : profil applicatif vendeur, avec `id`, `name`, `phone`, `user_id`.
+- `products` : prendas publiees, avec `owner`, `public_id`, `images`, `name`,
+  `price`, `size`, `color`, `category`, `gender`, `description`, `featured`.
+- `categories`, `colors`, `genders` : valeurs autorisees pour les formulaires.
+
+Stockage :
+
+- bucket Supabase Storage : `storage`
+- prefix images produit : `products/`
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier le dashboard vendeur | [`src/app/me/page.tsx`](../../../src/app/me/page.tsx) |
+| Modifier l'onboarding profil | [`src/app/welcome/page.tsx`](../../../src/app/welcome/page.tsx) |
+| Modifier le formulaire profil | [`src/app/me/ui/profile-form.tsx`](../../../src/app/me/ui/profile-form.tsx) |
+| Modifier l'API profil vendeur | [`src/app/api/me/route.ts`](../../../src/app/api/me/route.ts) |
+| Modifier la normalisation WhatsApp Argentine | [`src/app/lib/argentina-phone.ts`](../../../src/app/lib/argentina-phone.ts) |
+| Modifier la page d'ajout vendeur | [`src/app/me/product/add/page.tsx`](../../../src/app/me/product/add/page.tsx) |
+| Modifier les champs du formulaire vendeur | [`src/app/me/product/add/form-fields-es.tsx`](../../../src/app/me/product/add/form-fields-es.tsx) |
+| Modifier l'upload, l'ordre et la couverture images vendeur | [`src/app/me/product/add/image-upload-section-es.tsx`](../../../src/app/me/product/add/image-upload-section-es.tsx) |
+| Modifier limites, compression et messages d'upload | [`src/app/lib/client-upload.ts`](../../../src/app/lib/client-upload.ts) |
+| Tester limites et erreurs d'upload client | [`src/app/lib/client-upload.test.mjs`](../../../src/app/lib/client-upload.test.mjs) |
+| Modifier l'API de creation produit vendeur | [`src/app/api/me/upload-product/route.ts`](../../../src/app/api/me/upload-product/route.ts) |
+| Modifier la page d'edition vendeur et l'ordre des images existantes | [`src/app/me/product/[id]/edit/page.tsx`](../../../src/app/me/product/[id]/edit/page.tsx) |
+| Modifier l'API lecture/update/delete d'un produit vendeur | [`src/app/api/me/products/[id]/route.ts`](../../../src/app/api/me/products/[id]/route.ts) |
+| Modifier les hooks communs de formulaire/upload produit | [`src/app/admin/upload-product/hooks/use-product-form.ts`](../../../src/app/admin/upload-product/hooks/use-product-form.ts) et [`src/app/admin/upload-product/hooks/use-image-upload.ts`](../../../src/app/admin/upload-product/hooks/use-image-upload.ts) |
+| Modifier la recuperation categories/couleurs/genres | [`src/app/admin/upload-product/hooks/use-supabase-data.ts`](../../../src/app/admin/upload-product/hooks/use-supabase-data.ts) |
+| Modifier la validation de fichier image | [`src/app/lib/uploaded-image-file.ts`](../../../src/app/lib/uploaded-image-file.ts) |
+| Modifier la vitrine publique vendeur | [`src/app/user/[id]/page.tsx`](../../../src/app/user/[id]/page.tsx) |
+| Modifier le partage de vitrine | [`src/app/user/[id]/user-page-share.tsx`](../../../src/app/user/[id]/user-page-share.tsx) |
+| Modifier le badge premium vendeur | [`src/app/ui/seller-premium-badge.tsx`](../../../src/app/ui/seller-premium-badge.tsx) et [`src/app/lib/seller-tier.ts`](../../../src/app/lib/seller-tier.ts) |
+| Modifier la sync contact Brevo utilisateur | [`src/app/lib/brevo-users.ts`](../../../src/app/lib/brevo-users.ts) |
+| Modifier la protection des routes connectees | [`src/middleware.ts`](../../../src/middleware.ts) et [`src/app/lib/supabase/proxy.ts`](../../../src/app/lib/supabase/proxy.ts) |
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement</strong></summary>
+
+Variables utiles pour l'espace vendeur :
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `BREVO_API_KEY`
+- `BREVO_USERS_LIST_ID`
+
+`SUPABASE_SERVICE_ROLE_KEY` ne doit jamais etre exposee cote client. Les pages
+client utilisent la publishable key, les operations serveur passent par les
+routes API.
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels principaux :
+
+1. Se connecter avec un email de test.
+2. Aller sur `/welcome` et creer un profil avec nom et WhatsApp.
+3. Verifier que `/me` affiche le profil et le bloc vitrine publique.
+4. Publier une prenda depuis `/me/product/add`.
+5. Verifier la limite de 5 photos et le message `Preparando fotos...`.
+6. Reordonner les images avant publication et verifier que le badge `Portada`
+   suit la premiere image.
+7. Verifier que la prenda apparait dans `/me`, `/products` et `/user/{id}` avec
+   la bonne couverture.
+8. Modifier la prenda depuis `/me/product/[id]/edit`.
+9. Reordonner les images existantes et verifier que la nouvelle premiere image
+   devient la couverture apres sauvegarde.
+10. Verifier que la limite de 5 photos reste correcte en edition.
+11. Supprimer la prenda depuis `/me`.
+12. Verifier qu'un autre compte ne peut pas editer l'ID du produit supprime ou
+   d'un produit appartenant a un autre vendeur.
+
+Tests techniques utiles :
+
+```bash
+npm run test
+npm run build
+```
+
+</details>

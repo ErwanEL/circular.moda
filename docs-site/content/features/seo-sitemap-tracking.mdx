@@ -1,0 +1,108 @@
+---
+title: SEO, sitemap, tracking et partage
+---
+
+# SEO, sitemap, tracking et partage
+
+## Version simple
+
+Le site genere des metadata pour aider les moteurs de recherche et les partages
+sociaux. Les pages publiques importantes sont aussi listees dans le sitemap :
+homepage, catalogue, pages produit, blog, articles et vitrines vendeur.
+
+Le tracking Google Tag Manager est ajoute seulement en production. Les routes
+API et les fichiers internes Next.js sont exclus via `robots.txt`.
+
+## Version detaillee
+
+<details>
+<summary><strong>Metadata globales et dynamiques</strong></summary>
+
+Le layout definit les metadata globales du site : titre, description et Open
+Graph de base.
+
+Les pages dynamiques ajoutent leurs propres metadata :
+
+- `/products/[slug]` genere titre, description, Open Graph et Twitter card a
+  partir du produit ;
+- `/user/[id]` genere titre et description a partir du vendeur et du nombre de
+  prendas ;
+- `/blog/[slug]` genere les metadata a partir du frontmatter article.
+
+Quand les images produit changent, il faut verifier les previews sociales car
+elles utilisent souvent l'URL brute de l'image.
+
+</details>
+
+<details>
+<summary><strong>Sitemap et robots</strong></summary>
+
+`sitemap.ts` genere :
+
+- routes statiques ;
+- routes articles ;
+- routes produits ;
+- routes vendeurs.
+
+`robots.ts` autorise le site public, bloque `/api/` et `/_next/`, et pointe vers
+`https://circular.moda/sitemap.xml`.
+
+Les produits affilies ne doivent pas entrer dans le sitemap parce qu'ils ne sont
+pas de vraies pages produit internes.
+
+</details>
+
+<details>
+<summary><strong>Tracking production</strong></summary>
+
+Google Tag Manager est rendu dans le layout uniquement quand
+`NODE_ENV === 'production'`.
+
+Le container configure dans le code est :
+
+```text
+GTM-P8TK9FBN
+```
+
+Si le tracking doit changer, verifier a la fois le code, Vercel et le dashboard
+GTM.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier metadata globales ou GTM | [`src/app/layout.tsx`](../../../src/app/layout.tsx) |
+| Modifier metadata produit | [`src/app/products/[slug]/page.tsx`](../../../src/app/products/[slug]/page.tsx) |
+| Modifier metadata vendeur | [`src/app/user/[id]/page.tsx`](../../../src/app/user/[id]/page.tsx) |
+| Modifier metadata blog | [`src/app/blog/[slug]/page.tsx`](../../../src/app/blog/[slug]/page.tsx) et [`src/app/lib/blog.ts`](../../../src/app/lib/blog.ts) |
+| Modifier le sitemap | [`src/app/sitemap.ts`](../../../src/app/sitemap.ts) |
+| Modifier robots.txt | [`src/app/robots.ts`](../../../src/app/robots.ts) |
+| Modifier le partage social UI | [`src/app/ui/social-share.tsx`](../../../src/app/ui/social-share.tsx) |
+| Modifier le partage vitrine vendeur | [`src/app/user/[id]/user-page-share.tsx`](../../../src/app/user/[id]/user-page-share.tsx) |
+| Modifier redirects production | [`vercel.json`](../../../vercel.json) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ouvrir `/sitemap.xml`.
+2. Ouvrir `/robots.txt`.
+3. Verifier une page produit avec une image.
+4. Verifier une vitrine vendeur.
+5. Verifier un article blog.
+6. Tester les liens WhatsApp/X/Facebook et la copie de lien.
+7. En production, verifier que GTM est present.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

@@ -1,0 +1,36 @@
+---
+title: Agents
+---
+
+# Agents IA du projet
+
+Cette section documente les roles des agents IA qui peuvent travailler sur
+`circular.moda`.
+
+L'objectif est de donner a chaque agent un perimetre clair. Un agent doit savoir
+sur quoi il se concentre, quels fichiers lire, ou placer ses changements, et
+quelles verifications faire avant de rendre la main.
+
+## Agents documentes
+
+- [Agent Orga](/agents/orga) : organise les imports de documents/assets depuis
+  la machine developpeur vers le projet.
+
+## Regles communes
+
+- Lire la documentation feature concernee avant de modifier le code.
+- Ne pas lancer de serveur local si l'utilisateur gere lui-meme les serveurs.
+- Ne pas supprimer ou deplacer des fichiers utilisateur hors du projet.
+- Mettre a jour la documentation dans la meme session quand une convention ou
+  un workflow change.
+- Verifier avec une commande adaptee avant de terminer, par exemple
+  `npm run docs:build` pour la documentation.
+
+## Ajouter un agent
+
+Pour ajouter un agent :
+
+1. creer une page dans `docs-site/content/agents/` ;
+2. ajouter l'entree dans `docs-site/content/agents/_meta.js` ;
+3. decrire son role, ses entrees, ses sorties, les fichiers a toucher et les
+   limites a respecter.

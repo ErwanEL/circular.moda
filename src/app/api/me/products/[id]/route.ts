@@ -3,7 +3,16 @@ import { getProductSlugFromUnknown } from '@/app/lib/product-slug';
 import { revalidateProductContent } from '@/app/lib/product-revalidation';
 import { createClient } from '@/app/lib/supabase/server';
 import { supabase } from '@/app/lib/supabase';
-import { getUploadedImageMetadata } from '@/app/lib/uploaded-image-file';
+import {
+  getRemovedStorageObjectPaths,
+  getStorageObjectPathFromPublicUrl,
+} from '@/app/lib/supabase-storage-images';
+import {
+  validateUploadedProductImage,
+  validateUploadedProductImages,
+} from '@/app/lib/uploaded-image-file';
+
+const MAX_PRODUCT_IMAGE_COUNT = 5;
 
 async function getCurrentUserId() {
   const serverSupabase = await createClient();
@@ -17,6 +26,28 @@ async function getCurrentUserId() {
     .eq('user_id', authUser.id)
     .maybeSingle();
   return userData?.id ?? null;
+}
+
+function getStringArray(value: unknown) {
+  return Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === 'string')
+    : [];
+}
+
+async function removeStorageObjects(paths: string[], context: string) {
+  if (paths.length === 0) return;
+
+  const { error } = await supabase.storage.from('storage').remove(paths);
+  if (error) {
+    console.error(`[Me Products] Failed to clean ${context} images:`, error);
+  }
+}
+
+async function removeUploadedProductImages(imageUrls: string[]) {
+  const paths = imageUrls
+    .map(getStorageObjectPathFromPublicUrl)
+    .filter((path): path is string => path !== null);
+  await removeStorageObjects(paths, 'newly uploaded');
 }
 
 function refreshProduct(
@@ -107,7 +138,7 @@ export async function PUT(
 
     const { data: existing } = await supabase
       .from('products')
-      .select('id, name, public_id')
+      .select('id, name, public_id, images')
       .eq('id', productId)
       .eq('owner', userId)
       .maybeSingle();
@@ -139,13 +170,25 @@ export async function PUT(
       }
     }
 
-    let existingImages: string[] = [];
+    const currentImages = getStringArray(existing.images);
+    let existingImages = currentImages;
     if (existingImagesStr) {
       try {
-        existingImages = JSON.parse(existingImagesStr) as string[];
+        existingImages = getStringArray(JSON.parse(existingImagesStr));
       } catch {
         existingImages = [];
       }
+    }
+
+    const currentImageSet = new Set(currentImages);
+    const hasInvalidExistingImage = existingImages.some(
+      (imageUrl) => !currentImageSet.has(imageUrl)
+    );
+    if (hasInvalidExistingImage) {
+      return NextResponse.json(
+        { error: 'La lista de imágenes existentes no es válida' },
+        { status: 400 }
+      );
     }
 
     if (gender.length > 0) {
@@ -202,6 +245,23 @@ export async function PUT(
       );
     }
 
+    if (totalImages > MAX_PRODUCT_IMAGE_COUNT) {
+      return NextResponse.json(
+        {
+          error: `Podés subir hasta ${MAX_PRODUCT_IMAGE_COUNT} fotos por prenda`,
+        },
+        { status: 400 }
+      );
+    }
+
+    const imagesValidation = validateUploadedProductImages(newFiles);
+    if (imagesValidation.error) {
+      return NextResponse.json(
+        { error: imagesValidation.error },
+        { status: 400 }
+      );
+    }
+
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const newUrls: string[] = [];
     const publicId = existing.public_id;
@@ -209,18 +269,18 @@ export async function PUT(
     if (newFiles?.length) {
       for (let i = 0; i < newFiles.length; i++) {
         const file = newFiles[i];
-        const imageMetadata = getUploadedImageMetadata(file);
-        if (!imageMetadata) {
+        const imageValidation = validateUploadedProductImage(file);
+        if (imageValidation.error || !imageValidation.metadata) {
           return NextResponse.json(
             {
-              error: `El archivo nuevo ${i + 1} no parece ser una imagen. Probá con otro archivo.`,
+              error: `Imagen nueva ${i + 1}: ${imageValidation.error}`,
             },
             { status: 400 }
           );
         }
 
         const suffix = `${Date.now()}-${i + 1}`;
-        const fileName = `${publicId}-${suffix}.${imageMetadata.extension}`;
+        const fileName = `${publicId}-${suffix}.${imageValidation.metadata.extension}`;
         const filePath = `products/${fileName}`;
 
         const arrayBuffer = await file.arrayBuffer();
@@ -229,12 +289,13 @@ export async function PUT(
         const { error: uploadError } = await supabase.storage
           .from('storage')
           .upload(filePath, uint8Array, {
-            contentType: imageMetadata.contentType,
+            contentType: imageValidation.metadata.contentType,
             upsert: false,
           });
 
         if (uploadError) {
           console.error('Error uploading image:', uploadError);
+          await removeUploadedProductImages(newUrls);
           return NextResponse.json(
             {
               error: `Error al subir la imagen: ${uploadError.message}`,
@@ -337,11 +398,16 @@ export async function PUT(
           .select()
           .single();
         if (retryError) {
+          await removeUploadedProductImages(newUrls);
           return NextResponse.json(
             { error: `Error al guardar: ${retryError.message}` },
             { status: 500 }
           );
         }
+        await removeStorageObjects(
+          getRemovedStorageObjectPaths(currentImages, images),
+          'removed'
+        );
         refreshProduct(retry, existing);
         return NextResponse.json({
           success: true,
@@ -349,12 +415,17 @@ export async function PUT(
           message: 'Prenda actualizada correctamente',
         });
       }
+      await removeUploadedProductImages(newUrls);
       return NextResponse.json(
         { error: `Error al guardar: ${updateError.message}` },
         { status: 500 }
       );
     }
 
+    await removeStorageObjects(
+      getRemovedStorageObjectPaths(currentImages, images),
+      'removed'
+    );
     refreshProduct(product, existing);
     return NextResponse.json({
       success: true,
@@ -391,7 +462,7 @@ export async function DELETE(
 
     const { data: existing, error: fetchError } = await supabase
       .from('products')
-      .select('id, name, public_id')
+      .select('id, name, public_id, images')
       .eq('id', productId)
       .eq('owner', userId)
       .maybeSingle();
@@ -425,6 +496,12 @@ export async function DELETE(
       );
     }
 
+    await removeStorageObjects(
+      getStringArray(existing.images)
+        .map(getStorageObjectPathFromPublicUrl)
+        .filter((path): path is string => path !== null),
+      'deleted product'
+    );
     refreshProduct(undefined, existing, { expireImmediately: true });
     return NextResponse.json({
       success: true,

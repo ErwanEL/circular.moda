@@ -1,0 +1,189 @@
+---
+title: Back-office admin et analyse IA produit
+---
+
+# Back-office admin et analyse IA produit
+
+## Version simple
+
+Le back-office admin permet d'ajouter des produits au catalogue sans passer par
+le parcours vendeur connecte.
+
+L'admin peut choisir un vendeur existant ou creer un nouveau vendeur, ajouter
+des photos, remplir les champs produit et envoyer le tout vers Supabase. Il
+existe aussi un mode d'analyse IA : l'admin donne une description et des images,
+puis OpenAI propose automatiquement un nom, un prix, une taille, une couleur,
+une categorie, un genre et une description courte.
+
+Cette feature est pratique pour importer ou corriger rapidement des produits.
+Elle touche plusieurs parties sensibles : OpenAI, Supabase Postgres, Supabase
+Storage, les tables de lookup et la revalidation du catalogue.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Next.js** expose la page admin et les routes API.
+- **OpenAI** analyse les images produit et la description texte.
+- **Supabase Postgres** stocke les utilisateurs, les produits et les valeurs de
+  reference.
+- **Supabase Storage** stocke les images produit dans le bucket `storage`.
+- **Next.js cache / ISR** est invalide apres creation produit.
+
+</details>
+
+<details>
+<summary><strong>Parcours admin</strong></summary>
+
+La page `/admin/upload-product` charge au demarrage :
+
+- les couleurs via `/api/colors` ;
+- les categories via `/api/categories` ;
+- les genres via `/api/genders` ;
+- les utilisateurs via `/api/admin/users`.
+
+L'admin peut ensuite :
+
+1. ajouter des images ;
+2. choisir un utilisateur existant ou en creer un ;
+3. remplir manuellement les champs produit ;
+4. activer ou utiliser l'analyse IA ;
+5. envoyer le formulaire vers `POST /api/admin/upload-product`.
+
+La route d'upload valide le produit, genere un `public_id`, upload les images
+vers Supabase Storage, insere la ligne dans `products`, puis declenche la
+revalidation du catalogue.
+
+Le parcours admin utilise les memes helpers client que le parcours vendeur pour
+les photos :
+
+- maximum 5 images par produit ;
+- compression navigateur avant l'appel API ;
+- garde-fou de poids total pour rester sous la limite Vercel Function ;
+- etat de bouton `Preparation des images...`, puis `Upload en cours...` ;
+- message d'erreur actionnable si le payload est trop lourd ou si le serveur
+  renvoie une reponse non JSON.
+
+</details>
+
+<details>
+<summary><strong>Analyse IA</strong></summary>
+
+Le mode IA appelle `POST /api/admin/ai-analyze-product`.
+
+La route :
+
+1. recupere les valeurs valides dans `categories`, `colors` et `genders` ;
+2. convertit les images en base64 ;
+3. envoie les images et le texte a OpenAI ;
+4. demande une reponse JSON stricte en espagnol argentin ;
+5. nettoie les champs retournes ;
+6. renvoie les donnees au formulaire.
+
+Ensuite, le hook client remappe les valeurs IA contre les valeurs autorisees
+dans Supabase. Si l'IA propose une couleur ou une categorie inconnue, le champ
+est vide et un warning demande une selection manuelle.
+
+Le hook d'analyse IA prepare aussi les images cote client avant l'appel API. La
+limite de 5 images et les controles de poids s'appliquent donc aussi au flux IA.
+
+</details>
+
+<details>
+<summary><strong>Creation ou selection de vendeur</strong></summary>
+
+Le composant `UserSelector` permet deux modes :
+
+- selectionner un vendeur existant depuis la table `users` ;
+- creer un nouveau vendeur avec `name` et `phone`.
+
+La route `POST /api/admin/users` verifie d'abord si un utilisateur avec le meme
+telephone existe deja. Si oui, elle renvoie cet utilisateur au lieu d'en creer
+un nouveau. Sinon, elle cree une ligne dans `users`.
+
+Ces profils admin peuvent ne pas etre lies a Supabase Auth via `user_id`. C'est
+normal pour certains vendeurs historiques ou crees manuellement, mais il faut le
+prendre en compte avant de refactorer la relation `users` / `auth.users`.
+
+</details>
+
+<details>
+<summary><strong>Protection et limites</strong></summary>
+
+Le code lu expose `/admin/upload-product` et les routes `/api/admin/*`. La
+documentation ne montre pas de garde d'auth admin dediee sur ces endpoints.
+
+Avant d'ouvrir ou de renforcer cette zone, verifier :
+
+- si la protection est faite ailleurs dans l'infrastructure ;
+- si la route doit etre limitee par middleware ;
+- si un role admin doit etre ajoute dans Supabase ;
+- si les endpoints admin doivent refuser les appels anonymes cote serveur.
+
+Ce point est important car l'API admin peut creer des users, uploader des images
+et inserer des produits.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier la page admin upload | [`src/app/admin/upload-product/page.tsx`](../../../src/app/admin/upload-product/page.tsx) |
+| Modifier l'API upload admin | [`src/app/api/admin/upload-product/route.ts`](../../../src/app/api/admin/upload-product/route.ts) |
+| Modifier l'analyse IA OpenAI | [`src/app/api/admin/ai-analyze-product/route.ts`](../../../src/app/api/admin/ai-analyze-product/route.ts) |
+| Modifier le hook client d'analyse IA | [`src/app/admin/upload-product/hooks/use-ai-analysis.ts`](../../../src/app/admin/upload-product/hooks/use-ai-analysis.ts) |
+| Modifier le formulaire admin | [`src/app/admin/upload-product/components/form-fields.tsx`](../../../src/app/admin/upload-product/components/form-fields.tsx) |
+| Modifier la section mode IA | [`src/app/admin/upload-product/components/ai-mode-section.tsx`](../../../src/app/admin/upload-product/components/ai-mode-section.tsx) |
+| Modifier l'upload images admin | [`src/app/admin/upload-product/components/image-upload-section.tsx`](../../../src/app/admin/upload-product/components/image-upload-section.tsx) |
+| Modifier le hook fichiers/previews | [`src/app/admin/upload-product/hooks/use-image-upload.ts`](../../../src/app/admin/upload-product/hooks/use-image-upload.ts) |
+| Modifier limites, compression et messages d'upload | [`src/app/lib/client-upload.ts`](../../../src/app/lib/client-upload.ts) |
+| Tester limites et erreurs d'upload client | [`src/app/lib/client-upload.test.mjs`](../../../src/app/lib/client-upload.test.mjs) |
+| Modifier la validation formulaire commune | [`src/app/admin/upload-product/hooks/use-product-form.ts`](../../../src/app/admin/upload-product/hooks/use-product-form.ts) |
+| Modifier le chargement des options Supabase | [`src/app/admin/upload-product/hooks/use-supabase-data.ts`](../../../src/app/admin/upload-product/hooks/use-supabase-data.ts) |
+| Modifier le matching de valeurs IA | [`src/app/admin/upload-product/utils/matching.ts`](../../../src/app/admin/upload-product/utils/matching.ts) |
+| Modifier la selection/creation vendeur | [`src/app/ui/user-selector.tsx`](../../../src/app/ui/user-selector.tsx) |
+| Modifier les APIs users admin | [`src/app/api/admin/users/route.ts`](../../../src/app/api/admin/users/route.ts) |
+| Lire la doc historique admin/Supabase | [`SUPABASE_PRODUCTS_DOCUMENTATION.md`](../../../SUPABASE_PRODUCTS_DOCUMENTATION.md) |
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement</strong></summary>
+
+Variables principales :
+
+- `OPENAI_API_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `REVALIDATE_SECRET`
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ouvrir `/admin/upload-product`.
+2. Charger les options couleur/categorie/genre.
+3. Selectionner ou creer un vendeur.
+4. Ajouter plusieurs images et verifier le compteur `x/5`.
+5. Tester le mode IA avec une description courte.
+6. Verifier que les champs proposes sont coherents.
+7. Essayer de depasser 5 images et verifier le message d'erreur.
+8. Publier le produit.
+9. Verifier que le produit apparait dans `/products` et `/products/[slug]`.
+10. Verifier que le catalogue a ete revalide.
+
+Tests techniques :
+
+```bash
+npm run test
+npm run build
+```
+
+</details>

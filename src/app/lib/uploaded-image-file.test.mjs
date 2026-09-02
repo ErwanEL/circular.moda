@@ -1,15 +1,14 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-const { getUploadedImageMetadata } = await import('./uploaded-image-file.ts');
+const { getUploadedImageMetadata, validateUploadedProductImage } = await import(
+  './uploaded-image-file.ts'
+);
 
-test('accepts HEIC uploads when the browser sends no MIME type', () => {
+test('rejects HEIC uploads when the browser sends no MIME type', () => {
   const metadata = getUploadedImageMetadata(new File(['x'], 'photo.HEIC'));
 
-  assert.deepEqual(metadata, {
-    contentType: 'image/heic',
-    extension: 'heic',
-  });
+  assert.equal(metadata, null);
 });
 
 test('normalizes MIME-only image uploads to a safe image extension', () => {
@@ -40,4 +39,22 @@ test('rejects non-image uploads', () => {
   );
 
   assert.equal(metadata, null);
+});
+
+test('rejects unsupported image MIME types even with image prefix', () => {
+  const metadata = getUploadedImageMetadata(
+    new File(['x'], 'scan.tiff', { type: 'image/tiff' })
+  );
+
+  assert.equal(metadata, null);
+});
+
+test('rejects product images over the server-side size limit', () => {
+  const file = new File([new Uint8Array(901_000)], 'large.jpg', {
+    type: 'image/jpeg',
+  });
+
+  const validation = validateUploadedProductImage(file);
+
+  assert.match(validation.error ?? '', /Cada foto debe pesar menos/);
 });

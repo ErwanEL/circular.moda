@@ -1,0 +1,128 @@
+---
+title: Back-office utilisateurs
+---
+
+# Back-office utilisateurs
+
+## Version simple
+
+Le back-office utilisateurs sert surtout a choisir ou creer un vendeur depuis
+le formulaire admin d'ajout produit.
+
+Dans l'admin, on peut selectionner un vendeur existant, ou creer un nouveau
+profil avec un nom et un numero de telephone. Ensuite, le produit admin est lie
+a ce vendeur via la colonne `owner`.
+
+Cette feature est differente du signup Supabase Auth : certains vendeurs crees
+par l'admin peuvent etre des profils manuels sans `user_id` lie a `auth.users`.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Next.js API routes** pour `/api/admin/users`.
+- **Supabase Postgres** pour la table `users`.
+- **Back-office admin upload produit** pour consommer la liste des vendeurs.
+
+</details>
+
+<details>
+<summary><strong>Parcours admin</strong></summary>
+
+Le composant `UserSelector` charge les vendeurs via :
+
+```http
+GET /api/admin/users
+```
+
+La route renvoie les champs :
+
+- `id`
+- `name`
+- `phone`
+
+Quand l'admin cree un vendeur, `UserSelector` appelle :
+
+```http
+POST /api/admin/users
+```
+
+La route exige :
+
+- `name`
+- `phone`
+
+Avant insertion, elle cherche un vendeur avec le meme telephone. Si elle en
+trouve un, elle renvoie l'utilisateur existant au lieu de creer un doublon.
+
+</details>
+
+<details>
+<summary><strong>Relation avec Supabase Auth</strong></summary>
+
+La table `users` peut contenir deux types de profils :
+
+- profils lies a un compte Supabase Auth via `user_id` ;
+- profils crees manuellement par l'admin, sans `user_id`.
+
+Cette distinction est importante :
+
+- les profils avec `user_id` peuvent se connecter et gerer leurs produits dans
+  `/me` ;
+- les profils sans `user_id` servent surtout a rattacher des produits importes
+  ou crees par l'admin.
+
+Ne pas supposer que `users.user_id` est toujours present.
+
+</details>
+
+<details>
+<summary><strong>Point de securite</strong></summary>
+
+Les routes `/api/admin/users` sont nommees admin, mais le code lu ne montre pas
+de garde d'auth admin dediee dans la route elle-meme.
+
+Avant de rendre cette zone plus visible, verifier si la protection est assuree
+ailleurs. Si ce n'est pas le cas, ajouter une vraie strategie :
+
+- session Supabase requise ;
+- role admin ;
+- allowlist email ;
+- ou secret serveur dedie.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier la selection/creation vendeur | [`src/app/ui/user-selector.tsx`](../../../src/app/ui/user-selector.tsx) |
+| Modifier l'API admin users | [`src/app/api/admin/users/route.ts`](../../../src/app/api/admin/users/route.ts) |
+| Modifier l'upload admin qui utilise `ownerId` | [`src/app/admin/upload-product/page.tsx`](../../../src/app/admin/upload-product/page.tsx) |
+| Modifier l'insertion produit admin | [`src/app/api/admin/upload-product/route.ts`](../../../src/app/api/admin/upload-product/route.ts) |
+| Modifier les requetes publiques users | [`src/app/lib/users.ts`](../../../src/app/lib/users.ts) |
+| Modifier le profil vendeur connecte | [`src/app/api/me/route.ts`](../../../src/app/api/me/route.ts) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Ouvrir `/admin/upload-product`.
+2. Verifier que la liste des vendeurs se charge.
+3. Creer un vendeur avec nom et telephone.
+4. Recreer le meme telephone et verifier que le profil existant est renvoye.
+5. Publier un produit admin avec ce vendeur.
+6. Verifier que le produit apparait dans la vitrine `/user/[id]`.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

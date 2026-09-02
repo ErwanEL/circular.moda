@@ -1,11 +1,22 @@
 import { useState, useCallback } from 'react';
+import {
+  MAX_PRODUCT_IMAGE_COUNT,
+  getTooManyProductImagesMessage,
+} from '@/app/lib/client-upload';
 
 interface UseImageUploadResult {
   files: File[];
   previews: string[];
+  error: string | null;
   addFiles: (acceptedFiles: File[]) => void;
   removeFile: (index: number) => void;
+  moveFile: (fromIndex: number, toIndex: number) => void;
   clearAll: () => void;
+}
+
+interface UseImageUploadOptions {
+  maxFiles?: number;
+  tooManyFilesMessage?: string;
 }
 
 function revokePreviewUrl(url: string | undefined) {
@@ -29,14 +40,48 @@ function createPreviewUrl(file: File): string | null {
   }
 }
 
-export function useImageUpload(): UseImageUploadResult {
+function moveItem<T>(items: T[], fromIndex: number, toIndex: number) {
+  if (
+    fromIndex === toIndex ||
+    fromIndex < 0 ||
+    toIndex < 0 ||
+    fromIndex >= items.length ||
+    toIndex >= items.length
+  ) {
+    return items;
+  }
+
+  const nextItems = [...items];
+  const [item] = nextItems.splice(fromIndex, 1);
+  if (item === undefined) return items;
+  nextItems.splice(toIndex, 0, item);
+  return nextItems;
+}
+
+export function useImageUpload(
+  options: UseImageUploadOptions = {}
+): UseImageUploadResult {
+  const maxFiles = options.maxFiles ?? MAX_PRODUCT_IMAGE_COUNT;
+  const tooManyFilesMessage =
+    options.tooManyFilesMessage ?? getTooManyProductImagesMessage(maxFiles);
   const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const addFiles = useCallback(
     (acceptedFiles: File[]) => {
+      if (acceptedFiles.length === 0) {
+        return;
+      }
+
+      if (maxFiles <= 0 || files.length + acceptedFiles.length > maxFiles) {
+        setError(tooManyFilesMessage);
+        return;
+      }
+
       const newFiles = [...files, ...acceptedFiles];
       setFiles(newFiles);
+      setError(null);
 
       // Créer des previews
       const newPreviews = acceptedFiles
@@ -44,7 +89,7 @@ export function useImageUpload(): UseImageUploadResult {
         .filter((preview): preview is string => preview !== null);
       setPreviews([...previews, ...newPreviews]);
     },
-    [files, previews]
+    [files, maxFiles, previews, tooManyFilesMessage]
   );
 
   const removeFile = useCallback(
@@ -53,22 +98,32 @@ export function useImageUpload(): UseImageUploadResult {
       const newPreviews = previews.filter((_, i) => i !== index);
       setFiles(newFiles);
       setPreviews(newPreviews);
+      setError(null);
       revokePreviewUrl(previews[index]);
     },
     [files, previews]
   );
 
+  const moveFile = useCallback((fromIndex: number, toIndex: number) => {
+    setFiles((current) => moveItem(current, fromIndex, toIndex));
+    setPreviews((current) => moveItem(current, fromIndex, toIndex));
+    setError(null);
+  }, []);
+
   const clearAll = useCallback(() => {
     previews.forEach(revokePreviewUrl);
     setFiles([]);
     setPreviews([]);
+    setError(null);
   }, [previews]);
 
   return {
     files,
     previews,
+    error,
     addFiles,
     removeFile,
+    moveFile,
     clearAll,
   };
 }

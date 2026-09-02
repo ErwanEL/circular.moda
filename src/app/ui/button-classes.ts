@@ -16,7 +16,7 @@ export function getButtonClasses({
   className = '',
 }: ButtonStyleProps) {
   return clsx(
-    'inline-flex items-center justify-center gap-2 rounded-full dark:text-gray-900',
+    'inline-flex cursor-pointer items-center justify-center gap-2 rounded-full disabled:cursor-not-allowed dark:text-gray-900',
     bold ? 'font-bold' : 'font-medium',
     {
       'px-2 py-1 text-xs': size === 'xs',

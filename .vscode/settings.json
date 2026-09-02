@@ -16,5 +16,20 @@
       "createTheme(?:<\\w+>)?\\s*\\(([^)]*)\\)",
       "{?\\s?[\\w].*:\\s*?[\"'`]([^\"'`]*).*?,?\\s?}?"
     ]
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#8A3F58",
+    "titleBar.activeForeground": "#F4F5F8",
+    "titleBar.inactiveBackground": "#633044",
+    "titleBar.inactiveForeground": "#B9BDC9",
+
+    "activityBar.background": "#633044",
+    "activityBar.foreground": "#F4F5F8",
+    "activityBar.inactiveForeground": "#AEB3C2",
+
+    "statusBar.background": "#8A3F58",
+    "statusBar.foreground": "#F4F5F8",
+    "statusBar.noFolderBackground": "#8A3F58",
+    "statusBar.debuggingBackground": "#B56A3A"
+  }
 }

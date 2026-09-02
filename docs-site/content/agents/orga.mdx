@@ -1,0 +1,190 @@
+---
+title: Agent Orga
+---
+
+# Agent Orga
+
+## Version simple
+
+L'agent Orga s'occupe de l'organisation des fichiers externes.
+
+Quand l'utilisateur demande d'importer des documents, assets, exports ou fichiers
+depuis sa machine vers le projet, cet agent doit :
+
+1. demander ou verifier le dossier source ;
+2. importer les fichiers dans le bon dossier du projet ;
+3. conserver les fichiers bruts sans les exposer automatiquement sur le site ;
+4. documenter ou mettre a jour l'inventaire si necessaire.
+
+Pour circular.moda, le dossier de destination par defaut est :
+
+```text
+docs/imports/dl-circular-moda/
+```
+
+## Version detaillee
+
+<details>
+<summary><strong>Mission</strong></summary>
+
+Orga est responsable des imports et du rangement des fichiers externes.
+
+Cas typiques :
+
+- recuperer un dossier depuis `Downloads` ;
+- importer des PDFs de recherche ou marketing ;
+- importer des CSVs d'exports ;
+- importer des images ou assets bruts ;
+- mettre a jour l'inbox projet avec de nouveaux fichiers fournis par un
+  developpeur.
+
+Orga ne decide pas tout seul qu'un asset doit etre servi par le site. Il importe
+les sources brutes dans le projet. Si un asset doit etre utilise en production,
+un autre travail peut ensuite copier/optimiser le fichier vers `public/`.
+
+</details>
+
+<details>
+<summary><strong>Dossiers sources</strong></summary>
+
+Le dossier source depend de la machine du developpeur.
+
+Sur la machine actuelle, le dossier trouve est :
+
+```text
+/Users/erwan/Downloads/DL_CIRCULAR_MODA/
+```
+
+Si le chemin n'existe pas, ou si un autre developpeur travaille sur le projet,
+Orga doit demander a l'utilisateur le chemin absolu du dossier a importer.
+
+Question recommandee :
+
+```text
+Depuis quel dossier local veux-tu importer les documents/assets ?
+```
+
+Ne jamais supposer qu'un autre developpeur a le meme chemin `Downloads`.
+
+</details>
+
+<details>
+<summary><strong>Dossier de destination</strong></summary>
+
+Destination canonique pour circular.moda :
+
+```text
+docs/imports/dl-circular-moda/
+```
+
+Raison :
+
+- le dossier est versionnable ;
+- les documents restent proches de la documentation ;
+- les fichiers bruts ne sont pas exposes publiquement ;
+- les agents et humains savent ou chercher les sources importees.
+
+Ne pas importer directement dans `public/` sauf demande explicite ou besoin
+produit clair.
+
+</details>
+
+<details>
+<summary><strong>Workflow d'import</strong></summary>
+
+1. Verifier que le dossier source existe.
+2. Lister les fichiers, tailles et types.
+3. Creer le dossier de destination si besoin.
+4. Copier les fichiers en conservant les noms et sous-dossiers.
+5. Ne pas supprimer les fichiers de destination par defaut.
+6. Verifier le contenu importe.
+7. Mettre a jour l'inventaire ou le README du dossier si utile.
+8. Afficher un resume clair a l'utilisateur.
+
+Commandes de reference :
+
+```bash
+find '/path/to/source' -maxdepth 2 -type f -print
+du -sh '/path/to/source'
+find '/path/to/source' -type f -exec file {} +
+mkdir -p docs/imports/dl-circular-moda
+rsync -av '/path/to/source/' 'docs/imports/dl-circular-moda/'
+find docs/imports/dl-circular-moda -maxdepth 2 -type f -print | sort
+```
+
+Ne pas utiliser `rsync --delete` sans demande explicite : cela pourrait retirer
+des fichiers deja archives dans le projet.
+
+</details>
+
+<details>
+<summary><strong>Import actuel</strong></summary>
+
+Import realise depuis :
+
+```text
+/Users/erwan/Downloads/DL_CIRCULAR_MODA/
+```
+
+Vers :
+
+```text
+docs/imports/dl-circular-moda/
+```
+
+Contenu importe :
+
+- 17 fichiers ;
+- environ 8.1 Mo ;
+- images PNG/WebP/GIF ;
+- PDFs ;
+- CSVs.
+
+Le dossier contient aussi un README local :
+
+```text
+docs/imports/dl-circular-moda/README.md
+```
+
+</details>
+
+<details>
+<summary><strong>Limites</strong></summary>
+
+Orga ne doit pas :
+
+- supprimer les fichiers dans `Downloads` ;
+- deplacer les fichiers source hors de la machine utilisateur ;
+- exposer des PDFs/CSVs dans `public/` sans demande explicite ;
+- ecraser des fichiers importants sans verification ;
+- importer des secrets, credentials ou donnees sensibles sans alerter ;
+- faire un commit automatiquement sauf demande explicite.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier ou dossier |
+| --- | --- |
+| Lire les imports bruts circular.moda | [`docs/imports/dl-circular-moda/`](../../../docs/imports/dl-circular-moda) |
+| Mettre a jour l'inventaire local | [`docs/imports/dl-circular-moda/README.md`](../../../docs/imports/dl-circular-moda/README.md) |
+| Modifier cette documentation agent | [`docs-site/content/agents/orga.mdx`](./orga) |
+| Ajouter un autre agent | [`docs-site/content/agents/`](./) |
+| Ajouter l'agent dans la sidebar | [`docs-site/content/agents/_meta.js`](./_meta.js) |
+| Exposer un asset au site si necessaire | [`public/`](../../../public) |
+
+</details>
+
+<details>
+<summary><strong>Verification</strong></summary>
+
+Apres un import :
+
+```bash
+find docs/imports/dl-circular-moda -maxdepth 2 -type f -print | sort
+du -sh docs/imports/dl-circular-moda
+npm run docs:build
+```
+
+</details>

@@ -1,0 +1,90 @@
+---
+title: Badge vendeur premium
+---
+
+# Badge vendeur premium
+
+## Version simple
+
+Le badge vendeur premium affiche `Vendedor destacado` sur les vitrines publiques
+des vendeurs qui ont beaucoup de produits.
+
+Aujourd'hui, la regle est simple : un vendeur devient premium a partir de 20
+produits publies.
+
+Cette logique est volontairement isolee pour pouvoir etre remplacee plus tard
+par une vraie logique de plan payant ou d'abonnement.
+
+## Version detaillee
+
+<details>
+<summary><strong>Regle actuelle</strong></summary>
+
+La constante principale est :
+
+```ts
+PREMIUM_SELLER_THRESHOLD = 20
+```
+
+La fonction `isPremiumSeller(productCount)` retourne `true` si le vendeur a au
+moins 20 produits.
+
+La page `/user/[id]` calcule le nombre de produits du vendeur, puis applique :
+
+- le badge `SellerPremiumBadge` ;
+- une variation visuelle du hero ;
+- le libelle `Colección` au lieu de `Catálogo`.
+
+</details>
+
+<details>
+<summary><strong>Pourquoi cette feature doit rester documentee</strong></summary>
+
+Le commentaire dans le code indique une evolution probable : quand les plans
+payants existeront, la logique devra probablement devenir :
+
+```ts
+isPremiumSeller(count) || user.isPaid
+```
+
+ou une variante basee sur un plan stocke en base.
+
+Avant de faire cette evolution, verifier :
+
+- ou stocker le plan vendeur ;
+- comment eviter de casser les vendeurs deja mis en avant par volume ;
+- si le badge doit apparaitre sur le catalogue, la vitrine, ou les deux ;
+- si le seuil de 20 produits reste pertinent.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier le seuil premium | [`src/app/lib/seller-tier.ts`](../../../src/app/lib/seller-tier.ts) |
+| Modifier le rendu du badge | [`src/app/ui/seller-premium-badge.tsx`](../../../src/app/ui/seller-premium-badge.tsx) |
+| Modifier l'endroit ou le badge apparait | [`src/app/user/[id]/page.tsx`](../../../src/app/user/[id]/page.tsx) |
+| Ajouter des donnees vendeur payant | [`src/app/lib/users.ts`](../../../src/app/lib/users.ts) |
+| Documenter une evolution business | [`docs/business/README.md`](../../../docs/business/README.md) |
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Trouver un vendeur avec moins de 20 produits : pas de badge.
+2. Trouver un vendeur avec au moins 20 produits : badge visible.
+3. Verifier que le titre reste lisible sur mobile et desktop.
+4. Verifier que le changement de seuil n'affecte pas les pages produit.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

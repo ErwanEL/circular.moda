@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-08-27T15:06:54.843Z",
+  "deleteConfirmed": false,
+  "bucket": "storage",
+  "prefix": "products",
+  "productsScanned": 826,
+  "objectsScanned": 1967,
+  "productReferenceCount": 1967,
+  "localReferenceCount": 2336,
+  "protectedLocalOnly": [],
+  "candidates": [],
+  "storageBytes": 830083827,
+  "candidateBytes": 0
+}

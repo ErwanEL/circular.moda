@@ -1,0 +1,33 @@
+---
+title: Projet
+---
+
+# Projet
+
+## Vue d'ensemble
+
+`circular.moda` est une application Next.js orientee catalogue, articles,
+produits et operations marketing. Le code applicatif vit principalement dans
+`src/`, les assets publics dans `public/`, et les automatisations dans
+`scripts/`.
+
+## Zones importantes
+
+- `src/app/` : routes, pages et logique cote application.
+- `src/app/lib/` : helpers partages et tests locaux.
+- `content/blog/` : contenu editorial.
+- `docs-site/content/business/` : documentation business affichee dans Nextra.
+- `docs/` : notes historiques, SQL et procedures operationnelles.
+- `scripts/` : operations reproductibles, notamment produits Supabase et
+  featured products.
+- `docs-site/` : documentation Nextra locale ajoutee au projet.
+
+## Regle de documentation
+
+Quand une feature importante change, ajouter ou mettre a jour une page dans
+`docs-site/content/`. Pour les traces plus brutes ou fichiers SQL, garder le
+dossier `docs/` et ajouter un lien ou un resume ici si le sujet devient
+operationnel.
+
+La documentation business doit aussi vivre dans Nextra, sous
+`docs-site/content/business/`, pour etre visible dans la navigation.

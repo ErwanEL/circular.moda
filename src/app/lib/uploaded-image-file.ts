@@ -1,97 +1,33 @@
-const IMAGE_EXTENSIONS = new Set([
-  '3fr',
-  'apng',
-  'ari',
-  'arw',
+export const MAX_UPLOADED_PRODUCT_IMAGE_BYTES = 900_000;
+export const MAX_UPLOADED_PRODUCT_IMAGES_TOTAL_BYTES = 3_800_000;
+
+const PRODUCT_IMAGE_FORMATS_MESSAGE =
+  'Solo se aceptan fotos JPG, PNG, WebP o AVIF.';
+
+const PRODUCT_IMAGE_EXTENSIONS = new Set([
   'avif',
-  'bay',
-  'bmp',
-  'cap',
-  'cr2',
-  'cr3',
-  'dcr',
-  'dng',
-  'erf',
-  'fff',
-  'gif',
-  'heic',
-  'heif',
-  'ico',
-  'iiq',
   'jfif',
-  'jp2',
   'jpe',
   'jpeg',
   'jpg',
-  'jxl',
-  'kdc',
-  'mef',
-  'mos',
-  'mrw',
-  'nef',
-  'nrw',
-  'orf',
-  'pef',
   'png',
-  'psd',
-  'raf',
-  'raw',
-  'rw2',
-  'rwl',
-  'sr2',
-  'srf',
-  'srw',
-  'svg',
-  'tif',
-  'tiff',
   'webp',
-  'x3f',
 ]);
 
 const EXTENSION_BY_MIME: Record<string, string> = {
-  'image/apng': 'apng',
   'image/avif': 'avif',
-  'image/bmp': 'bmp',
-  'image/gif': 'gif',
-  'image/heic': 'heic',
-  'image/heif': 'heif',
-  'image/jp2': 'jp2',
   'image/jpeg': 'jpg',
-  'image/jxl': 'jxl',
   'image/png': 'png',
-  'image/svg+xml': 'svg',
-  'image/tiff': 'tiff',
-  'image/vnd.adobe.photoshop': 'psd',
-  'image/vnd.microsoft.icon': 'ico',
   'image/webp': 'webp',
-  'image/x-adobe-dng': 'dng',
-  'image/x-canon-cr2': 'cr2',
-  'image/x-canon-cr3': 'cr3',
-  'image/x-icon': 'ico',
-  'image/x-nikon-nef': 'nef',
-  'image/x-olympus-orf': 'orf',
-  'image/x-panasonic-raw': 'rw2',
-  'image/x-pentax-pef': 'pef',
-  'image/x-sony-arw': 'arw',
 };
 
 const MIME_BY_EXTENSION: Record<string, string> = {
-  apng: 'image/apng',
   avif: 'image/avif',
-  bmp: 'image/bmp',
-  gif: 'image/gif',
-  heic: 'image/heic',
-  heif: 'image/heif',
-  ico: 'image/x-icon',
   jfif: 'image/jpeg',
   jpe: 'image/jpeg',
   jpeg: 'image/jpeg',
   jpg: 'image/jpeg',
-  jxl: 'image/jxl',
   png: 'image/png',
-  svg: 'image/svg+xml',
-  tif: 'image/tiff',
-  tiff: 'image/tiff',
   webp: 'image/webp',
 };
 
@@ -120,11 +56,20 @@ export function getUploadedImageMetadata(file: File): {
   const extensionFromMime = mimeType ? EXTENSION_BY_MIME[mimeType] : undefined;
   const hasImageMime = Boolean(mimeType?.startsWith('image/'));
   const hasKnownImageExtension =
-    extensionFromName != null && IMAGE_EXTENSIONS.has(extensionFromName);
+    extensionFromName != null &&
+    PRODUCT_IMAGE_EXTENSIONS.has(extensionFromName);
   const hasLooseImageType =
     !mimeType ||
     mimeType === 'application/octet-stream' ||
     mimeType === 'binary/octet-stream';
+
+  if (
+    hasImageMime &&
+    mimeType &&
+    !Object.prototype.hasOwnProperty.call(EXTENSION_BY_MIME, mimeType)
+  ) {
+    return null;
+  }
 
   if (!hasImageMime && !(hasLooseImageType && hasKnownImageExtension)) {
     return null;
@@ -141,4 +86,47 @@ export function getUploadedImageMetadata(file: File): {
         ? mimeType
         : (MIME_BY_EXTENSION[extension] ?? 'application/octet-stream'),
   };
+}
+
+function formatUploadBytes(bytes: number) {
+  if (bytes < 1024 * 1024) {
+    return `${Math.round(bytes / 1024)} KB`;
+  }
+
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+export function validateUploadedProductImage(file: File): {
+  metadata?: { contentType: string; extension: string };
+  error?: string;
+} {
+  const metadata = getUploadedImageMetadata(file);
+  if (!metadata) {
+    return { error: PRODUCT_IMAGE_FORMATS_MESSAGE };
+  }
+
+  if (file.size > MAX_UPLOADED_PRODUCT_IMAGE_BYTES) {
+    return {
+      error: `Cada foto debe pesar menos de ${formatUploadBytes(
+        MAX_UPLOADED_PRODUCT_IMAGE_BYTES
+      )} después de optimizarse.`,
+    };
+  }
+
+  return { metadata };
+}
+
+export function validateUploadedProductImages(files: File[]): {
+  error?: string;
+} {
+  const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
+  if (totalBytes > MAX_UPLOADED_PRODUCT_IMAGES_TOTAL_BYTES) {
+    return {
+      error: `Las fotos pesan ${formatUploadBytes(
+        totalBytes
+      )} en total. Probá con menos fotos o menor resolución.`,
+    };
+  }
+
+  return {};
 }

@@ -1,0 +1,48 @@
+---
+title: Source control
+---
+
+# Source control
+
+## Remote attendu
+
+Le depot doit pointer vers :
+
+```text
+https://github.com/ErwanEL/circular.moda.git
+```
+
+Verifier :
+
+```bash
+git remote -v
+```
+
+## Cycle simple
+
+Voir les changements :
+
+```bash
+git status
+```
+
+Ajouter et commit :
+
+```bash
+git add <fichiers>
+git commit -m "message clair"
+```
+
+Pousser :
+
+```bash
+git push
+```
+
+Verifier la synchronisation :
+
+```bash
+git status --porcelain=v2 --branch
+```
+
+Un etat synchronise affiche une branche avec `+0 -0` par rapport au remote.

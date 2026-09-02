@@ -1,0 +1,176 @@
+---
+title: Revalidation cache ISR
+---
+
+# Revalidation cache ISR
+
+## Version simple
+
+Le site utilise le cache Next.js et l'ISR pour rendre le catalogue rapide sans
+servir des donnees trop anciennes.
+
+Les pages `/products`, `/products/[slug]` et `/user/[id]` ont un fallback de 5
+minutes. Quand le site cree, modifie ou supprime un produit, il declenche aussi
+une revalidation ciblee pour rafraichir plus vite les pages et les tags cache.
+
+Cette feature est transverse : elle touche le catalogue, les pages produit,
+l'espace vendeur, l'admin, le sitemap et les scripts externes.
+
+## Version detaillee
+
+<details>
+<summary><strong>Services utilises</strong></summary>
+
+- **Next.js App Router** avec `revalidate`.
+- **Next.js `unstable_cache`** pour les lectures data.
+- **`revalidateTag` et `revalidatePath`** pour invalider les caches.
+- **Vercel** pour executer l'ISR en production.
+- **Supabase** comme source de donnees produit.
+
+</details>
+
+<details>
+<summary><strong>Constantes de cache</strong></summary>
+
+La couche produit utilise :
+
+- `PRODUCTS_ISR_SECONDS = 300` ;
+- tag global `products` ;
+- tags detail `product:{slug}`.
+
+Les helpers dans `src/app/lib/products.ts` cachent :
+
+- tous les produits ;
+- les produits featured ;
+- les pages paginees ;
+- les options de filtres ;
+- les produits par slug.
+
+</details>
+
+<details>
+<summary><strong>Pages avec ISR</strong></summary>
+
+Pages publiques principales :
+
+- `/products` : `revalidate = 300` ;
+- `/products/[slug]` : `revalidate = 300` ;
+- `/user/[id]` : `revalidate = 300`.
+
+Les pages detail produit et vendeur gardent `dynamicParams = true`, ce qui
+permet de generer des pages non connues au build.
+
+</details>
+
+<details>
+<summary><strong>Revalidation applicative</strong></summary>
+
+La fonction centrale est `revalidateProductContent`.
+
+Elle invalide toujours :
+
+- le path `/products` ;
+- le tag `products`.
+
+Si un slug est connu, elle invalide aussi :
+
+- le path `/products/{slug}` ;
+- le tag `product:{slug}`.
+
+Si un ancien slug est fourni, l'ancien path et l'ancien tag sont aussi
+invalides. C'est important en cas de renommage produit.
+
+Les mutations qui l'appellent :
+
+- creation admin ;
+- creation vendeur ;
+- edition vendeur ;
+- suppression vendeur.
+
+Pour une suppression, `expireImmediately` peut forcer une expiration plus
+agressive.
+
+</details>
+
+<details>
+<summary><strong>Revalidation externe</strong></summary>
+
+Endpoint :
+
+```http
+POST /api/revalidate
+```
+
+Secrets acceptes :
+
+- header `x-revalidate-secret` ;
+- header `Authorization: Bearer ...` ;
+- champ JSON `secret` ;
+- query param `secret`.
+
+La route lit `slug`, `oldSlug`, `record`, `oldRecord`, `old_record` et `paths`.
+Elle peut donc etre appelee par un webhook, un script ou une Edge Function qui
+ne connait pas exactement le format final du slug.
+
+</details>
+
+<details>
+<summary><strong>Points d'attention</strong></summary>
+
+- `GET /api/products` renvoie `Cache-Control: no-store`, mais ses donnees
+  peuvent venir des helpers `unstable_cache`.
+- Les scripts qui modifient Supabase directement ne declenchent pas
+  automatiquement `revalidateProductContent`.
+- Les produits featured modifies par script peuvent attendre le fallback ISR si
+  aucune revalidation externe n'est appelee.
+- Les pages vendeur utilisent aussi ISR, mais `revalidateProductContent` ne
+  revalide pas encore explicitement `/user/[id]`.
+
+</details>
+
+<details>
+<summary><strong>Ou modifier quoi ?</strong></summary>
+
+| Besoin | Fichier principal |
+| --- | --- |
+| Modifier les constantes cache | [`src/app/lib/product-cache.ts`](../../../src/app/lib/product-cache.ts) |
+| Modifier les helpers caches | [`src/app/lib/products.ts`](../../../src/app/lib/products.ts) |
+| Modifier la revalidation centrale | [`src/app/lib/product-revalidation.ts`](../../../src/app/lib/product-revalidation.ts) |
+| Modifier l'endpoint externe | [`src/app/api/revalidate/route.ts`](../../../src/app/api/revalidate/route.ts) |
+| Modifier ISR catalogue | [`src/app/products/page.tsx`](../../../src/app/products/page.tsx) |
+| Modifier ISR detail produit | [`src/app/products/[slug]/page.tsx`](../../../src/app/products/[slug]/page.tsx) |
+| Modifier ISR vitrine vendeur | [`src/app/user/[id]/page.tsx`](../../../src/app/user/[id]/page.tsx) |
+| Modifier creation admin | [`src/app/api/admin/upload-product/route.ts`](../../../src/app/api/admin/upload-product/route.ts) |
+| Modifier creation vendeur | [`src/app/api/me/upload-product/route.ts`](../../../src/app/api/me/upload-product/route.ts) |
+| Modifier edition/suppression vendeur | [`src/app/api/me/products/[id]/route.ts`](../../../src/app/api/me/products/[id]/route.ts) |
+
+</details>
+
+<details>
+<summary><strong>Variables d'environnement</strong></summary>
+
+- `REVALIDATE_SECRET`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+
+</details>
+
+<details>
+<summary><strong>Tester la feature</strong></summary>
+
+Tests manuels :
+
+1. Creer un produit admin et verifier `/products`.
+2. Modifier un produit vendeur et verifier `/products/[slug]`.
+3. Supprimer un produit vendeur et verifier que l'ancien detail ne reste pas
+   visible apres revalidation.
+4. Appeler `/api/revalidate` avec un mauvais secret : 401 attendu.
+5. Appeler `/api/revalidate` avec le bon secret : `ok: true` attendu.
+
+Tests techniques :
+
+```bash
+npm run build
+```
+
+</details>

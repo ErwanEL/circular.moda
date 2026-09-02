@@ -42,6 +42,42 @@ it only rotates landscape-stored photos with a 90°/270° EXIF tag (genuinely
 sideways phone photos); already-upright portrait images with a stale tag, and
 180°-tagged images, are left untouched — matching the `/api/image` proxy guard.
 
+## Supabase Storage orphan product images
+
+Scripts to audit and clean product images that still exist under
+`storage/products/` but are no longer referenced by `products.images`.
+
+**Usage:**
+
+```bash
+# Read-only audit
+npm run storage:images:audit
+
+# Safer read-only plan: protects products.images and local repo references
+node scripts/delete-supabase-orphan-images-safe.mjs
+
+# Delete only after reviewing the dry-run output
+node scripts/delete-supabase-orphan-images-safe.mjs --delete-confirmed
+```
+
+**Requirements:**
+
+- `.env.local` with:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `SUPABASE_SERVICE_ROLE_KEY`
+
+**What it does:**
+
+1. Lists all objects under the Supabase Storage bucket `storage`, prefix
+   `products/`
+2. Fetches all product image URLs from `products.images`
+3. Optionally scans local text files for image references before deleting
+4. Writes an audit plan under `reports/`
+5. Deletes only storage objects that are not protected by those references
+
+Deletion is remote and irreversible. Always run without `--delete-confirmed`
+first and review the summary.
+
 ## `test-supabase.mjs`
 
 Script to verify the Supabase connection and product data.

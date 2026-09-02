@@ -3,7 +3,11 @@ import { getProductSlugFromUnknown } from '@/app/lib/product-slug';
 import { revalidateProductContent } from '@/app/lib/product-revalidation';
 import { createClient } from '@/app/lib/supabase/server';
 import { supabase } from '@/app/lib/supabase';
-import { getUploadedImageMetadata } from '@/app/lib/uploaded-image-file';
+import { getStorageObjectPathFromPublicUrl } from '@/app/lib/supabase-storage-images';
+import {
+  validateUploadedProductImage,
+  validateUploadedProductImages,
+} from '@/app/lib/uploaded-image-file';
 import { randomUUID } from 'crypto';
 
 function refreshPublishedProduct(product: unknown) {
@@ -13,6 +17,19 @@ function refreshPublishedProduct(product: unknown) {
     });
   } catch (error) {
     console.error('[Me Upload] Product revalidation failed:', error);
+  }
+}
+
+async function removeUploadedProductImages(imageUrls: string[]) {
+  const paths = imageUrls
+    .map(getStorageObjectPathFromPublicUrl)
+    .filter((path): path is string => path !== null);
+
+  if (paths.length === 0) return;
+
+  const { error } = await supabase.storage.from('storage').remove(paths);
+  if (error) {
+    console.error('[Me Upload] Failed to clean uploaded images:', error);
   }
 }
 
@@ -134,23 +151,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const imagesValidation = validateUploadedProductImages(files);
+    if (imagesValidation.error) {
+      return NextResponse.json(
+        { error: imagesValidation.error },
+        { status: 400 }
+      );
+    }
+
     const publicId = randomUUID();
     const imageUrls: string[] = [];
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const imageMetadata = getUploadedImageMetadata(file);
-      if (!imageMetadata) {
+      const imageValidation = validateUploadedProductImage(file);
+      if (imageValidation.error || !imageValidation.metadata) {
         return NextResponse.json(
           {
-            error: `El archivo ${i + 1} no parece ser una imagen. Probá con otro archivo.`,
+            error: `Imagen ${i + 1}: ${imageValidation.error}`,
           },
           { status: 400 }
         );
       }
 
-      const fileName = `${publicId}-${i + 1}.${imageMetadata.extension}`;
+      const fileName = `${publicId}-${i + 1}.${imageValidation.metadata.extension}`;
       const filePath = `products/${fileName}`;
 
       const arrayBuffer = await file.arrayBuffer();
@@ -159,12 +184,13 @@ export async function POST(request: NextRequest) {
       const { error: uploadError } = await supabase.storage
         .from('storage')
         .upload(filePath, uint8Array, {
-          contentType: imageMetadata.contentType,
+          contentType: imageValidation.metadata.contentType,
           upsert: false,
         });
 
       if (uploadError) {
         console.error('Error uploading image:', uploadError);
+        await removeUploadedProductImages(imageUrls);
         return NextResponse.json(
           {
             error: `Error al subir la imagen ${i + 1}: ${uploadError.message}`,
@@ -244,6 +270,7 @@ export async function POST(request: NextRequest) {
             .select()
             .single();
         if (insertErrorRetry) {
+          await removeUploadedProductImages(imageUrls);
           return NextResponse.json(
             {
               error: `Error al guardar el producto: ${insertErrorRetry.message}`,
@@ -258,6 +285,7 @@ export async function POST(request: NextRequest) {
           message: 'Prenda publicada correctamente',
         });
       }
+      await removeUploadedProductImages(imageUrls);
       return NextResponse.json(
         {
           error: `Error al guardar el producto: ${insertError.message}`,

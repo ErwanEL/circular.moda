@@ -1,0 +1,47 @@
+﻿Task ID,Created At,Completed At,Last Modified,Name,Section/Column,Assignee,Assignee Email,Start Date,Due Date,Tags,Notes,Projects,Parent task,Blocked By (Dependencies),Blocking (Dependencies),Priority,Status,Field
+"1213182181333566",2026-02-09,2026-02-10,2026-02-10,Merger la PR de zone membre dans dev,To do,,,,,,,Circular.moda,,,,,,
+"1213355031021118",2026-02-19,2026-02-19,2026-02-19,Compte test,To do,,,,,,"Id: 75
+Name: Romano
+Email: hola@circular.moda
+Phone: +84 869 725 045",Circular.moda,,,,,,
+"1213216411134132",2026-02-10,,2026-02-13,Filtres vetements,To do,,,,,,,Circular.moda,,,,High,,
+"1213216411134127",2026-02-10,,2026-02-11,Mettre les acheteurs a l'aise ☕️,To do,,,,,,,Circular.moda,,,,,,
+"1213216411134129",2026-02-10,,2026-02-10,Plus de contenu sur le fonctionnement ? ,,,,,,,,,Mettre les acheteurs a l'aise ☕️,,,,,
+"1213216411134130",2026-02-10,,2026-02-10,Systeme de escrow pour les premiers achats?,,,,,,,,,Mettre les acheteurs a l'aise ☕️,,,,,
+"1213216411134131",2026-02-10,,2026-02-10,Valider somehow les vendeurs ?,,,,,,,"Valider leur zap,  
+Vrai système de note
+description perso du vendeur (bio)
+profile
+Zona etc.",,Mettre les acheteurs a l'aise ☕️,,,,,
+"1213230784932671",2026-02-11,,2026-02-11,Ajouter pastille sur les produits neuf? ,,,,,,,,,Mettre les acheteurs a l'aise ☕️,,,,,
+"1213213752586004",2026-02-10,,2026-02-19,Fix or remove dark mode,To do,,,,,,,Circular.moda,,,,Low,,Dev
+"1213228939242735",2026-02-11,,2026-02-19,Migrer liste email sur brevo,To do,,,,,,,Circular.moda,,,,Low,,Marketing
+"1213228939242737",2026-02-11,,2026-02-19,Créer automation envoi dernier produits via emails,To do,,,,,,,Circular.moda,,,,Low,,"Dev, Marketing"
+"1213229325945976",2026-02-11,,2026-02-19,Envoyer le login aux users enregistré,To do,,,,,,,Circular.moda,,,,Medium,,Marketing
+"1213229325945979",2026-02-11,,2026-02-19,"Créer page ""Boutique"" user",To do,,,,,,,Circular.moda,,,,Medium,,Dev
+"1213229325945982",2026-02-11,,2026-02-19,"Partager page ""Boutique"" aux users",To do,,,,,,,Circular.moda,,,,Medium,,Marketing
+"1213230784932668",2026-02-11,,2026-02-19,Ajouter attribut état produit,To do,,,,,,,Circular.moda,,,,Medium,,Dev
+"1213355113617293",2026-02-19,,2026-02-19,Fix redirect to /me after signup,To do,,,,,,"Signup (création du compte) avec l'adresse hola@circular.moda
+Click sur le magic link 
+Arrive sur la page d'accueil avec le bon id pour le login dans le path 
+Navigue manuellement sur /me
+Redirigé vers /welcome pour ajouter le nom utilsateur
+Est redirigé vers /me
+
+Bug: après clique sur magic link, arrive sur la page d'accueil du site au lieu de page /welcome ou /me
+
+Environnement:
+Arc (Chromium)
+Nav classique (non privée)(Problème cache?)
+
+
+
+",Circular.moda,,,,High,,Dev
+"1213390040062728",2026-02-23,,2026-02-23,Fix product upload form,To do,,,,,,"https://app.asana.com/app/asana/-/get_asset?asset_id=1213390040062737
+
+
+
+https://app.asana.com/app/asana/-/get_asset?asset_id=1213390040062733
+
+
+",Circular.moda,,,,,,

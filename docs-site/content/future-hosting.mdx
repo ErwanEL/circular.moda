@@ -1,0 +1,29 @@
+---
+title: Hebergement futur
+---
+
+# Hebergement futur
+
+## Decision actuelle
+
+La doc reste locale et confidentielle. Elle n'est pas branchee comme route du
+site public.
+
+## Option recommandee plus tard
+
+Creer un projet Vercel separe avec :
+
+- Repository : `ErwanEL/circular.moda`
+- Root directory : `docs-site`
+- Build command : `npm run build`
+- Output : gere par Next.js
+
+Cette separation permet de garder la doc proche du code tout en evitant
+d'ajouter `/docs` au site principal.
+
+## Confidentialite
+
+La route `robots` et les metadonnees `noindex` limitent l'indexation, mais ce
+n'est pas une securite. Avant hebergement public, ajouter une vraie protection :
+auth Vercel si disponible, middleware d'auth, ou autre protection d'acces selon
+le plan choisi.
