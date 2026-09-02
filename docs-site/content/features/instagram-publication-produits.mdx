@@ -1,0 +1,247 @@
+---
+title: Publication produits Instagram
+---
+
+# Publication produits Instagram
+
+## Version simple
+
+La feature permet de publier des produits Supabase sur le compte Instagram
+professionnel `circular_punto_moda` via l'Instagram Graph API.
+
+Le site selectionne des produits eligibles, cree une caption, publie l'image sur
+Instagram, puis enregistre le resultat dans Supabase pour eviter les doublons.
+
+Le lien cliquable utilise dans la bio doit etre :
+
+```text
+https://circular.moda/instagram
+```
+
+Les URLs dans les captions Instagram restent du texte non cliquable. Le lien
+produit est donc place sur sa propre ligne pour faciliter la copie.
+
+## Configuration Meta
+
+App Meta :
+
+- nom : `Circular Moda Publisher`
+- configuration : use case `Manage messaging & content on Instagram`
+- flow : `API setup with Facebook login`
+
+Compte Instagram :
+
+- username : `circular_punto_moda`
+- type : compte professionnel
+- IG user ID : `17841430654232393`
+
+Page Facebook selectionnee :
+
+- nom : `Circular.moda`
+- Page ID vu dans le flow Meta : `758073127384543`
+- URL connue : `https://www.facebook.com/profile.php?id=61578654000699`
+
+Permissions utilisees dans Graph API Explorer :
+
+- `pages_show_list`
+- `pages_read_engagement`
+- `instagram_basic`
+- `instagram_content_publish`
+- `business_management`
+- `public_profile`
+
+Checks Graph API effectues :
+
+```text
+GET /17841430654232393?fields=id,username,name,profile_picture_url
+GET /17841430654232393/content_publishing_limit
+GET /me/accounts?fields=name,id,access_token,instagram_business_account
+```
+
+## Variables
+
+Variables attendues :
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+CRON_SECRET=
+NEXT_PUBLIC_SITE_URL=https://circular.moda
+INSTAGRAM_ACCESS_TOKEN=
+INSTAGRAM_IG_USER_ID=17841430654232393
+INSTAGRAM_GRAPH_API_VERSION=v26.0
+INSTAGRAM_PUBLISHING_ENABLED=true
+```
+
+Ne jamais documenter les valeurs secretes.
+
+Pour production, utiliser le Page Access Token de `Circular.moda` obtenu apres
+echange d'un User Access Token court contre un User Access Token long-lived.
+
+## Routes
+
+Routes ajoutees :
+
+- `GET /api/cron/publish-instagram-products`
+  - dry-run par defaut ;
+  - publication batch avec `publish=1` si `INSTAGRAM_PUBLISHING_ENABLED=true`.
+- `POST /api/admin/instagram/publish-product`
+  - preview/publish d'un produit precis ;
+  - publication reelle seulement avec `confirm: "PUBLISH_TO_INSTAGRAM"`.
+- `GET /api/instagram/product-image/[id]`
+  - proxy JPEG public pour Meta.
+- `GET /instagram`
+  - page publique pour le lien en bio.
+
+Toutes les routes internes de publication demandent :
+
+```http
+Authorization: Bearer ${CRON_SECRET}
+```
+
+## Base de donnees
+
+SQL :
+
+- `docs/sql/instagram-product-posts.sql`
+
+Table :
+
+- `instagram_product_posts`
+
+Elle stocke :
+
+- produit publie ;
+- caption ;
+- image utilisee ;
+- container ID Meta ;
+- media ID Meta ;
+- permalink Instagram ;
+- statut ;
+- erreur eventuelle.
+
+Statuts :
+
+- `pending`
+- `container_created`
+- `publishing`
+- `published`
+- `failed`
+- `skipped`
+
+## Caption
+
+Format actuel :
+
+```text
+Nom du produit
+
+$ 30.000 · Talle 38 · categorie
+
+Disponible en circular.moda.
+Link directo en bio.
+
+Detalle del producto:
+https://circular.moda/products/slug-produit
+
+#CircularModa #ModaCircular #RopaSegundaMano #BuenosAires
+```
+
+## Tests reels
+
+Posts publies pendant la validation du 2026-09-02, puis supprimes
+manuellement d'Instagram pendant la Phase 1 de nettoyage :
+
+- `1455` : `https://www.instagram.com/p/DcyOlTXDLao/`
+- `1454` : `https://www.instagram.com/p/DcyP4I_lnOO/`
+- `1453` : `https://www.instagram.com/p/DcyRtRqlfwl/`
+- `1452` : `https://www.instagram.com/p/DcySCktlHai/`
+
+Le produit `1452` est le premier post avec le format final sans la phrase
+`Si estas desde Instagram...`.
+
+Ces publications ne doivent pas etre considerees comme du contenu de production.
+Le journal Supabase ne contient plus de ligne `published` pour ces tests.
+
+## Phase 2
+
+Strategie retenue :
+
+- publication quotidienne automatisee : `1` produit par jour ;
+- source de selection : uniquement `featured = true` ;
+- renouvellement des featured : manuel toutes les deux semaines, avec analyse IA
+  locale ;
+- pas de cron de renouvellement featured tant que l'analyse IA n'est pas
+  disponible cote backend.
+
+Produits featured deja publies apres la Phase 1 :
+
+- `1344` : `https://www.instagram.com/p/DcyY_-PD2iH/`
+- `1337` : `https://www.instagram.com/p/DcyZEYRGl1d/`
+- `1334` : `https://www.instagram.com/p/DcyZHShDJnl/`
+- `1312` : `https://www.instagram.com/p/DcyZJeBD9tz/`
+- `1309` : `https://www.instagram.com/p/DcyZL2ejFL1/`
+- `1308` : `https://www.instagram.com/p/DcyZOcEAL7D/`
+- `1285` : `https://www.instagram.com/p/DcyZSCxD-IU/`
+- `1284` : `https://www.instagram.com/p/DcyZUEbGoKf/`
+- `1235` : `https://www.instagram.com/p/DcyZfMbmvWZ/`
+- `1227` : `https://www.instagram.com/p/DcyZhV7my2s/`
+- `1225` : `https://www.instagram.com/p/DcyZjr_DgeL/`
+- `1211` : `https://www.instagram.com/p/DcyZl7gGJKc/`
+- `1210` : `https://www.instagram.com/p/DcyZoF_malG/`
+- `1198` : `https://www.instagram.com/p/DcyplPNGoHz/`
+- `1184` : `https://www.instagram.com/p/Dcypo7emkg1/`
+- `1170` : `https://www.instagram.com/p/DcyprX6GjH_/`
+
+Restants bloques par format source non JPEG :
+
+- `1289` : PNG
+- `1288` : PNG
+- `1279` : WEBP
+- `1209` : PNG
+
+Ces produits doivent etre publies avec `imageMode=proxy` apres deploiement de
+`/api/instagram/product-image/[id]`, ou avec une image source JPEG publique.
+
+## Commandes utiles
+
+Dry-run :
+
+```bash
+curl -H "Authorization: Bearer $CRON_SECRET" \
+  "http://localhost:3000/api/cron/publish-instagram-products?limit=3&checkQuota=1"
+```
+
+Preview produit :
+
+```bash
+curl -X POST "http://localhost:3000/api/admin/instagram/publish-product" \
+  -H "Authorization: Bearer $CRON_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{"productId":1452,"imageMode":"source"}'
+```
+
+Publication reelle :
+
+```bash
+curl -X POST "http://localhost:3000/api/admin/instagram/publish-product" \
+  -H "Authorization: Bearer $CRON_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{"productId":1452,"imageMode":"source","confirm":"PUBLISH_TO_INSTAGRAM"}'
+```
+
+## Verification
+
+Verifications faites :
+
+- tests unitaires OK ;
+- lint cible OK ;
+- build Next.js OK ;
+- route `/instagram` OK ;
+- publication reelle Instagram OK.
+
+## Details
+
+Documentation operationnelle complete :
+
+- `docs/instagram-product-publishing.md`
