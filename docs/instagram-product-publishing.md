@@ -206,6 +206,10 @@ Fichiers principaux :
   - journalisation des statuts.
 - `src/app/api/cron/publish-instagram-products/route.ts`
   - route cron/admin pour dry-run ou batch publish.
+- `src/app/api/cron/publish-instagram-featured/route.ts`
+  - route dediee au cron Vercel quotidien ;
+  - publie un seul produit `featured = true` ;
+  - utilise toujours `imageMode=proxy`.
 - `src/app/api/admin/instagram/publish-product/route.ts`
   - route de publication manuelle d'un produit precis.
 - `src/app/api/instagram/product-image/[id]/route.ts`
@@ -334,6 +338,36 @@ Preconditions :
 curl -H "Authorization: Bearer $CRON_SECRET" \
   "http://localhost:3000/api/cron/publish-instagram-products?limit=3&publish=1&imageMode=source"
 ```
+
+### Cron quotidien featured
+
+Route dediee :
+
+```text
+GET /api/cron/publish-instagram-featured
+```
+
+Effet :
+
+- exige `Authorization: Bearer ${CRON_SECRET}` ;
+- exige `INSTAGRAM_PUBLISHING_ENABLED=true` ;
+- selectionne `limit=1` ;
+- selectionne uniquement `featured = true` ;
+- utilise le proxy JPEG (`imageMode=proxy`) ;
+- cree un post Instagram reel si un produit eligible existe ;
+- retourne `no_featured_candidate` sans erreur si tous les featured du batch ont
+  deja ete publies.
+
+Planning Vercel :
+
+```json
+{
+  "path": "/api/cron/publish-instagram-featured",
+  "schedule": "0 18 * * *"
+}
+```
+
+Le cron est en UTC. `0 18 * * *` correspond a 15:00 a Buenos Aires.
 
 ### Preview manuel d'un produit
 
@@ -482,18 +516,31 @@ Les produits featured suivants ont ete publies apres la Phase 1 :
   `https://www.instagram.com/p/Dcypo7emkg1/`
 - `1170` : `Chaqueta con diseno en relieve` -
   `https://www.instagram.com/p/DcyprX6GjH_/`
+- `1289` : `Lote de Sastreria de Terciopelo Arrugado (Talle S) - 5 Prendas` -
+  `https://www.instagram.com/p/DcysN3AI6my/`
+- `1288` : `Blusas de Gasa Drapeadas Semitransparentes (Talle S)` -
+  `https://www.instagram.com/p/DcysQg2o8PQ/`
+- `1279` : `Piloto/Trench de Zara` -
+  `https://www.instagram.com/p/DcysSnXI_Jy/`
+- `1209` : `Chaqueta estilo biker` -
+  `https://www.instagram.com/p/DcysVmrI8zM/`
 
-Produits featured restants au 2026-09-03 :
+Les quatre derniers produits avaient une image source `PNG` ou `WEBP` et ont
+ete publies avec `imageMode=proxy` apres deploiement de la route JPEG
+`/api/instagram/product-image/[id]`.
 
-- `1289` : image source `image/png`
-- `1288` : image source `image/png`
-- `1279` : image source `image/webp`
-- `1209` : image source `image/png`
+Controle final :
 
-Ces quatre produits ne doivent pas etre republiques en `imageMode=source` :
-Meta accepte uniquement les images JPEG pour ce flow. Ils pourront etre publies
-apres deploiement de la route proxy JPEG `/api/instagram/product-image/[id]` ou
-apres conversion/upload d'une image JPEG publique dans Supabase.
+```text
+GET /api/cron/publish-instagram-products?limit=10&featuredOnly=1&checkQuota=1&imageMode=proxy
+```
+
+Resultat :
+
+```text
+selected: 0
+skipped: 20
+```
 
 Dernier controle Meta effectue apres renouvellement du token :
 
@@ -501,10 +548,16 @@ Dernier controle Meta effectue apres renouvellement du token :
 GET /17841430654232393/content_publishing_limit
 ```
 
-Resultat :
+Resultat avant publication des derniers produits :
 
 ```text
 quota_usage: 17 puis 18 pendant la verification
+```
+
+Dernier quota observe apres publication du batch featured :
+
+```text
+quota_usage: 23
 ```
 
 ## Verification locale
@@ -564,9 +617,12 @@ Ces warnings existaient autour du projet et ne bloquent pas la feature.
 
 ## Prochaines etapes
 
-- deployer la branche contenant `/api/instagram/product-image/[id]` ;
-- publier les quatre featured restants avec `imageMode=proxy` ;
-- ajouter le cron Vercel quotidien avec `featuredOnly=1`, `limit=1` et
-  `publish=1` ;
+- le batch featured actif a ete renouvele le 2026-09-03 :
+  `docs/business/featured-products-batch-2026-09-03.md` ;
+- le cron Vercel quotidien est declare dans `vercel.json` via
+  `/api/cron/publish-instagram-featured` ;
+- deployer `vercel.json` et verifier dans Vercel que le cron apparait ;
+- tester manuellement la route de production une seule fois si l'on veut publier
+  immediatement le premier produit du nouveau batch ;
 - garder le lien bio Instagram sur `https://circular.moda/instagram` ;
 - regenerer tout secret Meta ou cron expose dans un screenshot/chat.

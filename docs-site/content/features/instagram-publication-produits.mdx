@@ -85,6 +85,10 @@ Routes ajoutees :
 - `GET /api/cron/publish-instagram-products`
   - dry-run par defaut ;
   - publication batch avec `publish=1` si `INSTAGRAM_PUBLISHING_ENABLED=true`.
+- `GET /api/cron/publish-instagram-featured`
+  - cron quotidien Vercel ;
+  - publie 1 produit `featured = true` ;
+  - utilise toujours le proxy JPEG.
 - `POST /api/admin/instagram/publish-product`
   - preview/publish d'un produit precis ;
   - publication reelle seulement avec `confirm: "PUBLISH_TO_INSTAGRAM"`.
@@ -192,16 +196,38 @@ Produits featured deja publies apres la Phase 1 :
 - `1198` : `https://www.instagram.com/p/DcyplPNGoHz/`
 - `1184` : `https://www.instagram.com/p/Dcypo7emkg1/`
 - `1170` : `https://www.instagram.com/p/DcyprX6GjH_/`
+- `1289` : `https://www.instagram.com/p/DcysN3AI6my/`
+- `1288` : `https://www.instagram.com/p/DcysQg2o8PQ/`
+- `1279` : `https://www.instagram.com/p/DcysSnXI_Jy/`
+- `1209` : `https://www.instagram.com/p/DcysVmrI8zM/`
 
-Restants bloques par format source non JPEG :
+Les quatre derniers produits avaient une image source PNG/WEBP et ont ete
+publies avec `imageMode=proxy` apres deploiement de
+`/api/instagram/product-image/[id]`.
 
-- `1289` : PNG
-- `1288` : PNG
-- `1279` : WEBP
-- `1209` : PNG
+Controle final du batch featured :
 
-Ces produits doivent etre publies avec `imageMode=proxy` apres deploiement de
-`/api/instagram/product-image/[id]`, ou avec une image source JPEG publique.
+```text
+selected: 0
+skipped: 20
+quota_usage: 23
+```
+
+## Cron quotidien
+
+Le cron de production est declare dans `vercel.json` :
+
+```json
+{
+  "path": "/api/cron/publish-instagram-featured",
+  "schedule": "0 18 * * *"
+}
+```
+
+Le planning est en UTC. `0 18 * * *` correspond a 15:00 a Buenos Aires.
+
+La route publie un seul produit par appel, uniquement parmi les produits
+`featured = true`, avec `imageMode=proxy`.
 
 ## Commandes utiles
 
@@ -210,6 +236,20 @@ Dry-run :
 ```bash
 curl -H "Authorization: Bearer $CRON_SECRET" \
   "http://localhost:3000/api/cron/publish-instagram-products?limit=3&checkQuota=1"
+```
+
+Dry-run du prochain post quotidien :
+
+```bash
+curl -H "Authorization: Bearer $CRON_SECRET" \
+  "https://www.circular.moda/api/cron/publish-instagram-products?limit=1&featuredOnly=1&checkQuota=1&imageMode=proxy"
+```
+
+Execution reelle du cron quotidien :
+
+```bash
+curl -H "Authorization: Bearer $CRON_SECRET" \
+  "https://www.circular.moda/api/cron/publish-instagram-featured"
 ```
 
 Preview produit :

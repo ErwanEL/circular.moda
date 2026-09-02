@@ -25,15 +25,20 @@ feature marche localement mais pas en production.
 `vercel.json` contient :
 
 - le cron `/api/cron/send-catalogue` ;
-- un planning `0 13 * * *` ;
+- le cron `/api/cron/publish-instagram-featured` ;
+- un planning newsletter `0 13 * * *` ;
+- un planning Instagram `0 18 * * *` ;
 - des redirects permanents d'anciens produits vers les nouveaux slugs ;
 - environ 190 redirects produit historiques.
 
-Le cron appelle la route newsletter et doit envoyer :
+Les crons appellent les routes serveur et doivent envoyer :
 
 ```http
 Authorization: Bearer CRON_SECRET
 ```
+
+Quand `CRON_SECRET` est configure dans Vercel, Vercel l'envoie automatiquement
+dans le header `Authorization` des Cron Jobs.
 
 Les variables Vercel doivent couvrir Supabase, Brevo, OpenAI, secrets de cron et
 secrets de revalidation.
