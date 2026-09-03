@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/send-catalogue",
       "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/cron/publish-instagram-featured",
+      "schedule": "0 18 * * *"
     }
   ],
   "redirects": [

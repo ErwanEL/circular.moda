@@ -13,6 +13,7 @@ import {
 import ProductsGridInfinite from './components/products-grid-infinite';
 import ProductsFilters from './components/products-filters';
 import FeaturedProducts from './components/featured-products';
+import InstagramFollowBanner from '../ui/instagram-follow-banner';
 
 /** Fallback ISR if the webhook misses an update. */
 export const revalidate = 300;
@@ -62,6 +63,8 @@ export default async function ProductsPage({
       <section className="py-6 antialiased md:py-8">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <FeaturedProducts cards={featuredCards} />
+
+          <InstagramFollowBanner className="mb-6" />
 
           <ProductsFilters
             activeFilters={activeFilters}
