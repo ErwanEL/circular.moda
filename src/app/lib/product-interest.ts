@@ -30,6 +30,13 @@ export type ProductInterestSnapshot = {
   url?: string | null;
 };
 
+export type SellerProductInterestTemplateInput = {
+  sellerName?: string | null;
+  buyerName: string;
+  buyerPhone: string;
+  product: ProductInterestSnapshot;
+};
+
 export type IntroductionTemplateInput = {
   code: string;
   product: ProductInterestSnapshot;
@@ -103,19 +110,57 @@ export function buildLegacyProductInterestMessage(
 export function buildCircularProductInterestMessage(input: {
   code: string;
   product: ProductInterestSnapshot;
+  buyerName?: string | null;
+  buyerPhone?: string | null;
 }) {
   const lines = [
     'Hola Circular.moda, me interesa esta prenda.',
     `Código: ${input.code}`,
+    cleanText(input.buyerName) ? `Nombre: ${input.buyerName}` : null,
+    cleanText(input.buyerPhone) ? `WhatsApp: ${input.buyerPhone}` : null,
     `SKU: ${input.product.sku}`,
     `Prenda: ${getProductDisplayName(input.product)}`,
     `Talla: ${getProductSize(input.product)}`,
     `Color: ${getProductColor(input.product)}`,
     cleanText(input.product.url) ? `Link: ${input.product.url}` : null,
+    'Acepto que Circular.moda comparta mi nombre y WhatsApp con la vendedora para coordinar esta prenda.',
     '¿Me ayudan a ponerme en contacto con la vendedora?',
   ];
 
   return lines.filter((line): line is string => line !== null).join('\n');
+}
+
+export function buildSellerProductInterestTemplateText({
+  sellerName,
+  buyerName,
+  buyerPhone,
+  product,
+}: SellerProductInterestTemplateInput) {
+  const sellerFirstName = getFirstName(sellerName) ?? 'vendedora';
+  const buyerLabel = getFirstName(buyerName) ?? buyerName.trim();
+
+  return [
+    `Hola ${sellerFirstName}, ${buyerLabel} está interesada en tu prenda ${getProductDisplayName(product)}.`,
+    `SKU: ${product.sku}`,
+    `Talla: ${getProductSize(product)} · Color: ${getProductColor(product)}`,
+    `WhatsApp de la compradora: ${buyerPhone}`,
+    cleanText(product.url) ? `Detalle: ${product.url}` : null,
+  ]
+    .filter((line): line is string => line !== null)
+    .join('\n');
+}
+
+export function buildSellerProductInterestTemplateParameters(
+  input: SellerProductInterestTemplateInput
+) {
+  return [
+    getFirstName(input.sellerName) ?? 'vendedora',
+    getFirstName(input.buyerName) ?? input.buyerName.trim(),
+    getProductDisplayName(input.product),
+    input.product.sku,
+    input.buyerPhone,
+    cleanText(input.product.url) ?? 'https://circular.moda',
+  ].map((text) => ({ type: 'text' as const, text }));
 }
 
 export function buildFallbackCircularWhatsappUrl(

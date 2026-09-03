@@ -85,14 +85,14 @@ export function ProductInterestButton({ product }: ProductInterestButtonProps) {
   return (
     <Button
       size="xl"
-      text={loading ? 'Preparando contacto...' : 'Hacer una oferta al vendedor'}
+      text={loading ? 'Preparando WhatsApp...' : 'Hacer una oferta al vendedor'}
       variant="primary"
       solid
       bold
       className="w-full text-white sm:w-auto dark:text-gray-900"
       onClick={handleClick}
       disabled={loading}
-      endIcon={<FaWhatsapp className="ml-2 h-6 w-6" />}
+      endIcon={<FaWhatsapp className="ml-2 h-6 w-6" aria-hidden="true" />}
     />
   );
 }
