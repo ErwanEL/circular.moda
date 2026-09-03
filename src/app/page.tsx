@@ -7,6 +7,7 @@ import ResponsiveCards from './ui/ResponsiveCards';
 import SocialShare from './ui/social-share';
 import LeadMagnet from './ui/lead-magnet';
 import { signupUrl } from './lib/helpers';
+import InstagramFollowBanner from './ui/instagram-follow-banner';
 
 export default async function Home() {
   const products = await getAllProducts();
@@ -21,6 +22,9 @@ export default async function Home() {
         }}
       />
       <Features />
+      <div className="mx-auto max-w-screen-xl px-4 py-4 lg:px-6">
+        <InstagramFollowBanner />
+      </div>
       <ResponsiveCards products={products} />
       <LeadMagnet />
       <SocialShare />

@@ -1,6 +1,7 @@
 export default {
   index: "Vue d'ensemble",
   'newsletter-catalogue': 'Newsletter catalogue automatique',
+  'instagram-publication-produits': 'Publication produits Instagram',
   'login-passwordless': 'Login passwordless Supabase',
   'espace-vendeur': 'Espace vendeur',
   'vitrine-vendeur-publique': 'Vitrine vendeur publique',
