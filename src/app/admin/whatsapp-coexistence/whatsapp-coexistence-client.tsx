@@ -31,10 +31,12 @@ type FacebookLoginResponse = {
 type EmbeddedSignupSession = {
   type?: string;
   event?: string;
+  version?: number;
   data?: {
     phone_number_id?: string;
     waba_id?: string;
     business_id?: string;
+    businessId?: string;
     current_step?: string;
     error_message?: string;
     error_code?: string;
@@ -68,6 +70,18 @@ const buttonClass =
 
 function formatJson(value: unknown) {
   return JSON.stringify(value, null, 2);
+}
+
+function parseEmbeddedSignupMessage(data: unknown) {
+  if (typeof data === 'string') {
+    return JSON.parse(data) as EmbeddedSignupSession;
+  }
+
+  if (data && typeof data === 'object') {
+    return data as EmbeddedSignupSession;
+  }
+
+  return null;
 }
 
 function getBrowserRedirectUri() {
@@ -160,8 +174,8 @@ export default function WhatsappCoexistenceClient({
       if (!event.origin.endsWith('facebook.com')) return;
 
       try {
-        const data = JSON.parse(String(event.data)) as EmbeddedSignupSession;
-        if (data.type === 'WA_EMBEDDED_SIGNUP') {
+        const data = parseEmbeddedSignupMessage(event.data);
+        if (data?.type === 'WA_EMBEDDED_SIGNUP') {
           sessionRef.current = data;
           setSession(data);
         }
@@ -249,6 +263,7 @@ export default function WhatsappCoexistenceClient({
         override_default_response_type: true,
         extras: {
           featureType: 'whatsapp_business_app_onboarding',
+          sessionInfoVersion: '3',
           setup: {},
         },
       }
@@ -276,6 +291,7 @@ export default function WhatsappCoexistenceClient({
       'extras',
       JSON.stringify({
         featureType: 'whatsapp_business_app_onboarding',
+        sessionInfoVersion: '3',
         setup: {},
       })
     );

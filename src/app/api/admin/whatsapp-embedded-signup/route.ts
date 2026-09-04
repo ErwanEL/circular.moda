@@ -179,7 +179,8 @@ export async function POST(request: NextRequest) {
     const sessionData = getRecord(session?.data);
     const wabaId = getString(sessionData?.waba_id);
     const phoneNumberId = getString(sessionData?.phone_number_id);
-    const businessId = getString(sessionData?.business_id);
+    const businessId =
+      getString(sessionData?.business_id) ?? getString(sessionData?.businessId);
 
     if (!code) {
       return NextResponse.json(
