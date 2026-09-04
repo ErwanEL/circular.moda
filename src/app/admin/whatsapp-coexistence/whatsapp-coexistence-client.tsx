@@ -83,6 +83,10 @@ export default function WhatsappCoexistenceClient({
   const sessionRef = useRef<EmbeddedSignupSession | null>(null);
 
   const isConfigured = Boolean(appId && configId);
+  const redirectUri =
+    typeof window === 'undefined'
+      ? null
+      : `${window.location.origin}${window.location.pathname}`;
 
   const initializeFacebook = useCallback(() => {
     if (!appId || !window.FB) return;
@@ -147,6 +151,7 @@ export default function WhatsappCoexistenceClient({
       },
       body: JSON.stringify({
         code,
+        redirectUri,
         session: sessionInfo,
       }),
     });
@@ -184,6 +189,7 @@ export default function WhatsappCoexistenceClient({
         config_id: configId,
         response_type: 'code',
         override_default_response_type: true,
+        redirect_uri: redirectUri,
         extras: {
           featureType: 'whatsapp_business_app_onboarding',
           sessionInfoVersion: '3',

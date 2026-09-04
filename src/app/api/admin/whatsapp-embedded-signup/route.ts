@@ -116,6 +116,7 @@ export async function POST(request: NextRequest) {
 
     const body = getRecord(await readJson(request));
     const code = getString(body?.code);
+    const redirectUri = getString(body?.redirectUri);
     const session = getRecord(body?.session);
     const sessionData = getRecord(session?.data);
     const wabaId = getString(sessionData?.waba_id);
@@ -134,6 +135,10 @@ export async function POST(request: NextRequest) {
       client_secret: appSecret,
       code,
     });
+
+    if (redirectUri) {
+      params.set('redirect_uri', redirectUri);
+    }
 
     const tokenResponse = await graphRequest(`oauth/access_token?${params}`);
 
