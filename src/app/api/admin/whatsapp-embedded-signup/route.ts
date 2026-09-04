@@ -4,6 +4,9 @@ const CACHE_HEADERS = {
   'Cache-Control': 'no-store',
 };
 
+const FACEBOOK_JS_SDK_REDIRECT_URI =
+  'https://www.facebook.com/connect/login_success.html';
+
 function env(name: string) {
   const value = process.env[name]?.trim();
   return value ? value : null;
@@ -89,6 +92,61 @@ async function graphRequest(
   };
 }
 
+async function exchangeCodeForToken({
+  appId,
+  appSecret,
+  code,
+  redirectUri,
+}: {
+  appId: string;
+  appSecret: string;
+  code: string;
+  redirectUri: string | null;
+}) {
+  const redirects = [
+    FACEBOOK_JS_SDK_REDIRECT_URI,
+    redirectUri,
+    null,
+  ].filter((value, index, values) => values.indexOf(value) === index);
+
+  const attempts = [];
+
+  for (const attemptRedirectUri of redirects) {
+    const params = new URLSearchParams({
+      client_id: appId,
+      client_secret: appSecret,
+      code,
+    });
+
+    if (attemptRedirectUri) {
+      params.set('redirect_uri', attemptRedirectUri);
+    }
+
+    const response = await graphRequest(`oauth/access_token?${params}`);
+
+    attempts.push({
+      redirectUri: attemptRedirectUri,
+      ok: response.ok,
+      status: response.status,
+      payload: response.ok ? undefined : response.payload,
+    });
+
+    if (response.ok) {
+      return {
+        response,
+        attempts,
+        successfulRedirectUri: attemptRedirectUri,
+      };
+    }
+  }
+
+  return {
+    response: null,
+    attempts,
+    successfulRedirectUri: null,
+  };
+}
+
 export async function POST(request: NextRequest) {
   try {
     const setupKey = env('WHATSAPP_SETUP_KEY');
@@ -130,25 +188,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const params = new URLSearchParams({
-      client_id: appId,
-      client_secret: appSecret,
+    const {
+      response: tokenResponse,
+      attempts: tokenExchangeAttempts,
+      successfulRedirectUri,
+    } = await exchangeCodeForToken({
+      appId,
+      appSecret,
       code,
+      redirectUri,
     });
 
-    if (redirectUri) {
-      params.set('redirect_uri', redirectUri);
-    }
-
-    const tokenResponse = await graphRequest(`oauth/access_token?${params}`);
-
-    if (!tokenResponse.ok) {
+    if (!tokenResponse?.ok) {
       return NextResponse.json(
         {
           ok: false,
           error: 'Meta token exchange failed',
           redirectUri,
-          meta: tokenResponse,
+          tokenExchangeAttempts,
         },
         { status: 502, headers: CACHE_HEADERS }
       );
@@ -190,6 +247,7 @@ export async function POST(request: NextRequest) {
         phoneNumberId,
         businessId,
         subscribeResult,
+        successfulRedirectUri,
       },
       { headers: CACHE_HEADERS }
     );

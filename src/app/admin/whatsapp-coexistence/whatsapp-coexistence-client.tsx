@@ -68,6 +68,11 @@ function formatJson(value: unknown) {
   return JSON.stringify(value, null, 2);
 }
 
+function getBrowserRedirectUri() {
+  if (typeof window === 'undefined') return null;
+  return `${window.location.origin}${window.location.pathname}`;
+}
+
 export default function WhatsappCoexistenceClient({
   appId,
   configId,
@@ -80,13 +85,12 @@ export default function WhatsappCoexistenceClient({
   const [result, setResult] = useState<ExchangeResult | null>(null);
   const [rawLoginResponse, setRawLoginResponse] =
     useState<FacebookLoginResponse | null>(null);
+  const [currentRedirectUri, setCurrentRedirectUri] = useState<string | null>(
+    null
+  );
   const sessionRef = useRef<EmbeddedSignupSession | null>(null);
 
   const isConfigured = Boolean(appId && configId);
-  const currentRedirectUri =
-    typeof window === 'undefined'
-      ? null
-      : window.location.href.split('#')[0];
 
   const initializeFacebook = useCallback(() => {
     if (!appId || !window.FB) return;
@@ -105,6 +109,15 @@ export default function WhatsappCoexistenceClient({
       initializeFacebook();
     };
   }, [initializeFacebook]);
+
+  useEffect(() => {
+    const redirectUri = getBrowserRedirectUri();
+    setCurrentRedirectUri(redirectUri);
+
+    if (redirectUri && window.location.href !== redirectUri) {
+      window.history.replaceState(null, '', redirectUri);
+    }
+  }, []);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -168,7 +181,12 @@ export default function WhatsappCoexistenceClient({
       return;
     }
 
-    const redirectUri = window.location.href.split('#')[0];
+    const redirectUri = getBrowserRedirectUri();
+
+    if (!redirectUri) {
+      setStatus('Redirect URI navigateur indisponible.');
+      return;
+    }
 
     setResult(null);
     setRawLoginResponse(null);
@@ -190,6 +208,7 @@ export default function WhatsappCoexistenceClient({
       },
       {
         config_id: configId,
+        auth_type: 'rerequest',
         response_type: 'code',
         override_default_response_type: true,
         redirect_uri: redirectUri,
