@@ -172,6 +172,41 @@ Acepto que Circular.moda comparta mi nombre y WhatsApp con la vendedora para coo
 8. Tester avec un vendeur interne.
 9. Surveiller l'admin de mise en relation et les logs Supabase.
 
+## Option Coexistence WhatsApp Business App
+
+Si le numero Circular.moda doit rester utilisable dans l'application mobile
+WhatsApp Business tout en autorisant l'API, ne pas utiliser le flow standard
+`Register your WhatsApp phone number`. Utiliser Embedded Signup avec le mode
+WhatsApp Business App onboarding.
+
+Variables temporaires a ajouter en production pour lancer le flow :
+
+```env
+META_APP_ID=
+META_APP_SECRET=
+META_WHATSAPP_EMBEDDED_SIGNUP_CONFIG_ID=
+WHATSAPP_SETUP_KEY=
+```
+
+La page protegee est :
+
+```text
+https://circular.moda/admin/whatsapp-coexistence?setup_key=...
+```
+
+Elle lance le SDK Meta avec :
+
+```text
+featureType=whatsapp_business_app_onboarding
+sessionInfoVersion=3
+```
+
+Le serveur echange immediatement le code Embedded Signup contre un business
+token via `GET /oauth/access_token`, puis tente de souscrire l'app au WABA via
+`POST /{WABA_ID}/subscribed_apps`. Il ne lance pas automatiquement
+`/{PHONE_NUMBER_ID}/register`, afin d'eviter une migration Cloud API classique
+non souhaitee.
+
 ## Definition of done MVP
 
 - Une demande produit peut etre creee avant l'ouverture WhatsApp.
