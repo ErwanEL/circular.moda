@@ -59,6 +59,8 @@ type Props = {
   configId: string | null;
   graphApiVersion: string;
   setupKey: string;
+  authCode: string | null;
+  authError: string | null;
 };
 
 const buttonClass =
@@ -78,6 +80,8 @@ export default function WhatsappCoexistenceClient({
   configId,
   graphApiVersion,
   setupKey,
+  authCode,
+  authError,
 }: Props) {
   const [sdkReady, setSdkReady] = useState(false);
   const [status, setStatus] = useState('En attente du SDK Meta.');
@@ -114,10 +118,42 @@ export default function WhatsappCoexistenceClient({
     const redirectUri = getBrowserRedirectUri();
     setCurrentRedirectUri(redirectUri);
 
-    if (redirectUri && window.location.href !== redirectUri) {
+    if (
+      redirectUri &&
+      !authCode &&
+      !authError &&
+      window.location.href !== redirectUri
+    ) {
       window.history.replaceState(null, '', redirectUri);
     }
-  }, []);
+  }, [authCode, authError]);
+
+  useEffect(() => {
+    if (authError) {
+      setResult({
+        ok: false,
+        error: authError,
+      });
+      setStatus('Meta a renvoyé une erreur OAuth.');
+      return;
+    }
+
+    if (!authCode || !currentRedirectUri) return;
+
+    setRawLoginResponse({
+      authResponse: {
+        code: authCode,
+      },
+      status: 'connected',
+    });
+    const oauthRedirectUri = `${currentRedirectUri}?setup_key=${encodeURIComponent(
+      setupKey
+    )}`;
+
+    void exchangeCode(authCode, oauthRedirectUri, null).then(() => {
+      window.history.replaceState(null, '', currentRedirectUri);
+    });
+  }, [authCode, authError, currentRedirectUri]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -219,6 +255,35 @@ export default function WhatsappCoexistenceClient({
     );
   }
 
+  function launchExplicitOauthSignup() {
+    if (!appId || !configId) {
+      setStatus('App ID ou config ID manquant.');
+      return;
+    }
+
+    const redirectUri = `${window.location.origin}${window.location.pathname}?setup_key=${encodeURIComponent(
+      setupKey
+    )}`;
+    const oauthUrl = new URL(
+      `https://www.facebook.com/${graphApiVersion}/dialog/oauth`
+    );
+
+    oauthUrl.searchParams.set('client_id', appId);
+    oauthUrl.searchParams.set('redirect_uri', redirectUri);
+    oauthUrl.searchParams.set('response_type', 'code');
+    oauthUrl.searchParams.set('config_id', configId);
+    oauthUrl.searchParams.set(
+      'extras',
+      JSON.stringify({
+        featureType: 'whatsapp_business_app_onboarding',
+        setup: {},
+      })
+    );
+    oauthUrl.searchParams.set('state', setupKey);
+
+    window.location.assign(oauthUrl.toString());
+  }
+
   return (
     <main className="min-h-screen bg-[#f6f3ee] px-6 py-10 text-[#211f1d]">
       <Script
@@ -295,6 +360,14 @@ export default function WhatsappCoexistenceClient({
               type="button"
             >
               Connecter le WhatsApp actuel
+            </button>
+            <button
+              className={buttonClass}
+              disabled={!isConfigured}
+              onClick={launchExplicitOauthSignup}
+              type="button"
+            >
+              Connexion OAuth explicite
             </button>
           </div>
         </div>

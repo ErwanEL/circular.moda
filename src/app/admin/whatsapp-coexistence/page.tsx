@@ -32,6 +32,8 @@ export default async function WhatsappCoexistencePage({
   const params = (await searchParams) ?? {};
   const setupKey = env('WHATSAPP_SETUP_KEY');
   const requestSetupKey = getSearchParam(params, 'setup_key');
+  const authCode = getSearchParam(params, 'code') ?? null;
+  const authError = getSearchParam(params, 'error_description') ?? null;
 
   if (!setupKey || requestSetupKey !== setupKey) {
     notFound();
@@ -47,6 +49,8 @@ export default async function WhatsappCoexistencePage({
       configId={configId}
       graphApiVersion={graphApiVersion}
       setupKey={setupKey}
+      authCode={authCode}
+      authError={authError}
     />
   );
 }
