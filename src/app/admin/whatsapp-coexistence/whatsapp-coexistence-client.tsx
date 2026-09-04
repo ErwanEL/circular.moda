@@ -211,10 +211,8 @@ export default function WhatsappCoexistenceClient({
         auth_type: 'rerequest',
         response_type: 'code',
         override_default_response_type: true,
-        redirect_uri: redirectUri,
         extras: {
           featureType: 'whatsapp_business_app_onboarding',
-          sessionInfoVersion: '3',
           setup: {},
         },
       }

@@ -104,9 +104,9 @@ async function exchangeCodeForToken({
   redirectUri: string | null;
 }) {
   const redirects = [
+    null,
     FACEBOOK_JS_SDK_REDIRECT_URI,
     redirectUri,
-    null,
   ].filter((value, index, values) => values.indexOf(value) === index);
 
   const attempts = [];
