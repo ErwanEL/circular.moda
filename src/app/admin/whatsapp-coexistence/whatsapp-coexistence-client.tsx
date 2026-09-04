@@ -83,10 +83,10 @@ export default function WhatsappCoexistenceClient({
   const sessionRef = useRef<EmbeddedSignupSession | null>(null);
 
   const isConfigured = Boolean(appId && configId);
-  const redirectUri =
+  const currentRedirectUri =
     typeof window === 'undefined'
       ? null
-      : `${window.location.origin}${window.location.pathname}`;
+      : window.location.href.split('#')[0];
 
   const initializeFacebook = useCallback(() => {
     if (!appId || !window.FB) return;
@@ -138,6 +138,7 @@ export default function WhatsappCoexistenceClient({
 
   async function exchangeCode(
     code: string,
+    redirectUri: string,
     sessionInfo: EmbeddedSignupSession | null
   ) {
     setStatus('Code reçu. Échange serveur en cours.');
@@ -167,6 +168,8 @@ export default function WhatsappCoexistenceClient({
       return;
     }
 
+    const redirectUri = window.location.href.split('#')[0];
+
     setResult(null);
     setRawLoginResponse(null);
     setStatus('Ouverture du flow Coexistence Meta.');
@@ -182,7 +185,7 @@ export default function WhatsappCoexistenceClient({
         }
 
         void waitForSession().then((sessionInfo) => {
-          void exchangeCode(code, sessionInfo);
+          void exchangeCode(code, redirectUri, sessionInfo);
         });
       },
       {
@@ -251,6 +254,15 @@ export default function WhatsappCoexistenceClient({
             </p>
             <p className="mt-2 text-sm">{graphApiVersion}</p>
           </div>
+        </div>
+
+        <div className="rounded-md border border-[#ded7ce] bg-white p-4">
+          <p className="text-xs font-semibold uppercase text-[#7a6f65]">
+            Redirect URI utilisée
+          </p>
+          <p className="mt-2 break-all text-sm">
+            {currentRedirectUri ?? 'Chargement navigateur...'}
+          </p>
         </div>
 
         <div className="rounded-md border border-[#ded7ce] bg-white p-5">

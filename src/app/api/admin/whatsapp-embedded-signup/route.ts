@@ -147,6 +147,7 @@ export async function POST(request: NextRequest) {
         {
           ok: false,
           error: 'Meta token exchange failed',
+          redirectUri,
           meta: tokenResponse,
         },
         { status: 502, headers: CACHE_HEADERS }
