@@ -26,3 +26,4 @@ Une note doit idealement contenir :
 - [2026-08-20 - Featured products visual batch](./featured-products-batch-2026-08-20.md)
 - [2026-09-03 - Automatisation WhatsApp des demandes produit](./2026-09-03-whatsapp-product-interest-automation.md)
 - [2026-09-03 - Featured products visual batch](./featured-products-batch-2026-09-03.md)
+- [2026-09-18 - Featured products visual batch](./featured-products-batch-2026-09-18.md)
