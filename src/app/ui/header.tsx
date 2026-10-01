@@ -14,6 +14,7 @@ import { getButtonClasses } from './button-classes';
 import { usePathname } from 'next/navigation';
 import { createClient } from '../lib/supabase/client';
 import { signupUrl } from '../lib/helpers';
+import { InstallAppButton, PwaInstallBanner } from './pwa-install-provider';
 
 type MobileNavigationProps = {
   isLoggedIn: boolean;
@@ -92,6 +93,12 @@ function MobileNavigation({ isLoggedIn, pathname }: MobileNavigationProps) {
       <NavbarLink href="/blog" active={pathname.startsWith('/blog')}>
         Blog
       </NavbarLink>
+      <li className="list-none md:hidden">
+        <InstallAppButton
+          compact
+          className="flex w-full items-center gap-2 py-2 text-left text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+        />
+      </li>
       <NavbarLink
         href="https://wa.me/5491125115030?text=Hola%20Circular.moda%20tengo%20una%20pregunta:"
         active={
@@ -330,6 +337,7 @@ export default function Header() {
           <MobileNavigation isLoggedIn={isLoggedIn} pathname={pathname} />
         </Navbar>
       </div>
+      <PwaInstallBanner />
     </header>
   );
 }
