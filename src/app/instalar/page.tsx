@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { Fragment, type ReactNode } from 'react';
 import { InstallPageButton } from './install-page-button';
 
 export const metadata: Metadata = {
@@ -22,16 +23,25 @@ const iosSteps = [
   'Activá “Abrir como app web” y tocá “Agregar”.',
 ];
 
-function StepList({ steps }: { steps: string[] }) {
+function StepList({
+  steps,
+  afterStep,
+}: {
+  steps: string[];
+  afterStep?: (index: number) => ReactNode;
+}) {
   return (
     <ol className="space-y-4">
       {steps.map((step, index) => (
-        <li key={step} className="flex gap-4">
-          <span className="bg-primary-800 flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-bold text-white">
-            {index + 1}
-          </span>
-          <p className="pt-1.5 text-gray-700 dark:text-gray-200">{step}</p>
-        </li>
+        <Fragment key={step}>
+          <li className="flex gap-4">
+            <span className="bg-primary-800 flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-bold text-white">
+              {index + 1}
+            </span>
+            <p className="pt-1.5 text-gray-700 dark:text-gray-200">{step}</p>
+          </li>
+          {afterStep?.(index)}
+        </Fragment>
       ))}
     </ol>
   );
@@ -101,7 +111,36 @@ export default function InstallPage() {
               </h2>
             </div>
           </div>
-          <StepList steps={iosSteps} />
+          <StepList
+            steps={iosSteps}
+            afterStep={(index) => {
+              if (index === 1) {
+                return (
+                  <Image
+                    src="/pwa/tutorial/ios-share-button.png"
+                    alt="Botón Compartir de Safari señalado para instalar Circular Moda"
+                    width={2170}
+                    height={725}
+                    className="mt-2 w-full rounded-2xl border border-gray-200 shadow-sm"
+                  />
+                );
+              }
+
+              if (index === 2) {
+                return (
+                  <Image
+                    src="/pwa/tutorial/ios-add-to-home-screen.png"
+                    alt="Opción Agregar a pantalla de inicio resaltada en el menú del iPhone"
+                    width={956}
+                    height={1646}
+                    className="mx-auto mt-2 w-full max-w-sm rounded-2xl border border-gray-200 shadow-sm"
+                  />
+                );
+              }
+
+              return null;
+            }}
+          />
         </section>
       </div>
 

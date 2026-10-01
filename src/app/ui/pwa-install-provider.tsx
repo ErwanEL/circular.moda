@@ -214,7 +214,11 @@ export function InstallAppButton({
   );
 }
 
-export function PwaInstallBanner() {
+export function PwaInstallBanner({
+  hiddenOnMobile = false,
+}: {
+  hiddenOnMobile?: boolean;
+}) {
   const { install, installed, ready } = usePwaInstall();
 
   if (!ready || installed) return null;
@@ -222,7 +226,9 @@ export function PwaInstallBanner() {
   return (
     <aside
       aria-label="Instalar Circular Moda"
-      className="border-primary-300 bg-primary-100 border-t px-4 py-2.5 sm:px-6"
+      className={`border-primary-300 bg-primary-100 border-t px-4 py-2.5 sm:px-6 ${
+        hiddenOnMobile ? 'hidden md:block' : ''
+      }`}
     >
       <div className="mx-auto flex max-w-screen-xl items-center gap-3">
         <Image
