@@ -617,8 +617,8 @@ Ces warnings existaient autour du projet et ne bloquent pas la feature.
 
 ## Prochaines etapes
 
-- le batch featured actif a ete renouvele le 2026-09-03 :
-  `docs/business/featured-products-batch-2026-09-03.md` ;
+- le batch featured actif a ete renouvele le 2026-10-01 :
+  `docs/business/featured-products-batch-2026-10-01.md` ;
 - le cron Vercel quotidien est declare dans `vercel.json` via
   `/api/cron/publish-instagram-featured` ;
 - deployer `vercel.json` et verifier dans Vercel que le cron apparait ;
