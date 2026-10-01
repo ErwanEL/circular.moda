@@ -8,6 +8,8 @@ const {
   buildFallbackCircularWhatsappUrl,
   buildGroupIntroductionMessage,
   buildSellerIntroductionMessage,
+  buildSellerProductInterestTemplateParameters,
+  buildSellerProductInterestTemplateText,
   buildWhatsappUrl,
   isIntroductionStatus,
 } = await import('./product-interest.ts');
@@ -27,9 +29,23 @@ test('builds the Circular WhatsApp message with request code and product data', 
   });
 
   assert.match(message, /Código: INT-ABC123/);
+  assert.doesNotMatch(message, /Nombre:/);
   assert.match(message, /SKU: SKU-001357/);
   assert.match(message, /Vestido negro/);
   assert.match(message, /Link: https:\/\/www\.circular\.moda\/products\/vestido-negro/);
+  assert.match(message, /comparta mi nombre y WhatsApp con la vendedora/);
+});
+
+test('builds the Circular WhatsApp message with buyer contact when available', () => {
+  const message = buildCircularProductInterestMessage({
+    code: 'INT-ABC123',
+    product,
+    buyerName: 'Romy',
+    buyerPhone: '+5491122223333',
+  });
+
+  assert.match(message, /Nombre: Romy/);
+  assert.match(message, /WhatsApp: \+5491122223333/);
 });
 
 test('builds wa.me URLs with normalized phone digits', () => {
@@ -88,6 +104,32 @@ test('builds seller, buyer and group introduction templates', () => {
     }),
     /Hola Romy y Lara/
   );
+});
+
+test('builds seller product interest WhatsApp template content', () => {
+  const input = {
+    sellerName: 'Lara Alvarez',
+    buyerName: 'Romy Gomez',
+    buyerPhone: '+5491122223333',
+    product,
+  };
+
+  const text = buildSellerProductInterestTemplateText(input);
+  assert.match(text, /Hola Lara, Romy está interesada/);
+  assert.match(text, /SKU: SKU-001357/);
+  assert.match(text, /WhatsApp de la compradora: \+5491122223333/);
+
+  assert.deepEqual(buildSellerProductInterestTemplateParameters(input), [
+    { type: 'text', text: 'Lara' },
+    { type: 'text', text: 'Romy' },
+    { type: 'text', text: 'Vestido negro' },
+    { type: 'text', text: 'SKU-001357' },
+    { type: 'text', text: '+5491122223333' },
+    {
+      type: 'text',
+      text: 'https://www.circular.moda/products/vestido-negro',
+    },
+  ]);
 });
 
 test('validates introduction statuses', () => {

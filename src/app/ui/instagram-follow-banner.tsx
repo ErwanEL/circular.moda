@@ -1,5 +1,5 @@
 import { FaInstagram } from 'react-icons/fa';
-import Button from './button';
+import { getButtonClasses } from './button-classes';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/circular_punto_moda/';
 
@@ -15,8 +15,12 @@ export default function InstagramFollowBanner({
   const isSeller = variant === 'seller';
 
   return (
-    <section
-      className={`overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900 ${className}`}
+    <a
+      href={INSTAGRAM_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Seguir a circular punto moda en Instagram"
+      className={`block overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E1306C] dark:border-gray-700 dark:bg-gray-900 ${className}`}
     >
       <div className="flex flex-col gap-4 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex gap-4">
@@ -41,16 +45,17 @@ export default function InstagramFollowBanner({
         </div>
 
         <div className="flex shrink-0 flex-col gap-2 sm:flex-row lg:items-center">
-          <Button
-            link={INSTAGRAM_URL}
-            text="Seguir en Instagram"
-            variant="primary"
-            solid
-            className="w-full sm:w-auto"
-            aria-label="Seguir a circular punto moda en Instagram"
-          />
+          <span
+            className={getButtonClasses({
+              variant: 'primary',
+              solid: true,
+              className: 'w-full sm:w-auto',
+            })}
+          >
+            Seguir en Instagram
+          </span>
         </div>
       </div>
-    </section>
+    </a>
   );
 }
