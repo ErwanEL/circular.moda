@@ -32,6 +32,12 @@ type IntroductionRequest = {
   seller_id: number | null;
   buyer_name: string | null;
   buyer_phone: string | null;
+  buyer_consent_at?: string | null;
+  seller_whatsapp?: string | null;
+  seller_notified_at?: string | null;
+  seller_notification_message_id?: string | null;
+  seller_notification_error?: string | null;
+  last_whatsapp_status?: string | null;
   status: IntroductionStatus;
   availability_confirmed: boolean;
   source: string;
@@ -564,6 +570,51 @@ export default function AdminIntroductionsPage() {
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-950"
                       />
                     </div>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+                  <h3 className="text-sm font-bold">
+                    Automatisation WhatsApp
+                  </h3>
+                  <div className="mt-3 grid gap-3 text-sm md:grid-cols-2">
+                    <div>
+                      <p className="text-xs font-semibold text-gray-500">
+                        Notification vendeuse
+                      </p>
+                      <p className="mt-1">
+                        {selectedRequest.seller_notified_at
+                          ? formatDate(selectedRequest.seller_notified_at)
+                          : 'Pas encore envoyée'}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-500">
+                        Dernier statut Meta
+                      </p>
+                      <p className="mt-1">
+                        {selectedRequest.last_whatsapp_status ?? 'Non reçu'}
+                      </p>
+                    </div>
+                    <div className="md:col-span-2">
+                      <p className="text-xs font-semibold text-gray-500">
+                        Message ID
+                      </p>
+                      <p className="mt-1 break-all font-mono text-xs">
+                        {selectedRequest.seller_notification_message_id ??
+                          'Non disponible'}
+                      </p>
+                    </div>
+                    {selectedRequest.seller_notification_error && (
+                      <div className="md:col-span-2">
+                        <p className="text-xs font-semibold text-red-600">
+                          Erreur
+                        </p>
+                        <p className="mt-1 text-red-700">
+                          {selectedRequest.seller_notification_error}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
 

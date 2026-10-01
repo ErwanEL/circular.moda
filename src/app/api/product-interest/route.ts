@@ -5,8 +5,14 @@ import {
   buildCircularProductInterestMessage,
   buildWhatsappUrl,
 } from '@/app/lib/product-interest';
+import { normalizeArgentinaPhone } from '@/app/lib/argentina-phone';
 import { buildProductSlug } from '@/app/lib/product-slug';
 import { isSupabaseConfigured, supabase } from '@/app/lib/supabase';
+import {
+  findProductInterestSeller,
+  maybeNotifyProductSeller,
+  type ProductInterestSeller,
+} from '@/app/lib/whatsapp-product-interest';
 
 const CACHE_HEADERS = {
   'Cache-Control': 'no-store',
@@ -16,6 +22,10 @@ type ProductInterestBody = {
   productId?: unknown;
   productSku?: unknown;
   productSlug?: unknown;
+  buyerName?: unknown;
+  buyerPhone?: unknown;
+  buyerConsent?: unknown;
+  buyerConsentSource?: unknown;
 };
 
 type ProductInterestProductRow = {
@@ -26,6 +36,11 @@ type ProductInterestProductRow = {
   size: string | null;
   color: string | null;
   owner: number | null;
+};
+
+type InterestInsertRow = {
+  id: number;
+  code: string;
 };
 
 function getTrimmedString(value: unknown) {
@@ -53,6 +68,18 @@ function getRequestOrigin(request: NextRequest) {
 
 function createInterestCode() {
   return `INT-${randomBytes(3).toString('hex').toUpperCase()}`;
+}
+
+function isMissingColumnError(error: unknown) {
+  if (!error || typeof error !== 'object') return false;
+  const candidate = error as { code?: unknown; message?: unknown };
+  const message =
+    typeof candidate.message === 'string' ? candidate.message : '';
+  return (
+    candidate.code === 'PGRST204' ||
+    message.includes('Could not find') ||
+    message.includes('column')
+  );
 }
 
 function toProductSnapshot(
@@ -128,6 +155,65 @@ async function findProduct(body: ProductInterestBody) {
   return null;
 }
 
+async function insertInterestRequest(input: {
+  code: string;
+  product: ProductInterestProductRow;
+  snapshot: ReturnType<typeof toProductSnapshot>;
+  seller: ProductInterestSeller | null;
+  buyerName: string | null;
+  buyerPhone: string | null;
+  buyerConsent: boolean;
+  buyerConsentSource: string | null;
+  whatsappMessage: string;
+}) {
+  const basePayload = {
+    code: input.code,
+    product_id: input.product.id,
+    product_sku: input.snapshot.sku,
+    product_slug: input.snapshot.slug,
+    product_name: input.snapshot.name,
+    product_size: input.snapshot.size,
+    product_color: input.snapshot.color,
+    seller_id: input.product.owner,
+    buyer_name: input.buyerName,
+    buyer_phone: input.buyerPhone,
+    status: 'new',
+    availability_confirmed: false,
+    source: 'product_detail',
+    whatsapp_message: input.whatsappMessage,
+  };
+
+  const extendedPayload = {
+    ...basePayload,
+    buyer_consent_at: input.buyerConsent ? new Date().toISOString() : null,
+    buyer_consent_source: input.buyerConsentSource,
+    seller_whatsapp: input.seller?.phone ?? null,
+  };
+
+  const firstInsert = await supabase
+    .from('product_interest_requests')
+    .insert(extendedPayload)
+    .select('id, code')
+    .single();
+
+  if (!firstInsert.error && firstInsert.data) {
+    return firstInsert.data as InterestInsertRow;
+  }
+
+  if (!isMissingColumnError(firstInsert.error)) {
+    throw firstInsert.error;
+  }
+
+  const fallbackInsert = await supabase
+    .from('product_interest_requests')
+    .insert(basePayload)
+    .select('id, code')
+    .single();
+
+  if (fallbackInsert.error) throw fallbackInsert.error;
+  return fallbackInsert.data as InterestInsertRow;
+}
+
 export async function POST(request: NextRequest) {
   try {
     if (!isSupabaseConfigured()) {
@@ -141,6 +227,39 @@ export async function POST(request: NextRequest) {
     const origin = getRequestOrigin(request);
     const fallbackSlug = getTrimmedString(body.productSlug);
     const product = await findProduct(body);
+    const buyerFieldsProvided =
+      'buyerName' in body || 'buyerPhone' in body || 'buyerConsent' in body;
+    const buyerName = getTrimmedString(body.buyerName);
+    const rawBuyerPhone = getTrimmedString(body.buyerPhone);
+    const buyerPhone = rawBuyerPhone
+      ? normalizeArgentinaPhone(rawBuyerPhone)
+      : null;
+    const buyerConsent = body.buyerConsent === true;
+    const buyerConsentSource =
+      getTrimmedString(body.buyerConsentSource) ?? 'product_detail_form';
+
+    if (buyerFieldsProvided) {
+      if (!buyerName) {
+        return NextResponse.json(
+          { error: 'Ingresa tu nombre' },
+          { status: 400, headers: CACHE_HEADERS }
+        );
+      }
+
+      if (!buyerPhone) {
+        return NextResponse.json(
+          { error: 'Ingresa un WhatsApp válido' },
+          { status: 400, headers: CACHE_HEADERS }
+        );
+      }
+
+      if (!buyerConsent) {
+        return NextResponse.json(
+          { error: 'Confirma que podemos compartir tu contacto con la vendedora' },
+          { status: 400, headers: CACHE_HEADERS }
+        );
+      }
+    }
 
     if (!product) {
       return NextResponse.json(
@@ -150,55 +269,66 @@ export async function POST(request: NextRequest) {
     }
 
     const snapshot = toProductSnapshot(product, fallbackSlug, origin);
+    const seller = await findProductInterestSeller(product.owner);
 
     for (let attempt = 0; attempt < 5; attempt++) {
       const code = createInterestCode();
       const whatsappMessage = buildCircularProductInterestMessage({
         code,
         product: snapshot,
+        buyerName,
+        buyerPhone,
       });
       const whatsappUrl =
         buildWhatsappUrl(CIRCULAR_WHATSAPP_NUMBER, whatsappMessage) ??
         `https://wa.me/${CIRCULAR_WHATSAPP_NUMBER}`;
 
-      const { data, error } = await supabase
-        .from('product_interest_requests')
-        .insert({
+      try {
+        const data = await insertInterestRequest({
           code,
-          product_id: product.id,
-          product_sku: snapshot.sku,
-          product_slug: snapshot.slug,
-          product_name: snapshot.name,
-          product_size: snapshot.size,
-          product_color: snapshot.color,
-          seller_id: product.owner,
-          status: 'new',
-          availability_confirmed: false,
-          source: 'product_detail',
-          whatsapp_message: whatsappMessage,
-        })
-        .select('id, code')
-        .single();
+          product,
+          snapshot,
+          seller,
+          buyerName,
+          buyerPhone,
+          buyerConsent,
+          buyerConsentSource,
+          whatsappMessage,
+        });
 
-      if (!error && data) {
+        const automation = await maybeNotifyProductSeller({
+          requestId: data.id,
+          seller,
+          buyerName,
+          buyerPhone,
+          buyerConsent,
+          product: snapshot,
+        });
+
         return NextResponse.json(
-          { code, whatsappUrl, whatsappMessage },
+          {
+            code,
+            whatsappUrl,
+            whatsappMessage,
+            automation,
+          },
           { headers: CACHE_HEADERS }
         );
-      }
+      } catch (error) {
+        const insertError = error as { code?: string; message?: string };
+        if (insertError?.code === '23505') {
+          continue;
+        }
 
-      if (error?.code === '23505') {
-        continue;
+        console.error('[Product Interest] Insert failed:', error);
+        return NextResponse.json(
+          {
+            error:
+              'No se pudo crear la solicitud de contacto. WhatsApp seguirá disponible.',
+          },
+          { status: 500, headers: CACHE_HEADERS }
+        );
       }
-
-      console.error('[Product Interest] Insert failed:', error);
-      return NextResponse.json(
-        {
-          error:
-            'No se pudo crear la solicitud de contacto. WhatsApp seguirá disponible.',
-        },
-        { status: 500, headers: CACHE_HEADERS }
-      );
     }
 
     return NextResponse.json(
