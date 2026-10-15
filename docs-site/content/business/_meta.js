@@ -1,4 +1,5 @@
 export default {
   index: 'Vue d ensemble',
-  monetisation: 'Monetisation'
+  monetisation: 'Monetisation',
+  'organismes-buenos-aires': 'Organismes Buenos Aires'
 }
