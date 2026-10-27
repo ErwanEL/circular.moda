@@ -10,6 +10,8 @@ import { Alert, Spinner } from '@/app/ui/primitives/feedback';
 export default function WelcomePage() {
   const [email, setEmail] = useState<string | null>(null);
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [instagram, setInstagram] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -40,6 +42,8 @@ export default function WelcomePage() {
           const data = await response.json();
           if (data.user) {
             setName(data.user.name || '');
+            setUsername(data.user.username || '');
+            setInstagram(data.user.instagram_username || '');
             setPhone(argentinaPhoneToLocalInput(data.user.phone));
 
             // Redirect if profile is already complete
@@ -68,7 +72,12 @@ export default function WelcomePage() {
       const response = await fetch('/api/me', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), phone: phone.trim() }),
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: phone.trim(),
+          username,
+          instagram_username: instagram,
+        }),
       });
 
       const data = await response.json();
@@ -130,6 +139,10 @@ export default function WelcomePage() {
           phone={phone}
           saving={saving}
           onSubmit={handleSubmit}
+          username={username}
+          instagram={instagram}
+          setUsername={setUsername}
+          setInstagram={setInstagram}
           setName={setName}
           setPhone={setPhone}
         />

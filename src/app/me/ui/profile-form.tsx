@@ -3,6 +3,7 @@
 import { Card } from '@/app/ui/primitives/feedback';
 import { HiLockClosed } from 'react-icons/hi2';
 import Button from '../../ui/button';
+import ProfileIdentityFields from './profile-identity-fields';
 
 const AR_COUNTRY_PREFIX = '+54';
 const AR_FLAG = '🇦🇷';
@@ -12,6 +13,10 @@ interface ProfileFormProps {
   name: string;
   phone: string;
   saving: boolean;
+  username: string;
+  instagram: string;
+  setUsername: (value: string) => void;
+  setInstagram: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   setName: (name: string) => void;
   setPhone: (phone: string) => void;
@@ -22,6 +27,10 @@ export default function ProfileForm({
   name,
   phone,
   saving,
+  username,
+  instagram,
+  setUsername,
+  setInstagram,
   onSubmit,
   setName,
   setPhone,
@@ -84,6 +93,12 @@ export default function ProfileForm({
             Necesitamos tu WhatsApp para contactarte
           </p>
         </div>
+        <ProfileIdentityFields
+          username={username}
+          instagram={instagram}
+          setUsername={setUsername}
+          setInstagram={setInstagram}
+        />
         <Button
           type="submit"
           disabled={saving}

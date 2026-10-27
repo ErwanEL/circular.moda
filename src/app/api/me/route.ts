@@ -1,6 +1,12 @@
 import { createClient } from '@/app/lib/supabase/server';
 import { normalizeArgentinaPhone } from '@/app/lib/argentina-phone';
 import { upsertBrevoUserContact } from '@/app/lib/brevo-users';
+import {
+  normalizeUsername,
+  usernameError,
+  normalizeInstagram,
+} from '@/app/lib/profile-identity';
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -16,13 +22,16 @@ export async function GET() {
 
     const { data: userData, error: userError } = await supabase
       .from('users')
-      .select('id, name, phone, user_id')
+      .select('id, name, phone, user_id, username, instagram_username')
       .eq('user_id', authUser.id)
       .maybeSingle();
 
     if (userError) {
       console.error('Error fetching user:', userError);
-      return NextResponse.json({ error: 'Error fetching profile' }, { status: 500 });
+      return NextResponse.json(
+        { error: 'Error fetching profile' },
+        { status: 500 }
+      );
     }
 
     let products = [];
@@ -64,7 +73,12 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
     }
 
-    const body = await request.json();
+    const body = await request.json().catch(() => null);
+    if (!body || typeof body !== 'object' || Array.isArray(body))
+      return NextResponse.json(
+        { error: 'Datos de perfil inválidos.' },
+        { status: 400 }
+      );
     const name = typeof body.name === 'string' ? body.name.trim() : '';
     const normalizedPhone = normalizeArgentinaPhone(body.phone);
 
@@ -75,10 +89,41 @@ export async function PUT(request: Request) {
       );
     }
 
+    const identity: { username?: string; instagram_username?: string | null } =
+      {};
+    if (body.username !== undefined) {
+      if (typeof body.username !== 'string')
+        return NextResponse.json(
+          { error: 'Nombre de usuario inválido.' },
+          { status: 400 }
+        );
+      const username = normalizeUsername(body.username);
+      // Empty on onboarding means the database generates a unique default.
+      if (username) {
+        const error = usernameError(username);
+        if (error) return NextResponse.json({ error }, { status: 400 });
+        identity.username = username;
+      }
+    }
+    if (body.instagram_username !== undefined) {
+      const instagram =
+        typeof body.instagram_username === 'string'
+          ? normalizeInstagram(body.instagram_username)
+          : null;
+      if (instagram === null)
+        return NextResponse.json(
+          {
+            error: 'Ingresá un usuario o enlace de perfil de Instagram válido.',
+          },
+          { status: 400 }
+        );
+      identity.instagram_username = instagram || null;
+    }
+
     // Check if user already exists
     const { data: existingUser, error: fetchError } = await supabase
       .from('users')
-      .select('id, user_id')
+      .select('id, user_id, username')
       .eq('user_id', authUser.id)
       .maybeSingle();
 
@@ -95,13 +140,24 @@ export async function PUT(request: Request) {
       // Update
       const { data, error } = await supabase
         .from('users')
-        .update({ name, phone: normalizedPhone })
+        .update({ name, phone: normalizedPhone, ...identity })
         .eq('id', existingUser.id)
-        .select('id, name, phone')
+        .eq('user_id', authUser.id)
+        .select('id, name, phone, username, instagram_username')
         .single();
 
       if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json(
+          {
+            error:
+              error.code === '23505'
+                ? error.message.includes('users_auth_identity_unique')
+                  ? 'Tu perfil ya fue creado. Recargá la página para continuar.'
+                  : 'Este nombre de usuario ya está reservado. Elegí otro.'
+                : 'No pudimos guardar el perfil. Intentá nuevamente.',
+          },
+          { status: error.code === '23505' ? 409 : 500 }
+        );
       }
       resultUser = data;
     } else {
@@ -110,17 +166,33 @@ export async function PUT(request: Request) {
         .from('users')
         .insert({
           name,
+          ...identity,
           phone: normalizedPhone,
           user_id: authUser.id,
         })
-        .select('id, name, phone')
+        .select('id, name, phone, username, instagram_username')
         .single();
 
       if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json(
+          {
+            error:
+              error.code === '23505'
+                ? error.message.includes('users_auth_identity_unique')
+                  ? 'Tu perfil ya fue creado. Recargá la página para continuar.'
+                  : 'Este nombre de usuario ya está reservado. Elegí otro.'
+                : 'No pudimos guardar el perfil. Intentá nuevamente.',
+          },
+          { status: error.code === '23505' ? 409 : 500 }
+        );
       }
       resultUser = data;
     }
+
+    revalidatePath(`/user/${resultUser.id}`);
+    revalidatePath(`/@${resultUser.username}`);
+    if (existingUser?.username) revalidatePath(`/@${existingUser.username}`);
+    revalidatePath('/sitemap.xml');
 
     if (authUser.email) {
       try {

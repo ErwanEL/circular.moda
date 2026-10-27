@@ -1,3 +1,4 @@
+import { sellerPath } from '../lib/profile-identity';
 import Link from 'next/link';
 import { HiChevronRight } from 'react-icons/hi2';
 import { translateColorToSpanish } from '../lib/helpers';
@@ -80,7 +81,7 @@ export function ProductInfo({ product, user, rating }: ProductInfoProps) {
         {firstName &&
           (user?.id ? (
             <Link
-              href={`/user/${user.id}`}
+              href={sellerPath(user)}
               className="group mt-3 flex items-center gap-3 rounded-xl border border-primary-300/70 bg-light px-4 py-3 shadow-sm transition-colors hover:border-primary-400 hover:bg-primary-100 dark:border-primary-800/50 dark:bg-gray-900/40 dark:hover:bg-primary-900/25"
             >
               <div className="min-w-0 flex-1 text-left">

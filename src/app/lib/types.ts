@@ -33,9 +33,11 @@ export interface User {
   id: string;
   Name?: string; // Airtable format
   name?: string; // Supabase format
+  username?: string | null;
+  instagram_username?: string | null;
   Products?: string | string[]; // Linked products or product IDs (Airtable)
   productCount?: number; // Product count (Supabase) - computed from products table
-  // Only Name/name and Products/productCount are fetched for confidentiality
+  // Public profile fields only; never expose phone/email through this type.
 }
 
 export interface BlogArticle {

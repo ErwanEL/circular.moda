@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   FaWhatsapp,
   FaFacebookF,
@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fa6';
 
 type UserPageShareProps = {
-  userId: number;
+  path: string;
   firstName: string;
   productCount: number;
 };
@@ -28,18 +28,12 @@ const buttonClass =
   'flex h-9 w-9 items-center justify-center rounded-full text-primary-800 transition-colors hover:bg-primary-100 active:bg-primary-100/80';
 
 export default function UserPageShare({
-  userId,
+  path,
   firstName,
   productCount,
 }: UserPageShareProps) {
-  const [shareUrl, setShareUrl] = useState(
-    `https://circular.moda/user/${userId}`
-  );
+  const shareUrl = `https://circular.moda${path}`;
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    setShareUrl(window.location.href);
-  }, []);
 
   const message =
     productCount === 1
@@ -101,9 +95,7 @@ export default function UserPageShare({
           )}
         </button>
       </div>
-      {copied && (
-        <p className="text-xs text-primary-800">Enlace copiado</p>
-      )}
+      {copied && <p className="text-xs text-primary-800">Enlace copiado</p>}
     </div>
   );
 }

@@ -1,7 +1,11 @@
 import { MetadataRoute } from 'next';
 import { getAllBlogArticles } from './lib/blog';
 import { getAllProducts } from './lib/products';
-import { getOwnerIdsWithProducts } from './lib/users';
+import { sellerPath } from './lib/profile-identity';
+import {
+  getOwnerIdsWithProducts,
+  getUsersByIdsFromSupabase,
+} from './lib/users';
 
 const baseUrl = 'https://circular.moda';
 
@@ -83,8 +87,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let userRoutes: MetadataRoute.Sitemap = [];
   try {
     const ownerIds = await getOwnerIdsWithProducts();
-    userRoutes = ownerIds.map((id) => ({
-      url: `${baseUrl}/user/${id}`,
+    const sellers = await getUsersByIdsFromSupabase(ownerIds);
+    userRoutes = sellers.map((user) => ({
+      url: `${baseUrl}${sellerPath(user)}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.6,

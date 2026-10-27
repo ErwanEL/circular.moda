@@ -6,18 +6,20 @@ import {
   argentinaPhoneToLocalInput,
   normalizeArgentinaPhone,
 } from '../lib/argentina-phone';
+import { Card, Alert, Spinner } from '@/app/ui/primitives/feedback';
 import {
-  Card,
-  Alert,
-  Spinner,
-} from '@/app/ui/primitives/feedback';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from '../ui/primitives/modal';
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from '../ui/primitives/modal';
 import Button from '../ui/button';
 import InstagramFollowBanner from '../ui/instagram-follow-banner';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import ProfileForm from './ui/profile-form';
+import { sellerPath } from '../lib/profile-identity';
 import {
   BoostTeaserButton,
   MonetizationTeaserProvider,
@@ -27,6 +29,8 @@ import {
 interface UserProfile {
   id: number;
   name: string;
+  username: string;
+  instagram_username: string | null;
   phone: string | null;
   email: string | null;
 }
@@ -59,6 +63,8 @@ export default function MePage() {
     text: string;
   } | null>(null);
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [instagram, setInstagram] = useState('');
   const [phone, setPhone] = useState('');
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
   const [deleting, setDeleting] = useState(false);
@@ -104,6 +110,8 @@ export default function MePage() {
         setUserProfile(data.user);
         setProducts(data.products || []);
         setName(data.user?.name || '');
+        setUsername(data.user?.username || '');
+        setInstagram(data.user?.instagram_username || '');
         setPhone(argentinaPhoneToLocalInput(data.user?.phone || ''));
       } catch (error) {
         console.error('Error:', error);
@@ -136,7 +144,12 @@ export default function MePage() {
       const response = await fetch('/api/me', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), phone: fullPhone }),
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: fullPhone,
+          username,
+          instagram_username: instagram,
+        }),
       });
 
       const data = await response.json();
@@ -145,6 +158,8 @@ export default function MePage() {
       }
 
       setUserProfile(data.user);
+      setUsername(data.user.username);
+      setInstagram(data.user.instagram_username || '');
       setMessage({ type: 'success', text: 'Perfil actualizado' });
     } catch (error) {
       setMessage({
@@ -254,11 +269,11 @@ export default function MePage() {
                   sola página.
                 </p>
                 <div className="mb-4 rounded-lg border border-gray-200 bg-white px-3 py-2 font-mono text-sm break-all text-gray-800 dark:border-gray-600 dark:bg-gray-950 dark:text-gray-100">
-                  /user/{userProfile.id}
+                  {sellerPath(userProfile)}
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Button
-                    link={`/user/${userProfile.id}`}
+                    link={sellerPath(userProfile)}
                     text="Ver vitrina pública"
                     variant="primary"
                     solid
@@ -266,7 +281,7 @@ export default function MePage() {
                   />
                   <Button
                     onClick={() => {
-                      const url = `${window.location.origin}/user/${userProfile.id}`;
+                      const url = `${window.location.origin}${sellerPath(userProfile)}`;
                       void navigator.clipboard.writeText(url);
                       setMessage({
                         type: 'success',
@@ -296,6 +311,10 @@ export default function MePage() {
                     phone={phone}
                     saving={saving}
                     onSubmit={handleSubmit}
+                    username={username}
+                    instagram={instagram}
+                    setUsername={setUsername}
+                    setInstagram={setInstagram}
                     setName={setName}
                     setPhone={setPhone}
                   />

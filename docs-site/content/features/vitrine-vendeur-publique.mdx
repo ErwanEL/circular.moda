@@ -6,115 +6,112 @@ title: Vitrine vendeur publique
 
 ## Version simple
 
-Chaque vendeur peut avoir une page publique `/user/[id]`.
+Chaque vendeur possède une adresse `/@pseudo`, modifiable depuis **Mi Perfil**.
+Les anciennes adresses `/user/42` et les anciens pseudos redirigent vers
+l'adresse actuelle. Les articles restent liés au même identifiant interne.
 
-Cette page affiche son prenom, le nombre de prendas publiees, ses produits, des
-boutons de partage et, si le vendeur a assez de produits, un badge vendeur
-premium.
+Les comptes existants reçoivent un pseudo `prenom-id` (par exemple `maria-42`).
+Les accents sont retirés ; un prénom inutilisable devient `vendedor-id`.
+Les pseudos sont uniques, insensibles à la casse, de 3 à 30 caractères,
+composés de lettres ASCII, chiffres et tirets (sans tiret aux extrémités).
+Certains noms comme `admin` et `support` sont réservés.
 
-La page est publique, indexee dans le sitemap si le vendeur a des produits, et
-utilise ISR pour rester rapide.
+Le vendeur peut ajouter un identifiant Instagram ou un lien de profil. La
+vitrine affiche un lien Instagram public ; cela ne vérifie pas la propriété du
+compte et n'utilise ni OAuth ni l'API Instagram. Un bouton propose un pseudo
+Circular à partir d'Instagram, mais le vendeur doit le sélectionner et sauvegarder.
+Changer Instagram ne change jamais automatiquement l'adresse Circular.
 
-## Version detaillee
+## Version détaillée
 
-<details>
-<summary><strong>Services utilises</strong></summary>
+### Migration et ordre de mise en service
 
-- **Supabase Postgres** pour les tables `users` et `products`.
-- **Next.js App Router** pour la page dynamique `/user/[id]`.
-- **Next.js ISR** avec `revalidate = 300`.
-- **Social sharing** via WhatsApp, X, Facebook et copie de lien.
+**Appliquer [seller-usernames.sql](../../../docs/sql/seller-usernames.sql) dans
+Supabase avant de mettre cette version du site en service.** La migration est
+transactionnelle et réexécutable. Elle ajoute :
 
-</details>
+- `users.username` et `users.instagram_username` ;
+- `seller_usernames`, registre des pseudos actuels et historiques ;
+- des index uniques sur le pseudo et sur les comptes Auth liés, et deux triggers de validation/réservation ;
+- les pseudos initiaux pour tous les comptes existants.
 
-<details>
-<summary><strong>Rendu de la page</strong></summary>
+Les anciennes versions du site peuvent toujours créer un profil sans pseudo :
+le trigger en génère un. Aucune modification des identifiants, articles ou
+relations de propriétaire n'est nécessaire. En cas de retour à l'ancien code,
+conserver les colonnes et le registre : les supprimer perdrait les réservations.
 
-La page `/user/[id]` :
+### Disponibilité, concurrence et sécurité
 
-1. parse l'id avec `parseUserIdParam` ;
-2. recupere le vendeur avec `getPublicUserById` ;
-3. renvoie `notFound()` si l'id est invalide ou le vendeur absent ;
-4. recupere les produits avec `getProductsByOwnerId` ;
-5. transforme les produits en cartes UI avec `transformProductsToCards` ;
-6. calcule le statut premium via `isPremiumSeller(count)` ;
-7. affiche le hero vendeur et les cartes produit.
+`GET /api/me/username?username=...` demande une session et indique uniquement la
+disponibilité pour ce vendeur. Le formulaire temporise les requêtes et annule
+les résultats devenus obsolètes. Une réponse « disponible » n'est pas une
+réservation : la contrainte SQL décide lors de l'enregistrement.
 
-La page declare :
+`PUT /api/me` vérifie l'identité Supabase, valide les champs et met à jour le
+profil du compte connecté. La réservation du pseudo fait partie de la même
+transaction que la mise à jour grâce au trigger. Un conflit renvoie HTTP 409,
+sans enregistrer partiellement les autres changements du profil.
 
-- `export const revalidate = 300` ;
-- `export const dynamicParams = true` ;
-- `generateStaticParams` a partir des vendeurs qui ont au moins un produit.
+Le registre n'est pas accessible directement aux rôles `anon`/`authenticated`.
+Seul le serveur utilise la clé de service pour résoudre une adresse ou vérifier
+sa disponibilité. Les fonctions des triggers ont un `search_path` vide, ne sont
+pas appelables directement par les clients et vérifient aussi l'ownership du
+profil pour les écritures des rôles clients.
 
-Cela permet de prerendre les vendeurs connus, tout en laissant Next.js generer
-une nouvelle page vendeur a la premiere requete si elle n'existait pas au build.
+Les anciens pseudos restent réservés. Le propriétaire peut les reprendre ; un
+autre vendeur ne le peut pas. Après suppression du compte, la réservation reste
+présente sans propriétaire, pour éviter la réattribution des anciens liens.
 
-</details>
+### Routes, référencement et cache
 
-<details>
-<summary><strong>SEO et partage</strong></summary>
+- `src/app/[handle]/page.tsx` accepte uniquement les segments commençant par `@`.
+- `src/app/user/[id]/page.tsx` redirige en HTTP 308 vers le pseudo courant.
+- Les anciens pseudos et les variantes de casse redirigent en 307 : leur cible
+  peut changer. Cela évite les boucles de cache si un vendeur reprend son ancien pseudo.
+- Un nom inconnu ou une réservation sans propriétaire renvoie 404.
+- Les métadonnées canonical/Open Graph, le sitemap, le partage et les liens
+  vendeurs utilisent la nouvelle adresse.
+- La résolution des vitrines est dynamique pour éviter un pseudo obsolète
+  après modification ; les produits conservent leur cache existant.
+- Le composant partagé `ui/seller-storefront.tsx` conserve les cartes, le prénom,
+  le badge premium et le partage, et ajoute le lien Instagram.
 
-`generateMetadata` construit :
-
-- un titre `Prendas de {firstName} | circular.moda` ;
-- une description differente selon le nombre de produits ;
-- des metadonnees Open Graph ;
-- des metadonnees Twitter.
-
-`UserPageShare` construit les liens de partage cote client :
-
-- WhatsApp ;
-- X ;
-- Facebook ;
-- copie du lien actuel.
-
-Le composant commence avec `https://circular.moda/user/{id}`, puis remplace
-l'URL par `window.location.href` quand le composant est monte dans le navigateur.
-
-</details>
-
-<details>
-<summary><strong>Relation avec le sitemap</strong></summary>
-
-Le sitemap ajoute les pages vendeur depuis `getOwnerIdsWithProducts`.
-
-Important : seuls les vendeurs avec au moins un produit doivent apparaitre dans
-le sitemap. Les vendeurs vides peuvent exister en base, mais ne doivent pas
-devenir des pages SEO inutiles.
-
-</details>
-
-<details>
-<summary><strong>Ou modifier quoi ?</strong></summary>
-
-| Besoin | Fichier principal |
-| --- | --- |
-| Modifier la page publique vendeur | [`src/app/user/[id]/page.tsx`](../../../src/app/user/[id]/page.tsx) |
-| Modifier le partage social vendeur | [`src/app/user/[id]/user-page-share.tsx`](../../../src/app/user/[id]/user-page-share.tsx) |
-| Modifier les requetes vendeur | [`src/app/lib/users.ts`](../../../src/app/lib/users.ts) |
-| Modifier les cartes produit | [`src/app/ui/cards.tsx`](../../../src/app/ui/cards.tsx) et [`src/app/ui/card.tsx`](../../../src/app/ui/card.tsx) |
-| Modifier le badge premium | [`src/app/ui/seller-premium-badge.tsx`](../../../src/app/ui/seller-premium-badge.tsx) |
-| Modifier la logique premium | [`src/app/lib/seller-tier.ts`](../../../src/app/lib/seller-tier.ts) |
-| Modifier le sitemap vendeur | [`src/app/sitemap.ts`](../../../src/app/sitemap.ts) |
-
-</details>
-
-<details>
-<summary><strong>Tester la feature</strong></summary>
-
-Tests manuels :
-
-1. Ouvrir une page `/user/[id]` avec produits.
-2. Verifier titre, compteur et grille produits.
-3. Tester les boutons de partage.
-4. Ouvrir une page vendeur inexistante et verifier le 404.
-5. Verifier qu'un vendeur avec au moins 20 produits affiche le badge premium.
-6. Verifier que `/sitemap.xml` contient les vendeurs avec produits.
-
-Tests techniques :
+### Tests
 
 ```bash
+npm test
+npm run test:profile-db
+npx tsc --noEmit --incremental false
 npm run build
 ```
 
-</details>
+Les tests SQL utilisent une base PostgreSQL PGlite isolée en mémoire et ne
+contactent jamais Supabase. Ils couvrent le backfill, les homonymes, les accents,
+la réexécution, les alias, les conflits atomiques, les noms invalides et les
+permissions, y compris avec une politique users volontairement permissive.
+
+Après application sur Supabase, vérifier aussi avec deux comptes de test :
+
+1. `/user/ID` redirige vers `/@prenom-id` et affiche les mêmes produits.
+2. Modifier le pseudo dans `/me`, puis ouvrir l'ancien et le nouveau lien.
+3. Demander le même pseudo depuis l'autre compte : refus sans perte des données.
+4. Ajouter, modifier et retirer Instagram ; vérifier le lien public et la suggestion.
+5. Vérifier le formulaire sur mobile, au clavier et avec un réseau lent.
+
+### État de l'activation
+
+La migration a été appliquée sur Supabase après renouvellement du jeton local.
+Les 213 profils existants ont chacun un pseudo et une réservation correspondante.
+Les 969 articles sont conservés ; l'empreinte des anciens champs de profil
+(id, nom, téléphone, compte Auth) est identique avant et après migration.
+Le registre est protégé par RLS et inaccessible directement aux rôles clients.
+Le build de production passe avec le nouveau schéma. Les contrôles HTTP locaux
+sur ce build confirment la redirection 308 depuis `/user/ID`, une vitrine en 200
+avec canonical, la redirection 307 des majuscules, le 404 des pseudos inconnus,
+le refus 401 des API profil sans session et les URLs personnalisées du sitemap.
+Le paramètre de route accepte `@` et sa forme encodée `%40` ; un test couvre ce cas.
+Les 41 tests applicatifs et les tests SQL isolés passent.
+
+La mise en service sur Vercel nécessite le déploiement de ce code ; aucune
+variable `SUPABASE_ACCESS_TOKEN` n'est nécessaire sur Vercel. Le parcours de
+modification connecté reste à vérifier avec le compte de test de l'utilisateur.

@@ -20,13 +20,15 @@ export function parseUserIdParam(param: string): number | null {
   return id;
 }
 
-/** Public profile: id + name + product count (no phone/email). */
+/** Public identity and product count only (no phone/email). */
 export async function getPublicUserById(id: number): Promise<User | null> {
   return getUserByIdFromSupabase(id);
 }
 
 /** All listings for a seller (`products.owner` = users.id). */
-export async function getProductsByOwnerId(ownerId: number): Promise<Product[]> {
+export async function getProductsByOwnerId(
+  ownerId: number
+): Promise<Product[]> {
   return getProductsByOwnerFromSupabase(ownerId);
 }
 
@@ -41,7 +43,9 @@ export async function getOwnerIdsWithProducts(): Promise<number[]> {
  * @param userIds - Array of user IDs from Supabase (as strings or numbers)
  * @returns Array of user objects with productCount
  */
-export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): Promise<User[]> {
+export async function getUsersByIdsFromSupabase(
+  userIds: (string | number)[]
+): Promise<User[]> {
   if (!userIds || userIds.length === 0) {
     return [];
   }
@@ -52,17 +56,19 @@ export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): P
 
   try {
     // Convert all IDs to numbers (Supabase uses BIGINT)
-    const numericIds = userIds.map(id => {
-      if (typeof id === 'string') {
-        // Try to parse as number first (Supabase IDs are numeric)
-        const parsed = parseInt(id, 10);
-        if (!isNaN(parsed)) return parsed;
-        // If it's an Airtable ID format (starts with 'rec'), return null to skip
-        if (id.startsWith('rec')) return null;
-        return parsed;
-      }
-      return id;
-    }).filter((id): id is number => id !== null);
+    const numericIds = userIds
+      .map((id) => {
+        if (typeof id === 'string') {
+          // Try to parse as number first (Supabase IDs are numeric)
+          const parsed = parseInt(id, 10);
+          if (!isNaN(parsed)) return parsed;
+          // If it's an Airtable ID format (starts with 'rec'), return null to skip
+          if (id.startsWith('rec')) return null;
+          return parsed;
+        }
+        return id;
+      })
+      .filter((id): id is number => id !== null);
 
     if (numericIds.length === 0) {
       return [];
@@ -71,11 +77,14 @@ export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): P
     // OPTIMIZATION: Fetch all users in a single query
     const { data: usersData, error: usersError } = await supabase
       .from('users')
-      .select('id, name')
+      .select('id, name, username, instagram_username')
       .in('id', numericIds);
 
     if (usersError) {
-      console.error('[getUsersByIdsFromSupabase] Error fetching users:', usersError);
+      console.error(
+        '[getUsersByIdsFromSupabase] Error fetching users:',
+        usersError
+      );
       return [];
     }
 
@@ -104,15 +113,27 @@ export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): P
     }
 
     // Map users with their product counts
-    const users: User[] = usersData.map((userData: { id: number; name: string }) => ({
-      id: String(userData.id),
-      name: userData.name,
-      productCount: productCounts.get(userData.id) || 0,
-    }));
+    const users: User[] = usersData.map(
+      (userData: {
+        id: number;
+        name: string;
+        username: string | null;
+        instagram_username: string | null;
+      }) => ({
+        id: String(userData.id),
+        name: userData.name,
+        username: userData.username,
+        instagram_username: userData.instagram_username,
+        productCount: productCounts.get(userData.id) || 0,
+      })
+    );
 
     return users;
   } catch (error) {
-    console.error('[getUsersByIdsFromSupabase] Error fetching users from Supabase:', error);
+    console.error(
+      '[getUsersByIdsFromSupabase] Error fetching users from Supabase:',
+      error
+    );
     return [];
   }
 }
@@ -122,7 +143,9 @@ export async function getUsersByIdsFromSupabase(userIds: (string | number)[]): P
  * @param userId - User ID from Supabase (as string or number)
  * @returns User object or null
  */
-export async function getUserByIdFromSupabase(userId: string | number): Promise<User | null> {
+export async function getUserByIdFromSupabase(
+  userId: string | number
+): Promise<User | null> {
   const users = await getUsersByIdsFromSupabase([userId]);
   return users.length > 0 ? users[0] : null;
 }
@@ -134,7 +157,9 @@ export async function getUserByIdFromSupabase(userId: string | number): Promise<
  * @param userIds - Array of user IDs from Supabase (as strings or numbers)
  * @returns Array of user objects with productCount
  */
-export async function getUsersByIdsFromSupabaseRPC(userIds: (string | number)[]): Promise<User[]> {
+export async function getUsersByIdsFromSupabaseRPC(
+  userIds: (string | number)[]
+): Promise<User[]> {
   if (!userIds || userIds.length === 0) {
     return [];
   }
@@ -145,24 +170,29 @@ export async function getUsersByIdsFromSupabaseRPC(userIds: (string | number)[])
 
   try {
     // Convert all IDs to numbers (Supabase uses BIGINT)
-    const numericIds = userIds.map(id => {
-      if (typeof id === 'string') {
-        const parsed = parseInt(id, 10);
-        if (!isNaN(parsed)) return parsed;
-        if (id.startsWith('rec')) return null;
-        return parsed;
-      }
-      return id;
-    }).filter((id): id is number => id !== null);
+    const numericIds = userIds
+      .map((id) => {
+        if (typeof id === 'string') {
+          const parsed = parseInt(id, 10);
+          if (!isNaN(parsed)) return parsed;
+          if (id.startsWith('rec')) return null;
+          return parsed;
+        }
+        return id;
+      })
+      .filter((id): id is number => id !== null);
 
     if (numericIds.length === 0) {
       return [];
     }
 
     // Call the database function - single query with JOIN + COUNT
-    const { data, error } = await supabase.rpc('get_users_with_product_counts', {
-      user_ids: numericIds,
-    });
+    const { data, error } = await supabase.rpc(
+      'get_users_with_product_counts',
+      {
+        user_ids: numericIds,
+      }
+    );
 
     if (error) {
       // Fallback to batch query approach
@@ -174,11 +204,13 @@ export async function getUsersByIdsFromSupabaseRPC(userIds: (string | number)[])
     }
 
     // Map to User format
-    const users: User[] = data.map((row: { id: number; name: string; product_count: number }) => ({
-      id: String(row.id),
-      name: row.name,
-      productCount: row.product_count || 0,
-    }));
+    const users: User[] = data.map(
+      (row: { id: number; name: string; product_count: number }) => ({
+        id: String(row.id),
+        name: row.name,
+        productCount: row.product_count || 0,
+      })
+    );
 
     return users;
   } catch (error) {
@@ -186,4 +218,17 @@ export async function getUsersByIdsFromSupabaseRPC(userIds: (string | number)[])
     // Fallback to batch query approach
     return getUsersByIdsFromSupabase(userIds);
   }
+}
+
+/** Includes former usernames; callers redirect aliases to the current username. */
+export async function getPublicUserByUsername(
+  username: string
+): Promise<User | null> {
+  const { data, error } = await supabase
+    .from('seller_usernames')
+    .select('owner_id')
+    .eq('username', username)
+    .maybeSingle();
+  if (error) throw new Error('Unable to resolve seller username');
+  return data?.owner_id ? getPublicUserById(data.owner_id) : null;
 }
