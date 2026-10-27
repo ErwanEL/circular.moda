@@ -78,27 +78,27 @@ export default async function NewsletterUnsubscribePage({
       };
 
   return (
-    <main className="min-h-screen bg-[#f7f4e8] px-4 py-16">
-      <section className="mx-auto max-w-2xl rounded-[32px] border border-[#dce6c6] bg-white/90 p-8 shadow-[0_24px_70px_rgba(151,171,111,0.18)] sm:p-10">
+    <main className="min-h-screen bg-newsletter-surface px-4 py-16">
+      <section className="mx-auto max-w-2xl rounded-[32px] border border-sage-line bg-white/90 p-8 shadow-[0_24px_70px_rgba(151,171,111,0.18)] sm:p-10">
         <span
           className={`inline-flex rounded-full px-4 py-1 text-xs font-semibold tracking-[0.18em] uppercase ${
             result.isSuccess
-              ? 'bg-[#eef7da] text-[#69963c]'
-              : 'bg-[#f8e7df] text-[#a4513d]'
+              ? 'bg-leaf-tint text-leaf-text'
+              : 'bg-terracotta-surface text-terracotta-text'
           }`}
         >
           Newsletter
         </span>
-        <h1 className="mt-5 text-3xl font-semibold text-[#1f2a1b] sm:text-4xl">
+        <h1 className="mt-5 text-3xl font-semibold text-olive-ink sm:text-4xl">
           {result.title}
         </h1>
-        <p className="mt-4 max-w-[46ch] text-lg leading-8 text-[#5c6655]">
+        <p className="mt-4 max-w-[46ch] text-lg leading-8 text-olive-muted">
           {result.description}
         </p>
         <div className="mt-8">
           <Link
             href="/products"
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#6f9f3b] px-6 text-sm font-semibold text-white transition hover:bg-[#5f8c32]"
+            className="inline-flex min-h-12 items-center justify-center rounded-full bg-leaf-action px-6 text-sm font-semibold text-white transition hover:bg-leaf-hover"
           >
             Volver al catálogo
           </Link>

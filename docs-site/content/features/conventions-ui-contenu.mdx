@@ -9,13 +9,17 @@ title: Conventions UI et contenu
 Le site public parle aux utilisateurs en espagnol argentin. La documentation
 interne est en francais.
 
-Les composants UI utilisent principalement Tailwind, Flowbite React, React
-Icons, les couleurs `circular.moda` et des composants partages. Avant de
+Les composants UI utilisent du CSS natif, React Icons, les couleurs
+`circular.moda` et des composants React locaux. Tailwind et Flowbite ont été
+retirés du site applicatif. La documentation Nextra reste une application séparée. Avant de
 modifier une page, il faut verifier les composants deja existants pour eviter
 de recreer un style different.
 
 Cette page sert de guide pour garder une interface coherente pendant les
 refactorings humains ou IA.
+
+La roadmap produit est disponible dans
+[Vitrine premium et complémentarité Facebook](/business/vitrine-premium).
 
 ## Version detaillee
 
@@ -47,7 +51,41 @@ reprennent la meme promesse marketing.
 <details>
 <summary><strong>Design system local</strong></summary>
 
-Le theme global est dans `globals.css`.
+Le point d’entrée du thème est `src/app/globals.css`. Les fichiers CSS sont
+maintenus directement, sans générateur ni plugin de framework.
+
+Organisation des styles :
+
+| Fichier dans `src/app/styles/` | Rôle |
+| --- | --- |
+| `tokens.css` | Palette existante complète, couleurs de marque et fonctionnelles, typographie, espacements, rayons, ombres et largeurs |
+| `base.css` | Reset navigateur et apparence native des formulaires |
+| `components.css` | Navigation, panneaux, alertes, chargement, modales et partage social |
+| `utilities.css` | Classes de mise en page existantes, états et responsive, désormais en CSS standard |
+| `effects.css` | Propriétés CSS composables des ombres, anneaux de focus, transformations et animations |
+| `site.css` | Fond global, recherche catalogue et contenu éditorial |
+
+L'ordre des couches est `properties, theme, base, components, utilities`.
+Les utilitaires peuvent surcharger les styles par défaut des composants.
+Les valeurs historiques sont reprises pour préserver le rendu, avec les notices
+MIT correspondantes dans `CSS-LICENSES.txt`.
+
+**Les noms comme `flex`, `md:grid-cols-3` ou `hover:bg-gray-100` sont des classes
+CSS locales existantes, pas une installation de Tailwind.** Ajouter une nouvelle
+classe dans le JSX ne crée plus de CSS automatiquement : ajouter sa règle dans
+le fichier approprié, ou réutiliser une classe existante. Pour une nouvelle
+fonctionnalité, privilégier une classe de composant explicite et les variables
+CSS ; éviter de reconstruire une chaîne de classes calculée dynamiquement.
+
+Les couleurs particulières des pages utilisent maintenant des noms tels que
+`bg-seller-surface`, `text-admin-ink` ou `bg-whatsapp`. Pour modifier la palette,
+changer la variable dans `tokens.css`, sans remplacer les valeurs dans les pages.
+Les SVG intégrés et les contenus générés hors navigateur (emails, images serveur)
+conservent leurs couleurs propres.
+
+Les breakpoints existants sont conservés : 640, 768, 1024 et 1280 px. Les règles
+sombres suivent `prefers-color-scheme`, comme avant. La grille du catalogue
+n'est pas passée à quatre colonnes pendant cette migration.
 
 Variables principales :
 
@@ -63,7 +101,6 @@ Le layout global utilise :
 - Header ;
 - Footer ;
 - bouton WhatsApp flottant ;
-- Flowbite ;
 - Google Tag Manager en production.
 
 </details>
@@ -84,6 +121,9 @@ Composants a reutiliser avant d'en creer de nouveaux :
 - `SocialShare`
 - `WhatsappFloat`
 - `SellerPremiumBadge`
+- `ui/primitives/navbar.tsx` : navigation responsive locale
+- `ui/primitives/feedback.tsx` : panneaux, alertes et indicateurs de chargement
+- `ui/primitives/modal.tsx` : modales fondées sur `<dialog>`
 
 Pour les boutons, privilegier `getButtonClasses` ou le composant `Button` quand
 le besoin correspond. Cela evite les divergences de tailles, couleurs et etats.
@@ -125,7 +165,9 @@ elles doivent rester dans Supabase Storage.
 
 | Besoin | Fichier principal |
 | --- | --- |
-| Modifier le theme global | [`src/app/globals.css`](../../../src/app/globals.css) |
+| Modifier l'assemblage du theme | [`src/app/globals.css`](../../../src/app/globals.css) |
+| Modifier la palette et les valeurs communes | [`src/app/styles/tokens.css`](../../../src/app/styles/tokens.css) |
+| Modifier les composants locaux | [`src/app/styles/components.css`](../../../src/app/styles/components.css) et [`src/app/ui/primitives/`](../../../src/app/ui/primitives/) |
 | Modifier le layout global | [`src/app/layout.tsx`](../../../src/app/layout.tsx) |
 | Modifier le header | [`src/app/ui/header.tsx`](../../../src/app/ui/header.tsx) |
 | Modifier le footer | [`src/app/ui/footer.tsx`](../../../src/app/ui/footer.tsx) |
@@ -149,10 +191,40 @@ elles doivent rester dans Supabase Storage.
 5. Verifier header/footer sur pages publiques et connectees.
 6. Verifier contraste et etats focus/hover.
 
+Comportements d'accessibilité à conserver :
+
+- Le menu mobile expose `aria-expanded` et `aria-controls`, se ferme au changement
+  de route et à Échap, et rend le focus au bouton lors de cette fermeture clavier.
+- Les modales utilisent `dialog.showModal()` : le navigateur rend l'arrière-plan
+  inerte et contient le focus. Le scroll de la page est bloqué pendant l'ouverture
+  puis restauré, ainsi que le focus précédent.
+- Les modales avec `dismissible` se ferment par Échap et clic extérieur ; la
+  confirmation de suppression conserve sa fermeture explicite pour éviter une
+  modification involontaire du comportement pendant une requête.
+- Les alertes utilisent `role="alert"` ; les indicateurs `role="status"` avec un
+  libellé espagnol ; les boutons de fermeture ont un nom accessible.
+- Les liens de partage ne contiennent plus de boutons imbriqués.
+
 Tests techniques :
 
 ```bash
 npm run build
+npm test
+npx tsc --noEmit
+npm run docs:build
 ```
+
+Validation technique de la migration du 27 octobre 2026 : les 867 règles
+utilitaires conservées ont été comparées au CSS précédent (déclarations,
+conditions responsive et états), après résolution des variables de palette.
+Aucune différence de valeurs n'a été trouvée. Ce contrôle ne constitue pas
+une comparaison visuelle des nouveaux composants React.
+
+La comparaison visuelle mobile/desktop et les essais clavier dans un navigateur
+restent à effectuer : les outils de navigation n'étaient pas disponibles dans
+la session de migration. Tester notamment le menu à 375 et 768 px, les modales
+à contenu long, le retour du focus après fermeture et les modes clair/sombre.
+Le retrait des frameworks ne constitue pas à lui seul un audit d'accessibilité
+ou une mesure de performance.
 
 </details>

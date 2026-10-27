@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState, type ComponentType, type ReactNode } from 'react';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'flowbite-react';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from '@/app/ui/primitives/modal';
 import {
   HiArrowTrendingUp,
   HiBolt,

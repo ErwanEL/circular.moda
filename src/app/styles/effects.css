@@ -1,0 +1,405 @@
+/* Circular.moda — maintained native CSS. See docs-site/content/features/conventions-ui-contenu.mdx.
+ * Baseline adapted from MIT-licensed styles; see CSS-LICENSES.txt. No generator required. */
+
+@property --cm-translate-x {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0;
+}
+@property --cm-translate-y {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0;
+}
+@property --cm-translate-z {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0;
+}
+@property --cm-rotate-x {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-rotate-y {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-rotate-z {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-skew-x {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-skew-y {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-scroll-snap-strictness {
+  syntax: '*';
+  inherits: false;
+  initial-value: proximity;
+}
+@property --cm-space-y-reverse {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0;
+}
+@property --cm-space-x-reverse {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0;
+}
+@property --cm-border-style {
+  syntax: '*';
+  inherits: false;
+  initial-value: solid;
+}
+@property --cm-gradient-position {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-gradient-from {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #0000;
+}
+@property --cm-gradient-via {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #0000;
+}
+@property --cm-gradient-to {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #0000;
+}
+@property --cm-gradient-stops {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-gradient-via-stops {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-gradient-from-position {
+  syntax: '<length-percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --cm-gradient-via-position {
+  syntax: '<length-percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+@property --cm-gradient-to-position {
+  syntax: '<length-percentage>';
+  inherits: false;
+  initial-value: 100%;
+}
+@property --cm-leading {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-font-weight {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-tracking {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-ordinal {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-slashed-zero {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-numeric-figure {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-numeric-spacing {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-numeric-fraction {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-shadow {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --cm-shadow-color {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-shadow-alpha {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 100%;
+}
+@property --cm-inset-shadow {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --cm-inset-shadow-color {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-inset-shadow-alpha {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 100%;
+}
+@property --cm-ring-color {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-ring-shadow {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --cm-inset-ring-color {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-inset-ring-shadow {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --cm-ring-inset {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-ring-offset-width {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --cm-ring-offset-color {
+  syntax: '*';
+  inherits: false;
+  initial-value: #fff;
+}
+@property --cm-ring-offset-shadow {
+  syntax: '*';
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --cm-blur {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-brightness {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-contrast {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-grayscale {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-hue-rotate {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-invert {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-opacity {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-saturate {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-sepia {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-drop-shadow {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-drop-shadow-color {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-drop-shadow-alpha {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 100%;
+}
+@property --cm-drop-shadow-size {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-backdrop-blur {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-backdrop-brightness {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-backdrop-contrast {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-backdrop-grayscale {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-backdrop-hue-rotate {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-backdrop-invert {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-backdrop-opacity {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-backdrop-saturate {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-backdrop-sepia {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-duration {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-ease {
+  syntax: '*';
+  inherits: false;
+}
+@property --cm-scale-x {
+  syntax: '*';
+  inherits: false;
+  initial-value: 1;
+}
+@property --cm-scale-y {
+  syntax: '*';
+  inherits: false;
+  initial-value: 1;
+}
+@property --cm-scale-z {
+  syntax: '*';
+  inherits: false;
+  initial-value: 1;
+}
+@property --cm-outline-style {
+  syntax: '*';
+  inherits: false;
+  initial-value: solid;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or
+    ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
+    *,
+    ::before,
+    ::after,
+    ::backdrop {
+      --cm-translate-x: 0;
+      --cm-translate-y: 0;
+      --cm-translate-z: 0;
+      --cm-rotate-x: initial;
+      --cm-rotate-y: initial;
+      --cm-rotate-z: initial;
+      --cm-skew-x: initial;
+      --cm-skew-y: initial;
+      --cm-scroll-snap-strictness: proximity;
+      --cm-space-y-reverse: 0;
+      --cm-space-x-reverse: 0;
+      --cm-border-style: solid;
+      --cm-gradient-position: initial;
+      --cm-gradient-from: #0000;
+      --cm-gradient-via: #0000;
+      --cm-gradient-to: #0000;
+      --cm-gradient-stops: initial;
+      --cm-gradient-via-stops: initial;
+      --cm-gradient-from-position: 0%;
+      --cm-gradient-via-position: 50%;
+      --cm-gradient-to-position: 100%;
+      --cm-leading: initial;
+      --cm-font-weight: initial;
+      --cm-tracking: initial;
+      --cm-ordinal: initial;
+      --cm-slashed-zero: initial;
+      --cm-numeric-figure: initial;
+      --cm-numeric-spacing: initial;
+      --cm-numeric-fraction: initial;
+      --cm-shadow: 0 0 #0000;
+      --cm-shadow-color: initial;
+      --cm-shadow-alpha: 100%;
+      --cm-inset-shadow: 0 0 #0000;
+      --cm-inset-shadow-color: initial;
+      --cm-inset-shadow-alpha: 100%;
+      --cm-ring-color: initial;
+      --cm-ring-shadow: 0 0 #0000;
+      --cm-inset-ring-color: initial;
+      --cm-inset-ring-shadow: 0 0 #0000;
+      --cm-ring-inset: initial;
+      --cm-ring-offset-width: 0px;
+      --cm-ring-offset-color: #fff;
+      --cm-ring-offset-shadow: 0 0 #0000;
+      --cm-blur: initial;
+      --cm-brightness: initial;
+      --cm-contrast: initial;
+      --cm-grayscale: initial;
+      --cm-hue-rotate: initial;
+      --cm-invert: initial;
+      --cm-opacity: initial;
+      --cm-saturate: initial;
+      --cm-sepia: initial;
+      --cm-drop-shadow: initial;
+      --cm-drop-shadow-color: initial;
+      --cm-drop-shadow-alpha: 100%;
+      --cm-drop-shadow-size: initial;
+      --cm-backdrop-blur: initial;
+      --cm-backdrop-brightness: initial;
+      --cm-backdrop-contrast: initial;
+      --cm-backdrop-grayscale: initial;
+      --cm-backdrop-hue-rotate: initial;
+      --cm-backdrop-invert: initial;
+      --cm-backdrop-opacity: initial;
+      --cm-backdrop-saturate: initial;
+      --cm-backdrop-sepia: initial;
+      --cm-duration: initial;
+      --cm-ease: initial;
+      --cm-scale-x: 1;
+      --cm-scale-y: 1;
+      --cm-scale-z: 1;
+      --cm-outline-style: solid;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { Card } from 'flowbite-react';
+import { Card } from '@/app/ui/primitives/feedback';
 import { HiLockClosed } from 'react-icons/hi2';
 import Button from '../../ui/button';
 

@@ -52,7 +52,7 @@ export default function Footer() {
                 aria-label="Seguinos en Instagram"
                 className="hover:text-primary-800 inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 dark:hover:text-white"
               >
-                <FaInstagram className="h-5 w-5 text-[#E1306C]" />
+                <FaInstagram className="h-5 w-5 text-instagram" />
                 <span>Seguinos</span>
               </a>
             </div>

@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import Script from 'next/script';
 import { GoogleTagManager } from '@next/third-parties/google';
 
 import './globals.css';
@@ -59,7 +58,6 @@ export default function RootLayout({
           {/* <Popup /> */}
           <Footer />
         </PwaInstallProvider>
-        <Script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></Script>
         {process.env.NODE_ENV === 'production' && (
           <GoogleTagManager gtmId="GTM-P8TK9FBN" />
         )}

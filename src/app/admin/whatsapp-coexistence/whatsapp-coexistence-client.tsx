@@ -66,7 +66,7 @@ type Props = {
 };
 
 const buttonClass =
-  'rounded-md bg-[#1877f2] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#166fe5] disabled:cursor-not-allowed disabled:opacity-50';
+  'rounded-md bg-facebook px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-facebook-hover disabled:cursor-not-allowed disabled:opacity-50';
 
 function formatJson(value: unknown) {
   return JSON.stringify(value, null, 2);
@@ -301,7 +301,7 @@ export default function WhatsappCoexistenceClient({
   }
 
   return (
-    <main className="min-h-screen bg-[#f6f3ee] px-6 py-10 text-[#211f1d]">
+    <main className="min-h-screen bg-admin-surface px-6 py-10 text-admin-ink">
       <Script
         async
         defer
@@ -312,13 +312,13 @@ export default function WhatsappCoexistenceClient({
 
       <section className="mx-auto max-w-4xl space-y-6">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-[#7a3128]">
+          <p className="text-sm font-semibold uppercase tracking-wide text-terracotta-ink">
             Circular Moda
           </p>
           <h1 className="mt-2 text-3xl font-semibold">
             WhatsApp Business App Coexistence
           </h1>
-          <p className="mt-3 max-w-2xl text-base text-[#5d5650]">
+          <p className="mt-3 max-w-2xl text-base text-admin-muted">
             Lance Embedded Signup pour connecter le numéro WhatsApp Business
             actuel à l’API sans passer par le flow standard d’enregistrement de
             numéro.
@@ -326,7 +326,7 @@ export default function WhatsappCoexistenceClient({
         </div>
 
         {!isConfigured && (
-          <div className="rounded-md border border-[#d9a441] bg-[#fff7df] p-4 text-sm text-[#5d4630]">
+          <div className="rounded-md border border-ochre-border bg-ochre-surface p-4 text-sm text-ochre-ink">
             Configuration incomplète. Ajoute `META_APP_ID` et
             `META_WHATSAPP_EMBEDDED_SIGNUP_CONFIG_ID` dans Vercel Production,
             puis redéploie.
@@ -334,28 +334,28 @@ export default function WhatsappCoexistenceClient({
         )}
 
         <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-md border border-[#ded7ce] bg-white p-4">
-            <p className="text-xs font-semibold uppercase text-[#7a6f65]">
+          <div className="rounded-md border border-stone-border bg-white p-4">
+            <p className="text-xs font-semibold uppercase text-stone-muted">
               App ID
             </p>
             <p className="mt-2 break-all text-sm">{appId ?? 'Manquant'}</p>
           </div>
-          <div className="rounded-md border border-[#ded7ce] bg-white p-4">
-            <p className="text-xs font-semibold uppercase text-[#7a6f65]">
+          <div className="rounded-md border border-stone-border bg-white p-4">
+            <p className="text-xs font-semibold uppercase text-stone-muted">
               Config ID
             </p>
             <p className="mt-2 break-all text-sm">{configId ?? 'Manquant'}</p>
           </div>
-          <div className="rounded-md border border-[#ded7ce] bg-white p-4">
-            <p className="text-xs font-semibold uppercase text-[#7a6f65]">
+          <div className="rounded-md border border-stone-border bg-white p-4">
+            <p className="text-xs font-semibold uppercase text-stone-muted">
               Graph API
             </p>
             <p className="mt-2 text-sm">{graphApiVersion}</p>
           </div>
         </div>
 
-        <div className="rounded-md border border-[#ded7ce] bg-white p-4">
-          <p className="text-xs font-semibold uppercase text-[#7a6f65]">
+        <div className="rounded-md border border-stone-border bg-white p-4">
+          <p className="text-xs font-semibold uppercase text-stone-muted">
             Redirect URI utilisée
           </p>
           <p className="mt-2 break-all text-sm">
@@ -363,11 +363,11 @@ export default function WhatsappCoexistenceClient({
           </p>
         </div>
 
-        <div className="rounded-md border border-[#ded7ce] bg-white p-5">
+        <div className="rounded-md border border-stone-border bg-white p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="text-lg font-semibold">Onboarding</h2>
-              <p className="mt-1 text-sm text-[#6a625b]">{status}</p>
+              <p className="mt-1 text-sm text-stone-text">{status}</p>
             </div>
             <button
               className={buttonClass}
@@ -389,9 +389,9 @@ export default function WhatsappCoexistenceClient({
         </div>
 
         {result?.ok && (
-          <div className="rounded-md border border-[#92c7a3] bg-[#f1fbf4] p-5">
+          <div className="rounded-md border border-mint-border bg-mint-surface p-5">
             <h2 className="text-lg font-semibold">Variables à mettre dans Vercel</h2>
-            <pre className="mt-3 overflow-auto rounded-md bg-[#122117] p-4 text-xs text-[#dcfce7]">
+            <pre className="mt-3 overflow-auto rounded-md bg-forest-ink p-4 text-xs text-mint-tint">
 {`WHATSAPP_ACCESS_TOKEN=${result.accessToken ?? ''}
 WHATSAPP_BUSINESS_ACCOUNT_ID=${result.wabaId ?? ''}
 WHATSAPP_PHONE_NUMBER_ID=${result.phoneNumberId ?? ''}
@@ -401,7 +401,7 @@ WHATSAPP_AUTOMATION_ENABLED=false`}
         )}
 
         {result && !result.ok && (
-          <div className="rounded-md border border-[#d68c8c] bg-[#fff2f2] p-5">
+          <div className="rounded-md border border-rose-border bg-rose-surface p-5">
             <h2 className="text-lg font-semibold">Erreur</h2>
             <pre className="mt-3 overflow-auto rounded-md bg-white p-4 text-xs">
               {formatJson(result)}
@@ -410,15 +410,15 @@ WHATSAPP_AUTOMATION_ENABLED=false`}
         )}
 
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-md border border-[#ded7ce] bg-white p-5">
+          <div className="rounded-md border border-stone-border bg-white p-5">
             <h2 className="text-lg font-semibold">Session Meta</h2>
-            <pre className="mt-3 max-h-96 overflow-auto rounded-md bg-[#f5f1ea] p-4 text-xs">
+            <pre className="mt-3 max-h-96 overflow-auto rounded-md bg-stone-surface p-4 text-xs">
               {session ? formatJson(session) : 'Aucune session reçue.'}
             </pre>
           </div>
-          <div className="rounded-md border border-[#ded7ce] bg-white p-5">
+          <div className="rounded-md border border-stone-border bg-white p-5">
             <h2 className="text-lg font-semibold">Login response</h2>
-            <pre className="mt-3 max-h-96 overflow-auto rounded-md bg-[#f5f1ea] p-4 text-xs">
+            <pre className="mt-3 max-h-96 overflow-auto rounded-md bg-stone-surface p-4 text-xs">
               {rawLoginResponse
                 ? formatJson(rawLoginResponse)
                 : 'Aucune réponse reçue.'}

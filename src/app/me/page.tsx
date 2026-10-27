@@ -10,11 +10,8 @@ import {
   Card,
   Alert,
   Spinner,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from 'flowbite-react';
+} from '@/app/ui/primitives/feedback';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '../ui/primitives/modal';
 import Button from '../ui/button';
 import InstagramFollowBanner from '../ui/instagram-follow-banner';
 import Link from 'next/link';

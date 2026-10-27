@@ -11,7 +11,7 @@ import { useProductForm } from '@/app/admin/upload-product/hooks/use-product-for
 import { useImageUpload } from '@/app/admin/upload-product/hooks/use-image-upload';
 import { FormFieldsEs } from './form-fields-es';
 import { ImageUploadSectionEs } from './image-upload-section-es';
-import { Alert, Spinner } from 'flowbite-react';
+import { Alert, Spinner } from '@/app/ui/primitives/feedback';
 import Button from '@/app/ui/button';
 import {
   LockedPlusTools,
@@ -270,7 +270,7 @@ export default function MeAddProductPage() {
 
   if (loadingUser) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#f7faf4] px-4">
+      <main className="flex min-h-screen items-center justify-center bg-seller-surface px-4">
         <div className="rounded-lg border border-gray-200 bg-white p-8 text-center shadow-sm">
           <Spinner size="xl" />
           <p className="mt-4 text-sm font-medium text-gray-700">
@@ -283,7 +283,7 @@ export default function MeAddProductPage() {
 
   if (!ownerId) {
     return (
-      <main className="min-h-screen bg-[#f7faf4] py-8">
+      <main className="min-h-screen bg-seller-surface py-8">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Alert color="warning">
             <span className="font-medium">Completá tu perfil primero.</span>{' '}
@@ -307,7 +307,7 @@ export default function MeAddProductPage() {
   return (
     <MonetizationTeaserProvider>
       {(openTeaser) => (
-        <main className="min-h-screen bg-[#f7faf4] px-4 py-6 sm:px-6 lg:px-8">
+        <main className="min-h-screen bg-seller-surface px-4 py-6 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="mb-5 flex items-center justify-between gap-4">
               <Button

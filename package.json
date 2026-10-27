@@ -15,8 +15,7 @@
     "docs:start": "npm --prefix docs-site run start",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node --test --experimental-strip-types --experimental-specifier-resolution=node src/app/lib/*.test.mjs",
-    "postinstall": "flowbite-react patch"
+    "test": "node --test --experimental-strip-types --experimental-specifier-resolution=node src/app/lib/*.test.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -25,13 +24,10 @@
     "@next/third-parties": "^16.0.7",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.89.0",
-    "@tailwindcss/cli": "^4.1.11",
     "@types/mdx": "^2.0.13",
     "@types/uuid": "^10.0.0",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.0",
-    "flowbite": "^3.1.2",
-    "flowbite-react": "^0.11.8",
     "gray-matter": "^4.0.3",
     "next": "^16.0.7",
     "next-mdx-remote": "^6.0.0",
@@ -47,15 +43,12 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9",
     "eslint-config-next": "^16.0.7",
     "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.6.14",
-    "tailwindcss": "^4.1.11",
     "typescript": "^5"
   }
 }

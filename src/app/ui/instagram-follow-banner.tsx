@@ -24,11 +24,11 @@ export default function InstagramFollowBanner({
     >
       <div className="flex flex-col gap-4 p-5 sm:p-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex gap-4">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-pink-50 text-[#E1306C] dark:bg-pink-950/40">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-pink-50 text-instagram dark:bg-pink-950/40">
             <FaInstagram className="h-6 w-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-[#E1306C]">
+            <p className="text-sm font-semibold text-instagram">
               @circular_punto_moda
             </p>
             <h2 className="mt-1 text-xl font-bold tracking-normal text-gray-900 dark:text-white">

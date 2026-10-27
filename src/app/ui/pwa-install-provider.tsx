@@ -246,7 +246,7 @@ export function PwaInstallBanner({
         <button
           type="button"
           onClick={() => void install()}
-          className="bg-primary-800 inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-[#557d3f] focus:ring-4 focus:ring-green-200 focus:outline-none"
+          className="bg-primary-800 inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-leaf-dark focus:ring-4 focus:ring-green-200 focus:outline-none"
         >
           <InstallIcon className="h-4 w-4" />
           <span className="hidden sm:inline">Instalar la app</span>

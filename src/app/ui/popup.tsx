@@ -47,7 +47,7 @@ export default function Popup() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[#00000096] p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-overlay-dark p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           handleClose();

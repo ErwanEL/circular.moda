@@ -5,7 +5,7 @@ import { createClient } from '../lib/supabase/client';
 import { argentinaPhoneToLocalInput } from '../lib/argentina-phone';
 import { useRouter } from 'next/navigation';
 import ProfileForm from '../me/ui/profile-form';
-import { Alert, Spinner } from 'flowbite-react';
+import { Alert, Spinner } from '@/app/ui/primitives/feedback';
 
 export default function WelcomePage() {
   const [email, setEmail] = useState<string | null>(null);

@@ -83,23 +83,23 @@ export default function NewsletterSubscribeForm({
         autoComplete="email"
         required
         disabled={isSubmitting}
-        className="h-16 w-full rounded-md border border-[#c7d0df] bg-white px-5 text-xl font-semibold text-[#111827] outline-none transition placeholder:text-[#b7c2d2] focus:border-[#7da05a] focus:ring-4 focus:ring-[#dfead2] disabled:cursor-not-allowed disabled:bg-gray-50 sm:text-2xl"
+        className="h-16 w-full rounded-md border border-slate-soft bg-white px-5 text-xl font-semibold text-gray-900 outline-none transition placeholder:text-slate-border focus:border-sage-action focus:ring-4 focus:ring-[#dfead2] disabled:cursor-not-allowed disabled:bg-gray-50 sm:text-2xl"
       />
-      <p className="mt-4 text-left text-base font-semibold text-[#7d8798] sm:text-lg">
+      <p className="mt-4 text-left text-base font-semibold text-slate-muted sm:text-lg">
         Dejanos tu correo electrónico para suscribirte. Por ejemplo:
         abc@xyz.com
       </p>
       <button
         type="submit"
         disabled={isSubmitting}
-        className="mx-auto mt-7 flex min-h-14 cursor-pointer items-center justify-center rounded-full bg-[#7a9d5b] px-8 text-xl font-bold text-white transition hover:bg-[#6b8d4d] disabled:cursor-not-allowed disabled:bg-[#9db685] sm:text-2xl"
+        className="mx-auto mt-7 flex min-h-14 cursor-pointer items-center justify-center rounded-full bg-sage-medium px-8 text-xl font-bold text-white transition hover:bg-sage-text disabled:cursor-not-allowed disabled:bg-sage-border sm:text-2xl"
       >
         {isSubmitting ? 'Suscribiendo...' : 'Me suscribo'}
       </button>
       {message && (
         <p
           className={`mt-4 text-center text-sm font-medium ${
-            submitState === 'error' ? 'text-[#b44f3d]' : 'text-[#5f8c32]'
+            submitState === 'error' ? 'text-terracotta-action' : 'text-leaf-hover'
           }`}
           aria-live="polite"
         >

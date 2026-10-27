@@ -1,0 +1,99 @@
+/* Circular.moda — maintained native CSS. See docs-site/content/features/conventions-ui-contenu.mdx.
+ * Baseline adapted from MIT-licensed styles; see CSS-LICENSES.txt. No generator required. */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+button:not(:disabled),
+[role='button']:not(:disabled) {
+  cursor: pointer;
+}
+button:disabled,
+[role='button'][aria-disabled='true'] {
+  cursor: not-allowed;
+}
+.catalog-search-input {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  border-radius: 0;
+}
+.catalog-search-input:focus,
+.catalog-search-input:focus-visible,
+.catalog-search-input:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.prose h1 {
+  margin-bottom: calc(var(--spacing) * 6);
+  font-size: var(--text-3xl);
+  line-height: var(--cm-leading, var(--text-3xl--line-height));
+  --cm-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+}
+.prose h2 {
+  margin-top: calc(var(--spacing) * 8);
+  margin-bottom: calc(var(--spacing) * 4);
+  font-size: var(--text-2xl);
+  line-height: var(--cm-leading, var(--text-2xl--line-height));
+  --cm-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+}
+.prose h3 {
+  margin-top: calc(var(--spacing) * 6);
+  margin-bottom: calc(var(--spacing) * 3);
+  font-size: var(--text-xl);
+  line-height: var(--cm-leading, var(--text-xl--line-height));
+  --cm-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+}
+.prose p {
+  margin-bottom: calc(var(--spacing) * 4);
+  --cm-leading: var(--leading-relaxed);
+  line-height: var(--leading-relaxed);
+  color: var(--color-gray-700);
+}
+.prose strong {
+  --cm-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+}
+.prose ul {
+  margin-bottom: calc(var(--spacing) * 4);
+  color: var(--color-gray-700);
+}
+.prose li {
+  margin-bottom: calc(var(--spacing) * 2);
+}
+.prose hr {
+  margin-block: calc(var(--spacing) * 8);
+  border-color: var(--color-gray-300);
+}
+.prose blockquote {
+  margin-block: calc(var(--spacing) * 6);
+  border-left-style: var(--cm-border-style);
+  border-left-width: 4px;
+  border-color: var(--color-primary-200);
+  padding-left: calc(var(--spacing) * 4);
+  color: var(--color-gray-600);
+  font-style: italic;
+}

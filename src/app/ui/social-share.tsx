@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from 'flowbite-react';
 
 const LOGO_SRC = {
   whatsapp: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg',
@@ -73,18 +72,13 @@ export default function SocialShare({
               aria-label="Compartir en WhatsApp"
               className="block"
             >
-              <Button
-                className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full !bg-[#25D366] p-0 sm:h-28 sm:w-28"
-                size="xl"
-                color="success"
-                pill
-              >
+              <span className="social-share-control flex h-20 w-20 cursor-pointer items-center justify-center rounded-full !bg-whatsapp p-0 sm:h-28 sm:w-28">
                 <img
                   src={LOGO_SRC.whatsapp}
                   alt="WhatsApp logo"
                   className="h-12 w-12 object-contain sm:h-16 sm:w-16"
                 />
-              </Button>
+              </span>
             </a>
           </div>
           {/* X */}
@@ -96,18 +90,13 @@ export default function SocialShare({
               aria-label="Compartir en X"
               className="block"
             >
-              <Button
-                className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full p-0 sm:h-28 sm:w-28"
-                size="xl"
-                color="light"
-                pill
-              >
+              <span className="social-share-control social-share-control--light flex h-20 w-20 cursor-pointer items-center justify-center rounded-full p-0 sm:h-28 sm:w-28">
                 <img
                   src={LOGO_SRC.x}
                   alt="X logo"
                   className="h-12 w-12 object-contain sm:h-16 sm:w-16"
                 />
-              </Button>
+              </span>
             </a>
           </div>
           {/* Facebook */}
@@ -119,18 +108,13 @@ export default function SocialShare({
               aria-label="Compartir en Facebook"
               className="block"
             >
-              <Button
-                className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full p-0 sm:h-28 sm:w-28"
-                size="xl"
-                color="#0866ff"
-                pill
-              >
+              <span className="social-share-control flex h-20 w-20 cursor-pointer items-center justify-center rounded-full p-0 sm:h-28 sm:w-28">
                 <img
                   src={LOGO_SRC.facebook}
                   alt="Facebook logo"
                   className="h-20 w-20 object-contain sm:h-28 sm:w-28"
                 />
-              </Button>
+              </span>
             </a>
           </div>
           {/* Copy Link */}
@@ -142,20 +126,17 @@ export default function SocialShare({
                 className="block"
                 title="Copiar enlace"
               >
-                <Button
-                  className={`flex h-20 w-20 cursor-pointer items-center justify-center rounded-full p-0 sm:h-28 sm:w-28 ${
+                <span
+                  className={`social-share-control social-share-control--copy flex h-20 w-20 cursor-pointer items-center justify-center rounded-full p-0 sm:h-28 sm:w-28 ${
                     copied ? '!bg-green-500' : '!bg-gray-100 hover:!bg-gray-200'
                   }`}
-                  size="xl"
-                  color="gray"
-                  pill
                 >
                   <img
                     src="/hyperlink-icon.svg"
                     alt="Copiar enlace"
                     className="h-12 w-12 object-contain sm:h-16 sm:w-16"
                   />
-                </Button>
+                </span>
               </button>
               {/* Tooltip */}
               <div className="absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 transform group-hover:block">

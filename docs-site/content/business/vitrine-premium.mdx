@@ -1,0 +1,64 @@
+---
+title: Vitrine mode et complémentarité Facebook
+---
+
+# Vitrine mode et complémentarité Facebook
+
+## Vision validée — 27 octobre 2026
+
+Circular.moda est une marketplace spécialisée dans les vêtements et une vitrine
+personnelle à partager sur Facebook. Facebook apporte la découverte ; la vitrine
+permet d'explorer le dressing du vendeur ; WhatsApp facilite la prise de contact.
+Le positionnement premium repose sur le soin des photos, la présentation et la
+sélection des pièces. Promesse envisagée : « Ton dressing mérite sa propre adresse. »
+
+Le site doit aller à l'essentiel : vêtements, informations utiles, disponibilité
+et contact. L'identité visuelle actuelle est conservée. Aucun dashboard de suivi
+du projet n'est demandé à ce stade ; sa création est reportée.
+
+## Roadmap dans l'ordre
+
+1. **Thème CSS indépendant** : retirer Tailwind, Flowbite React et le script
+   Flowbite ; centraliser la palette, les espacements et la typographie ;
+   conserver l'apparence, le responsive et les interactions. C'est le chantier
+   autorisé actuellement.
+2. **Catalogue** : quatre cartes par ligne sur desktop, en conservant les
+   adaptations mobile et tablette. Cette modification vient après la migration CSS.
+3. **Vitrine personnelle** : envisager `/@pseudo`, photo, bio, ville et vêtements
+   disponibles ; fiches mode avec taille, marque, état, mesures et défauts ;
+   gestion des statuts disponible, réservé et vendu.
+4. **Contact et diffusion** : contact WhatsApp contextualisé par article ; annonce
+   prête à copier pour Facebook ; partage du dressing avec un aperçu soigné.
+5. **Dimension premium** : collections personnelles et dressings mis en avant
+   pour leur qualité.
+
+## Partir de l'existant
+
+Le site possède déjà une [vitrine publique `/user/[id]`](/features/vitrine-vendeur-publique),
+un [espace vendeur](/features/espace-vendeur), du partage social et une
+[mise en relation WhatsApp](/features/mise-en-relation-whatsapp).
+Ces parcours seront examinés avant d'ajouter de nouvelles fonctions, notamment
+pour conserver les règles de mise en relation et de monétisation existantes.
+Les nouvelles URLs et les champs supplémentaires restent à concevoir.
+
+Une publication ou une synchronisation automatique avec Facebook ne fait pas
+partie du périmètre validé : les possibilités d'intégration restent à vérifier.
+
+## Critères de validation du chantier CSS
+
+- Même apparence sur les pages publiques, vendeur et administrateur.
+- Même palette et mêmes breakpoints, y compris les états sombres existants.
+- Menu mobile, modales, alertes et indicateurs de chargement indépendants.
+- Navigation clavier, focus, fermeture des modales et scroll préservés.
+- Aucun changement de données, de logique métier ou de grille catalogue.
+- Build, vérification TypeScript, tests existants et comparaison visuelle.
+
+Les conventions de maintenance sont décrites dans
+[Conventions UI et contenu](/features/conventions-ui-contenu).
+
+## Avancement
+
+Le retrait des dépendances CSS et des composants Flowbite est implémenté.
+La palette et les styles appartiennent maintenant au projet, et les composants
+interactifs sont locaux. La validation visuelle et clavier reste à faire avant
+de considérer l'apparence comme validée. Les étapes 2 à 5 restent à réaliser.

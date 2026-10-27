@@ -12,7 +12,7 @@ import { useProductForm } from '@/app/admin/upload-product/hooks/use-product-for
 import { useImageUpload } from '@/app/admin/upload-product/hooks/use-image-upload';
 import { FormFieldsEs } from '@/app/me/product/add/form-fields-es';
 import { ImageUploadSectionEs } from '@/app/me/product/add/image-upload-section-es';
-import { Alert, Spinner } from 'flowbite-react';
+import { Alert, Spinner } from '@/app/ui/primitives/feedback';
 import Button from '@/app/ui/button';
 import {
   BoostTeaserButton,
