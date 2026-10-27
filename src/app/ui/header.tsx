@@ -14,18 +14,47 @@ import { getButtonClasses } from './button-classes';
 import { usePathname } from 'next/navigation';
 import { createClient } from '../lib/supabase/client';
 import { signupUrl } from '../lib/helpers';
+import {
+  InstallAppButton,
+  PwaInstallBanner,
+  usePwaInstall,
+} from './pwa-install-provider';
 
 type MobileNavigationProps = {
   isLoggedIn: boolean;
+  onOpenChange: (isOpen: boolean) => void;
   pathname: string;
 };
 
-function MobileNavigation({ isLoggedIn, pathname }: MobileNavigationProps) {
-  const { setIsOpen } = useNavbarContext();
+function MobileInstallMenuItem() {
+  const { installed, ready } = usePwaInstall();
+
+  if (!ready || installed) return null;
+
+  return (
+    <li className="border-primary-300 bg-primary-100 mt-4 list-none rounded-2xl border md:hidden">
+      <InstallAppButton
+        compact
+        className="text-primary-900 flex w-full items-center gap-3 rounded-2xl px-4 py-3.5 text-left font-bold hover:bg-green-100"
+      />
+    </li>
+  );
+}
+
+function MobileNavigation({
+  isLoggedIn,
+  onOpenChange,
+  pathname,
+}: MobileNavigationProps) {
+  const { isOpen, setIsOpen } = useNavbarContext();
 
   useEffect(() => {
     setIsOpen(false);
   }, [pathname, setIsOpen]);
+
+  useEffect(() => {
+    onOpenChange(Boolean(isOpen));
+  }, [isOpen, onOpenChange]);
 
   const closeMobileMenu = () => {
     setIsOpen(false);
@@ -171,6 +200,7 @@ function MobileNavigation({ isLoggedIn, pathname }: MobileNavigationProps) {
           </div>
         </li>
       )}
+      <MobileInstallMenuItem />
     </NavbarCollapse>
   );
 }
@@ -178,6 +208,7 @@ function MobileNavigation({ isLoggedIn, pathname }: MobileNavigationProps) {
 export default function Header() {
   const pathname = usePathname();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
@@ -327,9 +358,14 @@ export default function Header() {
             </div>
             <NavbarToggle className="md:hidden" />
           </div>
-          <MobileNavigation isLoggedIn={isLoggedIn} pathname={pathname} />
+          <MobileNavigation
+            isLoggedIn={isLoggedIn}
+            onOpenChange={setIsMobileMenuOpen}
+            pathname={pathname}
+          />
         </Navbar>
       </div>
+      <PwaInstallBanner hiddenOnMobile={isMobileMenuOpen} />
     </header>
   );
 }
