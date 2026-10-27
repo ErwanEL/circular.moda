@@ -134,7 +134,7 @@ export default function ProductsGridInfinite({
 
   return (
     <>
-      <div className="mb-4 grid items-stretch gap-x-4 gap-y-8 sm:grid-cols-2 md:mb-8 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className="mb-4 grid items-stretch gap-x-4 gap-y-8 sm:grid-cols-2 md:mb-8 xl:grid-cols-4">
         {cards.map((cardData, index) => {
           const affiliateProduct = affiliateProductBeforeIndex(index);
           return (
