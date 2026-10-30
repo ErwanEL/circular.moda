@@ -1,3 +1,4 @@
+import { displayTitle } from '../lib/display-title';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -60,7 +61,7 @@ export default function Card({
       </div>
       <div className="flex flex-1 flex-col text-left">
         <div className="mt-1 line-clamp-2 min-h-[2.9rem] text-lg leading-tight font-semibold text-gray-900 dark:text-white">
-          {title}
+          {displayTitle(title)}
         </div>
         <div className="mt-1">
           <p

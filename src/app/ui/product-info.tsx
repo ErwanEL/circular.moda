@@ -1,3 +1,4 @@
+import { displayTitle } from '../lib/display-title';
 import { sellerPath } from '../lib/profile-identity';
 import Link from 'next/link';
 import { HiChevronRight } from 'react-icons/hi2';
@@ -51,7 +52,7 @@ export function ProductInfo({ product, user, rating }: ProductInfoProps) {
   return (
     <div className="mt-6 sm:mt-8 lg:mt-0">
       <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-        {product['Product Name'] || product.SKU}
+        {displayTitle(product['Product Name'] || product.SKU)}
       </h1>
 
       {/* SKU Reference */}

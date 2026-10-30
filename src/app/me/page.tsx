@@ -1,5 +1,6 @@
 'use client';
 
+import { displayTitle } from '../lib/display-title';
 import { useEffect, useState } from 'react';
 import { createClient } from '../lib/supabase/client';
 import {
@@ -389,7 +390,7 @@ export default function MePage() {
                                   {firstImage ? (
                                     <Image
                                       src={firstImage}
-                                      alt={product.name}
+                                      alt={displayTitle(product.name)}
                                       fill
                                       className="object-cover transition-transform group-hover:scale-105"
                                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -402,7 +403,7 @@ export default function MePage() {
                                 </div>
                                 <div className="p-4">
                                   <h3 className="mb-2 line-clamp-2 text-lg font-semibold">
-                                    {product.name}
+                                    {displayTitle(product.name)}
                                   </h3>
                                   {product.category && (
                                     <p className="mb-2 text-sm text-gray-600">
@@ -443,7 +444,7 @@ export default function MePage() {
                                 </div>
                                 <BoostTeaserButton
                                   productId={product.id}
-                                  productName={product.name}
+                                  productName={displayTitle(product.name)}
                                   onOpen={openTeaser}
                                   className="w-full"
                                 />
