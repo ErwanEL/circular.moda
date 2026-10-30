@@ -35,6 +35,12 @@ export interface User {
   name?: string; // Supabase format
   username?: string | null;
   instagram_username?: string | null;
+  boutique_name?: string;
+  bio?: string;
+  city?: string;
+  neighborhood?: string;
+  avatar_url?: string | null;
+  pinned_product_ids?: number[];
   Products?: string | string[]; // Linked products or product IDs (Airtable)
   productCount?: number; // Product count (Supabase) - computed from products table
   // Public profile fields only; never expose phone/email through this type.

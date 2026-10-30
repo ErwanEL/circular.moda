@@ -21,8 +21,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const user = await resolve((await params).handle);
   const firstName = (user.name || '').split(' ')[0];
-  const title = `Prendas de ${firstName} | circular.moda`;
-  const description = `Mirá las prendas de ${firstName} en circular.moda.`;
+  const title = `${user.boutique_name || `Prendas de ${firstName}`} | circular.moda`;
+  const description =
+    user.bio || `Mirá las prendas de ${firstName} en circular.moda.`;
   const url = `https://circular.moda${sellerPath(user)}`;
   return {
     title,

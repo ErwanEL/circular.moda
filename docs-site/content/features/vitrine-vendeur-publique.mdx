@@ -115,3 +115,73 @@ Les 41 tests applicatifs et les tests SQL isolés passent.
 La mise en service sur Vercel nécessite le déploiement de ce code ; aucune
 variable `SUPABASE_ACCESS_TOKEN` n'est nécessaire sur Vercel. Le parcours de
 modification connecté reste à vérifier avec le compte de test de l'utilisateur.
+
+## Boutique personnelle : en-tête et sélection
+
+Depuis `/me`, le bloc **Mi boutique** permet de sauvegarder indépendamment :
+
+- un nom de dressing facultatif (60 caractères), une présentation (300) et un quartier facultatif de CABA ;
+- une photo JPG, PNG ou WebP de 3 Mo maximum, avec aperçu et suppression ;
+- jusqu'à trois articles du vendeur, dans l'ordre de sélection.
+
+Les champs vides restent facultatifs : prénom et initiales servent de repli.
+La ville est fixée à Buenos Aires (CABA) ; le quartier choisi est affiché devant la ville. Les articles sélectionnés
+apparaissent avant le catalogue et ne sont pas répétés dans celui-ci. Les IDs
+supprimés ou transférés sont ignorés au rendu et lors de la prochaine sauvegarde.
+Les collections restent une étape ultérieure.
+
+Le bouton WhatsApp contacte **Circular**, avec l'URL de la boutique dans le
+message, conformément au parcours de mise en relation existant. Aucun numéro
+personnel du vendeur n'est ajouté aux données publiques.
+
+### Stockage et validation
+
+Appliquer `docs/sql/seller-storefront.sql` après la migration des pseudos, avant
+de déployer ce code. Cette migration additive est réexécutable et conserve les
+profils et produits. Elle ajoute `boutique_name`, `bio`, `city`, `avatar_url` et
+`pinned_product_ids` à `users`. Un trigger interdit les doublons, les sélections
+étrangères ou inexistantes ; une contrainte limite la sélection à trois articles.
+
+`PUT /api/me/storefront` exige une session, recherche le profil lié au compte
+Auth et sauvegarde avec le client RLS et un filtre propriétaire. Le serveur
+vérifie aussi les articles sélectionnés. La photo est décodée, orientée, recadrée
+au centre et convertie en WebP 512 × 512 sans métadonnées avant stockage dans
+`storage/avatars/<auth-id>/<uuid>.webp`. Aucun URL d'image fourni par le formulaire
+n'est accepté. Les uploads sont retirés si l'écriture du profil échoue.
+
+La migration est appliquée sur Supabase : 215 profils et 972 articles conservés,
+empreinte des identifiants, noms, téléphones, comptes Auth et pseudos inchangée.
+Le code nécessite encore un déploiement Vercel.
+
+### Vérification
+
+```bash
+npm test
+node scripts/test-seller-storefront.cjs
+npm run build
+```
+
+Validation réalisée : 43 tests applicatifs, tests SQL isolés, TypeScript, builds du site
+et de la documentation. Le contrôle HTTP confirme la vitrine en 200, le canonical,
+la redirection historique et le refus 401 des écritures sans session. L’en-tête
+public a été vérifié dans Chrome sur ordinateur et à 390 px. Le formulaire
+connecté et une sauvegarde réelle de photo restent à tester avec le compte utilisateur.
+
+Les tests isolés couvrent les limites de texte, les IDs invalides, les articles
+d'autres vendeurs, les doublons, l'ordre de sélection, l'absence de duplication
+dans le catalogue et la suppression d'un article sélectionné.
+Pour la recette connectée : enregistrer le dressing, ajouter/remplacer/retirer une
+photo, sélectionner trois articles, vérifier que le quatrième est désactivé,
+recharger `/me` et visiter la vitrine. Contrôler également le formulaire au clavier
+et sur mobile. L'import automatique de photos WhatsApp/Instagram n'est pas prévu.
+
+### Périmètre CABA
+
+La migration `docs/sql/seller-caba-neighborhoods.sql`, à appliquer après
+`seller-storefront.sql`, fixe `city` à `Buenos Aires (CABA)` et ajoute
+`neighborhood`. Le quartier est facultatif et limité aux
+[48 quartiers de CABA](https://buenosaires.gob.ar/gcaba_historico/mapas-tematicos-ba/mapas-de-barrios).
+Le formulaire utilise une liste native accessible. Le serveur impose la ville
+et valide le quartier ; les contraintes SQL protègent également les écritures directes.
+Aucun quartier n'est inventé pour les profils existants. Une ancienne ville
+correspondant exactement à un quartier est conservée dans le nouveau champ.

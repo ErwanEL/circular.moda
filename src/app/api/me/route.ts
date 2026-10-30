@@ -22,7 +22,9 @@ export async function GET() {
 
     const { data: userData, error: userError } = await supabase
       .from('users')
-      .select('id, name, phone, user_id, username, instagram_username')
+      .select(
+        'id, name, phone, user_id, username, instagram_username, boutique_name, bio, city, neighborhood, avatar_url, pinned_product_ids'
+      )
       .eq('user_id', authUser.id)
       .maybeSingle();
 

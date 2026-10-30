@@ -19,6 +19,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import ProfileForm from './ui/profile-form';
+import StorefrontForm from './ui/storefront-form';
+import type { StorefrontSettings } from '../lib/storefront';
 import { sellerPath } from '../lib/profile-identity';
 import {
   BoostTeaserButton,
@@ -26,7 +28,7 @@ import {
   PlusTeaserCard,
 } from './ui/monetization-teasers';
 
-interface UserProfile {
+interface UserProfile extends Partial<StorefrontSettings> {
   id: number;
   name: string;
   username: string;
@@ -347,6 +349,9 @@ export default function MePage() {
               </div>
 
               <div className="lg:col-span-2">
+                {userProfile && (
+                  <StorefrontForm initial={userProfile} products={products} />
+                )}
                 <Card>
                   <div className="mb-6 flex items-center justify-between">
                     <h2 className="text-2xl font-semibold">Mis Prendas</h2>

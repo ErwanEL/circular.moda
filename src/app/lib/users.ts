@@ -77,7 +77,9 @@ export async function getUsersByIdsFromSupabase(
     // OPTIMIZATION: Fetch all users in a single query
     const { data: usersData, error: usersError } = await supabase
       .from('users')
-      .select('id, name, username, instagram_username')
+      .select(
+        'id, name, username, instagram_username, boutique_name, bio, city, neighborhood, avatar_url, pinned_product_ids'
+      )
       .in('id', numericIds);
 
     if (usersError) {
@@ -119,11 +121,23 @@ export async function getUsersByIdsFromSupabase(
         name: string;
         username: string | null;
         instagram_username: string | null;
+        boutique_name: string;
+        bio: string;
+        city: string;
+        neighborhood: string;
+        avatar_url: string | null;
+        pinned_product_ids: number[];
       }) => ({
         id: String(userData.id),
         name: userData.name,
         username: userData.username,
         instagram_username: userData.instagram_username,
+        boutique_name: userData.boutique_name,
+        bio: userData.bio,
+        city: userData.city,
+        neighborhood: userData.neighborhood,
+        avatar_url: userData.avatar_url,
+        pinned_product_ids: userData.pinned_product_ids,
         productCount: productCounts.get(userData.id) || 0,
       })
     );
