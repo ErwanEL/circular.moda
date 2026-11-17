@@ -7,7 +7,8 @@ import { getUsersByIdsFromSupabase } from '../../lib/users';
 import ProductDetail from '../../ui/product-detail';
 
 /** Fallback ISR if the webhook misses an update. */
-export const revalidate = 300;
+// Keep this literal in sync with PRODUCTS_ISR_SECONDS (Next.js static analysis).
+export const revalidate = 3600;
 
 /** Allow new slugs to render on-demand after publication. */
 export const dynamicParams = true;

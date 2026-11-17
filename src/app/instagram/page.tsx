@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 import { getInstagramBioProducts } from '../lib/instagram-bio-products';
 
-export const revalidate = 300;
+// Keep this literal in sync with PRODUCTS_ISR_SECONDS (Next.js static analysis).
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: 'Productos de Instagram | circular.moda',

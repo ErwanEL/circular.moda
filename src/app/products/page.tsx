@@ -16,7 +16,8 @@ import FeaturedProducts from './components/featured-products';
 import InstagramFollowBanner from '../ui/instagram-follow-banner';
 
 /** Fallback ISR if the webhook misses an update. */
-export const revalidate = 300;
+// Keep this literal in sync with PRODUCTS_ISR_SECONDS (Next.js static analysis).
+export const revalidate = 3600;
 
 function encodeNextCursor(
   cursor: { created_at: string; id: string } | null

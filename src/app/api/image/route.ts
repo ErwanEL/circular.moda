@@ -1,39 +1,9 @@
-import { unstable_cache } from 'next/cache';
+import { ImageMemoryCache, parseImageSize } from '../../lib/image-proxy-cache';
 import { NextRequest, NextResponse } from 'next/server';
 
-const CACHE_MAX_ENTRIES = 200;
-const CACHE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds for Cache-Control
-const DATA_CACHE_REVALIDATE = 86400 * 7; // 7 days for unstable_cache (shared across instances)
-// Bump when the processing pipeline changes output bytes (e.g. the EXIF
-// auto-orient rule) so stale cached entries are bypassed instead of served.
-const CACHE_VERSION = 'v3';
-
-type CacheEntry = {
-  body: Buffer;
-  contentType: string;
-  timestamp: number;
-};
-
-/** Serializable shape for unstable_cache (Buffer is not JSON-serializable) */
-type CachedImagePayload = {
-  bodyBase64: string;
-  contentType: string;
-};
-
-const memoryCache = new Map<string, CacheEntry>();
-
-function getCacheKey(url: string, w?: number, h?: number): string {
-  return [CACHE_VERSION, url, w ?? '', h ?? ''].join('|');
-}
-
-function pruneCache(): void {
-  if (memoryCache.size <= CACHE_MAX_ENTRIES) return;
-  const entries = Array.from(memoryCache.entries()).sort(
-    (a, b) => a[1].timestamp - b[1].timestamp
-  );
-  const toDelete = entries.slice(0, memoryCache.size - CACHE_MAX_ENTRIES);
-  toDelete.forEach(([key]) => memoryCache.delete(key));
-}
+// Binary images belong in the CDN, not Next.js's serialized Data Cache.
+const CACHE_MAX_AGE = 60 * 60 * 24 * 7;
+const imageCache = new ImageMemoryCache(32 * 1024 * 1024, CACHE_MAX_AGE * 1000);
 
 function isAllowedSupabaseUrl(url: string): boolean {
   const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -50,15 +20,16 @@ function isAllowedSupabaseUrl(url: string): boolean {
   }
 }
 
-/** Fetches from Supabase and optionally resizes; returns serializable payload for unstable_cache */
+/** Fetch and resize only on a CDN and in-process cache miss. */
 async function fetchAndProcessImage(
   sourceUrl: string,
   w?: number,
   h?: number
-): Promise<CachedImagePayload> {
+): Promise<{ body: Buffer; contentType: string }> {
   const res = await fetch(sourceUrl, {
     headers: { 'User-Agent': 'ModaCircular-ImageProxy/1.0' },
-    next: { revalidate: false },
+    cache: 'no-store',
+    signal: AbortSignal.timeout(15000),
   });
 
   if (!res.ok) {
@@ -112,7 +83,7 @@ async function fetchAndProcessImage(
   }
 
   return {
-    bodyBase64: buffer.toString('base64'),
+    body: buffer,
     contentType,
   };
 }
@@ -130,15 +101,8 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  let sourceUrl: string;
-  try {
-    sourceUrl = decodeURIComponent(encodedUrl);
-  } catch {
-    return NextResponse.json(
-      { error: 'Invalid url encoding' },
-      { status: 400 }
-    );
-  }
+  // URLSearchParams already decoded this value. Decoding twice corrupts object names.
+  const sourceUrl = encodedUrl;
 
   if (!isAllowedSupabaseUrl(sourceUrl)) {
     return NextResponse.json(
@@ -147,55 +111,38 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const w = wParam ? parseInt(wParam, 10) : undefined;
-  const h = hParam ? parseInt(hParam, 10) : undefined;
-  const cacheKey = getCacheKey(sourceUrl, w, h);
-  const isDev = process.env.NODE_ENV === 'development';
+  const size = parseImageSize(wParam, hParam);
+  if (!size) {
+    return NextResponse.json(
+      { error: 'Unsupported image dimensions' },
+      { status: 400 }
+    );
+  }
+  const { w, h } = size;
+  // Redirect extraneous query parameters to one CDN key per supported variant.
+  const canonical = new URL(request.url);
+  canonical.search = new URLSearchParams({ url: sourceUrl }).toString();
+  if (w !== undefined) canonical.searchParams.set('w', String(w));
+  if (h !== undefined) canonical.searchParams.set('h', String(h));
+  if (canonical.search !== new URL(request.url).search) {
+    return NextResponse.redirect(canonical, 307);
+  }
 
-  // 1. In-memory cache (fast, per-instance)
-  const memCached = !isDev ? memoryCache.get(cacheKey) : undefined;
-  if (memCached) {
-    return new NextResponse(memCached.body, {
+  try {
+    const payload = await imageCache.get(canonical.search, () =>
+      fetchAndProcessImage(sourceUrl, w, h)
+    );
+    return new NextResponse(payload.body, {
       headers: {
-        'Content-Type': memCached.contentType,
+        'Content-Type': payload.contentType,
         'Cache-Control': `public, max-age=${CACHE_MAX_AGE}, s-maxage=${CACHE_MAX_AGE}, stale-while-revalidate=86400`,
       },
     });
-  }
-
-  // 2. Data cache (shared across serverless instances, reduces Supabase egress)
-  const getCachedImage = unstable_cache(
-    () => fetchAndProcessImage(sourceUrl, w, h),
-    ['image', CACHE_VERSION, cacheKey],
-    { revalidate: DATA_CACHE_REVALIDATE }
-  );
-
-  let payload: CachedImagePayload;
-  try {
-    payload = await getCachedImage();
   } catch (err) {
     console.error('[image proxy] fetch error:', err);
     return NextResponse.json(
       { error: 'Failed to fetch image' },
-      { status: 502 }
+      { status: 502, headers: { 'Cache-Control': 'no-store' } }
     );
   }
-
-  const buffer = Buffer.from(payload.bodyBase64, 'base64');
-
-  if (!isDev) {
-    pruneCache();
-    memoryCache.set(cacheKey, {
-      body: buffer,
-      contentType: payload.contentType,
-      timestamp: Date.now(),
-    });
-  }
-
-  return new NextResponse(buffer, {
-    headers: {
-      'Content-Type': payload.contentType,
-      'Cache-Control': `public, max-age=${CACHE_MAX_AGE}, s-maxage=${CACHE_MAX_AGE}, stale-while-revalidate=86400`,
-    },
-  });
 }

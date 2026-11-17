@@ -117,6 +117,7 @@ export default function Card({
     return (
       <Link
         href={href}
+        prefetch={false}
         className="block h-full transition-transform duration-200 hover:scale-102"
       >
         <CardContent />
